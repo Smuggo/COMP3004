@@ -1,0 +1,57 @@
+package server;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
+import java.net.SocketAddress;
+import java.net.ServerSocket;
+
+import config.Config;
+
+public class ServerApp{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3476429851550188958L;
+
+	public static void main(String[] args){
+
+		
+		try{
+			ServerSocket cServer = new ServerSocket(Config.cPort);
+			System.out.println("Waiting for connections on port " + Config.cPort));
+		    
+			while (true){                                              
+		    	Socket cNewSocket = cServer.accept();
+		        
+		    	System.out.println("Incoming connection from: " + lServerModel.getPlayer(lServerModel.getPlayerNumber()).getSocket().getLocalAddress().getHostName());
+		        
+		    	lServers[lServerModel.getPlayerNumber()] = new Server(lServerModel.getPlayer(lServerModel.getPlayerNumber()).getSocket(), lServerModel);
+		    	Thread t = new Thread(lServers[lServerModel.getPlayerNumber()]);
+		    	t.start();
+		    	lServerModel.setPlayerNumber(lServerModel.getPlayerNumber()+1);
+		    	System.out.println("Thread Created");
+		 	}
+			System.out.println("Game Starting, Please Wait...");
+			Thread.sleep(50);
+			while(!lServerModel.isGameOver()){
+				Thread.sleep(50);
+			}
+			System.out.println("Game over");
+			GameOverScreen lFrame = new GameOverScreen(lServerModel);
+			while(lFrame.isOpen()){
+				Thread.sleep(50);
+			}
+		}
+		catch (Exception e)
+		{
+			//Dump stack
+			//System.out.println("Error:");
+			e.printStackTrace();
+		}
+
+	}
+
+}

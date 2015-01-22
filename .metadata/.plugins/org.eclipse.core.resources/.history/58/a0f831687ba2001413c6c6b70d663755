@@ -1,0 +1,8 @@
+package config;
+
+public final class Config {
+	
+	public static String cIpAddress = "localhost";
+	public static int cPort = 25000;
+
+}
