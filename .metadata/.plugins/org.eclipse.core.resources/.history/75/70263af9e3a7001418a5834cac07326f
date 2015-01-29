@@ -1,0 +1,13 @@
+package init;
+
+//
+//
+//
+public class MagicRealmApplication {
+
+	public static void main(String[] args) {
+
+
+	}
+
+}

@@ -1,0 +1,15 @@
+package model;
+
+public class GameHub {
+
+	public GameHub(){
+		
+	}
+	
+	public void start(){
+		while(true){
+			
+			
+		}
+	}
+}

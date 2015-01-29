@@ -1,0 +1,30 @@
+package view;
+
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class MagicRealmWindow extends JFrame{
+	
+	JPanel lLeftPanel;
+	JPanel lRightPanel;
+	
+	public MagicRealmWindow(){
+		super("Magic Realm v 0.0.1");
+
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		
+		//Go Fullscreen
+		Dimension lScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		getContentPane().setPreferredSize(new Dimension((int)lScreenSize.getWidth()-25,(int)lScreenSize.getHeight()-75));
+		pack();
+		setResizable(false);
+
+		BorderLayout lBorderLayout = new BorderLayout();
+		
+		setVisible(true);
+	}
+
+}

@@ -1,0 +1,17 @@
+package view;
+
+import java.awt.Toolkit;
+
+import javax.swing.JFrame;
+
+public class MagicRealmWindow extends JFrame{
+	
+	public MagicRealmWindow(){
+		
+		//Go Fullscreen
+		getContentPane().setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
+		
+		setVisible(true);
+	}
+
+}

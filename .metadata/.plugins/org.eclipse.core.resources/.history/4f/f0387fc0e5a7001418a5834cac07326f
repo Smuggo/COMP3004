@@ -1,0 +1,19 @@
+package model;
+
+import network.client.ClientApp;
+import network.server.ServerApp;
+
+public class MagicRealm {
+
+	
+	public MagicRealm(){
+
+	}
+	
+	public void start(){
+		while(true){
+			
+			
+		}
+	}
+}

@@ -1,0 +1,17 @@
+package init;
+
+import model.GameHub;
+
+//
+// Game Bootstraps
+//
+public class MagicRealmApplication {
+
+	public static void main(String[] args) {
+
+		GameHub lHub = new GameHub();
+		lHub.start();
+
+	}
+
+}
