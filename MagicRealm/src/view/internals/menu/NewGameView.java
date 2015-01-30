@@ -113,6 +113,7 @@ public class NewGameView extends JInternalFrame{
 		  public void actionPerformed(ActionEvent e)
 		  {
 		    lModel.requestMainMenu();
+		    lModel.requestCloseServer();
 		    dispose();
 		  }
 		});
@@ -121,8 +122,9 @@ public class NewGameView extends JInternalFrame{
 		{
 			  public void actionPerformed(ActionEvent e)
 			  {
-			    lModel.requestServerMenu();
+			    lModel.requestServerMenu(Integer.parseInt(lPortNumberField.getText()));
 			    lOpenServerButton.setEnabled(false);
+			    lPortNumberField.setEnabled(false);
 			    lOpenServerButton.setText("Server Open");
 			  }
 			});

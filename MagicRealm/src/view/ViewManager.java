@@ -8,6 +8,7 @@ import javax.swing.JInternalFrame;
 import model.MagicRealm;
 import model.ViewModel;
 import view.externals.MagicRealmWindow;
+import view.internals.menu.ClientLobbyView;
 import view.internals.menu.JoinGameView;
 import view.internals.menu.LoadGameView;
 import view.internals.menu.MenuView;
@@ -23,6 +24,7 @@ public class ViewManager {
 	JoinGameView lJoinGame;
 	LoadGameView lLoadGame;
 	ServerMenuView lServerMenu;
+	ClientLobbyView lClientLobby;
 	
 	ViewModel lModel;
 	
@@ -71,6 +73,25 @@ public class ViewManager {
 		lServerMenu = new ServerMenuView(lModel);
 		lServerMenu.setVisible(true);
 		lWindow.addWindow(lServerMenu);
+	}
+	
+	public void newClientLobby(){
+		
+		lClientLobby = new ClientLobbyView(lModel);
+		lClientLobby.setVisible(true);
+		lWindow.addWindow(lClientLobby);
+	}
+	
+	public void notifyMenuNewClient(String aClientName){
+		if(lServerMenu != null && lServerMenu.isVisible()){
+			lServerMenu.newClient(aClientName);
+		}
+	}
+	
+	public void closeServerMenu(){
+		if(lServerMenu != null){
+			lServerMenu.dispose();
+		}
 	}
 	
 	

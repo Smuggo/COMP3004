@@ -5,7 +5,6 @@
 <fullyQualifiedTypeName name="client.ClientApp"/>
 <fullyQualifiedTypeName name="network.client.ClientApp"/>
 <fullyQualifiedTypeName name="network.server.ServerApp"/>
-<fullyQualifiedTypeName name="network.NetworkManager"/>
 <fullyQualifiedTypeName name="javax.swing.JFrame"/>
 <fullyQualifiedTypeName name="view.MagicRealmWindow"/>
 <fullyQualifiedTypeName name="java.awt.Toolkit"/>
@@ -28,13 +27,10 @@
 <fullyQualifiedTypeName name="java.awt.event.ActionEvent"/>
 <fullyQualifiedTypeName name="model.MagicRealm"/>
 <fullyQualifiedTypeName name="view.ViewManager"/>
-<fullyQualifiedTypeName name="model.ViewModel"/>
 <fullyQualifiedTypeName name="view.internals.JoinGameView"/>
 <fullyQualifiedTypeName name="java.awt.Dimension"/>
 <fullyQualifiedTypeName name="view.internals.LoadGameView"/>
-<fullyQualifiedTypeName name="javax.swing.JLabel"/>
 <fullyQualifiedTypeName name="javax.swing.JPanel"/>
-<fullyQualifiedTypeName name="config.Config"/>
 <fullyQualifiedTypeName name="java.net.Inet4Address"/>
 <fullyQualifiedTypeName name="javax.swing.BorderFactory"/>
 <fullyQualifiedTypeName name="javax.swing.border.EtchedBorder"/>
@@ -43,4 +39,10 @@
 <fullyQualifiedTypeName name="view.internals.menu.ServerMenuView"/>
 <fullyQualifiedTypeName name="javax.swing.event.DocumentListener"/>
 <fullyQualifiedTypeName name="javax.swing.event.DocumentEvent"/>
+<fullyQualifiedTypeName name="network.NetworkManager"/>
+<fullyQualifiedTypeName name="model.ViewModel"/>
+<fullyQualifiedTypeName name="javax.swing.JLabel"/>
+<fullyQualifiedTypeName name="config.Config"/>
+<fullyQualifiedTypeName name="network.client.Client"/>
+<fullyQualifiedTypeName name="view.internals.menu.ClientLobbyView"/>
 </qualifiedTypeNameHistroy>

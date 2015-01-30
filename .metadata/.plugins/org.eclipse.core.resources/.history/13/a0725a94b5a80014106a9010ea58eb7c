@@ -1,0 +1,21 @@
+package network;
+
+import network.client.ClientApp;
+import network.server.ServerApp;
+
+public class NetworkManager {
+	
+	private ClientApp lClientApp;
+	private ServerApp lServerApp;
+	
+	public NetworkManager(){
+		
+	}
+	
+	
+	public void openServer(int aPortNumber){
+		lServerApp = new ServerApp(aPortNumber);
+		lServerApp.run();
+	}
+
+}

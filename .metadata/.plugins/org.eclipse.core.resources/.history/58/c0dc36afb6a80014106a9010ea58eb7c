@@ -1,0 +1,34 @@
+package network;
+
+import model.ViewModel;
+import network.client.ClientApp;
+import network.server.ServerApp;
+
+public class NetworkManager {
+	
+	private ClientApp lClientApp;
+	private ServerApp lServerApp;
+	
+	private ViewModel lViewModel;
+	
+	public NetworkManager(){
+	}
+	
+	
+	public void openServer(int aPortNumber){
+		lServerApp = new ServerApp(aPortNumber, this);
+		Thread t = new Thread(lServerApp);
+    	t.start();
+	}
+	
+	
+	public void setViewModel(ViewModel aViewModel){
+		lViewModel = aViewModel;
+	}
+	
+	
+	public void notifyNewClient(String aClientName){
+		
+	}
+
+}

@@ -1,0 +1,5 @@
+package view.internals.menu;
+
+public class ClientWaitingView {
+
+}

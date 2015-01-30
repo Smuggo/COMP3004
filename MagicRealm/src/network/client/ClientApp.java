@@ -6,38 +6,28 @@ import java.net.Socket;
 import config.Config;
 
 
-public class ClientApp implements Runnable{
+public class ClientApp{
 
 
-	public void run()
+	public static Client connect(String aIpAddress, int aPort)
 	{
 		try 
 		{
 			
-			Socket s = new Socket(Config.lIpAddress, Config.lPort);
-			
-			System.out.println("Connected to " + Config.lIpAddress + ":" + Config.lPort);
+			Socket s = new Socket(aIpAddress, aPort);
 			
 			Client client = new Client(s);
-			
 			
 			Thread t = new Thread(client);
 			t.start();
 			
-			//Wait for client to set up streams
-			while(!client.isStreamsOpened()){
-				Thread.sleep(10);	
-			}
-			
-			//Game Loop
-			while(true){
-				
-			}
+			return client;
 		} 
 		catch (Exception noServer)
 		{
 			System.out.println("Error Connecting to Server.");
 		}
+		return null;
 	}
 }
 

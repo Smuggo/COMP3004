@@ -7,19 +7,28 @@ import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.ServerSocket;
 
+import network.NetworkManager;
 import config.Config;
 
 public class ServerApp implements Runnable{
 
+	int lPortNumber;
+	NetworkManager lNetworkManager;
+	
+	public ServerApp(int aPortNumber, NetworkManager aNetworkManager){
+		lPortNumber = aPortNumber;
+		lNetworkManager = aNetworkManager;
+	}
+	
 	public void run(){
 	
 		
 		try{		
 			int lOpenConnections = 0;
-			ServerSocket lServer = new ServerSocket(Config.lPort);
-			System.out.println("Waiting for connections on port " + Config.lPort);
+			ServerSocket lServer = new ServerSocket(lPortNumber);
+			System.out.println("Waiting for connections on port " + lPortNumber);
 		    
-			while (true){                                              
+			while (!Thread.interrupted()){                                              
 		    	Socket lNewSocket = lServer.accept();
 		        
 		    	System.out.println("Incoming connection from: " + lNewSocket.getLocalAddress().getHostName());
@@ -28,6 +37,8 @@ public class ServerApp implements Runnable{
 		    	Thread t = new Thread(lNewServer);
 		    	t.start();
 		    	System.out.println("Thread Created");
+		    	
+		    	lNetworkManager.notifyNewClient(lNewSocket.getLocalAddress().getHostName());
 
 		    	lOpenConnections++;
 		 	}
@@ -35,9 +46,11 @@ public class ServerApp implements Runnable{
 		}
 		catch (Exception e)
 		{
-			System.out.println("Exception caught in mr.server.ServerApp.java");
+			System.out.println("Exception caught in network.server.ServerApp.java");
 		}
 
+		System.out.println("Closing Server");
 	}
+	
 
 }
