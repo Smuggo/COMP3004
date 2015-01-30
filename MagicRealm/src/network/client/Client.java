@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
+import network.packet.PlayerPacket;
+
 public class Client implements Runnable {
 
 	private Socket socket;
@@ -33,7 +35,7 @@ public class Client implements Runnable {
 			while (true)
 			{						
 				Thread.sleep(1000);
-				sendTest();
+				//sendPing();
 			}
 			
 		}
@@ -50,10 +52,41 @@ public class Client implements Runnable {
 		} 
 	}
 	
-	public boolean sendTest(){
+	public boolean sendPing(){
 		try{
 			String lRequest = "Server Test";
 			lOutputStream.writeObject(lRequest);
+			lOutputStream.reset();	
+			
+			System.out.println((String)lInputStream.readObject());
+			return true;
+		}
+		catch (Exception e)
+		{
+			//Dump stack
+			System.out.println("Client Error:");
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	
+	public boolean sendPlayerPacket(PlayerPacket aPlayerPacket){
+		try{
+			
+			if(!isStreamsOpened()){
+				while(!isStreamsOpened()){
+					Thread.sleep(50);
+				}
+			}
+			
+			
+			String lRequest = "PlayerPacket";
+			lOutputStream.writeObject(lRequest);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aPlayerPacket);
+			lOutputStream.flush();			
+			
 			lOutputStream.reset();	
 			
 			System.out.println((String)lInputStream.readObject());

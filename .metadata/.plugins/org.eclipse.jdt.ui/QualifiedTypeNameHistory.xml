@@ -39,10 +39,13 @@
 <fullyQualifiedTypeName name="view.internals.menu.ServerMenuView"/>
 <fullyQualifiedTypeName name="javax.swing.event.DocumentListener"/>
 <fullyQualifiedTypeName name="javax.swing.event.DocumentEvent"/>
-<fullyQualifiedTypeName name="network.NetworkManager"/>
 <fullyQualifiedTypeName name="model.ViewModel"/>
 <fullyQualifiedTypeName name="javax.swing.JLabel"/>
 <fullyQualifiedTypeName name="config.Config"/>
-<fullyQualifiedTypeName name="network.client.Client"/>
 <fullyQualifiedTypeName name="view.internals.menu.ClientLobbyView"/>
+<fullyQualifiedTypeName name="network.client.Client"/>
+<fullyQualifiedTypeName name="java.io.Serializable"/>
+<fullyQualifiedTypeName name="network.NetworkManager"/>
+<fullyQualifiedTypeName name="network.packet.PlayerPacket"/>
+<fullyQualifiedTypeName name="java.lang.Thread"/>
 </qualifiedTypeNameHistroy>

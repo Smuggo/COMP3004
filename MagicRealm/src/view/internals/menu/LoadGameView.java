@@ -47,11 +47,11 @@ public class LoadGameView extends JInternalFrame{
 		//Content
 		
 		lMenuButton = new JButton("Main Menu");
-		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1;
 		c.weighty = 1;
 		c.gridx = 0;
 		c.gridy = 3;
+		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(0,30,0,30);
 		add(lMenuButton, c);
 		

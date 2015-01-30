@@ -161,7 +161,7 @@ public class JoinGameView extends JInternalFrame{
 		{
 			  public void actionPerformed(ActionEvent e)
 			  {
-			    lModel.connectToServer(lIpAddressField.getText(), Integer.parseInt(lPortNumberField.getText()));
+			    lModel.connectToServer(lIpAddressField.getText(), Integer.parseInt(lPortNumberField.getText()), lNicknameField.getText());
 			    dispose();
 			  }
 			});

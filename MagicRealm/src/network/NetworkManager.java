@@ -3,6 +3,7 @@ package network;
 import model.ViewModel;
 import network.client.Client;
 import network.client.ClientApp;
+import network.packet.PlayerPacket;
 import network.server.ServerApp;
 
 public class NetworkManager {
@@ -12,6 +13,7 @@ public class NetworkManager {
 	private ViewModel lViewModel;
 	
 	Thread lServerThread;
+	Client lLocalClient;
 	
 	public NetworkManager(){
 	}
@@ -29,24 +31,33 @@ public class NetworkManager {
 	}
 	
 	
-	public void notifyNewClient(String aClientName){
-		lViewModel.notifyMenuNewClient(aClientName);
+	public void notifyNewClient(PlayerPacket aClientPacket){
+		lViewModel.notifyMenuNewClient(aClientPacket);
 	}
 	
 	public void closeServer(){
-		if(lServerThread.isAlive()){
+		if(lServerThread != null && lServerThread.isAlive()){
 			lServerThread.interrupt();
 		}
 	}
 	
-	public boolean connectToServer(String aIpAddress, int aPortNumber){
-		Client c = ClientApp.connect(aIpAddress, aPortNumber);
+	public boolean connectToServer(String aIpAddress, int aPortNumber, String aNickname){
+		lLocalClient = ClientApp.connect(aIpAddress, aPortNumber);
 		
-		if (c == null){
+		if (lLocalClient == null){
 			return false;
 		}
+		
+		PlayerPacket lPlayerPacket = new PlayerPacket(aNickname);
+		lLocalClient.sendPlayerPacket(lPlayerPacket);
+		
 		return true;
 	}
+	
+	public void notifyServerFull(){
+		//TODO: fill out notifyServerFull
+	}
+	
 	
 
 }

@@ -18,6 +18,8 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import config.Config;
 import model.ViewModel;
@@ -26,8 +28,8 @@ public class NewGameView extends JInternalFrame{
 	
 	private static final long serialVersionUID = -2996765842795567425L;
 
-	JLabel lUsernameLabel;
-	JTextField lUsernameField;
+	JLabel lNicknameLabel;
+	JTextField lNicknameField;
 	
 	JButton lStartGameButton;
 	JButton lMainMenuButton;
@@ -80,29 +82,24 @@ public class NewGameView extends JInternalFrame{
 		lNetworkPanel.setBorder(title);
 		add(lNetworkPanel,c);
 		
-		lUsernameField = new JTextField("Name: ");
-		c.weightx = 1.0;
-		c.weighty = 1.0;
-		c.gridx = 0;
-		c.gridy = 1;
-		add(lUsernameField, c);
 		
 		lStartGameButton = new JButton("Start Game");
 		c.weightx = 1.0;
 		c.weighty = 1.0;
 		c.gridx = 0;
-		c.gridy = 2;
+		c.gridy = 1;
 		add(lStartGameButton, c);
 		
 		lMainMenuButton = new JButton("Main Menu");
 		c.weightx = 1.0;
 		c.weighty = 1.0;
 		c.gridx = 0;
-		c.gridy = 3;
+		c.gridy = 2;
 		add(lMainMenuButton, c);
 		
 		
 		createButtonListeners();
+		createFieldListeners();
 	}
 	
 	
@@ -122,9 +119,10 @@ public class NewGameView extends JInternalFrame{
 		{
 			  public void actionPerformed(ActionEvent e)
 			  {
-			    lModel.requestServerMenu(Integer.parseInt(lPortNumberField.getText()));
+			    lModel.requestServerMenu(Integer.parseInt(lPortNumberField.getText()), lNicknameField.getText());
 			    lOpenServerButton.setEnabled(false);
 			    lPortNumberField.setEnabled(false);
+			    lNicknameField.setEnabled(false);
 			    lOpenServerButton.setText("Server Open");
 			  }
 			});
@@ -137,32 +135,50 @@ public class NewGameView extends JInternalFrame{
 		lNetworkPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		
-		lPortNumberLabel = new JLabel("Port Number:");
+		lNicknameLabel = new JLabel("Name:");
 		c.weightx = 1.0;
 		c.weighty = 1.0;
 		c.gridx = 0;
 		c.gridy = 0;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.insets = new Insets(0,0,0,0);
+		lNetworkPanel.add(lNicknameLabel, c);
+		
+		lNicknameField = new JTextField("");
+		c.weightx = 1.0;
+		c.weighty = 1.0;
+		c.gridx = 1;
+		c.gridy = 0;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.insets = new Insets(0,0,0,0);
+		lNetworkPanel.add(lNicknameField, c);
+		
+		lPortNumberLabel = new JLabel("Port Number:");
+		c.weightx = 1.0;
+		c.weighty = 1.0;
+		c.gridx = 0;
+		c.gridy = 1;
 		lNetworkPanel.add(lPortNumberLabel,c);
 		
 		lPortNumberField = new JTextField(Integer.toString(Config.lPort));
 		c.weightx = 1.0;
 		c.weighty = 1.0;
 		c.gridx = 1;
-		c.gridy = 0;
+		c.gridy = 1;
 		lNetworkPanel.add(lPortNumberField,c);
 		
 		lHostIpAddressLabel = new JLabel("Local Ip Address:");
 		c.weightx = 1.0;
 		c.weighty = 1.0;
 		c.gridx = 0;
-		c.gridy = 1;
+		c.gridy = 2;
 		lNetworkPanel.add(lHostIpAddressLabel,c);
 		
 		
 		c.weightx = 1.0;
 		c.weighty = 1.0;
 		c.gridx = 1;
-		c.gridy = 1;
+		c.gridy = 2;
 		try {
 			lHostIpAddress = new JLabel(Inet4Address.getLocalHost().getHostAddress());
 		} catch (UnknownHostException e) {
@@ -174,10 +190,40 @@ public class NewGameView extends JInternalFrame{
 		c.weightx = 1.0;
 		c.weighty = 1.0;
 		c.gridx = 0;
-		c.gridy = 2;
+		c.gridy = 3;
 		c.gridwidth = 2;
 		lNetworkPanel.add(lOpenServerButton,c);
 		
+		lOpenServerButton.setEnabled(false);
+		
+	}
+	
+	
+	protected void createFieldListeners(){
+		lNicknameField.getDocument().addDocumentListener(new DocumentListener() {
+			public void changedUpdate(DocumentEvent e) {
+				fieldChanged();
+			}
+			public void removeUpdate(DocumentEvent e) {
+				fieldChanged();
+				}
+				public void insertUpdate(DocumentEvent e) {
+					fieldChanged();
+				}
+
+				public void fieldChanged() {
+					if (lNicknameField.getText().equals("")){
+						lOpenServerButton.setEnabled(false);
+					}
+					else {
+						if(!lOpenServerButton.getText().equals("Server Open")){
+							lOpenServerButton.setEnabled(true);
+						}
+					}
+
+				}
+			}
+		);
 	}
 
 }

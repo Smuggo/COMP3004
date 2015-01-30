@@ -5,13 +5,18 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+import network.NetworkManager;
+import network.packet.PlayerPacket;
+
 public class Server implements Runnable{
 
 	private Socket cSocket;
+	private NetworkManager lNetworkManager;
 	
-	public Server(Socket s)
+	public Server(Socket s, NetworkManager aNetworkManager)
 	{
 		cSocket = s;
+		lNetworkManager = aNetworkManager;
 	}
 	
 	@Override
@@ -25,9 +30,19 @@ public class Server implements Runnable{
 			while (running)
 			{		
 				
-				String newRequest = (String)lInputStream.readObject();
+				String lRequestHeader = (String)lInputStream.readObject();
 			
-				lOutputStream.writeObject(newRequest);
+				if(lRequestHeader.equals("PlayerPacket")){
+					
+					PlayerPacket lPlayerPacket = (PlayerPacket)lInputStream.readObject();
+					lNetworkManager.notifyNewClient(lPlayerPacket);
+					
+				}
+				
+				
+				
+				lOutputStream.writeObject(lRequestHeader);
+				lOutputStream.flush();
 				lOutputStream.reset();
 				
 			}

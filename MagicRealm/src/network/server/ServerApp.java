@@ -33,14 +33,17 @@ public class ServerApp implements Runnable{
 		        
 		    	System.out.println("Incoming connection from: " + lNewSocket.getLocalAddress().getHostName());
 		        
-		    	Server lNewServer = new Server(lNewSocket);
+		    	Server lNewServer = new Server(lNewSocket, lNetworkManager);
 		    	Thread t = new Thread(lNewServer);
 		    	t.start();
 		    	System.out.println("Thread Created");
-		    	
-		    	lNetworkManager.notifyNewClient(lNewSocket.getLocalAddress().getHostName());
+
 
 		    	lOpenConnections++;
+		    	if(lOpenConnections >= Config.lMaxPlayers){
+		    		lNetworkManager.notifyServerFull();
+		    		lNetworkManager.closeServer();
+		    	}
 		 	}
 			
 		}

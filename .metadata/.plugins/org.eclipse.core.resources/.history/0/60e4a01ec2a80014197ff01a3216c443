@@ -1,0 +1,13 @@
+package network.packet;
+
+import java.io.Serializable;
+
+public class NetworkPacket implements Serializable{
+
+	private static final long serialVersionUID = 193456887118962294L;
+	
+	String lPacketType;
+	
+	
+
+}

@@ -5,6 +5,7 @@ import java.beans.PropertyVetoException;
 
 import javax.swing.JInternalFrame;
 
+import network.packet.PlayerPacket;
 import model.MagicRealm;
 import model.ViewModel;
 import view.externals.MagicRealmWindow;
@@ -82,9 +83,9 @@ public class ViewManager {
 		lWindow.addWindow(lClientLobby);
 	}
 	
-	public void notifyMenuNewClient(String aClientName){
+	public void notifyMenuNewClient(PlayerPacket aClientPacket){
 		if(lServerMenu != null && lServerMenu.isVisible()){
-			lServerMenu.newClient(aClientName);
+			lServerMenu.newClient(aClientPacket);
 		}
 	}
 	

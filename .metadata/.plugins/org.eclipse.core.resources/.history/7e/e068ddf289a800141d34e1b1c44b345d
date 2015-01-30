@@ -1,7 +1,0 @@
-package view.internals;
-
-import javax.swing.JInternalFrame;
-
-public class NewGameView extends JInternalFrame{
-
-}

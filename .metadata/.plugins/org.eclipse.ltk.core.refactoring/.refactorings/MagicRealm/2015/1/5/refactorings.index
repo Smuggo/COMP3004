@@ -28,3 +28,6 @@
 1422644027411	Move compilation units
 1422644383201	Rename type 'ServerView'
 1422648917347	Rename type 'ClientWaitingView'
+1422651039302	Delete element
+1422651241921	Rename type 'NetworkPacket'
+1422651332189	Encapsulate field 'lNickname'

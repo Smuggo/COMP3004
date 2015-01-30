@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 
+import network.packet.PlayerPacket;
 import config.Config;
 import model.ViewModel;
 
@@ -122,9 +123,10 @@ public class ServerMenuView extends JInternalFrame{
 	}
 	
 	
-	public void newClient(String aClientName){
-		lPlayers[lCurrentPlayers] = aClientName;
-		lPlayerNameLabel[lCurrentPlayers].setText(aClientName);
+	public void newClient(PlayerPacket aClientPacket){
+		String lClientName = aClientPacket.getNickname();
+		lPlayers[lCurrentPlayers] = lClientName;
+		lPlayerNameLabel[lCurrentPlayers].setText(lClientName);
 		lCurrentPlayers++;
 		
 	}

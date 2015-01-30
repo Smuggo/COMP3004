@@ -3,15 +3,18 @@ package model;
 import java.awt.Dimension;
 
 import network.NetworkManager;
+import network.client.Client;
+import network.packet.PlayerPacket;
 import view.ViewManager;
 
 public class ViewModel {
 
 	ViewManager lViewManager;
 	NetworkManager lNetworkManager;
+	boolean isServer;
 	
 	public ViewModel(NetworkManager aNetworkManager){
-		
+		isServer = false;
 	}
 	
 	public Dimension getScreenDimensions(){
@@ -43,14 +46,18 @@ public class ViewModel {
 		lViewManager.newLoadGame();
 	}
 	
-	public void requestServerMenu(int aPortNumber){
+	public void requestServerMenu(int aPortNumber, String aNickName){
 		lViewManager.newServerMenu();
 		lNetworkManager.openServer(aPortNumber);
+		isServer = true;
+		boolean lSucceeded = lNetworkManager.connectToServer("localhost", aPortNumber, aNickName);
+		
+		System.out.println("Connected to self:" + lSucceeded);
 	}
 	
 	
-	public void notifyMenuNewClient(String aClientName){
-		lViewManager.notifyMenuNewClient(aClientName);
+	public void notifyMenuNewClient(PlayerPacket aClientPacket){
+		lViewManager.notifyMenuNewClient(aClientPacket);
 	}
 	
 	public void requestCloseServer(){
@@ -58,8 +65,8 @@ public class ViewModel {
 		lNetworkManager.closeServer();
 	}
 	
-	public void connectToServer(String aIpAddress, int aPortNumber){
-		boolean lSucceeded = lNetworkManager.connectToServer(aIpAddress, aPortNumber);
+	public void connectToServer(String aIpAddress, int aPortNumber, String aNickname){
+		boolean lSucceeded = lNetworkManager.connectToServer(aIpAddress, aPortNumber, aNickname);
 		
 		if(lSucceeded){
 			lViewManager.newClientLobby();
