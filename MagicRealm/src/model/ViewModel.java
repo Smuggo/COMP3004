@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.Dimension;
+
 import view.ViewManager;
 
 public class ViewModel {
@@ -10,6 +12,9 @@ public class ViewModel {
 		
 	}
 	
+	public Dimension getScreenDimensions(){
+		return lViewManager.getScreenDimensions();
+	}
 	
 	public void setViewManager(ViewManager aViewManager){
 		lViewManager = aViewManager;
@@ -24,4 +29,11 @@ public class ViewModel {
 		lViewManager.newMenu();
 	}
 	
+	public void requestJoinGame(){
+		lViewManager.newJoinGame();
+	}
+	
+	public void requestLoadGame(){
+		lViewManager.newLoadGame();
+	}
 }

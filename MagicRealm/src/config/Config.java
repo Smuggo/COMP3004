@@ -1,5 +1,8 @@
 package config;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 public final class Config {
 	
 	public static String lIpAddress = "localhost";

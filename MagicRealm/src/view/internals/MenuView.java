@@ -28,8 +28,19 @@ public class MenuView extends JInternalFrame{
 		
 		lModel = aModel;
 		
-		setPreferredSize(new Dimension(300,400));
-		setSize(300,400);
+		Dimension lScreenSize = lModel.getScreenDimensions();
+		
+		int xScreen = (int)lScreenSize.getWidth();
+		int yScreen = (int)lScreenSize.getHeight();
+		
+		int xSize = 300;
+		int ySize = 400;
+		
+		setPreferredSize(new Dimension(xSize,ySize));
+		setSize(xSize,ySize);
+		
+		setLocation((xScreen/2)-(xSize/2), (yScreen/2)-(ySize/2));
+		
 		
 		
 		setLayout(new GridBagLayout());
@@ -83,6 +94,26 @@ public class MenuView extends JInternalFrame{
 		  public void actionPerformed(ActionEvent e)
 		  {
 		    lModel.requestNewGame();
+		    dispose();
+		  }
+		});
+		
+		
+		lJoinGameButton.addActionListener(new ActionListener()
+		{
+		  public void actionPerformed(ActionEvent e)
+		  {
+		    lModel.requestJoinGame();
+		    dispose();
+		  }
+		});
+		
+		
+		lLoadGameButton.addActionListener(new ActionListener()
+		{
+		  public void actionPerformed(ActionEvent e)
+		  {
+		    lModel.requestLoadGame();
 		    dispose();
 		  }
 		});

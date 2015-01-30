@@ -22,6 +22,8 @@ public class MagicRealm {
 		lNetworkManager = new NetworkManager();
 		
 		lViewModel.setViewManager(lViewManager);
+		lViewManager.newMenu();
+		
 	}
 	
 	public void start(){

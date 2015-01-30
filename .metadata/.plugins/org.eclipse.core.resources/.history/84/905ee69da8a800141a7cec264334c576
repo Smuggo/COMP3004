@@ -1,0 +1,5 @@
+package view.internals;
+
+public class JoinGameView {
+
+}

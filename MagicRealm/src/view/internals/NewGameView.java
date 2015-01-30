@@ -30,8 +30,19 @@ public class NewGameView extends JInternalFrame{
 		
 		lModel = aModel;
 		
-		setPreferredSize(new Dimension(800,600));
-		setSize(800,600);
+		Dimension lScreenSize = lModel.getScreenDimensions();
+		
+		int xScreen = (int)lScreenSize.getWidth();
+		int yScreen = (int)lScreenSize.getHeight();
+		
+		int xSize = 800;
+		int ySize = 600;
+		
+		
+		setPreferredSize(new Dimension(xSize,ySize));
+		setSize(xSize,ySize);
+		
+		setLocation((xScreen/2)-(xSize/2), (yScreen/2)-(ySize/2));
 		
 		
 		setLayout(new GridBagLayout());
