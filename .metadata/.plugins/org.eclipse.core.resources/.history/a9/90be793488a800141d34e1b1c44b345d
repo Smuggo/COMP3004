@@ -1,0 +1,65 @@
+package view.internals;
+
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
+import javax.swing.JButton;
+import javax.swing.JInternalFrame;
+
+public class MenuView extends JInternalFrame{
+	
+	private static final long serialVersionUID = 3742758020392137899L;
+
+	JButton lNewGameButton;
+	JButton lJoinGameButton;
+	JButton lLoadGameButton;
+	JButton lExitButton;
+	
+	public MenuView(){
+		super("Menu",false,false,false,true);
+		
+		setPreferredSize(new Dimension(300,400));
+		
+		setSize(300,400);
+		
+		
+		setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		
+		//Content
+		
+		lNewGameButton = new JButton("New Game");
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 0.5;
+		c.weighty = 0.9;
+		c.gridx = 0;
+		c.gridy = 0;
+		add(lNewGameButton, c);
+		
+		lJoinGameButton = new JButton("Join Game");
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 0.5;
+		c.weighty = 0.9;
+		c.gridx = 0;
+		c.gridy = 1;
+		add(lJoinGameButton, c);
+		
+		lExitButton = new JButton("Exit Game");
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 0.5;
+		c.weighty = 0.9;
+		c.gridx = 0;
+		c.gridy = 2;
+		add(lExitButton, c);
+		
+		lLoadGameButton = new JButton("Load Game");
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 0.5;
+		c.weighty = 0.9;
+		c.gridx = 0;
+		c.gridy = 3;
+		add(lLoadGameButton, c);
+	}
+
+}
