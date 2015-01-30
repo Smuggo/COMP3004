@@ -14,7 +14,6 @@
 <fullyQualifiedTypeName name="java.awt.BorderLayout"/>
 <fullyQualifiedTypeName name="javax.swing.JScrollPane"/>
 <fullyQualifiedTypeName name="javax.swing.ScrollPaneConstants"/>
-<fullyQualifiedTypeName name="view.ViewManager"/>
 <fullyQualifiedTypeName name="java.awt.Dimension"/>
 <fullyQualifiedTypeName name="javax.swing.JDesktopPane"/>
 <fullyQualifiedTypeName name="java.awt.event.WindowAdapter"/>
@@ -28,4 +27,9 @@
 <fullyQualifiedTypeName name="javax.swing.JTextField"/>
 <fullyQualifiedTypeName name="view.internals.NewGameView"/>
 <fullyQualifiedTypeName name="javax.swing.JButton"/>
+<fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
+<fullyQualifiedTypeName name="java.awt.event.ActionEvent"/>
+<fullyQualifiedTypeName name="model.MagicRealm"/>
+<fullyQualifiedTypeName name="view.ViewManager"/>
+<fullyQualifiedTypeName name="model.ViewModel"/>
 </qualifiedTypeNameHistroy>

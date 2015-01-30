@@ -1,0 +1,41 @@
+package view;
+
+import java.beans.PropertyVetoException;
+
+import javax.swing.JInternalFrame;
+
+import model.MagicRealm;
+import model.ViewModel;
+import view.externals.MagicRealmWindow;
+import view.internals.MenuView;
+import view.internals.NewGameView;
+
+public class ViewManager {
+	
+	MagicRealmWindow lWindow;
+	
+	MenuView lMenu;
+	NewGameView lNewGame;
+	
+	ViewModel lModel;
+	
+	public ViewManager(ViewModel aModel){
+		lModel = aModel;
+		
+		lWindow = new MagicRealmWindow();
+		
+		lMenu = new MenuView();
+		lMenu.setVisible(true);
+		lWindow.addWindow(lMenu);
+		
+		lNewGame = new NewGameView();
+		lNewGame.setVisible(true);
+		lWindow.addWindow(lNewGame);
+		
+	}
+	
+	
+
+	
+	
+}

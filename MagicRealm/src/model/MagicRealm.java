@@ -12,10 +12,16 @@ public class MagicRealm {
 	
 	ViewManager lViewManager;
 	NetworkManager lNetworkManager;
+	ViewModel lViewModel;
 	
 	public MagicRealm(){
-		lViewManager = new ViewManager();
+
+		lViewModel = new ViewModel();
+		
+		lViewManager = new ViewManager(lViewModel);
 		lNetworkManager = new NetworkManager();
+		
+		lViewModel.setViewManager(lViewManager);
 	}
 	
 	public void start(){

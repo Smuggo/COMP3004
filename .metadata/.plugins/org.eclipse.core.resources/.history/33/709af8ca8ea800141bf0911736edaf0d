@@ -1,0 +1,18 @@
+package model;
+
+import view.ViewManager;
+
+public class ViewModel {
+
+	ViewManager lViewManager;
+	
+	public ViewModel(){
+		
+	}
+	
+	
+	public void setViewManager(ViewManager aViewManager){
+		lViewManager = aViewManager;
+	}
+	
+}
