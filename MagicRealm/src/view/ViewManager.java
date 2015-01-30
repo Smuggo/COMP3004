@@ -8,10 +8,11 @@ import javax.swing.JInternalFrame;
 import model.MagicRealm;
 import model.ViewModel;
 import view.externals.MagicRealmWindow;
-import view.internals.JoinGameView;
-import view.internals.LoadGameView;
-import view.internals.MenuView;
-import view.internals.NewGameView;
+import view.internals.menu.JoinGameView;
+import view.internals.menu.LoadGameView;
+import view.internals.menu.MenuView;
+import view.internals.menu.NewGameView;
+import view.internals.menu.ServerMenuView;
 
 public class ViewManager {
 	
@@ -21,6 +22,7 @@ public class ViewManager {
 	NewGameView lNewGame;
 	JoinGameView lJoinGame;
 	LoadGameView lLoadGame;
+	ServerMenuView lServerMenu;
 	
 	ViewModel lModel;
 	
@@ -62,6 +64,13 @@ public class ViewManager {
 		lLoadGame = new LoadGameView(lModel);
 		lLoadGame.setVisible(true);
 		lWindow.addWindow(lLoadGame);
+	}
+	
+	public void newServerMenu(){
+		
+		lServerMenu = new ServerMenuView(lModel);
+		lServerMenu.setVisible(true);
+		lWindow.addWindow(lServerMenu);
 	}
 	
 	

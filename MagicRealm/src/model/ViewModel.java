@@ -36,4 +36,8 @@ public class ViewModel {
 	public void requestLoadGame(){
 		lViewManager.newLoadGame();
 	}
+	
+	public void requestServerMenu(){
+		lViewManager.newServerMenu();
+	}
 }
