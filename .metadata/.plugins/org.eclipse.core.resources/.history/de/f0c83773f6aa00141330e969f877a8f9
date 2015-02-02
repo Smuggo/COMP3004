@@ -1,0 +1,20 @@
+package game.environment;
+
+import java.awt.Point;
+
+public class Hex{
+	private int radius = 2;
+	
+	public Hex(){
+		
+	}
+	
+	public Point getCorner(Point center, int size, int cornerNum){
+		double angle = (2 * Math.PI) / (6 * cornerNum);
+		
+		Point corner = new Point((int) (center.x + size * Math.cos(angle)),
+								 (int)(center.y + size * Math.sin(angle)));
+		
+		return corner;
+	}
+}

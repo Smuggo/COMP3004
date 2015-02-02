@@ -48,4 +48,5 @@
 <fullyQualifiedTypeName name="network.NetworkManager"/>
 <fullyQualifiedTypeName name="network.packet.PlayerPacket"/>
 <fullyQualifiedTypeName name="java.lang.Thread"/>
+<fullyQualifiedTypeName name="java.awt.Point"/>
 </qualifiedTypeNameHistroy>
