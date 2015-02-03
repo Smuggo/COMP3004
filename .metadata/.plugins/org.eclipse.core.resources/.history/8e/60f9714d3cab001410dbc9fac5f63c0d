@@ -1,0 +1,59 @@
+package view.internals.game;
+
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
+import javax.swing.JButton;
+import javax.swing.JInternalFrame;
+
+import model.ViewModel;
+
+public class GameBoardView extends JInternalFrame{
+
+	private static final long serialVersionUID = -4478656155793467601L;
+
+	ViewModel lModel;
+	
+	public GameBoardView(ViewModel aModel){
+		super("Game Board",false,false,false,true);
+		
+		lModel = aModel;
+		
+		Dimension lScreenSize = lModel.getScreenDimensions();
+		
+		int xScreen = (int)lScreenSize.getWidth();
+		int yScreen = (int)lScreenSize.getHeight();
+		
+		int xSize = 300;
+		int ySize = 400;
+		
+		
+		setPreferredSize(new Dimension(xSize,ySize));
+		setSize(xSize,ySize);
+		
+		setLocation((xScreen/2)-(xSize/2), (yScreen/2)-(ySize/2));
+		
+		
+		
+		setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		
+		//Content
+		
+		lMenuButton = new JButton("Main Menu");
+		c.weightx = 1;
+		c.weighty = 1;
+		c.gridx = 0;
+		c.gridy = 3;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.insets = new Insets(0,30,0,30);
+		add(lMenuButton, c);
+		
+
+		
+		createButtonListeners();
+	}
+	
+}

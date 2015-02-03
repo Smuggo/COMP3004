@@ -1,0 +1,75 @@
+package view.internals.game;
+
+import java.awt.Canvas;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
+import javax.swing.JButton;
+import javax.swing.JInternalFrame;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+
+import model.ViewModel;
+
+public class GameBoardView extends JInternalFrame{
+
+	private static final long serialVersionUID = -4478656155793467601L;
+
+	ViewModel lModel;
+	
+	JScrollPane lScrollPane;
+	
+	Canvas lCanvas;
+	
+	public GameBoardView(ViewModel aModel){
+		super("Game Board",false,false,false,true);
+		
+		lModel = aModel;
+		
+		Dimension lScreenSize = lModel.getScreenDimensions();
+		
+		int xScreen = (int)lScreenSize.getWidth();
+		int yScreen = (int)lScreenSize.getHeight();
+		
+		int xSize = (xScreen/2)-10;
+		int ySize = yScreen-40;
+		
+		
+		setPreferredSize(new Dimension(xSize,ySize));
+		setSize(xSize,ySize);
+		
+		setLocation((xScreen/2), 0);
+		
+		
+		
+		setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+
+		lScrollPane = new JScrollPane();
+		lScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		lScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 1;
+		c.weighty = 1;
+		c.gridx = 0;
+		c.gridy = 0;
+		c.insets = new Insets(0,0,0,0);
+		add(lScrollPane, c);
+		
+		
+		fillScrollPane();
+
+	}
+	
+	public void fillScrollPane(){
+		lCanvas = new Canvas();
+		lCanvas.setPreferredSize(new Dimension(5000,5000));
+		lCanvas.setSize(5000, 5000);
+		lScrollPane.add(lCanvas);
+		lCanvas.paint(Graphics g);
+	}
+	
+}

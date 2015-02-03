@@ -34,6 +34,8 @@ public class MagicRealmWindow extends JFrame{
 		int y = (int)lScreenSize.getHeight()-75;
 		setPreferredSize(new Dimension(x,y));
 		
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		
 		pack();
 
 		//Exit on window close

@@ -1,0 +1,5 @@
+package view.internals.game;
+
+public class GameBoardCanvas extends Canvas{
+
+}

@@ -46,6 +46,10 @@ public class ViewModel {
 		lViewManager.newLoadGame();
 	}
 	
+	public void requestGameBoard(){
+		lViewManager.newGameBoard();
+	}
+	
 	public void requestServerMenu(int aPortNumber, String aNickName){
 		lViewManager.newServerMenu();
 		lNetworkManager.openServer(aPortNumber);
@@ -67,11 +71,15 @@ public class ViewModel {
 	
 	public void connectToServer(String aIpAddress, int aPortNumber, String aNickname){
 		boolean lSucceeded = lNetworkManager.connectToServer(aIpAddress, aPortNumber, aNickname);
-		
 		if(lSucceeded){
 			lViewManager.newClientLobby();
 		}else{
 			lViewManager.newJoinGame();
 		}
+	}
+	
+	public void startGame(){
+		lViewManager.clearMenu();
+		lViewManager.newGameBoard();
 	}
 }

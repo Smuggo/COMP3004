@@ -125,7 +125,15 @@ public class NewGameView extends JInternalFrame{
 			    lNicknameField.setEnabled(false);
 			    lOpenServerButton.setText("Server Open");
 			  }
-			});
+		});
+		
+		lStartGameButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+			  lModel.startGame();
+			}
+		});
 		
 		
 	}

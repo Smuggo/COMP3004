@@ -9,6 +9,7 @@ import network.packet.PlayerPacket;
 import model.MagicRealm;
 import model.ViewModel;
 import view.externals.MagicRealmWindow;
+import view.internals.game.GameBoardView;
 import view.internals.menu.ClientLobbyView;
 import view.internals.menu.JoinGameView;
 import view.internals.menu.LoadGameView;
@@ -26,6 +27,7 @@ public class ViewManager {
 	LoadGameView lLoadGame;
 	ServerMenuView lServerMenu;
 	ClientLobbyView lClientLobby;
+	GameBoardView lGameBoard;
 	
 	ViewModel lModel;
 	
@@ -92,6 +94,21 @@ public class ViewManager {
 	public void closeServerMenu(){
 		if(lServerMenu != null){
 			lServerMenu.dispose();
+		}
+	}
+	
+	public void newGameBoard(){
+		lGameBoard = new GameBoardView(lModel);
+		lGameBoard.setVisible(true);
+		lWindow.addWindow(lGameBoard);
+	}
+	
+	public void clearMenu(){
+		if(lServerMenu != null){
+			lServerMenu.dispose();
+		}
+		if(lNewGame != null){
+			lNewGame.dispose();
 		}
 	}
 	
