@@ -9,5 +9,7 @@ public final class Config {
 	public static int lPort = 25000;
 	public static boolean isDebugging = true;
 	public static int lMaxPlayers = 7;
+	
+	public static boolean drawingHexCoords = true;
 
 }

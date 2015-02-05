@@ -1,6 +1,10 @@
 package model;
 
+import game.GameManager;
+import game.environment.hex.HexGrid;
+
 import java.awt.Dimension;
+import java.awt.Graphics;
 
 import network.NetworkManager;
 import network.client.Client;
@@ -11,10 +15,12 @@ public class ViewModel {
 
 	ViewManager lViewManager;
 	NetworkManager lNetworkManager;
+	GameManager lGameManager;
 	boolean isServer;
 	
 	public ViewModel(NetworkManager aNetworkManager){
 		isServer = false;
+		lGameManager = new GameManager();
 	}
 	
 	public Dimension getScreenDimensions(){
@@ -79,7 +85,14 @@ public class ViewModel {
 	}
 	
 	public void startGame(){
+		
+		lGameManager.createNewMap();
+		
 		lViewManager.clearMenu();
 		lViewManager.newGameBoard();
+	}
+	
+	public HexGrid requestGrid(){
+		return lGameManager.getGrid();
 	}
 }

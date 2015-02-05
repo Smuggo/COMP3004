@@ -97,7 +97,7 @@ public class GameBoardView extends JInternalFrame{
 	
 	
 	public void fillScrollPane(){
-		lCanvas = new GameBoardCanvas();
+		lCanvas = new GameBoardCanvas(lModel);
 		lCanvas.setPreferredSize(new Dimension(5000,5000));
 		lCanvas.setSize(5000, 5000);
 		lScrollPane.add(lCanvas);

@@ -11,15 +11,18 @@ import java.util.Random;
 
 import javax.swing.JPanel;
 
+import model.ViewModel;
+
 public class GameBoardCanvas extends Canvas{
 
 	private static final long serialVersionUID = -4828905301301544492L;
 	
-	
+	ViewModel lModel;
 	Random r;
 	
-	public GameBoardCanvas(){
+	public GameBoardCanvas(ViewModel aModel){
 		super();
+		lModel = aModel;
 		r = new Random();
 	}
 	
@@ -29,6 +32,8 @@ public class GameBoardCanvas extends Canvas{
 		Graphics2D g2D=(Graphics2D) g; // cast to 2D
 	    g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 	                         RenderingHints.VALUE_ANTIALIAS_ON);
+	    
+	    lModel.requestGrid().drawGrid(g2D, this.getSize());
 	    
 	    
 	    g2D.setColor(new Color(r.nextInt(255),r.nextInt(255),r.nextInt(255)));
