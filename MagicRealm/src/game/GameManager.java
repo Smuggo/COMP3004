@@ -1,5 +1,7 @@
 package game;
 
+import java.awt.Dimension;
+
 import game.environment.EnvironmentManager;
 import game.environment.hex.HexGrid;
 
@@ -11,8 +13,8 @@ public class GameManager {
 		lEnvironmentManager = new EnvironmentManager();
 	}
 
-	public void createNewMap(){
-		lEnvironmentManager.createNewMap();
+	public Dimension createNewMap(){
+		return lEnvironmentManager.createNewMap();
 	}
 	
 	public HexGrid getGrid(){

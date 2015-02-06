@@ -52,9 +52,7 @@ public class ViewModel {
 		lViewManager.newLoadGame();
 	}
 	
-	public void requestGameBoard(){
-		lViewManager.newGameBoard();
-	}
+
 	
 	public void requestServerMenu(int aPortNumber, String aNickName){
 		lViewManager.newServerMenu();
@@ -86,10 +84,10 @@ public class ViewModel {
 	
 	public void startGame(){
 		
-		lGameManager.createNewMap();
+		Dimension lMapSize = lGameManager.createNewMap();
 		
 		lViewManager.clearMenu();
-		lViewManager.newGameBoard();
+		lViewManager.newGameBoard(lMapSize);
 	}
 	
 	public HexGrid requestGrid(){

@@ -97,8 +97,8 @@ public class ViewManager {
 		}
 	}
 	
-	public void newGameBoard(){
-		lGameBoard = new GameBoardView(lModel);
+	public void newGameBoard(Dimension aCanvasSize){
+		lGameBoard = new GameBoardView(lModel, aCanvasSize);
 		lGameBoard.setVisible(true);
 		lWindow.addWindow(lGameBoard);
 	}

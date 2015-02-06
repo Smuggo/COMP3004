@@ -29,7 +29,7 @@ public class GameBoardView extends JInternalFrame{
 	
 	JButton lTestButton;
 	
-	public GameBoardView(ViewModel aModel){
+	public GameBoardView(ViewModel aModel, Dimension aCanvasSize){
 		super("Game Board",false,false,false,true);
 		
 		lModel = aModel;
@@ -56,7 +56,7 @@ public class GameBoardView extends JInternalFrame{
 		lScrollPane = new ScrollPane();
 		lScrollPane.getVAdjustable().setUnitIncrement(16);
 		
-		fillScrollPane();
+		fillScrollPane(aCanvasSize);
 		
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
@@ -96,10 +96,10 @@ public class GameBoardView extends JInternalFrame{
 	}
 	
 	
-	public void fillScrollPane(){
+	public void fillScrollPane(Dimension aCanvasSize){
 		lCanvas = new GameBoardCanvas(lModel);
-		lCanvas.setPreferredSize(new Dimension(5000,5000));
-		lCanvas.setSize(5000, 5000);
+		lCanvas.setPreferredSize(aCanvasSize);
+		lCanvas.setSize(aCanvasSize);
 		lScrollPane.add(lCanvas);
 	}
 	
