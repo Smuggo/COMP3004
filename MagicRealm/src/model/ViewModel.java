@@ -2,12 +2,12 @@ package model;
 
 import game.GameManager;
 import game.environment.hex.HexGrid;
+import game.entity.Character;
 
 import java.awt.Dimension;
-import java.awt.Graphics;
+import java.util.Map;
 
 import network.NetworkManager;
-import network.client.Client;
 import network.packet.PlayerPacket;
 import view.ViewManager;
 
@@ -54,6 +54,10 @@ public class ViewModel {
 	
 
 	
+	public void requestCharacterSelection(){
+		lViewManager.showCharacterList();
+	}
+	
 	public void requestServerMenu(int aPortNumber, String aNickName){
 		lViewManager.newServerMenu();
 		lNetworkManager.openServer(aPortNumber);
@@ -73,6 +77,10 @@ public class ViewModel {
 		lNetworkManager.closeServer();
 	}
 	
+	public Map<String, Character> requestCharacters(){
+		return lGameManager.requestCharacters();
+	}
+	
 	public void connectToServer(String aIpAddress, int aPortNumber, String aNickname){
 		boolean lSucceeded = lNetworkManager.connectToServer(aIpAddress, aPortNumber, aNickname);
 		if(lSucceeded){
@@ -83,6 +91,10 @@ public class ViewModel {
 	}
 	
 	public void startGame(){
+		lGameManager.createNewMap();
+		
+		lViewManager.clearMenu();
+		lViewManager.createCharacterView();
 		
 		Dimension lMapSize = lGameManager.createNewMap();
 		

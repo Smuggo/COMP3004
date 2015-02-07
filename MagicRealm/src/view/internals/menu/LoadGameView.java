@@ -14,7 +14,6 @@ import model.ViewModel;
 
 public class LoadGameView extends JInternalFrame{
 	
-	
 	private static final long serialVersionUID = 3742758020392137899L;
 
 	JButton lMenuButton;

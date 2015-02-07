@@ -1,12 +1,8 @@
 package view;
 
 import java.awt.Dimension;
-import java.beans.PropertyVetoException;
-
-import javax.swing.JInternalFrame;
 
 import network.packet.PlayerPacket;
-import model.MagicRealm;
 import model.ViewModel;
 import view.externals.MagicRealmWindow;
 import view.internals.game.GameBoardView;
@@ -16,6 +12,8 @@ import view.internals.menu.LoadGameView;
 import view.internals.menu.MenuView;
 import view.internals.menu.NewGameView;
 import view.internals.menu.ServerMenuView;
+import view.internals.game.CharacterView;
+import view.internals.game.CharacterList;
 
 public class ViewManager {
 	
@@ -28,6 +26,8 @@ public class ViewManager {
 	ServerMenuView lServerMenu;
 	ClientLobbyView lClientLobby;
 	GameBoardView lGameBoard;
+	CharacterView lCharacterView;
+	CharacterList lCharacterList;
 	
 	ViewModel lModel;
 	
@@ -35,9 +35,6 @@ public class ViewManager {
 		lModel = aModel;
 		lWindow = new MagicRealmWindow();
 	}
-	
-
-	
 	
 	public Dimension getScreenDimensions(){
 		return lWindow.getSize();
@@ -101,6 +98,17 @@ public class ViewManager {
 		lGameBoard = new GameBoardView(lModel, aCanvasSize);
 		lGameBoard.setVisible(true);
 		lWindow.addWindow(lGameBoard);
+	}
+	
+	public void createCharacterView(){
+		lCharacterView = new CharacterView(lModel);
+		lCharacterView.setVisible(true);
+		lWindow.addWindow(lCharacterView);
+	}
+	
+	public void showCharacterList(){
+		lCharacterList = new CharacterList(lModel);
+		lCharacterList.setVisible(true);
 	}
 	
 	public void clearMenu(){

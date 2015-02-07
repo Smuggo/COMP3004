@@ -39,8 +39,6 @@ public class ClientLobbyView extends JInternalFrame{
 		
 		setLocation((xScreen/2)-(xSize/2), (yScreen/2)-(ySize/2));
 		
-		
-		
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		
