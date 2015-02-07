@@ -107,7 +107,7 @@ public class ViewManager {
 	}
 	
 	public void showCharacterList(){
-		lCharacterList = new CharacterList(lModel);
+		lCharacterList = new CharacterList(lModel, lCharacterView);
 		lCharacterList.setVisible(true);
 		lWindow.addWindow(lCharacterList);
 	}

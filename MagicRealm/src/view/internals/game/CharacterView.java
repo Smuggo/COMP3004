@@ -11,10 +11,11 @@ import javax.swing.JInternalFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
 
 import model.ViewModel;
 
-//List of characters in the game
+//List of characters in the game, add characters to the game
 public class CharacterView extends JInternalFrame{
 	/**
 	 * 
@@ -26,16 +27,13 @@ public class CharacterView extends JInternalFrame{
 	private JButton removeCharacter;
 	private JTable  characterList;
 	
-	private String[][] rowData;
-	private String[] columnNames;
-	
-	ViewModel lModel;
+	private ViewModel lModel;
 	
 	public CharacterView(ViewModel aModel){
 		super("Character List");
 		
 		lModel = aModel;
-		
+
 		int xSize = 500;
 		int ySize = 200;
 		
@@ -63,19 +61,10 @@ public class CharacterView extends JInternalFrame{
 		c.gridy = 1;
 		add(removeCharacter, c);
 		
-		columnNames = new String[3];
-		rowData = new String[5][5];
-		columnNames[0] = "Player Name";
-		columnNames[1] = "Character";
-		columnNames[2] = "TEST";
-		rowData[0][0] = "";
-		rowData[0][1] = "";
-		
-		characterList = new JTable(rowData, columnNames);
+		characterList = new JTable(new DefaultTableModel(new Object[]{"Character", "Player Name"}, 0));
 		characterList.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		characterList.getColumnModel().getColumn(0).setPreferredWidth(200);
 		characterList.getColumnModel().getColumn(1).setPreferredWidth(100);
-		characterList.getColumnModel().getColumn(2).setPreferredWidth(100);
 		
 		characterList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
@@ -104,5 +93,26 @@ public class CharacterView extends JInternalFrame{
 		  }
 		});
 		
+		removeCharacter.addActionListener(new ActionListener()
+		{
+		  public void actionPerformed(ActionEvent e)
+		  {
+			  if(characterList.getSelectedRow() == -1){
+				  
+			  }
+			  else{
+				lModel.requestCharacters().get(characterList.getValueAt(characterList.getSelectedRow(), 0)).setAvailalbe(true);
+			  	DefaultTableModel model = (DefaultTableModel) characterList.getModel();
+			  	model.removeRow(characterList.getSelectedRow());
+			  	characterList.setModel(model);
+			  }
+		  }
+		});
+	}
+	
+	public void setCharacterTableData(String characterName){
+		DefaultTableModel model = (DefaultTableModel) characterList.getModel();
+		model.addRow(new Object[] {characterName, "TEST"});
+		characterList.setModel(model);
 	}
 }

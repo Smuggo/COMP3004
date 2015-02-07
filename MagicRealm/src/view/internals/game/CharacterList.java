@@ -33,20 +33,23 @@ public class CharacterList extends JInternalFrame{
 	
 	private JLabel charSheet;
 	
-			
 	private JButton cancel;
+	private JButton select;
 
 	private ViewModel lModel;
 	
 	private Map<String, Character> characterMap;
 	
-	public CharacterList(ViewModel aModel){
+	private CharacterView lCharacterView;
+	
+	public CharacterList(ViewModel aModel, CharacterView aCharacterView){
 		super("Character Selection");
 		
 		int xSize = 1000;
 		int ySize = 800;
 		
 		lModel = aModel;
+		lCharacterView = aCharacterView;
 		
 		characterMap = lModel.requestCharacters();
 		
@@ -73,11 +76,20 @@ public class CharacterList extends JInternalFrame{
 		cancel = new JButton("Cancel");
 		c.anchor = c.SOUTHWEST;
 		c.fill = c.NONE;
-		c.gridx = 0;
-		c.gridy = 1;
 		c.ipadx = 0;
 		c.ipady = 0;
+		c.gridx = 0;
+		c.gridy = 1;
 		add(cancel, c);
+		
+		select = new JButton("Select");
+		c.anchor = c.SOUTHWEST;
+		c.fill = c.NONE;
+		c.ipadx = 0;
+		c.ipady = 0;
+		c.gridx = 1;
+		c.gridy = 1;
+		add(select, c);
 		
 		characterList.setSelectedIndex(0);
 		charSheet = new JLabel(new ImageIcon(characterMap.get(characterList.getSelectedValue()).getCharSheet()));
@@ -91,6 +103,16 @@ public class CharacterList extends JInternalFrame{
 	}
 	protected void createButtonListeners(){
 		
+		select.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				characterMap.get(characterList.getSelectedValue()).setAvailalbe(false);
+				lCharacterView.setCharacterTableData(characterList.getSelectedValue());
+				dispose();
+			}
+		});
+		
 		cancel.addActionListener(new ActionListener()
 		{
 		  public void actionPerformed(ActionEvent e)
@@ -98,6 +120,7 @@ public class CharacterList extends JInternalFrame{
 			  dispose();
 		  }
 		});
+		
 		
 
 		characterList.addListSelectionListener(new ListSelectionListener(){
