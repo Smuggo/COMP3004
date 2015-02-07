@@ -112,6 +112,59 @@ public class Hextile {
 		
 	}
 	
+	public static void checkForAdjacentHextiles(int x, int y, Hextile[][] gameboard) {
+		System.out.println("x:" + x + " y: " + y);
+		
+		// Top and bottom require the same calculations whether x is even or odd
+		// Check if there exist a hextile above the one we are trying to place
+		if ((y > 0) && (gameboard[x][y - 1] != null)) {
+			gameboard[x][y].connectTo(gameboard[x][y - 1], Config.IncompleteRoadwayDirection.TOP);
+		}
+		// Check if there exist a hextile below the one we are trying to place
+		if ((y < 3) && (gameboard[x][y + 1] != null)) {
+			gameboard[x][y].connectTo(gameboard[x][y + 1], Config.IncompleteRoadwayDirection.BOTTOM);
+		}
+		
+		// If x is even we handle things differently
+		if ((x % 2) == 0) {
+			// Check if there exist a hextile above-right to the one we are trying to place
+			if ((x < 3) && (y > 0) && (gameboard[x + 1][y - 1] != null)) {
+				gameboard[x][y].connectTo(gameboard[x + 1][y - 1], Config.IncompleteRoadwayDirection.TOP_RIGHT);
+			}
+			// Check if there exist a hextile below-right to the one we are trying to place
+			if ((x < 3) && (gameboard[x + 1][y] != null)) {
+				gameboard[x][y].connectTo(gameboard[x + 1][y], Config.IncompleteRoadwayDirection.BOTTOM_RIGHT);
+			}
+			// Check if there exist a hextile below-left to the one we are trying to place
+			if ((x > 0) && (gameboard[x - 1][y] != null)) {
+				gameboard[x][y].connectTo(gameboard[x - 1][y], Config.IncompleteRoadwayDirection.BOTTOM_LEFT);
+			}
+			// Check if there exist a hextile above-left to the one we are trying to place
+			if ((x > 0) && (y > 0) && (gameboard[x - 1][y - 1] != null)) {
+				gameboard[x][y].connectTo(gameboard[x - 1][y - 1], Config.IncompleteRoadwayDirection.TOP_LEFT);
+			}
+		}
+		// x is odd
+		else {
+			// Check if there exist a hextile above-right to the one we are trying to place
+			if ((x < 3) && (gameboard[x + 1][y] != null)) {
+				gameboard[x][y].connectTo(gameboard[x + 1][y], Config.IncompleteRoadwayDirection.TOP_RIGHT);
+			}
+			// Check if there exist a hextile below-right to the one we are trying to place
+			if ((x < 3) && (y < 3) && (gameboard[x + 1][y + 1] != null)) {
+				gameboard[x][y].connectTo(gameboard[x + 1][y + 1], Config.IncompleteRoadwayDirection.BOTTOM_RIGHT);
+			}
+			// Check if there exist a hextile below-left to the one we are trying to place
+			if ((x > 0) && (y < 3) && (gameboard[x - 1][y + 1] != null)) {
+				gameboard[x][y].connectTo(gameboard[x - 1][y + 1], Config.IncompleteRoadwayDirection.BOTTOM_LEFT);
+			}
+			// Check if there exist a hextile above-left to the one we are trying to place
+			if ((x > 0) && (gameboard[x - 1][y] != null)) {
+				gameboard[x][y].connectTo(gameboard[x - 1][y], Config.IncompleteRoadwayDirection.TOP_LEFT);
+			}
+		}
+	}
+	
 	
 	public Clearing getClearing(int num) {
 		for (int i = 0; i < clearings.size(); i++) {
