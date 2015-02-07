@@ -46,6 +46,7 @@ public class VictoryPoints extends JInternalFrame{
 	int pAssigned;
 	
 	public VictoryPoints(Hero aCharacter){
+		super("Victory Conditions for " + aCharacter.getName());
 		lCharacter = aCharacter;
 		
 		int xSize = 300;

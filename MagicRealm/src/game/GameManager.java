@@ -5,17 +5,17 @@ import java.awt.Dimension;
 
 import game.environment.EnvironmentManager;
 import game.environment.hex.HexGrid;
-import game.entity.CharacterFactory;
+import game.entity.HeroFactory;
 import game.entity.Hero;
 
 public class GameManager {
 	
 	private EnvironmentManager lEnvironmentManager;
-	private CharacterFactory   characters;
+	private HeroFactory   characters;
 	
 	public GameManager(){
 		lEnvironmentManager = new EnvironmentManager();
-		characters = new CharacterFactory();
+		characters = new HeroFactory();
 	}
 
 	public Dimension createNewMap(){

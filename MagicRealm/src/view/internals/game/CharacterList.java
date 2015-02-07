@@ -10,7 +10,6 @@ import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -28,7 +27,7 @@ public class CharacterList extends JInternalFrame{
 	private static final long serialVersionUID = -8608031632449364941L;
 
 	private JList<String> characterList;
-	private String[] allCharacters = {"Captain", "Swordsman"};
+	private String[] allCharacters = {"Captain", "Swordsman", "Amazon", "Dwarf", "Elf", "Black Knight"};
 	private ArrayList<String> availableCharacters = new ArrayList<>();
 	
 	private JLabel charSheet;

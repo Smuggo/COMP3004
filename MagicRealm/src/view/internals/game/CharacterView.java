@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JScrollPane;
@@ -61,7 +62,17 @@ public class CharacterView extends JInternalFrame{
 		c.gridy = 1;
 		add(removeCharacter, c);
 		
-		characterList = new JTable(new DefaultTableModel(new Object[]{"Character", "Player Name"}, 0));
+		characterList = new JTable(new DefaultTableModel(new Object[]{"Character", "Player Name", "Symbol"}, 0))
+		{
+			public boolean isCellEditable(int row, int column)
+			{
+				return false;
+			}
+			public Class getColumnClass(int column)
+			{
+				return getValueAt(0, column).getClass();
+			}
+		};
 		characterList.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		characterList.getColumnModel().getColumn(0).setPreferredWidth(200);
 		characterList.getColumnModel().getColumn(1).setPreferredWidth(100);
@@ -111,8 +122,11 @@ public class CharacterView extends JInternalFrame{
 	}
 	
 	public void setCharacterTableData(String characterName){
+		ImageIcon symbol = new ImageIcon(lModel.requestCharacters().get(characterName).getCharChit());
 		DefaultTableModel model = (DefaultTableModel) characterList.getModel();
-		model.addRow(new Object[] {characterName, "TEST"});
+		model.addRow(new Object[] {characterName, "<PLACEHOLDER>", symbol});
+
+		characterList.setRowHeight(symbol.getIconHeight());
 		characterList.setModel(model);
 	}
 }
