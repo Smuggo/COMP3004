@@ -129,6 +129,9 @@ public class ViewManager {
 		if(lNewGame != null){
 			lNewGame.dispose();
 		}
+		if(lClientLobby != null){
+			lClientLobby.dispose();
+		}
 	}
 	
 	

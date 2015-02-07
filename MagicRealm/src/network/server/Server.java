@@ -12,11 +12,14 @@ public class Server implements Runnable{
 
 	private Socket cSocket;
 	private NetworkManager lNetworkManager;
+	private boolean gameRunning;
+	
 	
 	public Server(Socket s, NetworkManager aNetworkManager)
 	{
 		cSocket = s;
 		lNetworkManager = aNetworkManager;
+		gameRunning = false;
 	}
 	
 	@Override
@@ -37,14 +40,20 @@ public class Server implements Runnable{
 					PlayerPacket lPlayerPacket = (PlayerPacket)lInputStream.readObject();
 					lNetworkManager.notifyNewClient(lPlayerPacket);
 					
+					lOutputStream.writeObject(lRequestHeader);
+
+					
+				}
+				
+				if(lRequestHeader.equals("GameStart")){
+					lOutputStream.writeObject(gameRunning);
 				}
 				
 				
 				
-				lOutputStream.writeObject(lRequestHeader);
+
 				lOutputStream.flush();
 				lOutputStream.reset();
-				
 			}
 			lOutputStream.close();
 			lInputStream.close();
@@ -54,6 +63,10 @@ public class Server implements Runnable{
 			System.out.println("Connection Lost in Server.java");
 		}	
 		
+	}
+	
+	public void setGameRunning(boolean aRunning){
+		gameRunning = aRunning;
 	}
 
 }

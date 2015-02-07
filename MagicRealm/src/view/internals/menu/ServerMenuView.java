@@ -19,7 +19,6 @@ public class ServerMenuView extends JInternalFrame{
 	
 	private static final long serialVersionUID = 3742758020392137899L;
 
-	JButton lLockServerButton;
 	
 	ViewModel lModel;
 	
@@ -94,15 +93,7 @@ public class ServerMenuView extends JInternalFrame{
 		lKickPlayerButton[0].setVisible(false);
 		
 
-		lLockServerButton = new JButton("Lock Server");
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 1;
-		c.weighty = 1;
-		c.gridx = 0;
-		c.gridy = Config.lMaxPlayers;
-		c.insets = new Insets(0,30,0,30);
-		c.gridwidth = 3;
-		add(lLockServerButton, c);
+
 		
 		
 		createButtonListeners();
@@ -111,13 +102,7 @@ public class ServerMenuView extends JInternalFrame{
 	protected void createButtonListeners(){
 		
 		
-		lLockServerButton.addActionListener(new ActionListener()
-		{
-		  public void actionPerformed(ActionEvent e)
-		  {
-		    dispose();
-		  }
-		});
+
 		
 		
 	}

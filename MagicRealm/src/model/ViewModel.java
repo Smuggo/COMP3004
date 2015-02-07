@@ -83,6 +83,7 @@ public class ViewModel {
 		return lGameManager.requestCharacters();
 	}
 	
+	
 	public void connectToServer(String aIpAddress, int aPortNumber, String aNickname){
 		boolean lSucceeded = lNetworkManager.connectToServer(aIpAddress, aPortNumber, aNickname);
 		if(lSucceeded){
@@ -90,7 +91,9 @@ public class ViewModel {
 		}else{
 			lViewManager.newJoinGame();
 		}
+		lNetworkManager.notifyClientWaitForGameStart();
 	}
+	
 	
 	public void startGame(){
 		lGameManager.createNewMap();
@@ -102,6 +105,11 @@ public class ViewModel {
 		
 		lViewManager.clearMenu();
 		lViewManager.newGameBoard(lMapSize);
+	}
+	
+	
+	public void notifyClientsGameStarting(){
+		lNetworkManager.notifyClientsGameStarting();
 	}
 	
 	public HexGrid requestGrid(){

@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
+import network.NetworkManager;
 import network.packet.PlayerPacket;
 
 public class Client implements Runnable {
@@ -15,11 +16,16 @@ public class Client implements Runnable {
 	ObjectOutputStream lOutputStream;
 	ObjectInputStream lInputStream;
 	boolean lIsStreamsOpened;
+	NetworkManager lNetworkManager;
+	boolean lWaiting;
 	
-	public Client(Socket s)
+	
+	public Client(Socket s, NetworkManager aNetworkManager)
 	{
 		socket = s;
 		lIsStreamsOpened = false;
+		lWaiting = false;
+		lNetworkManager = aNetworkManager;
 	}
 	
 	@Override
@@ -35,7 +41,12 @@ public class Client implements Runnable {
 			while (true)
 			{						
 				Thread.sleep(1000);
-				//sendPing();
+				if(lWaiting){
+					if(checkGameStarted()){
+						lWaiting = false;
+						lNetworkManager.gameStarted();
+					}
+				}
 			}
 			
 		}
@@ -90,6 +101,32 @@ public class Client implements Runnable {
 			lOutputStream.reset();	
 			
 			System.out.println((String)lInputStream.readObject());
+		}
+		catch (Exception e)
+		{
+			//Dump stack
+			System.out.println("Client Error:");
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public boolean waitForGameStart(){
+		lWaiting = true;
+		return lWaiting;
+	}
+	
+	public boolean checkGameStarted(){
+		try{
+			
+			String lRequest = "GameStart";
+			lOutputStream.writeObject(lRequest);
+			lOutputStream.flush();
+			lOutputStream.reset();
+			
+			return (boolean) lInputStream.readObject();
+			
+			
 		}
 		catch (Exception e)
 		{
