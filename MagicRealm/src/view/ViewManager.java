@@ -109,6 +109,7 @@ public class ViewManager {
 	public void showCharacterList(){
 		lCharacterList = new CharacterList(lModel);
 		lCharacterList.setVisible(true);
+		lWindow.addWindow(lCharacterList);
 	}
 	
 	public void clearMenu(){

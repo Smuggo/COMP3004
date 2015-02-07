@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
@@ -19,7 +20,7 @@ import javax.swing.event.ListSelectionListener;
 import game.entity.Character;
 import model.ViewModel;
 
-public class CharacterList extends JFrame{
+public class CharacterList extends JInternalFrame{
 	/**
 	 * 
 	 */
@@ -78,13 +79,14 @@ public class CharacterList extends JFrame{
 		c.ipady = 0;
 		add(cancel, c);
 		
-		charSheet = new JLabel();
+		characterList.setSelectedIndex(0);
+		charSheet = new JLabel(new ImageIcon(characterMap.get(characterList.getSelectedValue()).getCharSheet()));
 		c.anchor = c.NORTH;
 		c.gridx = 1;
 		c.gridy = 0;
 		add(charSheet, c);
 		
-		
+
 		createButtonListeners();
 	}
 	protected void createButtonListeners(){
