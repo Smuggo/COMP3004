@@ -84,6 +84,7 @@ public class NewGameView extends JInternalFrame{
 		
 		
 		lStartGameButton = new JButton("Start Game");
+		lStartGameButton.setEnabled(false);
 		c.weightx = 1.0;
 		c.weighty = 1.0;
 		c.gridx = 0;
@@ -124,6 +125,7 @@ public class NewGameView extends JInternalFrame{
 			    lPortNumberField.setEnabled(false);
 			    lNicknameField.setEnabled(false);
 			    lOpenServerButton.setText("Server Open");
+			    lStartGameButton.setEnabled(true);
 			  }
 		});
 		
@@ -131,7 +133,7 @@ public class NewGameView extends JInternalFrame{
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-			  lModel.startGame();
+				lModel.notifyClientsGameStarting();
 			}
 		});
 		

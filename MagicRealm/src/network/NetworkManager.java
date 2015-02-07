@@ -42,7 +42,7 @@ public class NetworkManager {
 	}
 	
 	public boolean connectToServer(String aIpAddress, int aPortNumber, String aNickname){
-		lLocalClient = ClientApp.connect(aIpAddress, aPortNumber);
+		lLocalClient = ClientApp.connect(aIpAddress, aPortNumber, this);
 		
 		if (lLocalClient == null){
 			return false;
@@ -56,6 +56,20 @@ public class NetworkManager {
 	
 	public void notifyServerFull(){
 		//TODO: fill out notifyServerFull
+	}
+	
+	public void notifyClientsGameStarting(){
+		lLocalClient.waitForGameStart();
+		lServerApp.notifyClientsGameStarting();
+		
+	}
+	
+	public boolean notifyClientWaitForGameStart(){
+		return lLocalClient.waitForGameStart();
+	}
+	
+	public void gameStarted(){
+		lViewModel.startGame();
 	}
 	
 	
