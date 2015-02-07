@@ -22,4 +22,5 @@ public class Player implements Serializable{
 		lChosenHero = aHero;
 	}
 
+	public String getUserName(){ return lUserName; }
 }

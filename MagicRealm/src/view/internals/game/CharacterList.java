@@ -73,8 +73,8 @@ public class CharacterList extends JInternalFrame{
 		add(characterList, c);
 		
 		cancel = new JButton("Cancel");
-		c.anchor = c.SOUTHWEST;
-		c.fill = c.NONE;
+		c.anchor = GridBagConstraints.SOUTHWEST;
+		c.fill = GridBagConstraints.NONE;
 		c.ipadx = 0;
 		c.ipady = 0;
 		c.gridx = 0;
@@ -82,8 +82,8 @@ public class CharacterList extends JInternalFrame{
 		add(cancel, c);
 		
 		select = new JButton("Select");
-		c.anchor = c.SOUTHWEST;
-		c.fill = c.NONE;
+		c.anchor = GridBagConstraints.SOUTHWEST;
+		c.fill = GridBagConstraints.NONE;
 		c.ipadx = 0;
 		c.ipady = 0;
 		c.gridx = 1;
@@ -92,7 +92,8 @@ public class CharacterList extends JInternalFrame{
 		
 		characterList.setSelectedIndex(0);
 		charSheet = new JLabel(new ImageIcon(characterMap.get(characterList.getSelectedValue()).getCharSheet()));
-		c.anchor = c.NORTH;
+		c.anchor = GridBagConstraints.NORTH;
+		c.fill = GridBagConstraints.NONE;
 		c.gridx = 1;
 		c.gridy = 0;
 		add(charSheet, c);

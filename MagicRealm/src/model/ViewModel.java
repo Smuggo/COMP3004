@@ -143,4 +143,5 @@ public class ViewModel {
 		return lGameState;
 	}
 	
+	public int getLocalPlayerNum() { return lLocalPlayerNumber; }
 }

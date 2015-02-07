@@ -1,10 +1,14 @@
 package view.internals.game;
 
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -35,8 +39,8 @@ public class CharacterView extends JInternalFrame{
 		
 		lModel = aModel;
 
-		int xSize = 500;
-		int ySize = 200;
+		int xSize = aModel.getScreenDimensions().width/2;
+		int ySize = 400;
 		
 		setPreferredSize(new Dimension(xSize, ySize));
 		setSize(xSize, ySize);
@@ -47,6 +51,7 @@ public class CharacterView extends JInternalFrame{
 		GridBagConstraints c = new GridBagConstraints();
 		
 		chooseCharacter = new JButton("CHOOSE");
+		c.anchor = GridBagConstraints.NORTHWEST;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 0;
 		c.weighty = 0;
@@ -55,6 +60,7 @@ public class CharacterView extends JInternalFrame{
 		add(chooseCharacter, c);
 		
 		removeCharacter = new JButton("REMOVE");
+		c.anchor = GridBagConstraints.NORTHWEST;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 0;
 		c.weighty = 0;
@@ -64,10 +70,15 @@ public class CharacterView extends JInternalFrame{
 		
 		characterList = new JTable(new DefaultTableModel(new Object[]{"Character", "Player Name", "Symbol"}, 0))
 		{
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 264630044747863505L;
 			public boolean isCellEditable(int row, int column)
 			{
 				return false;
 			}
+			@SuppressWarnings({ "rawtypes", "unchecked" })
 			public Class getColumnClass(int column)
 			{
 				return getValueAt(0, column).getClass();
@@ -75,17 +86,17 @@ public class CharacterView extends JInternalFrame{
 		};
 		characterList.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		characterList.getColumnModel().getColumn(0).setPreferredWidth(200);
-		characterList.getColumnModel().getColumn(1).setPreferredWidth(100);
+		characterList.getColumnModel().getColumn(1).setPreferredWidth(200);
 		
 		characterList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		characterPane = new JScrollPane(characterList,
 										JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 										JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-	
+		c.anchor = GridBagConstraints.NORTHWEST;
 		c.fill = GridBagConstraints.BOTH;
-		c.ipadx = 400;
-		c.ipady = 90;
+		c.ipadx = (int)(lModel.getScreenDimensions().width/2.25);
+		c.ipady = (int)(lModel.getScreenDimensions().height/4);
 		c.weightx = 0;
 		c.gridheight = 4;
 		c.gridx = 1;
@@ -122,11 +133,22 @@ public class CharacterView extends JInternalFrame{
 	}
 	
 	public void setCharacterTableData(String characterName){
-		ImageIcon symbol = new ImageIcon(lModel.requestCharacters().get(characterName).getCharChit());
+		Image tempSymbol = getScaledImage(lModel.requestCharacters().get(characterName).getCharChit(), 30, 30);
+		ImageIcon symbol = new ImageIcon(tempSymbol);
+		
 		DefaultTableModel model = (DefaultTableModel) characterList.getModel();
-		model.addRow(new Object[] {characterName, "<PLACEHOLDER>", symbol});
+		model.addRow(new Object[] {characterName, lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getUserName(), symbol});
 
 		characterList.setRowHeight(symbol.getIconHeight());
 		characterList.setModel(model);
+	}
+	
+	private Image getScaledImage(Image srcImg, int w, int h){
+		BufferedImage symbol = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2 = symbol.createGraphics();
+		g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		g2.drawImage(srcImg, 0, 0, w, h, null);
+		g2.dispose();
+		return symbol;
 	}
 }
