@@ -1,0 +1,167 @@
+package game.environment.hex;
+
+import java.util.ArrayList;
+import config.Config;
+
+public class Hextile {
+	ArrayList<Clearing> clearings;
+	ArrayList<Roadway> roadways;
+	String name;
+	String abbreviation;
+	int xLocation;
+	int yLocation;
+	int rotation; //in degrees
+	boolean enchanted;
+	
+	public Hextile() {
+		clearings = new ArrayList<Clearing>();
+		roadways = new ArrayList<Roadway>();
+	}
+	
+	public void initialize(String n, String a, int x, int y, int r, boolean e) {
+		name = n;
+		abbreviation = a;
+		xLocation = x;
+		yLocation = y;
+		rotation = r;
+		enchanted = e;
+	}
+	
+	public void addClearing(Clearing clearing) {
+		clearings.add(clearing);
+	}
+	
+	public void addRoadway(Roadway roadway) {
+		roadways.add(roadway);
+	}
+	
+	public void connectTo(Hextile hexTile, Config.IncompleteRoadwayDirection relativePosition) {
+		Config.IncompleteRoadwayDirection head = null;
+		Config.IncompleteRoadwayDirection tail = null;
+		
+		Config.IncompleteRoadwayDirection directions[] = new Config.IncompleteRoadwayDirection[] { Config.IncompleteRoadwayDirection.TOP, Config.IncompleteRoadwayDirection.TOP_RIGHT, Config.IncompleteRoadwayDirection.BOTTOM_RIGHT, Config.IncompleteRoadwayDirection.BOTTOM, Config.IncompleteRoadwayDirection.BOTTOM_LEFT, Config.IncompleteRoadwayDirection.TOP_LEFT};
+		Config.IncompleteRoadwayDirection relativePositionArray[] = new Config.IncompleteRoadwayDirection[directions.length];
+		
+		int startingLocation = -1;
+		
+		// Find relativePosition in direction array
+		for (int i = 0; i < directions.length; i++) {
+			if (directions[i] == relativePosition) {
+				startingLocation = i;
+				break;
+			}
+		}
+		
+		if (startingLocation == -1) {
+			System.out.println("ERROR: startingLocation = -1");
+		}
+		
+		// Create new array which starts in the middle of the direction array with all the same content
+		for (int i = 0; i < relativePositionArray.length; i++) {
+			relativePositionArray[i] = directions[(startingLocation + i) % 6];
+		}
+		
+		switch (rotation) {
+            case 0:  
+            	head = relativePositionArray[0]; break;
+            case 60:  
+            	head = relativePositionArray[5]; break;
+            case 120:
+            	head = relativePositionArray[4]; break;
+            case 180:
+            	head = relativePositionArray[3]; break;
+            case 240:
+            	head = relativePositionArray[2]; break;
+            case 300:
+            	head = relativePositionArray[1]; break;
+            default: System.out.println("ERROR: Function connectTo - switch(rotation) does not handle value" + rotation); break;
+		}
+		
+		switch (hexTile.getRotation()) {
+			case 0:  
+	        	tail = relativePositionArray[3]; break;
+	        case 60:  
+	        	tail = relativePositionArray[2]; break;
+	        case 120:
+	        	tail = relativePositionArray[1]; break;
+	        case 180:
+	        	tail = relativePositionArray[0]; break;
+	        case 240:
+	        	tail = relativePositionArray[5]; break;
+	        case 300:
+	        	tail = relativePositionArray[4]; break;
+	        default: System.out.println("ERROR: Function connectTo - switch(hexTile.getRotation()) does not handle value" + rotation);
+		}
+		
+		//System.out.println("Connecting " + head + " to " + tail);
+		Roadway headRoadway = this.findRoadway(head);
+		Roadway tailRoadway = hexTile.findRoadway(tail);
+		
+		// The roadways do not line up
+		if ((headRoadway != null) && (tailRoadway != null)) {
+			headRoadway.setTailClearing(tailRoadway.getHeadClearing());
+			tailRoadway.setTailClearing(headRoadway.getHeadClearing());
+			
+			headRoadway.print();
+			tailRoadway.print();
+		}
+		else {
+			System.out.println("Warning: Trying to connect hextiles with misaligned roadways");
+		}
+		
+		
+	}
+	
+	
+	public Clearing getClearing(int num) {
+		for (int i = 0; i < clearings.size(); i++) {
+			if (clearings.get(i).getNumber() == num) {
+				return clearings.get(i);
+			}
+		}
+		return null;
+	}
+	
+	public Roadway findRoadway(Config.IncompleteRoadwayDirection direction) {
+		for (int i = 0; i < roadways.size(); i++) {
+			if (roadways.get(i).getIncompleteRoadwayDirection() == direction) {
+				//System.out.println("Roadway " + i + ": " + direction);
+				return roadways.get(i);
+			}
+		}
+		//System.out.println("ERROR: findRoadway " + direction);
+		return null;
+	}
+	
+	public int getXLocation() {
+		return xLocation;
+	}
+	
+	public int getYLocation() {
+		return yLocation;
+	}
+
+	public int getRotation() {
+		return rotation;
+	}
+	
+	
+	
+	public void print() {
+		System.out.println("My name is: " + name);
+		
+		/*System.out.println("My clearings: ");
+		for (int i = 0; i < clearings.size(); i++) {
+			clearings.get(i).print();
+		}*/
+		/*System.out.println("My roadways: ");
+		for (int i = 0; i < roadways.size(); i++) {
+			roadways.get(i).print();
+		}*/
+		System.out.println("My non-interconnected roadways: ");
+		for (int i = 0; i < roadways.size(); i++) {
+			roadways.get(i).printNonInterconnected();
+		}
+	}
+}
+

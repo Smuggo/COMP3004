@@ -12,4 +12,15 @@ public final class Config {
 	
 	public static boolean drawingHexCoords = true;
 
+	public enum RoadwayType {
+		TUNNEL, OPEN_ROAD, HIDDEN_PATH, SECRET_PASSAGE
+	}
+
+	public enum ClearingType {
+		MOUNTAIN, CAVE, WOODS
+	}
+
+	public enum IncompleteRoadwayDirection {
+		TOP, TOP_RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, TOP_LEFT
+	}
 }
