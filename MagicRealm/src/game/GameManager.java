@@ -6,7 +6,7 @@ import java.awt.Dimension;
 import game.environment.EnvironmentManager;
 import game.environment.hex.HexGrid;
 import game.entity.CharacterFactory;
-import game.entity.Character;
+import game.entity.Hero;
 
 public class GameManager {
 	
@@ -26,7 +26,7 @@ public class GameManager {
 		return lEnvironmentManager.getHexGrid();
 	}
 	
-	public Map<String, Character> requestCharacters(){
+	public Map<String, Hero> requestCharacters(){
 		return characters.getCharacters();
 	}
 }

@@ -1,5 +1,7 @@
 package view;
 
+import game.entity.Hero;
+
 import java.awt.Dimension;
 
 import network.packet.PlayerPacket;
@@ -14,6 +16,7 @@ import view.internals.menu.NewGameView;
 import view.internals.menu.ServerMenuView;
 import view.internals.game.CharacterView;
 import view.internals.game.CharacterList;
+import view.internals.game.VictoryPoints;
 
 public class ViewManager {
 	
@@ -28,6 +31,7 @@ public class ViewManager {
 	GameBoardView lGameBoard;
 	CharacterView lCharacterView;
 	CharacterList lCharacterList;
+	VictoryPoints lVictoryPoints;
 	
 	ViewModel lModel;
 	
@@ -110,6 +114,12 @@ public class ViewManager {
 		lCharacterList = new CharacterList(lModel, lCharacterView);
 		lCharacterList.setVisible(true);
 		lWindow.addWindow(lCharacterList);
+	}
+	
+	public void setVictoryPoints(Hero c){
+		lVictoryPoints = new VictoryPoints(c);
+		lVictoryPoints.setVisible(true);
+		lWindow.addWindow(lVictoryPoints);
 	}
 	
 	public void clearMenu(){

@@ -17,7 +17,7 @@ import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import game.entity.Character;
+import game.entity.Hero;
 import model.ViewModel;
 
 public class CharacterList extends JInternalFrame{
@@ -38,7 +38,7 @@ public class CharacterList extends JInternalFrame{
 
 	private ViewModel lModel;
 	
-	private Map<String, Character> characterMap;
+	private Map<String, Hero> characterMap;
 	
 	private CharacterView lCharacterView;
 	
@@ -109,6 +109,7 @@ public class CharacterList extends JInternalFrame{
 			{
 				characterMap.get(characterList.getSelectedValue()).setAvailalbe(false);
 				lCharacterView.setCharacterTableData(characterList.getSelectedValue());
+				lModel.requestVictoryPoints(characterMap.get(characterList.getSelectedValue()));
 				dispose();
 			}
 		});

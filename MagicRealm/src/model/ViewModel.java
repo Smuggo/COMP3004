@@ -2,7 +2,7 @@ package model;
 
 import game.GameManager;
 import game.environment.hex.HexGrid;
-import game.entity.Character;
+import game.entity.Hero;
 
 import java.awt.Dimension;
 import java.util.Map;
@@ -52,10 +52,12 @@ public class ViewModel {
 		lViewManager.newLoadGame();
 	}
 	
-
-	
 	public void requestCharacterSelection(){
 		lViewManager.showCharacterList();
+	}
+	
+	public void requestVictoryPoints(Hero character){
+		lViewManager.setVictoryPoints(character);
 	}
 	
 	public void requestServerMenu(int aPortNumber, String aNickName){
@@ -77,7 +79,7 @@ public class ViewModel {
 		lNetworkManager.closeServer();
 	}
 	
-	public Map<String, Character> requestCharacters(){
+	public Map<String, Hero> requestCharacters(){
 		return lGameManager.requestCharacters();
 	}
 	
