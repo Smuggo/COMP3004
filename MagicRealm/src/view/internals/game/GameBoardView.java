@@ -103,4 +103,9 @@ public class GameBoardView extends JInternalFrame{
 		lScrollPane.add(lCanvas);
 	}
 	
+	public void redraw(){
+		if(lCanvas != null)
+			lCanvas.repaint();
+	}
+	
 }

@@ -1,10 +1,13 @@
 package model;
 
 import game.GameManager;
+import game.GameState;
 import game.environment.hex.HexGrid;
 import game.entity.Hero;
+import game.entity.Player;
 
 import java.awt.Dimension;
+import java.awt.Point;
 import java.util.Map;
 
 import network.NetworkManager;
@@ -16,7 +19,9 @@ public class ViewModel {
 	ViewManager lViewManager;
 	NetworkManager lNetworkManager;
 	GameManager lGameManager;
+	GameState lGameState;
 	boolean isServer;
+	int lLocalPlayerNumber;
 	
 	public ViewModel(NetworkManager aNetworkManager){
 		isServer = false;
@@ -96,6 +101,7 @@ public class ViewModel {
 	
 	
 	public void startGame(){
+		updateLocalGameState(lNetworkManager.refreshGameState());
 		lGameManager.createNewMap();
 		
 		lViewManager.clearMenu();
@@ -115,4 +121,26 @@ public class ViewModel {
 	public HexGrid requestGrid(){
 		return lGameManager.getGrid();
 	}
+	
+	public void refreshGameState(){
+		lGameState = lNetworkManager.refreshGameState();
+	}
+	
+	public void updatePlayerClicked(Point aPoint){
+		lNetworkManager.updatePlayerClicked(aPoint);
+	}
+	
+	public void setLocalPlayerNumber(int aPlayerNum){
+		lLocalPlayerNumber = aPlayerNum;
+	}
+	
+	public void updateLocalGameState(GameState aGameState){
+		lGameState = aGameState;
+		lViewManager.gameStateUpdated();
+	}
+	
+	public GameState getGameState(){
+		return lGameState;
+	}
+	
 }

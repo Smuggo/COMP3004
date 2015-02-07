@@ -1,5 +1,8 @@
 package network.server;
 
+import game.GameState;
+import game.entity.Player;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,10 +22,13 @@ public class ServerApp implements Runnable{
 	List<Server> lServerConnections = new ArrayList<Server>();
 	boolean lServerOpen;
 	
+	GameState lGameState;
+	
 	public ServerApp(int aPortNumber, NetworkManager aNetworkManager){
 		lPortNumber = aPortNumber;
 		lNetworkManager = aNetworkManager;
 		lServerOpen = true;
+		lGameState = new GameState();
 	}
 	
 	public void run(){
@@ -38,7 +44,7 @@ public class ServerApp implements Runnable{
 		        
 		    	System.out.println("Incoming connection from: " + lNewSocket.getLocalAddress().getHostName());
 		        
-		    	Server lNewServer = new Server(lNewSocket, lNetworkManager);
+		    	Server lNewServer = new Server(lNewSocket, lNetworkManager, this);
 		    	Thread t = new Thread(lNewServer);
 		    	t.start();
 		    	System.out.println("Thread Created");
@@ -69,6 +75,15 @@ public class ServerApp implements Runnable{
 		for(int i = 0; i < lServerConnections.size(); i++){
 			lServerConnections.get(i).setGameRunning(true);
 		}
+	}
+	
+	
+	public int createNewPlayer(String aPlayerName){
+		return lGameState.addPlayer(new Player(aPlayerName));
+	}
+	
+	public GameState getGameState(){
+		return lGameState;
 	}
 	
 

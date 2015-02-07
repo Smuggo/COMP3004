@@ -1,5 +1,7 @@
 package view.internals.game;
 
+import game.GameState;
+
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -38,7 +40,9 @@ public class GameBoardCanvas extends JPanel{
 		r = new Random();
 		
 		addMouseListener(new MouseListener(){
-            public void mouseClicked(MouseEvent e){}
+            public void mouseClicked(MouseEvent e){
+            	lModel.updatePlayerClicked(e.getPoint());
+            }
 
             public void mouseEntered(MouseEvent arg0) {}
             public void mouseExited(MouseEvent arg0) {}
@@ -62,6 +66,9 @@ public class GameBoardCanvas extends JPanel{
 	}
 	
 	public void paint(Graphics g){
+		
+		GameState lGameState = lModel.getGameState();
+		
 		g.setColor(Color.white);
 	    g.fillRect(0, 0, getWidth(), getHeight());
 	    g.setColor(Color.black);
@@ -71,6 +78,10 @@ public class GameBoardCanvas extends JPanel{
 
 	    g.drawString(lMouse.x+","+lMouse.y, 200, 200);		
 		
+	    for(int i = 0; i < lGameState.getPlayers().size(); i++){
+	    	g.drawString("Player "+(i+1), lGameState.getPlayers().get(i).lastClick.x, lGameState.getPlayers().get(i).lastClick.y);
+	    }
+	    
 
 	    
 

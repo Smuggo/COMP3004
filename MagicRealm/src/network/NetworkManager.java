@@ -1,5 +1,8 @@
 package network;
 
+import java.awt.Point;
+
+import game.GameState;
 import model.ViewModel;
 import network.client.Client;
 import network.client.ClientApp;
@@ -14,6 +17,7 @@ public class NetworkManager {
 	
 	Thread lServerThread;
 	Client lLocalClient;
+	int lLocalPlayerNumber;
 	
 	public NetworkManager(){
 	}
@@ -49,7 +53,8 @@ public class NetworkManager {
 		}
 		
 		PlayerPacket lPlayerPacket = new PlayerPacket(aNickname);
-		lLocalClient.sendPlayerPacket(lPlayerPacket);
+		lLocalPlayerNumber = lLocalClient.sendPlayerPacket(lPlayerPacket);
+		lViewModel.setLocalPlayerNumber(lLocalPlayerNumber);
 		
 		return true;
 	}
@@ -69,7 +74,20 @@ public class NetworkManager {
 	}
 	
 	public void gameStarted(){
+		
 		lViewModel.startGame();
+	}
+	
+	public GameState refreshGameState(){
+		return lLocalClient.requestGameState();
+	}
+	
+	public void updatePlayerClicked(Point aPoint){
+		lLocalClient.updateStateWithPlayerClicked(lLocalPlayerNumber, aPoint);
+	}
+	
+	public void updateLocalGameState(GameState aGameState){
+		lViewModel.updateLocalGameState(aGameState);
 	}
 	
 	

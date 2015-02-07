@@ -1,5 +1,9 @@
 package network.client;
 
+import game.GameState;
+import game.entity.Player;
+
+import java.awt.Point;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -18,6 +22,7 @@ public class Client implements Runnable {
 	boolean lIsStreamsOpened;
 	NetworkManager lNetworkManager;
 	boolean lWaiting;
+	boolean gameRunning;
 	
 	
 	public Client(Socket s, NetworkManager aNetworkManager)
@@ -25,6 +30,7 @@ public class Client implements Runnable {
 		socket = s;
 		lIsStreamsOpened = false;
 		lWaiting = false;
+		gameRunning = false;
 		lNetworkManager = aNetworkManager;
 	}
 	
@@ -40,11 +46,17 @@ public class Client implements Runnable {
 			
 			while (true)
 			{						
-				Thread.sleep(1000);
+				Thread.sleep(100);
 				if(lWaiting){
 					if(checkGameStarted()){
 						lWaiting = false;
 						lNetworkManager.gameStarted();
+						gameRunning = true;
+					}
+				}else{
+					if(gameRunning){
+						System.out.println("Updated Game State");
+						lNetworkManager.updateLocalGameState(requestGameState());
 					}
 				}
 			}
@@ -82,7 +94,7 @@ public class Client implements Runnable {
 	}
 	
 	
-	public boolean sendPlayerPacket(PlayerPacket aPlayerPacket){
+	public int sendPlayerPacket(PlayerPacket aPlayerPacket){
 		try{
 			
 			if(!isStreamsOpened()){
@@ -100,7 +112,7 @@ public class Client implements Runnable {
 			
 			lOutputStream.reset();	
 			
-			System.out.println((String)lInputStream.readObject());
+			return (Integer)lInputStream.readObject();
 		}
 		catch (Exception e)
 		{
@@ -108,7 +120,27 @@ public class Client implements Runnable {
 			System.out.println("Client Error:");
 			e.printStackTrace();
 		}
-		return false;
+		return 0;
+	}
+	
+	public GameState requestGameState(){
+		try{
+
+			String lRequest = "GameState";
+			lOutputStream.writeObject(lRequest);
+			lOutputStream.flush();		
+			
+			lOutputStream.reset();	
+			
+			return (GameState)lInputStream.readObject();
+		}
+		catch (Exception e)
+		{
+			//Dump stack
+			System.out.println("Client Error:");
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public boolean waitForGameStart(){
@@ -121,6 +153,31 @@ public class Client implements Runnable {
 			
 			String lRequest = "GameStart";
 			lOutputStream.writeObject(lRequest);
+			lOutputStream.flush();
+			lOutputStream.reset();
+			
+			return (boolean) lInputStream.readObject();
+			
+			
+		}
+		catch (Exception e)
+		{
+			//Dump stack
+			System.out.println("Client Error:");
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public boolean updateStateWithPlayerClicked(int aPlayer, Point aPoint){
+		try{
+			
+			String lRequest = "PlayerPointClicked";
+			lOutputStream.writeObject(lRequest);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aPlayer);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aPoint);
 			lOutputStream.flush();
 			lOutputStream.reset();
 			

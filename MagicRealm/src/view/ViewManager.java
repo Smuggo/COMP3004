@@ -134,6 +134,12 @@ public class ViewManager {
 		}
 	}
 	
+	public void gameStateUpdated(){
+		if(lGameBoard != null){
+			lGameBoard.redraw();
+		}
+	}
+	
 	
 
 	

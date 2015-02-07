@@ -1,5 +1,8 @@
 package network.server;
+import game.entity.Player;
+
 import java.net.Socket;
+import java.awt.Point;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
@@ -13,13 +16,15 @@ public class Server implements Runnable{
 	private Socket cSocket;
 	private NetworkManager lNetworkManager;
 	private boolean gameRunning;
+	private ServerApp lServerApp;
 	
 	
-	public Server(Socket s, NetworkManager aNetworkManager)
+	public Server(Socket s, NetworkManager aNetworkManager, ServerApp aServerApp)
 	{
 		cSocket = s;
 		lNetworkManager = aNetworkManager;
 		gameRunning = false;
+		lServerApp = aServerApp;
 	}
 	
 	@Override
@@ -36,17 +41,28 @@ public class Server implements Runnable{
 				String lRequestHeader = (String)lInputStream.readObject();
 			
 				if(lRequestHeader.equals("PlayerPacket")){
-					
 					PlayerPacket lPlayerPacket = (PlayerPacket)lInputStream.readObject();
+
 					lNetworkManager.notifyNewClient(lPlayerPacket);
-					
-					lOutputStream.writeObject(lRequestHeader);
+
+					int playerNum = lServerApp.createNewPlayer(lPlayerPacket.getNickname());
+
+					lOutputStream.writeObject(playerNum);
 
 					
 				}
 				
 				if(lRequestHeader.equals("GameStart")){
 					lOutputStream.writeObject(gameRunning);
+				}
+				
+				if(lRequestHeader.equals("GameState")){
+					lOutputStream.writeObject(lServerApp.getGameState());
+				}
+				
+				if(lRequestHeader.equals("PlayerPointClicked")){
+					lServerApp.getGameState().updatePointClicked((Integer)lInputStream.readObject(),(Point)lInputStream.readObject());
+					lOutputStream.writeObject(true);
 				}
 				
 				
@@ -61,6 +77,7 @@ public class Server implements Runnable{
 		catch (Exception e)
 		{
 			System.out.println("Connection Lost in Server.java");
+			e.printStackTrace();
 		}	
 		
 	}
