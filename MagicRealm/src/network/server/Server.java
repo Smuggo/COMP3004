@@ -48,8 +48,6 @@ public class Server implements Runnable{
 					int playerNum = lServerApp.createNewPlayer(lPlayerPacket.getNickname());
 
 					lOutputStream.writeObject(playerNum);
-
-					
 				}
 				
 				if(lRequestHeader.equals("GameStart")){

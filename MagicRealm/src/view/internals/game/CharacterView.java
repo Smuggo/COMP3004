@@ -123,10 +123,11 @@ public class CharacterView extends JInternalFrame{
 				  
 			  }
 			  else{
-				lModel.requestCharacters().get(characterList.getValueAt(characterList.getSelectedRow(), 0)).setAvailalbe(true);
-			  	DefaultTableModel model = (DefaultTableModel) characterList.getModel();
-			  	model.removeRow(characterList.getSelectedRow());
-			  	characterList.setModel(model);
+				  lModel.requestCharacters().get(characterList.getValueAt(characterList.getSelectedRow(), 0)).setAvailalbe(true);
+				  DefaultTableModel model = (DefaultTableModel) characterList.getModel();
+				  model.removeRow(characterList.getSelectedRow());
+				  characterList.setModel(model);
+				  chooseCharacter.setEnabled(true); 
 			  }
 		  }
 		});
@@ -151,4 +152,6 @@ public class CharacterView extends JInternalFrame{
 		g2.dispose();
 		return symbol;
 	}
+	
+	public JButton getChooseCharacter(){ return chooseCharacter; }
 }

@@ -55,7 +55,6 @@ public class Client implements Runnable {
 					}
 				}else{
 					if(gameRunning){
-						System.out.println("Updated Game State");
 						lNetworkManager.updateLocalGameState(requestGameState());
 					}
 				}
