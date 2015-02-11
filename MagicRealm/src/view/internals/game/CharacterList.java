@@ -110,6 +110,7 @@ public class CharacterList extends JInternalFrame{
 				characterMap.get(characterList.getSelectedValue()).setAvailalbe(false);
 				lCharacterView.setCharacterTableData(characterList.getSelectedValue());
 				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).setHero(characterMap.get(characterList.getSelectedValue()));
+				lModel.updateGameState();
 				lCharacterView.getChooseCharacter().setEnabled(false);
 				lModel.requestVictoryPoints(lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero());
 				dispose();

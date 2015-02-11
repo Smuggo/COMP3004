@@ -123,11 +123,14 @@ public class CharacterView extends JInternalFrame{
 				  
 			  }
 			  else{
-				  lModel.requestCharacters().get(characterList.getValueAt(characterList.getSelectedRow(), 0)).setAvailalbe(true);
-				  DefaultTableModel model = (DefaultTableModel) characterList.getModel();
-				  model.removeRow(characterList.getSelectedRow());
-				  characterList.setModel(model);
-				  chooseCharacter.setEnabled(true); 
+				  if(lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().getName().equals(
+						  characterList.getValueAt(characterList.getSelectedRow(), 0))){
+					  lModel.requestCharacters().get(characterList.getValueAt(characterList.getSelectedRow(), 0)).setAvailalbe(true);
+				  	DefaultTableModel model = (DefaultTableModel) characterList.getModel();
+				  	model.removeRow(characterList.getSelectedRow());
+				  	characterList.setModel(model);
+				  	chooseCharacter.setEnabled(true); 
+				  }
 			  }
 		  }
 		});

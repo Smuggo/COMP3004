@@ -134,6 +134,10 @@ public class ViewModel {
 		lLocalPlayerNumber = aPlayerNum;
 	}
 	
+	public void updateGameState(){
+		lNetworkManager.updateGameState(lGameState, lLocalPlayerNumber);
+	}
+	
 	public void updateLocalGameState(GameState aGameState){
 		lGameState = aGameState;
 		lViewManager.gameStateUpdated();

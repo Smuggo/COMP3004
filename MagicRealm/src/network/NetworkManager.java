@@ -86,6 +86,10 @@ public class NetworkManager {
 		lLocalClient.updateStateWithPlayerClicked(lLocalPlayerNumber, aPoint);
 	}
 	
+	public void updateGameState(GameState aGameState, int aLocalPlayerNumber){
+		lLocalClient.setGameState(aGameState, aLocalPlayerNumber);
+	}
+	
 	public void updateLocalGameState(GameState aGameState){
 		lViewModel.updateLocalGameState(aGameState);
 	}

@@ -1,15 +1,12 @@
 package network.client;
 
 import game.GameState;
-import game.entity.Player;
 
 import java.awt.Point;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Scanner;
 
 import network.NetworkManager;
 import network.packet.PlayerPacket;
@@ -129,8 +126,6 @@ public class Client implements Runnable {
 			lOutputStream.writeObject(lRequest);
 			lOutputStream.flush();		
 			
-			lOutputStream.reset();	
-			
 			return (GameState)lInputStream.readObject();
 		}
 		catch (Exception e)
@@ -145,6 +140,21 @@ public class Client implements Runnable {
 	public boolean waitForGameStart(){
 		lWaiting = true;
 		return lWaiting;
+	}
+	
+	public void setGameState(GameState aGameState, int aLocalPlayerNumber){
+		try {
+			String lRequest = "UpdateGameState";
+			lOutputStream.writeObject(lRequest);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aGameState.getPlayer(aLocalPlayerNumber));
+			lOutputStream.flush();
+			lOutputStream.writeObject(aLocalPlayerNumber);
+			lOutputStream.flush();
+			lOutputStream.reset();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public boolean checkGameStarted(){

@@ -30,11 +30,16 @@ public class GameState implements Serializable{
 		lPlayers.add(aPlayer);
 		return lPlayers.size();
 	}
+	
 	public Player getPlayer(int i){ return lPlayers.get(i-1);} 
 	
 	public void updatePointClicked(int aPlayer, Point aPoint){
 		if(lPlayers == null)
 			return;
 		lPlayers.get(aPlayer-1).lastClick = aPoint;
+	}
+	
+	public void updatePlayer(Player aPlayer, int aPlayerNum){
+		lPlayers.get(aPlayerNum).setHero(aPlayer.getChosenHero());
 	}
 }

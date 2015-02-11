@@ -3,11 +3,7 @@ package network.server;
 import game.GameState;
 import game.entity.Player;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.Socket;
-import java.net.SocketAddress;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +56,6 @@ public class ServerApp implements Runnable{
 			while(true){
 				Thread.sleep(100);
 			}
-			
 		}
 		catch (Exception e)
 		{
@@ -85,6 +80,4 @@ public class ServerApp implements Runnable{
 	public GameState getGameState(){
 		return lGameState;
 	}
-	
-
 }

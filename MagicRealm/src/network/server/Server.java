@@ -5,8 +5,6 @@ import java.net.Socket;
 import java.awt.Point;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
-import java.util.Scanner;
 
 import network.NetworkManager;
 import network.packet.PlayerPacket;
@@ -62,10 +60,10 @@ public class Server implements Runnable{
 					lServerApp.getGameState().updatePointClicked((Integer)lInputStream.readObject(),(Point)lInputStream.readObject());
 					lOutputStream.writeObject(true);
 				}
+				if(lRequestHeader.equals("UpdateGameState")){
+					lServerApp.getGameState().updatePlayer((Player)lInputStream.readObject(), (Integer)lInputStream.readObject()-1);
+				}
 				
-				
-				
-
 				lOutputStream.flush();
 				lOutputStream.reset();
 			}
