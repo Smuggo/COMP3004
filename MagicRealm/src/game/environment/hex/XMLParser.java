@@ -1,5 +1,6 @@
 package game.environment.hex;
 
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -102,6 +103,14 @@ public class XMLParser {
                                         // Clearing Type
                                         nodeList = c.getElementsByTagName("clearingtype");
                                         Config.ClearingType clearingType = Config.ClearingType.valueOf(nodeList.item(0).getChildNodes().item(0).getNodeValue());
+                                        
+                                        nodeList = c.getElementsByTagName("positionx");
+                                        int posx = Integer.parseInt(nodeList.item(0).getChildNodes().item(0).getNodeValue());
+                                        
+                                        nodeList = c.getElementsByTagName("positiony");
+                                        int posy = Integer.parseInt(nodeList.item(0).getChildNodes().item(0).getNodeValue());
+                                        
+                                        clearing.setPosition(new Point(posx,posy));
                                         
                                         // Initialize Clearing Object
                                         clearing.initialize(abbreviation, number, clearingType);

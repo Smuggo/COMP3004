@@ -43,7 +43,7 @@ public class CharacterList extends JInternalFrame{
 	private CharacterView lCharacterView;
 	
 	public CharacterList(ViewModel aModel, CharacterView aCharacterView){
-		super("Character Selection");
+		super("Select a Character",false,false,false,true);
 		
 		lModel = aModel;
 		lCharacterView = aCharacterView;
@@ -67,8 +67,8 @@ public class CharacterList extends JInternalFrame{
 			available = true;
 		}
 		
-		setPreferredSize(new Dimension(xSize/2, (int)(ySize/1.5)));
-		setSize((int)(xSize/1.5), ySize);
+		setPreferredSize(new Dimension(960, 675));
+		setSize(960, 675);
 		
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();

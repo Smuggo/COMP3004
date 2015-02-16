@@ -40,6 +40,16 @@ public class HexGrid {
 		lCanvasSize = aCanvasSize;
 	}
 	
+	public void setHexClearings(){
+		int lGridSize = (2*lRadius)+1;
+		for(int y = 0; y < lGridSize; y++){
+			for(int x = 0; x < lGridSize; x++){
+				if(lGrid[x][y] != null && lGrid[x][y].isActive())
+				lGrid[x][y].setHexClearings();
+			}
+		}
+	}
+	
 	//NOTE: Converts x-y array to a fictional grid with negative x and y coords
 	public Hex getHex(int aX, int aY){
 		return lGrid[aX+(lRadius)][aY+(lRadius)];

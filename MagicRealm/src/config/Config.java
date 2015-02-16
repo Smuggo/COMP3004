@@ -11,7 +11,9 @@ public final class Config {
 	public static int lMaxPlayers = 7;
 	
 	public static boolean drawingHexCoords = true;
-
+	public static boolean drawingClearingBoxes = true;
+	public static boolean drawingRoadways = true;
+	
 	public enum RoadwayType {
 		TUNNEL, OPEN_ROAD, HIDDEN_PATH, SECRET_PASSAGE
 	}

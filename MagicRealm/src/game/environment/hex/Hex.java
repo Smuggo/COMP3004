@@ -43,6 +43,14 @@ public class Hex{
 		
 	}
 	
+	public Point getCenter(){
+		return new Point(lCenterX, lCenterY);
+	}
+	
+	public Hextile getHextile(){
+		return hextile;
+	}
+	
 	//Returns the corner starting at the rightmost corner
 	public Point getCorner(int cornerNum){
 
@@ -52,6 +60,12 @@ public class Hex{
 	
 	public int getRaddius() { return radius; }
 	public int getVert()    { return height; }
+	public boolean isActive(){return active;}
+	
+	public void setHexClearings(){
+		hextile.setOwnedHex(this);
+		hextile.setOwnedClearings(this);
+	}
 	
 	
 	public void drawHex (int aX, int aY, Graphics g, Dimension aCanvasSize, Point aMouse){
@@ -89,8 +103,16 @@ public class Hex{
 			
 			if(Config.drawingHexCoords){
 				g.drawString(aX+","+aY,lCenterX, lCenterY);
-				g.drawString("1",getCorner(0).x,getCorner(0).y);
 			}
+			
+			if(Config.drawingRoadways){
+				hextile.drawRoadways(g);
+			}
+			
+			if(Config.drawingClearingBoxes){
+				hextile.drawClearings(g, lCenterX, lCenterY);
+			}
+			
 			
 		}
 	}
@@ -109,6 +131,8 @@ public class Hex{
 				g2.drawPolygon(x,y,6);
 				g2.setStroke(new BasicStroke(1));
 				g2.setColor(Color.black);
+				
+				hextile.drawSelectedClearing(g, lCenterX, lCenterY, aMouse);
 
 			}
 		}

@@ -1,5 +1,8 @@
 package game.environment.hex;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -15,6 +18,7 @@ public class Hextile {
 	int rotation; //in degrees
 	boolean enchanted;
 	private BufferedImage imageFile;
+	Hex ownedHex;
 	
 	
 	public Hextile() {
@@ -32,6 +36,20 @@ public class Hextile {
 		enchanted = e;
 	}
 	
+	public void setOwnedHex(Hex aHex){
+		ownedHex = aHex;
+	}
+	
+	public void setOwnedClearings(Hex aHex){
+		for(int i = 0; i < clearings.size(); i++){
+			clearings.get(i).setOwnedHex(aHex);
+		}
+	}
+	
+	public int getAngle(){
+		return rotation;
+	}
+	
 	public BufferedImage getTileImage(){
 		return imageFile;
 	}
@@ -43,6 +61,31 @@ public class Hextile {
 	public void addRoadway(Roadway roadway) {
 		roadways.add(roadway);
 	}
+	
+	public void drawClearings(Graphics g, int centerX, int centerY){
+		for(int i = 0; i < clearings.size(); i++){
+			Clearing lClearing = clearings.get(i);
+			lClearing.draw(g, centerX, centerY, rotation);
+		}
+	}
+	
+	public void drawSelectedClearing(Graphics g, int centerX, int centerY, Point aMouse){
+		for(int i = 0; i < clearings.size(); i++){
+			Clearing lClearing = clearings.get(i);
+			
+			lClearing.drawSelected(g, centerX, centerY, rotation, aMouse);
+			
+		}
+	}
+	
+	public void drawRoadways(Graphics g){
+		for(int i = 0; i < roadways.size(); i++){
+			Roadway lRoadway = roadways.get(i);
+			lRoadway.draw(g);
+		}
+	}
+	
+	
 	
 	public void connectTo(Hextile hexTile, Config.IncompleteRoadwayDirection relativePosition) {
 		Config.IncompleteRoadwayDirection head = null;

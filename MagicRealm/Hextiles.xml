@@ -12,18 +12,26 @@
 	<clearing>
 		<number>1</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-118</positionx>
+		<positiony>-98</positiony>
 	</clearing>
 	<clearing>
 		<number>2</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-118</positionx>
+		<positiony>22</positiony>
 	</clearing>
 	<clearing>
 		<number>4</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>0</positionx>
+		<positiony>0</positiony>
 	</clearing>
 	<clearing>
 		<number>5</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>0</positionx>
+		<positiony>0</positiony>
 	</clearing>
 	<roadway>
 		<headclearing>1</headclearing>
@@ -73,18 +81,26 @@
 	<clearing>
 		<number>1</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>117</positionx>
+		<positiony>64</positiony>
 	</clearing>
 	<clearing>
 		<number>2</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-111</positionx>
+		<positiony>64</positiony>
 	</clearing>
 	<clearing>
 		<number>4</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-68</positionx>
+		<positiony>-111</positiony>
 	</clearing>
 	<clearing>
 		<number>5</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>110</positionx>
+		<positiony>-66</positiony>
 	</clearing>
 	<roadway>
 		<headclearing>1</headclearing>
@@ -134,26 +150,38 @@
 	<clearing>
 		<number>1</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-77</positionx>
+		<positiony>-140</positiony>
 	</clearing>
 	<clearing>
 		<number>2</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>136</positionx>
+		<positiony>-20</positiony>
 	</clearing>
 	<clearing>
 		<number>3</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>65</positionx>
+		<positiony>-128</positiony>
 	</clearing>
 	<clearing>
 		<number>4</number>
 		<clearingtype>CAVE</clearingtype>
+		<positionx>-80</positionx>
+		<positiony>148</positiony>
 	</clearing>
 	<clearing>
 		<number>5</number>
 		<clearingtype>CAVE</clearingtype>
+		<positionx>-61</positionx>
+		<positiony>53</positiony>
 	</clearing>
 	<clearing>
 		<number>6</number>
 		<clearingtype>CAVE</clearingtype>
+		<positionx>-16</positionx>
+		<positiony>-39</positiony>
 	</clearing>
 	<roadway>
 		<headclearing>1</headclearing>
@@ -228,26 +256,38 @@
 	<clearing>
 		<number>1</number>
 		<clearingtype>CAVE</clearingtype>
+		<positionx>127</positionx>
+		<positiony>-78</positiony>
 	</clearing>
 	<clearing>
 		<number>2</number>
 		<clearingtype>CAVE</clearingtype>
+		<positionx>0</positionx>
+		<positiony>-144</positiony>
 	</clearing>
 	<clearing>
 		<number>3</number>
 		<clearingtype>CAVE</clearingtype>
+		<positionx>-3</positionx>
+		<positiony>-34</positiony>
 	</clearing>
 	<clearing>
 		<number>4</number>
 		<clearingtype>CAVE</clearingtype>
+		<positionx>8</positionx>
+		<positiony>140</positiony>
 	</clearing>
 	<clearing>
 		<number>5</number>
 		<clearingtype>CAVE</clearingtype>
+		<positionx>-110</positionx>
+		<positiony>-68</positiony>
 	</clearing>
 	<clearing>
 		<number>6</number>
 		<clearingtype>CAVE</clearingtype>
+		<positionx>50</positionx>
+		<positiony>55</positiony>
 	</clearing>
 	<roadway>
 		<headclearing>1</headclearing>
@@ -312,26 +352,38 @@
 	<clearing>
 		<number>1</number>
 		<clearingtype>CAVE</clearingtype>
+		<positionx>116</positionx>
+		<positiony>70</positiony>
 	</clearing>
 	<clearing>
 		<number>2</number>
 		<clearingtype>CAVE</clearingtype>
+		<positionx>-117</positionx>
+		<positiony>61</positiony>
 	</clearing>
 	<clearing>
 		<number>3</number>
 		<clearingtype>CAVE</clearingtype>
+		<positionx>-20</positionx>
+		<positiony>1</positiony>
 	</clearing>
 	<clearing>
 		<number>4</number>
 		<clearingtype>CAVE</clearingtype>
+		<positionx>25</positionx>
+		<positiony>129</positiony>
 	</clearing>
 	<clearing>
 		<number>5</number>
 		<clearingtype>CAVE</clearingtype>
+		<positionx>-115</positionx>
+		<positiony>-65</positiony>
 	</clearing>
 	<clearing>
 		<number>6</number>
 		<clearingtype>CAVE</clearingtype>
+		<positionx>64</positionx>
+		<positiony>-130</positiony>
 	</clearing>
 	<roadway>
 		<headclearing>1</headclearing>
@@ -386,26 +438,38 @@
 	<clearing>
 		<number>1</number>
 		<clearingtype>MOUNTAIN</clearingtype>
+		<positionx>-113</positionx>
+		<positiony>-64</positiony>
 	</clearing>
 	<clearing>
 		<number>2</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-113</positionx>
+		<positiony>67</positiony>
 	</clearing>
 	<clearing>
 		<number>3</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-3</positionx>
+		<positiony>0</positiony>
 	</clearing>
 	<clearing>
 		<number>4</number>
 		<clearingtype>MOUNTAIN</clearingtype>
+		<positionx>113</positionx>
+		<positiony>-70</positiony>
 	</clearing>
 	<clearing>
 		<number>5</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>116</positionx>
+		<positiony>68</positiony>
 	</clearing>
 	<clearing>
 		<number>6</number>
 		<clearingtype>MOUNTAIN</clearingtype>
+		<positionx>0</positionx>
+		<positiony>-131</positiony>
 	</clearing>
 	<roadway>
 		<headclearing>1</headclearing>
@@ -470,26 +534,38 @@
 	<clearing>
 		<number>1</number>
 		<clearingtype>MOUNTAIN</clearingtype>
+		<positionx>-15</positionx>
+		<positiony>145</positiony>
 	</clearing>
 	<clearing>
 		<number>2</number>
 		<clearingtype>MOUNTAIN</clearingtype>
+		<positionx>0</positionx>
+		<positiony>-133</positiony>
 	</clearing>
 	<clearing>
 		<number>3</number>
 		<clearingtype>MOUNTAIN</clearingtype>
+		<positionx>-76</positionx>
+		<positiony>-45</positiony>
 	</clearing>
 	<clearing>
 		<number>4</number>
 		<clearingtype>MOUNTAIN</clearingtype>
+		<positionx>71</positionx>
+		<positiony>68</positiony>
 	</clearing>
 	<clearing>
 		<number>5</number>
 		<clearingtype>MOUNTAIN</clearingtype>
+		<positionx>76</positionx>
+		<positiony>-42</positiony>
 	</clearing>
 	<clearing>
 		<number>6</number>
 		<clearingtype>MOUNTAIN</clearingtype>
+		<positionx>-88</positionx>
+		<positiony>62</positiony>
 	</clearing>
 	<roadway>
 		<headclearing>1</headclearing>
@@ -544,18 +620,26 @@
 	<clearing>
 		<number>1</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>0</positionx>
+		<positiony>-135</positiony>
 	</clearing>
 	<clearing>
 		<number>2</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-114</positionx>
+		<positiony>-68</positiony>
 	</clearing>
 	<clearing>
 		<number>4</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>0</positionx>
+		<positiony>69</positiony>
 	</clearing>
 	<clearing>
 		<number>5</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>107</positionx>
+		<positiony>-65</positiony>
 	</clearing>
 	<roadway>
 		<headclearing>1</headclearing>
@@ -605,18 +689,26 @@
 	<clearing>
 		<number>1</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>114</positionx>
+		<positiony>-65</positiony>
 	</clearing>
 	<clearing>
 		<number>2</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>4</positionx>
+		<positiony>-132</positiony>
 	</clearing>
 	<clearing>
 		<number>4</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-61</positionx>
+		<positiony>33</positiony>
 	</clearing>
 	<clearing>
 		<number>5</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>112</positionx>
+		<positiony>61</positiony>
 	</clearing>
 	<roadway>
 		<headclearing>1</headclearing>
@@ -666,26 +758,38 @@
 	<clearing>
 		<number>1</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-84</positionx>
+		<positiony>-108</positiony>
 	</clearing>
 	<clearing>
 		<number>2</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>134</positionx>
+		<positiony>2</positiony>
 	</clearing>
 	<clearing>
 		<number>3</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>54</positionx>
+		<positiony>127</positiony>
 	</clearing>
 	<clearing>
 		<number>4</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-161</positionx>
+		<positiony>3</positiony>
 	</clearing>
 	<clearing>
 		<number>5</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-102</positionx>
+		<positiony>107</positiony>
 	</clearing>
 	<clearing>
 		<number>6</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-9</positionx>
+		<positiony>25</positiony>
 	</clearing>
 	<roadway>
 		<headclearing>1</headclearing>
@@ -760,18 +864,26 @@
 	<clearing>
 		<number>1</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-115</positionx>
+		<positiony>64</positiony>
 	</clearing>
 	<clearing>
 		<number>2</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-115</positionx>
+		<positiony>-65</positiony>
 	</clearing>
 	<clearing>
 		<number>4</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>64</positionx>
+		<positiony>-118</positiony>
 	</clearing>
 	<clearing>
 		<number>5</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>115</positionx>
+		<positiony>65</positiony>
 	</clearing>
 	<roadway>
 		<headclearing>1</headclearing>
@@ -821,26 +933,38 @@
 	<clearing>
 		<number>1</number>
 		<clearingtype>MOUNTAIN</clearingtype>
+		<positionx>95</positionx>
+		<positiony>37</positiony>
 	</clearing>
 	<clearing>
 		<number>2</number>
 		<clearingtype>MOUNTAIN</clearingtype>
+		<positionx>-1</positionx>
+		<positiony>-132</positiony>
 	</clearing>
 	<clearing>
 		<number>3</number>
 		<clearingtype>CAVE</clearingtype>
+		<positionx>113</positionx>
+		<positiony>-65</positiony>
 	</clearing>
 	<clearing>
 		<number>4</number>
 		<clearingtype>MOUNTAIN</clearingtype>
+		<positionx>-31</positionx>
+		<positiony>20</positiony>
 	</clearing>
 	<clearing>
 		<number>5</number>
 		<clearingtype>MOUNTAIN</clearingtype>
+		<positionx>0</positionx>
+		<positiony>131</positiony>
 	</clearing>
 	<clearing>
 		<number>6</number>
 		<clearingtype>CAVE</clearingtype>
+		<positionx>-113</positionx>
+		<positiony>-69</positiony>
 	</clearing>
 	<roadway>
 		<headclearing>1</headclearing>
@@ -895,26 +1019,38 @@
 	<clearing>
 		<number>1</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>23</positionx>
+		<positiony>95</positiony>
 	</clearing>
 	<clearing>
 		<number>2</number>
 		<clearingtype>MOUNTAIN</clearingtype>
+		<positionx>116</positionx>
+		<positiony>-61</positiony>
 	</clearing>
 	<clearing>
 		<number>3</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>125</positionx>
+		<positiony>55</positiony>
 	</clearing>
 	<clearing>
 		<number>4</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>1</positionx>
+		<positiony>-5</positiony>
 	</clearing>
 	<clearing>
 		<number>5</number>
 		<clearingtype>MOUNTAIN</clearingtype>
+		<positionx>-97</positionx>
+		<positiony>-92</positiony>
 	</clearing>
 	<clearing>
 		<number>6</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-79</positionx>
+		<positiony>136</positiony>
 	</clearing>
 	<roadway>
 		<headclearing>1</headclearing>
@@ -979,14 +1115,20 @@
 	<clearing>
 		<number>2</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>2</positionx>
+		<positiony>58</positiony>
 	</clearing>
 	<clearing>
 		<number>4</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-113</positionx>
+		<positiony>-69</positiony>
 	</clearing>
 	<clearing>
 		<number>5</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>51</positionx>
+		<positiony>-98</positiony>
 	</clearing>
 	<roadway>
 		<headclearing>2</headclearing>
@@ -1031,14 +1173,20 @@
 	<clearing>
 		<number>2</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>70</positionx>
+		<positiony>-100</positiony>
 	</clearing>
 	<clearing>
 		<number>4</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>122</positionx>
+		<positiony>57</positiony>
 	</clearing>
 	<clearing>
 		<number>5</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-106</positionx>
+		<positiony>-2</positiony>
 	</clearing>
 	<roadway>
 		<headclearing>2</headclearing>
@@ -1083,26 +1231,38 @@
 	<clearing>
 		<number>1</number>
 		<clearingtype>MOUNTAIN</clearingtype>
+		<positionx>-78</positionx>
+		<positiony>-46</positiony>
 	</clearing>
 	<clearing>
 		<number>2</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-127</positionx>
+		<positiony>75</positiony>
 	</clearing>
 	<clearing>
 		<number>3</number>
 		<clearingtype>MOUNTAIN</clearingtype>
+		<positionx>-7</positionx>
+		<positiony>69</positiony>
 	</clearing>
 	<clearing>
 		<number>4</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>1</positionx>
+		<positiony>-146</positiony>
 	</clearing>
 	<clearing>
 		<number>5</number>
 		<clearingtype>MOUNTAIN</clearingtype>
+		<positionx>125</positionx>
+		<positiony>72</positiony>
 	</clearing>
 	<clearing>
 		<number>6</number>
 		<clearingtype>MOUNTAIN</clearingtype>
+		<positionx>95</positionx>
+		<positiony>-52</positiony>
 	</clearing>
 	<roadway>
 		<headclearing>1</headclearing>
@@ -1162,14 +1322,20 @@
 	<clearing>
 		<number>2</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-60</positionx>
+		<positiony>-111</positiony>
 	</clearing>
 	<clearing>
 		<number>4</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>104</positionx>
+		<positiony>-82</positiony>
 	</clearing>
 	<clearing>
 		<number>5</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-5</positionx>
+		<positiony>65</positiony>
 	</clearing>
 	<roadway>
 		<headclearing>2</headclearing>
@@ -1214,14 +1380,20 @@
 	<clearing>
 		<number>2</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>114</positionx>
+		<positiony>-10</positiony>
 	</clearing>
 	<clearing>
 		<number>4</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-111</positionx>
+		<positiony>65</positiony>
 	</clearing>
 	<clearing>
 		<number>5</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-58</positionx>
+		<positiony>-100</positiony>
 	</clearing>
 	<roadway>
 		<headclearing>2</headclearing>
@@ -1266,14 +1438,20 @@
 	<clearing>
 		<number>2</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-126</positionx>
+		<positiony>-22</positiony>
 	</clearing>
 	<clearing>
 		<number>4</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-16</positionx>
+		<positiony>-135</positiony>
 	</clearing>
 	<clearing>
 		<number>5</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>110</positionx>
+		<positiony>-3</positiony>
 	</clearing>
 	<roadway>
 		<headclearing>2</headclearing>
@@ -1318,26 +1496,38 @@
 	<clearing>
 		<number>1</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-86</positionx>
+		<positiony>-66</positiony>
 	</clearing>
 	<clearing>
 		<number>2</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>74</positionx>
+		<positiony>-128</positiony>
 	</clearing>
 	<clearing>
 		<number>3</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>118</positionx>
+		<positiony>70</positiony>
 	</clearing>
 	<clearing>
 		<number>4</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-13</positionx>
+		<positiony>45</positiony>
 	</clearing>
 	<clearing>
 		<number>5</number>
 		<clearingtype>WOODS</clearingtype>
+		<positionx>-104</positionx>
+		<positiony>111</positiony>
 	</clearing>
 	<clearing>
 		<number>6</number>
 		<clearingtype>CAVE</clearingtype>
+		<positionx>80</positionx>
+		<positiony>-31</positiony>
 	</clearing>
 	<roadway>
 		<headclearing>1</headclearing>

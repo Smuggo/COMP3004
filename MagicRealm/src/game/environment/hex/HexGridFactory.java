@@ -14,6 +14,7 @@ public class HexGridFactory {
 		
 		// Create hexGrid and send hextile logic
 		HexGrid lHexGrid = new HexGrid(3, lCanvasSize, hextiles);
+		lHexGrid.setHexClearings();
 		
 		return lHexGrid;
 	}
