@@ -152,7 +152,7 @@ public class Hextile {
 			tailRoadway.setTailClearing(headRoadway.getHeadClearing());
 		}
 		else {
-			System.out.println("Warning: Bad Connection when connecting " + this.name + " to the " + relativePosition + " of " + hexTile.name);
+			//System.out.println("Warning: No path found when connecting the " + relativePosition + " of " + this.name + " to " + hexTile.name);
 		}	
 	}
 	
