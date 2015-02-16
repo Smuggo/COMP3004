@@ -47,13 +47,13 @@ public class CharacterList extends JInternalFrame{
 		
 		lModel = aModel;
 		lCharacterView = aCharacterView;
+		characterMap = aModel.getCharacters();
 		
 		int xSize = lModel.getScreenDimensions().width;
 		int ySize = lModel.getScreenDimensions().height;
 		
 		boolean available = true;
 		
-		characterMap = lModel.requestCharacters();
 		for (String chName : allCharacters){
 			for (Player player : aModel.getGameState().getPlayers()){
 				if(player.getChosenHero() != null){
@@ -101,7 +101,8 @@ public class CharacterList extends JInternalFrame{
 		add(select, c);
 		
 		characterList.setSelectedIndex(0);
-		charSheet = new JLabel(new ImageIcon(characterMap.get(characterList.getSelectedValue()).getCharSheet()));
+
+		charSheet = new JLabel(new ImageIcon(aModel.getGameManager().getImage(characterMap.get(characterList.getSelectedValue()).getCharSheet())));
 		c.anchor = GridBagConstraints.NORTH;
 		c.fill = GridBagConstraints.NONE;
 		c.gridx = 1;
@@ -117,9 +118,9 @@ public class CharacterList extends JInternalFrame{
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				lCharacterView.setCharacterTableData(characterList.getSelectedValue());
+				lCharacterView.setCharacterTableData(characterList.getSelectedValue(), lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getUserName());
 				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).setHero(characterMap.get(characterList.getSelectedValue()));
-				lModel.updateGameState();
+				lModel.updatePlayerCharacter();
 				lCharacterView.getChooseCharacter().setEnabled(false);
 				lModel.requestVictoryPoints(lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero());
 				dispose();
@@ -138,7 +139,7 @@ public class CharacterList extends JInternalFrame{
 
 		characterList.addListSelectionListener(new ListSelectionListener(){
 			public void valueChanged(ListSelectionEvent e) {
-				charSheet.setIcon(new ImageIcon(characterMap.get(characterList.getSelectedValue()).getCharSheet()));
+				charSheet.setIcon(new ImageIcon(lModel.getGameManager().getImage(characterMap.get(characterList.getSelectedValue()).getCharSheet())));
 				getContentPane().repaint();
 			}
 		});

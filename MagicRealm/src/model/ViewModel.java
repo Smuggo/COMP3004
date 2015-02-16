@@ -8,6 +8,7 @@ import game.entity.Player;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Map;
 
 import network.NetworkManager;
@@ -84,8 +85,8 @@ public class ViewModel {
 		lNetworkManager.closeServer();
 	}
 	
-	public Map<String, Hero> requestCharacters(){
-		return lGameManager.requestCharacters();
+	public Map<String, Hero> getCharacters(){
+		return lGameManager.getCharacters();
 	}
 	
 	
@@ -134,18 +135,36 @@ public class ViewModel {
 		lLocalPlayerNumber = aPlayerNum;
 	}
 	
-	public void updateGameState(){
-		lNetworkManager.updateGameState(lGameState, lLocalPlayerNumber);
+	public void updatePlayerCharacter(){
+		lNetworkManager.updatePlayerCharacter(lGameState, lLocalPlayerNumber);
 	}
 	
 	public void updateLocalGameState(GameState aGameState){
+		ArrayList<Player> tempList = new ArrayList<>();
+		boolean add = true;
+		
+		if(lGameState!= null && aGameState != null){	
+			for(int i = 1; i < aGameState.getPlayers().size()+1; i++){
+				if(!lGameState.getPlayer(i).toString().equals(aGameState.getPlayer(i).toString())){
+					System.out.println(lGameState.getPlayer(i).toString());
+					System.out.println(aGameState.getPlayer(i).toString());
+					tempList.add(aGameState.getPlayer(i));
+				}
+			}
+			
+			if(tempList.size() != 0)
+				lViewManager.updatePlayerTable(tempList);
+		}
+		
 		lGameState = aGameState;
 		lViewManager.gameStateUpdated();
 	}
 	
-	public GameState getGameState(){
-		return lGameState;
-	}
+	public GameState getGameState(){ return lGameState; }
 	
-	public int getLocalPlayerNum() { return lLocalPlayerNumber; }
+	public GameManager getGameManager(){ return lGameManager; }
+	
+	public int getLocalPlayerNum() {
+		return lLocalPlayerNumber;
+	}
 }

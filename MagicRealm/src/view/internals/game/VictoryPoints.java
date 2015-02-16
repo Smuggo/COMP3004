@@ -256,7 +256,6 @@ public class VictoryPoints extends JInternalFrame{
 					    						  (int)goldPoints.getValue()};
 			  
 			  lCharacter.setVictoryConditions(victoryConditions);
-			  lModel.updateGameState();
 			  dispose();
 		  }
 		});

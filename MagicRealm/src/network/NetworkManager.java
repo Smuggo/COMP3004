@@ -74,7 +74,6 @@ public class NetworkManager {
 	}
 	
 	public void gameStarted(){
-		
 		lViewModel.startGame();
 	}
 	
@@ -86,14 +85,11 @@ public class NetworkManager {
 		lLocalClient.updateStateWithPlayerClicked(lLocalPlayerNumber, aPoint);
 	}
 	
-	public void updateGameState(GameState aGameState, int aLocalPlayerNumber){
-		lLocalClient.setGameState(aGameState, aLocalPlayerNumber);
+	public void updatePlayerCharacter(GameState aGameState, int aLocalPlayerNumber){
+		lLocalClient.setPlayerCharacter(aGameState, aLocalPlayerNumber);
 	}
 	
 	public void updateLocalGameState(GameState aGameState){
 		lViewModel.updateLocalGameState(aGameState);
 	}
-	
-	
-
 }

@@ -1,8 +1,6 @@
 package view.internals.game;
 
-import java.awt.Canvas;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -12,8 +10,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 
 import model.ViewModel;
 

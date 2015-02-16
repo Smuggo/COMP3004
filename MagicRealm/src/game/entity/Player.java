@@ -22,4 +22,11 @@ public class Player implements Serializable{
 	public Hero   getChosenHero(){ return lChosenHero; }
 	
 	public void setHero(Hero aHero){ lChosenHero = aHero; }
+	
+	public String toString(){
+		String playerString = "";
+		if(lChosenHero != null)
+			playerString = lUserName + lChosenHero.getName();
+		return playerString;
+	}
 }

@@ -39,6 +39,4 @@ public class GameState implements Serializable{
 	public void updatePlayer(Player aPlayer, int aPlayerNum){
 		lPlayers.get(aPlayerNum).setHero(aPlayer.getChosenHero());
 	}
-	
-	public void getAvailableCharacters(){ }
 }

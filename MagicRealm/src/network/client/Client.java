@@ -1,6 +1,5 @@
 package network.client;
 
-import game.GameManager;
 import game.GameState;
 
 import java.awt.Point;
@@ -145,9 +144,9 @@ public class Client implements Runnable {
 		return lWaiting;
 	}
 	
-	public void setGameState(GameState aGameState, int aLocalPlayerNumber){
+	public void setPlayerCharacter(GameState aGameState, int aLocalPlayerNumber){
 		try {
-			String lRequest = "UpdateGameState";
+			String lRequest = "UpdatePlayerCharacter";
 			lOutputStream.writeObject(lRequest);
 			lOutputStream.flush();
 			lOutputStream.writeObject(aGameState.getPlayer(aLocalPlayerNumber));
