@@ -1,5 +1,8 @@
 package game.environment.hex;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -43,6 +46,24 @@ public class Hextile {
 	public void addRoadway(Roadway roadway) {
 		roadways.add(roadway);
 	}
+	
+	public void drawClearings(Graphics g, int centerX, int centerY){
+		for(int i = 0; i < clearings.size(); i++){
+			Clearing lClearing = clearings.get(i);
+			lClearing.draw(g, centerX, centerY, rotation);
+		}
+	}
+	
+	public void drawSelectedClearing(Graphics g, int centerX, int centerY, Point aMouse){
+		for(int i = 0; i < clearings.size(); i++){
+			Clearing lClearing = clearings.get(i);
+			
+			lClearing.drawSelected(g, centerX, centerY, rotation, aMouse);
+			
+		}
+	}
+	
+	
 	
 	public void connectTo(Hextile hexTile, Config.IncompleteRoadwayDirection relativePosition) {
 		Config.IncompleteRoadwayDirection head = null;
