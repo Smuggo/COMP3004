@@ -1,5 +1,6 @@
 package network.client;
 
+import game.GameManager;
 import game.GameState;
 
 import java.awt.Point;
@@ -7,6 +8,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+
+import javax.swing.JTable;
 
 import network.NetworkManager;
 import network.packet.PlayerPacket;
@@ -155,6 +158,9 @@ public class Client implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void updateCharacterTable(JTable aCharacterTable){
 	}
 	
 	public boolean checkGameStarted(){

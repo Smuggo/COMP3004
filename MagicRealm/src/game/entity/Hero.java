@@ -16,8 +16,7 @@ public class Hero implements Serializable{
 	private int gold;
 	
 	private String name;
-	
-	private boolean available;
+
 	private boolean hidden;
 
 	private transient BufferedImage characterSheet;
@@ -25,7 +24,6 @@ public class Hero implements Serializable{
 	
 	public Hero(String n, BufferedImage sheet, BufferedImage charChit){
 		name = n;
-		available = true;
 		characterSheet = sheet;
 		characterChit = charChit;
 		victoryConditions = new int[5];
@@ -38,7 +36,6 @@ public class Hero implements Serializable{
 	}
 	
 	public String  getName()           { return name; }
-	public boolean getAvailable() 	   { return available; }
 	public boolean getHidden()         { return hidden; }
 	public BufferedImage getCharSheet(){ return characterSheet; }
 	public BufferedImage getCharChit() { return characterChit; }
@@ -47,7 +44,6 @@ public class Hero implements Serializable{
 	public int getNotoriety()          { return notoriety; }
 	public int getGold()               { return gold; }
 	
-	public void setAvailalbe(boolean nAvailable) { available = nAvailable; }
 	public void setVictoryConditions(int[] vCond){ victoryConditions = vCond; }
 	public void setFame(int nFame)               { fame = nFame; }
 	public void setNotoriety(int nNotoriety)     { notoriety = nNotoriety; }
