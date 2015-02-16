@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,7 +36,7 @@ public class CharacterView extends JInternalFrame{
 	private ViewModel lModel;
 	
 	public CharacterView(ViewModel aModel){
-		super("Character List");
+		super("Character List",false,false,false,true);
 		
 		lModel = aModel;
 
@@ -50,22 +51,24 @@ public class CharacterView extends JInternalFrame{
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		
-		chooseCharacter = new JButton("CHOOSE");
+		chooseCharacter = new JButton("Select Character");
 		c.anchor = GridBagConstraints.NORTHWEST;
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.NONE;
 		c.weightx = 0;
 		c.weighty = 0;
 		c.gridx = 0;
 		c.gridy = 0;
+		c.insets = new Insets(0,0,5,10);
 		add(chooseCharacter, c);
 		
-		removeCharacter = new JButton("REMOVE");
+		removeCharacter = new JButton("Remove Character");
 		c.anchor = GridBagConstraints.NORTHWEST;
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.NONE;
 		c.weightx = 0;
 		c.weighty = 0;
-		c.gridx = 0;
-		c.gridy = 1;
+		c.gridx = 1;
+		c.gridy = 0;
+		c.insets = new Insets(0,0,5,10);
 		add(removeCharacter, c);
 		
 		characterList = new JTable(new DefaultTableModel(new Object[]{"Character", "Player Name", "Symbol"}, 0))
@@ -99,8 +102,10 @@ public class CharacterView extends JInternalFrame{
 		c.ipady = (int)(lModel.getScreenDimensions().height/4);
 		c.weightx = 0;
 		c.gridheight = 4;
-		c.gridx = 1;
-		c.gridy = 0;
+		c.gridwidth = 2;
+		c.gridx = 0;
+		c.gridy = 1;
+		c.insets = new Insets(0,0,0,0);
 		add(characterPane, c);
 		
 		createButtonListeners();
