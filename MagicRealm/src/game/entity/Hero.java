@@ -3,6 +3,8 @@ package game.entity;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
+import config.Config.ImageType;
+
 public class Hero implements Serializable{
 	/**
 	 * 
@@ -19,12 +21,12 @@ public class Hero implements Serializable{
 
 	private boolean hidden;
 
-	private transient BufferedImage characterSheet;
-	private transient BufferedImage characterChit;
+	private ImageType characterSheet;
+	private ImageType characterChit;
 	
-	public Hero(String n, BufferedImage sheet, BufferedImage charChit){
+	public Hero(String n, ImageType charPage, ImageType charChit){
 		name = n;
-		characterSheet = sheet;
+		characterSheet = charPage;
 		characterChit = charChit;
 		victoryConditions = new int[5];
 		
@@ -37,8 +39,8 @@ public class Hero implements Serializable{
 	
 	public String  getName()           { return name; }
 	public boolean getHidden()         { return hidden; }
-	public BufferedImage getCharSheet(){ return characterSheet; }
-	public BufferedImage getCharChit() { return characterChit; }
+	public ImageType getCharSheet(){ return characterSheet; }
+	public ImageType getCharChit() { return characterChit; }
 	public int[] getVictoryConditions(){ return victoryConditions; }
 	public int getFame()               { return fame; }
 	public int getNotoriety()          { return notoriety; }

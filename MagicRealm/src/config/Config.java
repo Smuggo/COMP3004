@@ -25,4 +25,8 @@ public final class Config {
 	public enum IncompleteRoadwayDirection {
 		TOP, TOP_RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, TOP_LEFT
 	}
+	
+	public enum ImageType {
+		captainPage, swordsmanPage, amazonPage, dwarfPage, elfPage, bKnightPage, captainChit, swordsmanChit, amazonChit, dwarfChit, elfChit, bKnightChit
+	};
 }

@@ -1,5 +1,7 @@
 package view.internals.game;
 
+import game.entity.Player;
+
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
@@ -10,6 +12,7 @@ import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -140,13 +143,13 @@ public class CharacterView extends JInternalFrame{
 		});
 	}
 	
-	public void setCharacterTableData(String characterName){
-		Image tempSymbol = getScaledImage(lModel.requestCharacters().get(characterName).getCharChit(), 30, 30);
+	public void setCharacterTableData(String characterName, String playerName){
+		
+		Image tempSymbol = getScaledImage(lModel.getGameManager().getImage(lModel.getCharacters().get(characterName).getCharChit()), 30, 30);
 		ImageIcon symbol = new ImageIcon(tempSymbol);
 		
 		DefaultTableModel model = (DefaultTableModel) characterList.getModel();
-		model.addRow(new Object[] {characterName, lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getUserName(), symbol});
-
+		model.addRow(new Object[] {characterName, playerName, symbol});
 		characterList.setRowHeight(symbol.getIconHeight());
 		characterList.setModel(model);
 	}
@@ -161,4 +164,12 @@ public class CharacterView extends JInternalFrame{
 	}
 	
 	public JButton getChooseCharacter(){ return chooseCharacter; }
+	
+	public void updateCharacterTable(ArrayList<Player> aPlayers){	
+		for(Player player: aPlayers){
+			if(player.getChosenHero() != null){
+				setCharacterTableData(player.getChosenHero().getName(), player.getUserName());
+			}
+		}
+	}
 }

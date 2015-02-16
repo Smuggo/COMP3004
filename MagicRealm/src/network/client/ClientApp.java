@@ -1,10 +1,8 @@
 package network.client;
 
-import java.io.IOException;
 import java.net.Socket;
 
 import network.NetworkManager;
-import config.Config;
 
 
 public class ClientApp{

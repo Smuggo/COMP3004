@@ -1,8 +1,10 @@
 package view;
 
 import game.entity.Hero;
+import game.entity.Player;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 
 import network.packet.PlayerPacket;
 import model.ViewModel;
@@ -140,8 +142,7 @@ public class ViewManager {
 		}
 	}
 	
-	
-
-	
-	
+	public void updatePlayerTable(ArrayList<Player> aPlayers){
+		lCharacterView.updateCharacterTable(aPlayers);
+	}
 }

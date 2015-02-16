@@ -34,8 +34,7 @@ public class Server implements Runnable{
 			ObjectInputStream lInputStream = new ObjectInputStream(cSocket.getInputStream());
 			boolean running = true;
 			while (running)
-			{		
-				
+			{					
 				String lRequestHeader = (String)lInputStream.readObject();
 			
 				if(lRequestHeader.equals("PlayerPacket")){
@@ -60,9 +59,8 @@ public class Server implements Runnable{
 					lServerApp.getGameState().updatePointClicked((Integer)lInputStream.readObject(),(Point)lInputStream.readObject());
 					lOutputStream.writeObject(true);
 				}
-				if(lRequestHeader.equals("UpdateGameState")){
+				if(lRequestHeader.equals("UpdatePlayerCharacter")){
 					lServerApp.getGameState().updatePlayer((Player)lInputStream.readObject(), (Integer)lInputStream.readObject()-1);
-					//lServerApp.getGameState().setHeroes((Map<String,Hero>)lInputStream.readObject());
 				}
 				
 				lOutputStream.flush();
