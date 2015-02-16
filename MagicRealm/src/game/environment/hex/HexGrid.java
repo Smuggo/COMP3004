@@ -59,7 +59,7 @@ public class HexGrid {
 		for(int y = -lRadius; y <= lRadius; y++ ){
 			for(int x = -lRadius; x <= lRadius; x++){
 				if (getHex(x,y) != null) {
-					getHex(x,y).drawHex(x,y,g, aCanvasSize, aMouse);
+					getHex(x,y).drawSelectedHex(x,y,g, aCanvasSize, aMouse);
 				}
 			}
 		}
