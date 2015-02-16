@@ -17,6 +17,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import game.entity.Hero;
+import game.entity.Player;
 import model.ViewModel;
 
 public class CharacterList extends JInternalFrame{
@@ -50,11 +51,20 @@ public class CharacterList extends JInternalFrame{
 		int xSize = lModel.getScreenDimensions().width;
 		int ySize = lModel.getScreenDimensions().height;
 		
-		characterMap = lModel.requestCharacters();
+		boolean available = true;
 		
+		characterMap = lModel.requestCharacters();
 		for (String chName : allCharacters){
-			if(characterMap.get(chName).getAvailable())
+			for (Player player : aModel.getGameState().getPlayers()){
+				if(player.getChosenHero() != null){
+					if(player.getChosenHero().getName().equals(chName))
+						available = false;
+				}
+			}
+			if(available)
 				availableCharacters.add(chName);
+			
+			available = true;
 		}
 		
 		setPreferredSize(new Dimension(960, 675));
@@ -107,7 +117,6 @@ public class CharacterList extends JInternalFrame{
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				characterMap.get(characterList.getSelectedValue()).setAvailalbe(false);
 				lCharacterView.setCharacterTableData(characterList.getSelectedValue());
 				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).setHero(characterMap.get(characterList.getSelectedValue()));
 				lModel.updateGameState();

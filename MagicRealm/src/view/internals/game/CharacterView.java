@@ -130,7 +130,6 @@ public class CharacterView extends JInternalFrame{
 			  else{
 				  if(lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().getName().equals(
 						  characterList.getValueAt(characterList.getSelectedRow(), 0))){
-					  lModel.requestCharacters().get(characterList.getValueAt(characterList.getSelectedRow(), 0)).setAvailalbe(true);
 				  	DefaultTableModel model = (DefaultTableModel) characterList.getModel();
 				  	model.removeRow(characterList.getSelectedRow());
 				  	characterList.setModel(model);

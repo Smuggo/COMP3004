@@ -62,6 +62,7 @@ public class Server implements Runnable{
 				}
 				if(lRequestHeader.equals("UpdateGameState")){
 					lServerApp.getGameState().updatePlayer((Player)lInputStream.readObject(), (Integer)lInputStream.readObject()-1);
+					//lServerApp.getGameState().setHeroes((Map<String,Hero>)lInputStream.readObject());
 				}
 				
 				lOutputStream.flush();

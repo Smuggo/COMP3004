@@ -3,9 +3,6 @@ package game;
 import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
-
-import game.entity.Hero;
 import game.entity.Player;
 
 public class GameState implements Serializable{
@@ -42,4 +39,6 @@ public class GameState implements Serializable{
 	public void updatePlayer(Player aPlayer, int aPlayerNum){
 		lPlayers.get(aPlayerNum).setHero(aPlayer.getChosenHero());
 	}
+	
+	public void getAvailableCharacters(){ }
 }
