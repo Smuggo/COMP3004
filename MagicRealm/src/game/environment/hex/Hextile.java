@@ -1,6 +1,8 @@
 package game.environment.hex;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+
 import config.Config;
 
 public class Hextile {
@@ -12,19 +14,26 @@ public class Hextile {
 	int yLocation;
 	int rotation; //in degrees
 	boolean enchanted;
+	private BufferedImage imageFile;
+	
 	
 	public Hextile() {
 		clearings = new ArrayList<Clearing>();
 		roadways = new ArrayList<Roadway>();
 	}
 	
-	public void initialize(String n, String a, int x, int y, int r, boolean e) {
+	public void initialize(String n, String a, BufferedImage i, int x, int y, int r, boolean e) {
 		name = n;
 		abbreviation = a;
+		imageFile = i;
 		xLocation = x;
 		yLocation = y;
 		rotation = r;
 		enchanted = e;
+	}
+	
+	public BufferedImage getTileImage(){
+		return imageFile;
 	}
 	
 	public void addClearing(Clearing clearing) {
@@ -198,10 +207,7 @@ public class Hextile {
 		return rotation;
 	}
 	
-	
-	
-	public void print() {
-		System.out.println("My name is: " + name);
+	//public void print() {
 		
 		/*System.out.println("My clearings: ");
 		for (int i = 0; i < clearings.size(); i++) {
@@ -211,10 +217,16 @@ public class Hextile {
 		for (int i = 0; i < roadways.size(); i++) {
 			roadways.get(i).print();
 		}*/
-		System.out.println("My non-interconnected roadways: ");
+		/*	System.out.println("My non-interconnected roadways: ");
 		for (int i = 0; i < roadways.size(); i++) {
 			roadways.get(i).printNonInterconnected();
 		}
+	}*/
+	
+	public void print() {
+		System.out.println("My name is: " + name);
+		System.out.println(imageFile);
 	}
+		
 }
 

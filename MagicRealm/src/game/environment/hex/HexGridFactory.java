@@ -1,6 +1,7 @@
 package game.environment.hex;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 
 public class HexGridFactory {
 	
@@ -8,9 +9,13 @@ public class HexGridFactory {
 		
 		Dimension lCanvasSize = new Dimension(3000,3000);
 		
-		HexGrid lHexGrid = new HexGrid(3, lCanvasSize);
+		// Create hextiles logic
+		ArrayList<Hextile> hextiles = XMLParser.newGameHexs("HexTiles.xml");
+		
+		// Create hexGrid and send hextile logic
+		HexGrid lHexGrid = new HexGrid(3, lCanvasSize, hextiles);
 		
 		return lHexGrid;
 	}
-
+	
 }

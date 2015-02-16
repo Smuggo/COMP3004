@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 
 import config.Config;
 
@@ -16,7 +18,7 @@ public class Hex{
 	private int innerWidth = (int) (width * 3/4);
 	private int height = (int)(Math.sqrt(3)/2 * (radius*2)); //Also the vertical distance
 	
-	GameHex lGameHex;
+	Hextile hextile;
 	
 	//For coordinates we'll be using an axial coordinate system.
 	 
@@ -26,7 +28,7 @@ public class Hex{
 	private int lCenterX; //x Position on the canvas
 	private int lCenterY; //y Position on the canvas
 
-	public Hex(int aX, int aY, Dimension aCanvasSize){
+	public Hex(int aX, int aY, Dimension aCanvasSize, Hextile h){
 		x = aX;
 		y = aY;
 		active = true;
@@ -34,10 +36,11 @@ public class Hex{
 			active = false;
 		}
 		
-		
 		lCenterX = ((int) ((aCanvasSize.getWidth()/2)+(innerWidth*aX)));
 		lCenterY = ((int) (aCanvasSize.getHeight()/2)+((height*aY))+(height*aX/2));
-		lGameHex = new GameHex();
+		
+		hextile = h;
+		
 	}
 	
 	//Returns the corner starting at the rightmost corner
@@ -54,9 +57,27 @@ public class Hex{
 	public void drawHex (int aX, int aY, Graphics g, Dimension aCanvasSize, Point aMouse){
 		if(active){
 			
-
-			g.drawImage(lGameHex.getTileImage(), lCenterX-(width/2), lCenterY-(height/2)-1, null);
 			
+			int drawLocationX = lCenterX-(width/2);
+			int drawLocationY = lCenterY-(height/2)-1;
+			
+			// No rotation necessary
+			if (hextile.getRotation() == 0) {
+				g.drawImage(hextile.getTileImage(), drawLocationX, drawLocationY, null);
+			}
+			else {
+				// Rotation information
+				double rotationRequired = Math.toRadians(hextile.getRotation());
+				double rotationlocationX = hextile.getTileImage().getWidth() / 2;
+				double rotationlocationY = hextile.getTileImage().getHeight() / 2;
+				
+				// Do some crazy rotation stuff // Source: http://stackoverflow.com/questions/8639567/java-rotating-images
+				AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, rotationlocationX, rotationlocationY);
+				AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+				
+				g.drawImage(op.filter(hextile.getTileImage(), null), drawLocationX, drawLocationY, null);
+			}
+
 			int x[] = getHexXCoords(lCenterX);
 			int y[] = getHexYCoords(lCenterY);
 				

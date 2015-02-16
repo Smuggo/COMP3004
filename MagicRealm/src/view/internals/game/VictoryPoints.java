@@ -15,6 +15,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import model.ViewModel;
 import game.entity.Hero;
 
 public class VictoryPoints extends JInternalFrame{
@@ -42,16 +43,18 @@ public class VictoryPoints extends JInternalFrame{
 	JButton confirm;
 	
 	Hero lCharacter;
+	ViewModel lModel;
 	
 	int pAssigned;
 	
-	public VictoryPoints(Hero aCharacter){
+	public VictoryPoints(Hero aCharacter, ViewModel aModel){
 		super("Victory Conditions for " + aCharacter.getName());
 		lCharacter = aCharacter;
 		
 		int xSize = 300;
 		int ySize = 400;
 		
+		lModel = aModel;
 		
 		setPreferredSize(new Dimension(xSize, ySize));
 		setSize(xSize, ySize);
@@ -253,6 +256,7 @@ public class VictoryPoints extends JInternalFrame{
 					    						  (int)goldPoints.getValue()};
 			  
 			  lCharacter.setVictoryConditions(victoryConditions);
+			  lModel.updateGameState();
 			  dispose();
 		  }
 		});

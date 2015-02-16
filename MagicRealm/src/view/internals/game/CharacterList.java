@@ -44,11 +44,11 @@ public class CharacterList extends JInternalFrame{
 	public CharacterList(ViewModel aModel, CharacterView aCharacterView){
 		super("Character Selection");
 		
-		int xSize = 1000;
-		int ySize = 800;
-		
 		lModel = aModel;
 		lCharacterView = aCharacterView;
+		
+		int xSize = lModel.getScreenDimensions().width;
+		int ySize = lModel.getScreenDimensions().height;
 		
 		characterMap = lModel.requestCharacters();
 		
@@ -57,8 +57,8 @@ public class CharacterList extends JInternalFrame{
 				availableCharacters.add(chName);
 		}
 		
-		setPreferredSize(new Dimension(xSize, ySize));
-		setSize(xSize, ySize);
+		setPreferredSize(new Dimension(xSize/2, (int)(ySize/1.5)));
+		setSize((int)(xSize/1.5), ySize);
 		
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -73,17 +73,17 @@ public class CharacterList extends JInternalFrame{
 		add(characterList, c);
 		
 		cancel = new JButton("Cancel");
-		c.anchor = c.SOUTHWEST;
-		c.fill = c.NONE;
-		c.ipadx = 0;
+		c.anchor = GridBagConstraints.SOUTHWEST;
+		c.fill = GridBagConstraints.NONE;
+		c.ipadx = 50;
 		c.ipady = 0;
 		c.gridx = 0;
 		c.gridy = 1;
 		add(cancel, c);
 		
 		select = new JButton("Select");
-		c.anchor = c.SOUTHWEST;
-		c.fill = c.NONE;
+		c.anchor = GridBagConstraints.SOUTHWEST;
+		c.fill = GridBagConstraints.NONE;
 		c.ipadx = 0;
 		c.ipady = 0;
 		c.gridx = 1;
@@ -92,7 +92,8 @@ public class CharacterList extends JInternalFrame{
 		
 		characterList.setSelectedIndex(0);
 		charSheet = new JLabel(new ImageIcon(characterMap.get(characterList.getSelectedValue()).getCharSheet()));
-		c.anchor = c.NORTH;
+		c.anchor = GridBagConstraints.NORTH;
+		c.fill = GridBagConstraints.NONE;
 		c.gridx = 1;
 		c.gridy = 0;
 		add(charSheet, c);
@@ -108,7 +109,10 @@ public class CharacterList extends JInternalFrame{
 			{
 				characterMap.get(characterList.getSelectedValue()).setAvailalbe(false);
 				lCharacterView.setCharacterTableData(characterList.getSelectedValue());
-				lModel.requestVictoryPoints(characterMap.get(characterList.getSelectedValue()));
+				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).setHero(characterMap.get(characterList.getSelectedValue()));
+				lModel.updateGameState();
+				lCharacterView.getChooseCharacter().setEnabled(false);
+				lModel.requestVictoryPoints(lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero());
 				dispose();
 			}
 		});

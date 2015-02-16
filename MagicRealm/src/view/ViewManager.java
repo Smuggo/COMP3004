@@ -116,8 +116,8 @@ public class ViewManager {
 		lWindow.addWindow(lCharacterList);
 	}
 	
-	public void setVictoryPoints(Hero c){
-		lVictoryPoints = new VictoryPoints(c);
+	public void setVictoryPoints(Hero aHero){
+		lVictoryPoints = new VictoryPoints(aHero, lModel);
 		lVictoryPoints.setVisible(true);
 		lWindow.addWindow(lVictoryPoints);
 	}

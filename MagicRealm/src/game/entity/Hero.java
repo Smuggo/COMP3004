@@ -1,8 +1,14 @@
 package game.entity;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public class Hero {
+public class Hero implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -909098114209082150L;
+	
 	//Represents a character
 	private int[] victoryConditions;
 	private int fame;
@@ -14,8 +20,8 @@ public class Hero {
 	private boolean available;
 	private boolean hidden;
 
-	private BufferedImage characterSheet;
-	private BufferedImage characterChit;
+	private transient BufferedImage characterSheet;
+	private transient BufferedImage characterChit;
 	
 	public Hero(String n, BufferedImage sheet, BufferedImage charChit){
 		name = n;

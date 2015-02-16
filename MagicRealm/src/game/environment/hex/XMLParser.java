@@ -1,20 +1,25 @@
 package game.environment.hex;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
- 
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
 import config.Config;
  
 public class XMLParser {
- 
-    public ArrayList<Hextile> getAllUserNames(String fileName) {
+	
+	public static ArrayList<Hextile> newGameHexs(String fileName){
+		
     	ArrayList<Hextile> hextiles = new ArrayList<Hextile>();
     	
         try {
@@ -47,7 +52,14 @@ public class XMLParser {
                             // Hextile Abbreviation
                             nodeList = h.getElementsByTagName("abbreviation");
                             String abbreviation = nodeList.item(0).getChildNodes().item(0).getNodeValue();
-
+                            	
+                            // Hextile Image File
+                            nodeList = h.getElementsByTagName("image");
+                            BufferedImage imageFile = null;
+                            if (isFile("media/images/tiles/" + nodeList.item(0).getChildNodes().item(0).getNodeValue() + ".gif")) {
+                            	imageFile = ImageIO.read(new File("media/images/tiles/" + nodeList.item(0).getChildNodes().item(0).getNodeValue() + ".gif"));
+                    		}
+                            
                             // Hextile xLocation
                             nodeList = h.getElementsByTagName("xlocation");
                             int xLocation = Integer.parseInt(nodeList.item(0).getChildNodes().item(0).getNodeValue());
@@ -65,7 +77,7 @@ public class XMLParser {
                             boolean enchanted = Boolean.parseBoolean(nodeList.item(0).getChildNodes().item(0).getNodeValue());
                             
                             // Fill Hextile Object
-                            hextile.initialize(name, abbreviation, xLocation, yLocation, rotation, enchanted);
+                            hextile.initialize(name, abbreviation, imageFile, xLocation, yLocation, rotation, enchanted);
                             
                             // Create NodeLists for Hextile Components
                             NodeList clearingList = h.getElementsByTagName("clearing");
@@ -186,13 +198,24 @@ public class XMLParser {
         return hextiles;
     }
     
-    private boolean isInteger(String s) {
+    private static boolean isInteger(String s) {
         try { 
             Integer.parseInt(s); 
         } catch(NumberFormatException e) { 
             return false; 
         }
         // only got here if we didn't return false
+        return true;
+    }
+    
+    private static boolean isFile(String s) {
+    	try {
+        	ImageIO.read(new File(s));
+		} catch (IOException e) {
+			System.out.print(e);
+			return false;
+		}
+        // We good
         return true;
     }
 }

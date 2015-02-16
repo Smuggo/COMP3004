@@ -13,7 +13,7 @@ public class GameState implements Serializable{
 	private static final long serialVersionUID = -1970010135110366533L;
 	
 	private int lVersion;
-	private List<Player> lPlayers;
+	private ArrayList<Player> lPlayers;
 	
 	public GameState(){
 		lVersion = 1;
@@ -25,11 +25,12 @@ public class GameState implements Serializable{
 	public void incrementVersion(){lVersion++;}
 	
 	//PlayerList
-	public List<Player> getPlayers(){return lPlayers;}
+	public ArrayList<Player> getPlayers(){return lPlayers;}
 	public int addPlayer(Player aPlayer){
 		lPlayers.add(aPlayer);
 		return lPlayers.size();
 	}
+	
 	public Player getPlayer(int i){ return lPlayers.get(i-1);} 
 	
 	public void updatePointClicked(int aPlayer, Point aPoint){
@@ -38,6 +39,7 @@ public class GameState implements Serializable{
 		lPlayers.get(aPlayer-1).lastClick = aPoint;
 	}
 	
-	
-
+	public void updatePlayer(Player aPlayer, int aPlayerNum){
+		lPlayers.get(aPlayerNum).setHero(aPlayer.getChosenHero());
+	}
 }

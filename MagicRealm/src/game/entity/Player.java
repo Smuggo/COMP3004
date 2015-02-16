@@ -8,8 +8,8 @@ public class Player implements Serializable{
 
 	private static final long serialVersionUID = -1317880341447120558L;
 	
-	String lUserName;
-	Hero lChosenHero;
+	private String lUserName;
+	private Hero lChosenHero;
 	public Point lastClick;
 	
 	public Player(String aUserName){
@@ -18,8 +18,8 @@ public class Player implements Serializable{
 		lastClick = new Point(20,20);
 	}
 	
-	public void setHero(Hero aHero){
-		lChosenHero = aHero;
-	}
-
+	public String getUserName(){ return lUserName; }
+	public Hero   getChosenHero(){ return lChosenHero; }
+	
+	public void setHero(Hero aHero){ lChosenHero = aHero; }
 }

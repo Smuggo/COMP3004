@@ -11,7 +11,5 @@ public class MagicRealmApplication {
 
 		MagicRealm lHub = new MagicRealm();
 		lHub.start();
-
 	}
-
 }
