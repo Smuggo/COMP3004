@@ -65,7 +65,7 @@ public class Hex{
 			g2.drawPolygon(x,y,6);
 			g2.setStroke(new BasicStroke(1));
 
-
+			
 			if(Config.drawingHexCoords){
 				g.drawString(aX+","+aY,lCenterX, lCenterY);
 				g.drawString("1",getCorner(0).x,getCorner(0).y);
