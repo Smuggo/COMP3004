@@ -116,12 +116,10 @@ public class GameHex {
 		else {
 			System.out.println("Warning: Trying to connect hextiles with misaligned roadways");
 		}
-		
-		
 	}
 	
 	public static void checkForAdjacentHextiles(int x, int y, Hextile[][] gameboard) {
-		System.out.println("x:" + x + " y: " + y);
+		/*System.out.println("x:" + x + " y: " + y);
 		
 		// Top and bottom require the same calculations whether x is even or odd
 		// Check if there exist a hextile above the one we are trying to place
@@ -170,7 +168,7 @@ public class GameHex {
 			if ((x > 0) && (gameboard[x - 1][y] != null)) {
 				gameboard[x][y].connectTo(gameboard[x - 1][y], Config.IncompleteRoadwayDirection.TOP_LEFT);
 			}
-		}
+		}*/
 	}
 	
 	

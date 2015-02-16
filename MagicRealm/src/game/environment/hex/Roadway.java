@@ -34,12 +34,17 @@ public class Roadway {
 		incompleteRoadwayDirection = iRD;
 		
 		// If the roadway is complete, it must be connected within the hextile, at initalization.
-		interconnected = (incompleteRoadwayDirection == null);
+		if (incompleteRoadwayDirection == null) {
+			interconnected = true;
+		}
+		else {
+			interconnected = false;
+		}
 
 	}
 	
 	public void print() {
-		if (headClearing != null) {
+		/*if (headClearing != null) {
 			System.out.println("My headClearing is: " + headClearing.getIdentifier());
 		} else {
 			System.out.println("My headClearing is null");
@@ -48,7 +53,7 @@ public class Roadway {
 		System.out.println("My tailClearing is: " + tailClearing.getIdentifier());
 		} else {
 			System.out.println("My tailClearing is null");
-		}
+		}*/
 	}
 	
 	public void setTailClearing(Clearing clearing) {
@@ -63,9 +68,17 @@ public class Roadway {
 		return incompleteRoadwayDirection;
 	}
 	
+	public void setIncompleteRoadwayDirection(Config.IncompleteRoadwayDirection i) {
+		incompleteRoadwayDirection = i;
+	}
+	
 	public void printNonInterconnected() {
 		if (!interconnected) {
 			print();
 		}
+	}
+	
+	public boolean getInterconnected() {
+		return interconnected;
 	}
 }

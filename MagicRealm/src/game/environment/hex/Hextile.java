@@ -1,6 +1,5 @@
 package game.environment.hex;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
@@ -15,7 +14,7 @@ public class Hextile {
 	String abbreviation;
 	int xLocation;
 	int yLocation;
-	int rotation; //in degrees
+	int rotation; //in degrees between 0 and 300
 	boolean enchanted;
 	private BufferedImage imageFile;
 	Hex ownedHex;
@@ -85,8 +84,6 @@ public class Hextile {
 		}
 	}
 	
-	
-	
 	public void connectTo(Hextile hexTile, Config.IncompleteRoadwayDirection relativePosition) {
 		Config.IncompleteRoadwayDirection head = null;
 		Config.IncompleteRoadwayDirection tail = null;
@@ -145,7 +142,7 @@ public class Hextile {
 	        default: System.out.println("ERROR: Function connectTo - switch(hexTile.getRotation()) does not handle value" + rotation);
 		}
 		
-		//System.out.println("Connecting " + head + " to " + tail);
+
 		Roadway headRoadway = this.findRoadway(head);
 		Roadway tailRoadway = hexTile.findRoadway(tail);
 		
@@ -153,68 +150,50 @@ public class Hextile {
 		if ((headRoadway != null) && (tailRoadway != null)) {
 			headRoadway.setTailClearing(tailRoadway.getHeadClearing());
 			tailRoadway.setTailClearing(headRoadway.getHeadClearing());
-			
-			headRoadway.print();
-			tailRoadway.print();
 		}
 		else {
-			System.out.println("Warning: Trying to connect hextiles with misaligned roadways");
-		}
-		
-		
+			System.out.println("Warning: Bad Connection when connecting " + this.name + " to the " + relativePosition + " of " + hexTile.name);
+		}	
 	}
 	
-	public static void checkForAdjacentHextiles(int x, int y, Hextile[][] gameboard) {
-		System.out.println("x:" + x + " y: " + y);
-		
+	public void checkForAdjacentHextiles(int x, int y, int radius, HexGrid hexGrid) {
+		//System.out.println("x:" + x + " y: " + y);
+		int maxIndex = radius;
+		int minIndex = radius * -1;
+		//System.out.println("x = " + maxIndex + "; y = " + minIndex );
+		//System.out.println("maxIndex = " + maxIndex + "; minIndex = " + minIndex );
 		// Top and bottom require the same calculations whether x is even or odd
+		
 		// Check if there exist a hextile above the one we are trying to place
-		if ((y > 0) && (gameboard[x][y - 1] != null)) {
-			gameboard[x][y].connectTo(gameboard[x][y - 1], Config.IncompleteRoadwayDirection.TOP);
-		}
-		// Check if there exist a hextile below the one we are trying to place
-		if ((y < 3) && (gameboard[x][y + 1] != null)) {
-			gameboard[x][y].connectTo(gameboard[x][y + 1], Config.IncompleteRoadwayDirection.BOTTOM);
+		if ((y > minIndex) && (hexGrid.getHex(x, y - 1) != null)) {
+			hexGrid.getHex(x, y).getHextile().connectTo(hexGrid.getHex(x, y - 1).getHextile(), Config.IncompleteRoadwayDirection.TOP);
 		}
 		
-		// If x is even we handle things differently
-		if ((x % 2) == 0) {
-			// Check if there exist a hextile above-right to the one we are trying to place
-			if ((x < 3) && (y > 0) && (gameboard[x + 1][y - 1] != null)) {
-				gameboard[x][y].connectTo(gameboard[x + 1][y - 1], Config.IncompleteRoadwayDirection.TOP_RIGHT);
-			}
-			// Check if there exist a hextile below-right to the one we are trying to place
-			if ((x < 3) && (gameboard[x + 1][y] != null)) {
-				gameboard[x][y].connectTo(gameboard[x + 1][y], Config.IncompleteRoadwayDirection.BOTTOM_RIGHT);
-			}
-			// Check if there exist a hextile below-left to the one we are trying to place
-			if ((x > 0) && (gameboard[x - 1][y] != null)) {
-				gameboard[x][y].connectTo(gameboard[x - 1][y], Config.IncompleteRoadwayDirection.BOTTOM_LEFT);
-			}
-			// Check if there exist a hextile above-left to the one we are trying to place
-			if ((x > 0) && (y > 0) && (gameboard[x - 1][y - 1] != null)) {
-				gameboard[x][y].connectTo(gameboard[x - 1][y - 1], Config.IncompleteRoadwayDirection.TOP_LEFT);
-			}
+		// Check if there exist a hextile below the one we are trying to place
+		if ((y < maxIndex) && (hexGrid.getHex(x, y + 1) != null)) {
+			hexGrid.getHex(x, y).getHextile().connectTo(hexGrid.getHex(x, y + 1).getHextile(), Config.IncompleteRoadwayDirection.BOTTOM);
 		}
-		// x is odd
-		else {
-			// Check if there exist a hextile above-right to the one we are trying to place
-			if ((x < 3) && (gameboard[x + 1][y] != null)) {
-				gameboard[x][y].connectTo(gameboard[x + 1][y], Config.IncompleteRoadwayDirection.TOP_RIGHT);
-			}
-			// Check if there exist a hextile below-right to the one we are trying to place
-			if ((x < 3) && (y < 3) && (gameboard[x + 1][y + 1] != null)) {
-				gameboard[x][y].connectTo(gameboard[x + 1][y + 1], Config.IncompleteRoadwayDirection.BOTTOM_RIGHT);
-			}
-			// Check if there exist a hextile below-left to the one we are trying to place
-			if ((x > 0) && (y < 3) && (gameboard[x - 1][y + 1] != null)) {
-				gameboard[x][y].connectTo(gameboard[x - 1][y + 1], Config.IncompleteRoadwayDirection.BOTTOM_LEFT);
-			}
-			// Check if there exist a hextile above-left to the one we are trying to place
-			if ((x > 0) && (gameboard[x - 1][y] != null)) {
-				gameboard[x][y].connectTo(gameboard[x - 1][y], Config.IncompleteRoadwayDirection.TOP_LEFT);
-			}
+		
+		// Check if there exist a hextile above-right to the one we are trying to place
+		if ((x < maxIndex) && (y > minIndex) && (hexGrid.getHex(x + 1, y - 1) != null)) {
+			hexGrid.getHex(x, y).getHextile().connectTo(hexGrid.getHex(x + 1, y - 1).getHextile(), Config.IncompleteRoadwayDirection.TOP_RIGHT);
 		}
+		
+		// Check if there exist a hextile below-right to the one we are trying to place
+		if ((x < maxIndex) && (hexGrid.getHex(x + 1, y) != null)) {
+			hexGrid.getHex(x, y).getHextile().connectTo(hexGrid.getHex(x + 1, y).getHextile(), Config.IncompleteRoadwayDirection.BOTTOM_RIGHT);
+		}
+		
+		// Check if there exist a hextile below-left to the one we are trying to place
+		if ((x > minIndex) && (y < maxIndex) && (hexGrid.getHex(x - 1, y + 1) != null)) {
+			hexGrid.getHex(x, y).getHextile().connectTo(hexGrid.getHex(x - 1, y + 1).getHextile(), Config.IncompleteRoadwayDirection.BOTTOM_LEFT);
+		}
+		
+		// Check if there exist a hextile above-left to the one we are trying to place
+		if ((x > minIndex) && (hexGrid.getHex(x - 1, y) != null)) {
+			hexGrid.getHex(x, y).getHextile().connectTo(hexGrid.getHex(x - 1, y).getHextile(), Config.IncompleteRoadwayDirection.TOP_LEFT);
+		}
+		
 	}
 	
 	

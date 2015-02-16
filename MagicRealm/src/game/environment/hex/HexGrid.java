@@ -22,12 +22,9 @@ public class HexGrid {
 				lGrid[x][y] = null;
 				for(int i = 0; i < hextiles.size(); i++){
 					// Find the hextile logic and create a hex
-					if (hextiles.get(i).getXLocation() == x-lRadius &&
-						hextiles.get(i).getYLocation() == y-lRadius) {
-						//hextiles.get(i).print();
-						//System.out.println("Success @ x = " +hextiles.get(i).getXLocation()+ " & y = " +hextiles.get(i).getYLocation());
-				
+					if (hextiles.get(i).getXLocation() == x-lRadius && hextiles.get(i).getYLocation() == y-lRadius) {
 						lGrid[x][y] = new Hex(x-lRadius,y-lRadius, aCanvasSize, hextiles.get(i));
+						hextiles.get(i).checkForAdjacentHextiles(x-lRadius, y-lRadius, aRadius, this);
 					}
 					
 					// Set Center Hex
