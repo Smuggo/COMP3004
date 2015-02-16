@@ -18,6 +18,7 @@ public class Hextile {
 	int rotation; //in degrees
 	boolean enchanted;
 	private BufferedImage imageFile;
+	Hex ownedHex;
 	
 	
 	public Hextile() {
@@ -33,6 +34,20 @@ public class Hextile {
 		yLocation = y;
 		rotation = r;
 		enchanted = e;
+	}
+	
+	public void setOwnedHex(Hex aHex){
+		ownedHex = aHex;
+	}
+	
+	public void setOwnedClearings(Hex aHex){
+		for(int i = 0; i < clearings.size(); i++){
+			clearings.get(i).setOwnedHex(aHex);
+		}
+	}
+	
+	public int getAngle(){
+		return rotation;
 	}
 	
 	public BufferedImage getTileImage(){
@@ -60,6 +75,13 @@ public class Hextile {
 			
 			lClearing.drawSelected(g, centerX, centerY, rotation, aMouse);
 			
+		}
+	}
+	
+	public void drawRoadways(Graphics g){
+		for(int i = 0; i < roadways.size(); i++){
+			Roadway lRoadway = roadways.get(i);
+			lRoadway.draw(g);
 		}
 	}
 	

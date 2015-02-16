@@ -15,7 +15,8 @@ public class Clearing {
 	int number;
 	Config.ClearingType clearingType;
 	int clearingDiameter;
-	Point position;
+	Point position; //Actual position from center
+	Hex ownedHex;
 	
 	public Clearing() {
 		roadways = new ArrayList<Roadway>();
@@ -29,12 +30,34 @@ public class Clearing {
 		position = new Point(0,0);
 	}
 	
+	public Hex getOwnedHex(){
+		return ownedHex;
+	}
+	
+	public void setOwnedHex(Hex aHex){
+		ownedHex = aHex;
+	}
+	
 	public void setPosition(Point aPoint){
 		position = aPoint;
 	}
 	
 	public Point getPosition(){
 		return position;
+	}
+	
+	public Point getRotPosition(){
+		int degrees = ownedHex.getHextile().getAngle();
+		double angle = Math.toRadians(degrees);
+		int centerX = (int)(ownedHex.getCenter().getX());
+		int centerY = (int)(ownedHex.getCenter().getY());
+		Point p = new Point((int)(centerX+(position.getX())), (int)(centerY+(position.getY())));
+		
+		double x = Math.cos(angle) * (p.x-centerX) - Math.sin(angle) * (p.y-centerY) + centerX;
+		double y = Math.sin(angle) * (p.x-centerX) + Math.cos(angle) * (p.y-centerY) + centerY;
+		
+		Point newP = new Point((int)x, (int)y);
+		return newP;
 	}
 	
 	public int getClearingDiameter(){
