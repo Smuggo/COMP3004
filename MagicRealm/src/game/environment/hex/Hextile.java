@@ -1,5 +1,7 @@
 package game.environment.hex;
 
+import game.chit.Chit;
+
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
@@ -18,6 +20,9 @@ public class Hextile {
 	boolean enchanted;
 	private BufferedImage imageFile;
 	Hex ownedHex;
+	private Config.HextileType hextileType;
+	Chit warningChit;
+	Chit siteSoundLostCityOrCastleChit;
 	
 	
 	public Hextile() {
@@ -25,14 +30,20 @@ public class Hextile {
 		roadways = new ArrayList<Roadway>();
 	}
 	
-	public void initialize(String n, String a, BufferedImage i, int x, int y, int r, boolean e) {
+	public void initialize(String n, String a, BufferedImage i, Config.HextileType hT, int x, int y, int r, boolean e) {
 		name = n;
 		abbreviation = a;
 		imageFile = i;
+		hextileType = hT;
 		xLocation = x;
 		yLocation = y;
 		rotation = r;
 		enchanted = e;
+	}
+	
+	public void setChits(Chit warning, Chit other){
+		warningChit = warning;
+		siteSoundLostCityOrCastleChit = other;
 	}
 	
 	public void setOwnedHex(Hex aHex){
@@ -248,6 +259,14 @@ public class Hextile {
 	public void print() {
 		System.out.println("My name is: " + name);
 		System.out.println(imageFile);
+	}
+	
+	public Config.HextileType getHextileType() {
+		return hextileType;
+	}
+	
+	public String getName() {
+		return name;
 	}
 		
 }

@@ -1,5 +1,7 @@
 package game.environment.hex;
 
+import game.chit.ChitFactory;
+
 import java.awt.Dimension;
 import java.util.ArrayList;
 
@@ -11,6 +13,12 @@ public class HexGridFactory {
 		
 		// Create hextiles logic
 		ArrayList<Hextile> hextiles = XMLParser.newGameHexs("HexTiles.xml");
+		
+		// Create hextile chits
+		ChitFactory cF = new ChitFactory();
+		
+		// Attach hextile chits to hextiles
+		cF.addChitsToHextiles(hextiles);
 		
 		// Create hexGrid and send hextile logic
 		HexGrid lHexGrid = new HexGrid(3, lCanvasSize, hextiles);

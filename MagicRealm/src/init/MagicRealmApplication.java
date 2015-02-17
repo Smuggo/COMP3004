@@ -1,5 +1,6 @@
 package init;
 
+import game.chit.ChitFactory;
 import model.MagicRealm;
 
 //
@@ -8,8 +9,9 @@ import model.MagicRealm;
 public class MagicRealmApplication {
 
 	public static void main(String[] args) {
-
+		
 		MagicRealm lHub = new MagicRealm();
 		lHub.start();
+		
 	}
 }
