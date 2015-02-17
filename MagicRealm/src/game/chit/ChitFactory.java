@@ -194,47 +194,42 @@ public class ChitFactory {
 		System.out.println(".");
 	}
 	
-	// TODO: Finish off this function
 	public void addChitsToHextiles(ArrayList<Hextile> hextiles) {
 		// Randomize all chits groups to be places on hextiles
 		randomizeAllWarningChitArrayLists();
 		randomizeChitArrayList(siteSoundLostCityChits);
 		randomizeChitArrayList(siteSoundLostCastleChits);
 		
+		
+		
 		// Loop Through the all hextiles and place appropriate chit(s) on each
 		for (int i = 0; i < hextiles.size(); i++) {
-			
+			// Place 1 Cave Warning Chit and 1 siteSoundLostCityChit on each of the 5 Cave Hextiles
 			if (hextiles.get(i).getHextileType() == Config.HextileType.CAVE) {
-				
+				hextiles.get(i).setChits(caveWarningChits.get(0), siteSoundLostCityChits.get(0));
+				caveWarningChits.remove(0);
+				siteSoundLostCityChits.remove(0);
 			}
+			// Place 1 Mountain Warning Chit and 1 siteSoundLostCastleChits on each of the 5 Cave Hextiles
 			else if (hextiles.get(i).getHextileType() == Config.HextileType.MOUNTAIN) {
-				
+				hextiles.get(i).setChits(mountainWarningChits.get(0), siteSoundLostCastleChits.get(0));
+				mountainWarningChits.remove(0);
+				siteSoundLostCastleChits.remove(0);
 			}
+			// Place 1 Valley Warning Chit on each of the 5 Valley Hextiles
 			else if (hextiles.get(i).getHextileType() == Config.HextileType.VALLEY) {
-				
+				hextiles.get(i).setChits(valleyWarningChits.get(0), null);
+				valleyWarningChits.remove(0);
 			}
+			// Place 1 WOODS Warning Chit on each of the 5 WOODS Tiles at Random
 			else if (hextiles.get(i).getHextileType() == Config.HextileType.WOODS) {
-				
+				hextiles.get(i).setChits(woodsWarningChits.get(0), null);
+				woodsWarningChits.remove(0);
 			}
 			else {
 				System.out.println("Error: addChitsToHextiles in ChitFactory, unknown HextileType for " + hextiles.get(i).getName() + " = " + hextiles.get(i).getHextileType());
 			}
 		}
-		
-		// CAVE TILES (Borderland, Cavern, Caves, High Pass, Ruins) //
-		// Place 1 Cave Warning Chit on each of the 5 Cave Tiles at Random
-		// Place 1 of each siteSoundLostCityChits on a Cave tile at random
-		
-		// MOUNTAIN TILES (Cliff, Crag, Deep Woods, Ledges, Mountain) //
-		// Place 1 Cave Warning Chit on each of the 5 Cave Tiles at Random
-		// Place 1 of each siteSoundLostCastleChits on a mountain tile at random
-		
-		// VALLEY TILES (Awful Valley, Bad Valley, Cursed Valley, Dark Valley, Evil Valley) //
-		// Place 1 Valley Warning Chit on each of the 5 Valley Tiles at Random
-
-		// WOODS TILES (Linden Woods, Maple Woods, Nut Woods, Oak Woods, Pine Woods) //
-		// Place 1 WOODS Warning Chit on each of the 5 WOODS Tiles at Random
-		
 	}
 	
 	

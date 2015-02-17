@@ -760,7 +760,7 @@
 	<name>Deep Woods</name>
 	<abbreviation>DW</abbreviation>
 	<image>deepwoods1</image>
-	<hextiletype>WOODS</hextiletype>
+	<hextiletype>MOUNTAIN</hextiletype>
 	<xlocation>0</xlocation>
 	<ylocation>2</ylocation>
 	<rotation>60</rotation>

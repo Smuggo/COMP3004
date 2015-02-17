@@ -1,9 +1,13 @@
 package game.environment;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 
+import game.chit.ChitFactory;
 import game.environment.hex.HexGrid;
 import game.environment.hex.HexGridFactory;
+import game.environment.hex.Hextile;
+import game.environment.hex.XMLParser;
 
 public class EnvironmentManager {
 
@@ -14,7 +18,17 @@ public class EnvironmentManager {
 	}
 
 	public Dimension createNewMap(){
-		HexGrid lNewHexGrid = HexGridFactory.newHexGrid();
+		
+		// Create hextiles logic
+		ArrayList<Hextile> hextiles = XMLParser.newGameHexs("HexTiles.xml");
+		
+		// Create hextile chits
+		ChitFactory cF = new ChitFactory();
+		
+		// Attach hextile chits to hextiles
+		cF.addChitsToHextiles(hextiles);
+				
+		HexGrid lNewHexGrid = HexGridFactory.newHexGrid(hextiles);
 		setHexGrid(lNewHexGrid);
 		return lHexGrid.getCanvasSize();
 	}

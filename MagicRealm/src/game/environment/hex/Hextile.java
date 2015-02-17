@@ -21,8 +21,8 @@ public class Hextile {
 	private BufferedImage imageFile;
 	Hex ownedHex;
 	private Config.HextileType hextileType;
-	Chit warningChit;
-	Chit siteSoundLostCityOrCastleChit;
+	private Chit warningChit;
+	private Chit otherChit; // Can be a Site Chit, Sound Chit, Lost City Chit, Lost Castle Chit, or null;
 	
 	
 	public Hextile() {
@@ -43,7 +43,7 @@ public class Hextile {
 	
 	public void setChits(Chit warning, Chit other){
 		warningChit = warning;
-		siteSoundLostCityOrCastleChit = other;
+		otherChit = other;
 	}
 	
 	public void setOwnedHex(Hex aHex){
@@ -267,6 +267,13 @@ public class Hextile {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public Chit getWarningChit() {
+		return warningChit;
+	}
+	public Chit getOtherChit() {
+		return otherChit;
 	}
 		
 }

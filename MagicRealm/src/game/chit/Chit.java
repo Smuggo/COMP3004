@@ -36,6 +36,6 @@ public class Chit {
 		
 	}*/
 	
-	public String getChitDesc() { return name; }
+	public String getName() { return name; }
 	public boolean isRevealed() { return revealed; } 
 }
