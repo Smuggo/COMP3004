@@ -61,6 +61,11 @@ public class XMLParser {
                             	imageFile = ImageIO.read(new File("media/images/tiles/" + nodeList.item(0).getChildNodes().item(0).getNodeValue() + ".gif"));
                     		}
                             
+                            // Hextile Type
+                            nodeList = h.getElementsByTagName("hextiletype");
+                            Config.HextileType hextileType = Config.HextileType.valueOf(nodeList.item(0).getChildNodes().item(0).getNodeValue());
+                           
+                            
                             // Hextile xLocation
                             nodeList = h.getElementsByTagName("xlocation");
                             int xLocation = Integer.parseInt(nodeList.item(0).getChildNodes().item(0).getNodeValue());
@@ -78,7 +83,7 @@ public class XMLParser {
                             boolean enchanted = Boolean.parseBoolean(nodeList.item(0).getChildNodes().item(0).getNodeValue());
                             
                             // Fill Hextile Object
-                            hextile.initialize(name, abbreviation, imageFile, xLocation, yLocation, rotation, enchanted);
+                            hextile.initialize(name, abbreviation, imageFile, hextileType, xLocation, yLocation, rotation, enchanted);
                             
                             // Create NodeLists for Hextile Components
                             NodeList clearingList = h.getElementsByTagName("clearing");

@@ -5,6 +5,7 @@
 	<name>Awful Valley</name>
 	<abbreviation>AV</abbreviation>
 	<image>awfulvalley1</image>
+	<hextiletype>VALLEY</hextiletype>
 	<xlocation>-2</xlocation>
 	<ylocation>4</ylocation>
 	<rotation>60</rotation>
@@ -74,6 +75,7 @@
 	<name>Bad Valley</name>
 	<abbreviation>BV</abbreviation>
 	<image>badvalley1</image>
+	<hextiletype>VALLEY</hextiletype>
 	<xlocation>-1</xlocation>
 	<ylocation>1</ylocation>
 	<rotation>0</rotation>
@@ -143,6 +145,7 @@
 	<name>Borderland</name>
 	<abbreviation>B</abbreviation>
 	<image>borderland1</image>
+	<hextiletype>CAVE</hextiletype>
 	<xlocation>0</xlocation>
 	<ylocation>0</ylocation>
 	<rotation>0</rotation>
@@ -249,6 +252,7 @@
 	<name>Cavern</name>
 	<abbreviation>C</abbreviation>
 	<image>cavern1</image>
+	<hextiletype>CAVE</hextiletype>
 	<xlocation>-1</xlocation>
 	<ylocation>0</ylocation>
 	<rotation>120</rotation>
@@ -345,6 +349,7 @@
 	<name>Caves</name>
 	<abbreviation>C</abbreviation>
 	<image>caves1</image>
+	<hextiletype>CAVE</hextiletype>
 	<xlocation>-2</xlocation>
 	<ylocation>2</ylocation>
 	<rotation>180</rotation>
@@ -431,6 +436,7 @@
 	<name>Cliff</name>
 	<abbreviation>C</abbreviation>
 	<image>cliff1</image>
+	<hextiletype>MOUNTAIN</hextiletype>
 	<xlocation>2</xlocation>
 	<ylocation>-1</ylocation>
 	<rotation>0</rotation>
@@ -527,6 +533,7 @@
 	<name>Crag</name>
 	<abbreviation>C</abbreviation>
 	<image>crag1</image>
+	<hextiletype>MOUNTAIN</hextiletype>
 	<xlocation>1</xlocation>
 	<ylocation>1</ylocation>
 	<rotation>240</rotation>
@@ -613,6 +620,7 @@
 	<name>Curst Valley</name>
 	<abbreviation>CV</abbreviation>
 	<image>curstvalley1</image>
+	<hextiletype>VALLEY</hextiletype>
 	<xlocation>0</xlocation>
 	<ylocation>3</ylocation>
 	<rotation>60</rotation>
@@ -682,6 +690,7 @@
 	<name>Dark Valley</name>
 	<abbreviation>DV</abbreviation>
 	<image>darkvalley1</image>
+	<hextiletype>VALLEY</hextiletype>
 	<xlocation>1</xlocation>
 	<ylocation>2</ylocation>
 	<rotation>180</rotation>
@@ -751,6 +760,7 @@
 	<name>Deep Woods</name>
 	<abbreviation>DW</abbreviation>
 	<image>deepwoods1</image>
+	<hextiletype>WOODS</hextiletype>
 	<xlocation>0</xlocation>
 	<ylocation>2</ylocation>
 	<rotation>60</rotation>
@@ -857,6 +867,7 @@
 	<name>Evil Valley</name>
 	<abbreviation>EV</abbreviation>
 	<image>evilvalley1</image>
+	<hextiletype>VALLEY</hextiletype>
 	<xlocation>1</xlocation>
 	<ylocation>-1</ylocation>
 	<rotation>180</rotation>
@@ -926,6 +937,7 @@
 	<name>High Pass</name>
 	<abbreviation>HP</abbreviation>
 	<image>highpass1</image>
+	<hextiletype>CAVE</hextiletype>
 	<xlocation>0</xlocation>
 	<ylocation>-1</ylocation>
 	<rotation>180</rotation>
@@ -1012,6 +1024,7 @@
 	<name>Ledges</name>
 	<abbreviation>L</abbreviation>
 	<image>ledges1</image>
+	<hextiletype>MOUNTAIN</hextiletype>
 	<xlocation>1</xlocation>
 	<ylocation>0</ylocation>
 	<rotation>300</rotation>
@@ -1108,6 +1121,7 @@
 	<name>Linden Woods</name>
 	<abbreviation>LW</abbreviation>
 	<image>lindenwoods1</image>
+	<hextiletype>WOODS</hextiletype>
 	<xlocation>-3</xlocation>
 	<ylocation>4</ylocation>
 	<rotation>120</rotation>
@@ -1166,6 +1180,7 @@
 	<name>Maple Woods</name>
 	<abbreviation>MW</abbreviation>
 	<image>maplewoods1</image>
+	<hextiletype>WOODS</hextiletype>
 	<xlocation>-1</xlocation>
 	<ylocation>2</ylocation>
 	<rotation>180</rotation>
@@ -1224,6 +1239,7 @@
 	<name>Mountain</name>
 	<abbreviation>M</abbreviation>
 	<image>mountain1</image>
+	<hextiletype>MOUNTAIN</hextiletype>
 	<xlocation>-2</xlocation>
 	<ylocation>1</ylocation>
 	<rotation>0</rotation>
@@ -1315,6 +1331,7 @@
 	<name>Nut Woods</name>
 	<abbreviation>NW</abbreviation>
 	<image>nutwoods1</image>
+	<hextiletype>WOODS</hextiletype>
 	<xlocation>-1</xlocation>
 	<ylocation>3</ylocation>
 	<rotation>240</rotation>
@@ -1373,6 +1390,7 @@
 	<name>Oak Woods</name>
 	<abbreviation>OW</abbreviation>
 	<image>oakwoods1</image>
+	<hextiletype>WOODS</hextiletype>
 	<xlocation>0</xlocation>
 	<ylocation>1</ylocation>
 	<rotation>300</rotation>
@@ -1431,6 +1449,7 @@
 	<name>Pine Woods</name>
 	<abbreviation>PW</abbreviation>
 	<image>pinewoods1</image>
+	<hextiletype>WOODS</hextiletype>
 	<xlocation>-3</xlocation>
 	<ylocation>2</ylocation>
 	<rotation>60</rotation>
@@ -1489,6 +1508,7 @@
 	<name>Ruins</name>
 	<abbreviation>R</abbreviation>
 	<image>ruins1</image>
+	<hextiletype>CAVE</hextiletype>
 	<xlocation>-2</xlocation>
 	<ylocation>3</ylocation>
 	<rotation>180</rotation>
