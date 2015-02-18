@@ -32,7 +32,7 @@ public class Hex{
 		x = aX;
 		y = aY;
 		active = true;
-		if((x < 0 && y < 0 && x + y < -3) || (x > 0 && y > 0 && x + y > 3)){
+		if((x < 0 && y < 0 && x + y < -4) || (x > 0 && y > 0 && x + y > 4)){
 			active = false;
 		}
 		

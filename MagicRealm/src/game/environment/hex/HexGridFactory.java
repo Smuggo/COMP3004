@@ -12,7 +12,7 @@ public class HexGridFactory {
 		Dimension lCanvasSize = new Dimension(3000,3000);
 
 		// Create hexGrid and send hextile logic
-		HexGrid lHexGrid = new HexGrid(3, lCanvasSize, hextiles);
+		HexGrid lHexGrid = new HexGrid(4, lCanvasSize, hextiles);
 		lHexGrid.setHexClearings();
 		
 		return lHexGrid;

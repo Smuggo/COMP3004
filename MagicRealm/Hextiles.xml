@@ -14,31 +14,31 @@
 		<number>1</number>
 		<clearingtype>WOODS</clearingtype>
 		<positionx>-118</positionx>
-		<positiony>-98</positiony>
+		<positiony>-63</positiony>
     <dwellingType>null</dwellingType>
     <dwellingImage>null</dwellingImage>
 	</clearing>
 	<clearing>
 		<number>2</number>
 		<clearingtype>WOODS</clearingtype>
-		<positionx>-118</positionx>
-		<positiony>22</positiony>
+		<positionx>-120</positionx>
+		<positiony>60</positiony>
     <dwellingType>null</dwellingType>
     <dwellingImage>null</dwellingImage>
 	</clearing>
 	<clearing>
 		<number>4</number>
 		<clearingtype>WOODS</clearingtype>
-		<positionx>0</positionx>
-		<positiony>0</positiony>
+		<positionx>58</positionx>
+		<positiony>38</positiony>
     <dwellingType>null</dwellingType>
     <dwellingImage>null</dwellingImage>
 	</clearing>
 	<clearing>
 		<number>5</number>
 		<clearingtype>WOODS</clearingtype>
-		<positionx>0</positionx>
-		<positiony>0</positiony>
+		<positionx>-9</positionx>
+		<positiony>-128</positiony>
     <dwellingType>CHAPEL</dwellingType>
     <dwellingImage>chapel</dwellingImage>
 	</clearing>
