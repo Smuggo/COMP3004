@@ -8,32 +8,38 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import config.Config.ImageType;
+import config.Config.CharacterImageType;
+import config.Config.DwellingType;
 
 public class ImageMap {
 
-	private Map<Config.ImageType, BufferedImage> imageMap = new HashMap<Config.ImageType, BufferedImage>();
+	private Map<CharacterImageType, BufferedImage> characterImageMap = new HashMap<CharacterImageType, BufferedImage>();
+	private Map<Config.DwellingType, BufferedImage> dwellingImageMap = new HashMap<Config.DwellingType, BufferedImage>();
 
 	public ImageMap(){
 		try {
-			imageMap.put(ImageType.captainPage, ImageIO.read(new File ("media/images/characterdetail/captain.jpg")));
-			imageMap.put(ImageType.captainChit, ImageIO.read(new File ("media/images/characters/captain.png")));
-			imageMap.put(ImageType.swordsmanPage, ImageIO.read(new File("media/images/characterdetail/swordsman.jpg")));
-			imageMap.put(ImageType.swordsmanChit, ImageIO.read(new File("media/images/characters/swordsman.png")));
-			imageMap.put(ImageType.amazonPage, ImageIO.read(new File ("media/images/characterdetail/amazon.jpg")));
-			imageMap.put(ImageType.amazonChit, ImageIO.read(new File ("media/images/characters/amazon.png")));
-			imageMap.put(ImageType.dwarfPage, ImageIO.read(new File ("media/images/characterdetail/dwarf.jpg")));
-			imageMap.put(ImageType.dwarfChit, ImageIO.read(new File ("media/images/characters/dwarf.png")));
-			imageMap.put(ImageType.elfPage, ImageIO.read(new File ("media/images/characterdetail/elf.jpg")));
-			imageMap.put(ImageType.elfChit, ImageIO.read(new File ("media/images/characters/elf.png")));
-			imageMap.put(ImageType.bKnightPage, ImageIO.read(new File ("media/images/characterdetail/black_knight.jpg")));
-			imageMap.put(ImageType.bKnightChit, ImageIO.read(new File ("media/images/characters/black_knight.png")));
+			characterImageMap.put(CharacterImageType.captainPage, ImageIO.read(new File ("media/images/characterdetail/captain.jpg")));
+			characterImageMap.put(CharacterImageType.captainChit, ImageIO.read(new File ("media/images/characters/captain.png")));
+			characterImageMap.put(CharacterImageType.swordsmanPage, ImageIO.read(new File("media/images/characterdetail/swordsman.jpg")));
+			characterImageMap.put(CharacterImageType.swordsmanChit, ImageIO.read(new File("media/images/characters/swordsman.png")));
+			characterImageMap.put(CharacterImageType.amazonPage, ImageIO.read(new File ("media/images/characterdetail/amazon.jpg")));
+			characterImageMap.put(CharacterImageType.amazonChit, ImageIO.read(new File ("media/images/characters/amazon.png")));
+			characterImageMap.put(CharacterImageType.dwarfPage, ImageIO.read(new File ("media/images/characterdetail/dwarf.jpg")));
+			characterImageMap.put(CharacterImageType.dwarfChit, ImageIO.read(new File ("media/images/characters/dwarf.png")));
+			characterImageMap.put(CharacterImageType.elfPage, ImageIO.read(new File ("media/images/characterdetail/elf.jpg")));
+			characterImageMap.put(CharacterImageType.elfChit, ImageIO.read(new File ("media/images/characters/elf.png")));
+			characterImageMap.put(CharacterImageType.bKnightPage, ImageIO.read(new File ("media/images/characterdetail/black_knight.jpg")));
+			characterImageMap.put(CharacterImageType.bKnightChit, ImageIO.read(new File ("media/images/characters/black_knight.png")));
+
+			dwellingImageMap.put(DwellingType.GUARD, ImageIO.read(new File("media/images/dwellings/guard.gif")));
+			dwellingImageMap.put(DwellingType.CHAPEL, ImageIO.read(new File("media/images/dwellings/chapel.gif")));
+			dwellingImageMap.put(DwellingType.HOUSE, ImageIO.read(new File("media/images/dwellings/house.gif")));
+			dwellingImageMap.put(DwellingType.INN, ImageIO.read(new File("media/images/dwellings/inn.gif")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public BufferedImage getImage(ImageType aImageType){
-		return imageMap.get(aImageType);
-	}
+
+	public BufferedImage getCharacterImage (CharacterImageType aCharacterImageType){ return characterImageMap.get(aCharacterImageType); }
+	public BufferedImage getDwellingImage (DwellingType aDwellingType) { return dwellingImageMap.get(aDwellingType); }
 }

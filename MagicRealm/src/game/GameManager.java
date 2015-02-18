@@ -4,7 +4,8 @@ import java.util.Map;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 
-import config.Config.ImageType;
+import config.Config.CharacterImageType;
+import config.Config.DwellingType;
 import config.ImageMap;
 import game.environment.EnvironmentManager;
 import game.environment.hex.HexGrid;
@@ -35,7 +36,11 @@ public class GameManager {
 		return characters.getCharacters();
 	}
 	
-	public BufferedImage getImage(ImageType aImageType){
-		return gameImages.getImage(aImageType);
+	public BufferedImage getCharacterImage(CharacterImageType aImageType){
+		return gameImages.getCharacterImage(aImageType);
+	}
+	
+	public BufferedImage getDwellingImage(DwellingType aDwellingType){
+		return gameImages.getDwellingImage(aDwellingType);
 	}
 }

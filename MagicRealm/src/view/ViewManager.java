@@ -18,6 +18,7 @@ import view.internals.menu.NewGameView;
 import view.internals.menu.ServerMenuView;
 import view.internals.game.CharacterView;
 import view.internals.game.CharacterList;
+import view.internals.game.StartingLocation;
 import view.internals.game.VictoryPoints;
 
 public class ViewManager {
@@ -34,6 +35,7 @@ public class ViewManager {
 	CharacterView lCharacterView;
 	CharacterList lCharacterList;
 	VictoryPoints lVictoryPoints;
+	StartingLocation lStartingLocation;
 	
 	ViewModel lModel;
 	
@@ -144,5 +146,10 @@ public class ViewManager {
 	
 	public void updatePlayerTable(ArrayList<Player> aPlayers){
 		lCharacterView.updateCharacterTable(aPlayers);
+	}
+	
+	public void showStartingLocations(ViewModel lModel){
+		lStartingLocation = new StartingLocation(lModel);
+		lWindow.addWindow(lStartingLocation);
 	}
 }

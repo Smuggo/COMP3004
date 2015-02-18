@@ -115,10 +115,20 @@ public class XMLParser {
                                         nodeList = c.getElementsByTagName("positiony");
                                         int posy = Integer.parseInt(nodeList.item(0).getChildNodes().item(0).getNodeValue());
                                         
+                                        nodeList = c.getElementsByTagName("dwellingType");
+                                        Config.DwellingType dwellingType = null;
+                                        if (!nodeList.item(0).getChildNodes().item(0).getNodeValue().equals("null"))
+                                        	dwellingType = Config.DwellingType.valueOf(nodeList.item(0).getChildNodes().item(0).getNodeValue());
+                                        
+                                        nodeList = c.getElementsByTagName("dwellingImage");
+                                        BufferedImage dwellingImage = null;
+                                        if (dwellingType != null)
+                                        	dwellingImage = ImageIO.read(new File("media/images/dwellings/" + nodeList.item(0).getChildNodes().item(0).getNodeValue() + ".gif"));
+                                        
                                         clearing.setPosition(new Point(posx,posy));
                                         
                                         // Initialize Clearing Object
-                                        clearing.initialize(abbreviation, number, clearingType);
+                                        clearing.initialize(abbreviation, number, clearingType, dwellingType, dwellingImage);
                                         
                                         // Add Clearing Object to Hextile
                                         hextile.addClearing(clearing);

@@ -1,9 +1,11 @@
 package game.entity;
 
-import java.awt.image.BufferedImage;
+import game.environment.hex.Clearing;
+
 import java.io.Serializable;
 
-import config.Config.ImageType;
+import config.Config.CharacterImageType;
+import config.Config.DwellingType;
 
 public class Hero implements Serializable{
 	/**
@@ -18,16 +20,20 @@ public class Hero implements Serializable{
 	private int gold;
 	
 	private String name;
+	
+	private Clearing lClearing;
 
 	private boolean hidden;
 
-	private ImageType characterSheet;
-	private ImageType characterChit;
+	private CharacterImageType characterSheet;
+	private CharacterImageType characterChit;
+	private DwellingType[] startingLocations;
 	
-	public Hero(String n, ImageType charPage, ImageType charChit){
+	public Hero(String n, CharacterImageType charPage, CharacterImageType charChit, DwellingType[] aStartingLocations){
 		name = n;
 		characterSheet = charPage;
 		characterChit = charChit;
+		startingLocations = aStartingLocations;
 		victoryConditions = new int[5];
 		
 		fame = 0;
@@ -39,16 +45,19 @@ public class Hero implements Serializable{
 	
 	public String  getName()           { return name; }
 	public boolean getHidden()         { return hidden; }
-	public ImageType getCharSheet(){ return characterSheet; }
-	public ImageType getCharChit() { return characterChit; }
+	public CharacterImageType getCharSheet(){ return characterSheet; }
+	public CharacterImageType getCharChit() { return characterChit; }
 	public int[] getVictoryConditions(){ return victoryConditions; }
 	public int getFame()               { return fame; }
 	public int getNotoriety()          { return notoriety; }
 	public int getGold()               { return gold; }
+	public DwellingType[] getStartingLocations() { return startingLocations; }
+	public Clearing getClearing() { return lClearing; }
 	
 	public void setVictoryConditions(int[] vCond){ victoryConditions = vCond; }
 	public void setFame(int nFame)               { fame = nFame; }
 	public void setNotoriety(int nNotoriety)     { notoriety = nNotoriety; }
 	public void setGold(int nGold)               { gold = nGold; }
 	public void setHidden(boolean nHidden)       { hidden = nHidden; }
+	public void setClearing(Clearing aClearing)  { lClearing = aClearing; }
 }

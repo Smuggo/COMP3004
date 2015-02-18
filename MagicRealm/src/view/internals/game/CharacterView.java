@@ -145,7 +145,7 @@ public class CharacterView extends JInternalFrame{
 	
 	public void setCharacterTableData(String characterName, String playerName){
 		
-		Image tempSymbol = getScaledImage(lModel.getGameManager().getImage(lModel.getCharacters().get(characterName).getCharChit()), 30, 30);
+		Image tempSymbol = getScaledImage(lModel.getGameManager().getCharacterImage(lModel.getCharacters().get(characterName).getCharChit()), 30, 30);
 		ImageIcon symbol = new ImageIcon(tempSymbol);
 		
 		DefaultTableModel model = (DefaultTableModel) characterList.getModel();

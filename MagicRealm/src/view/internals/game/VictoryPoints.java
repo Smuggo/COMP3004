@@ -42,14 +42,12 @@ public class VictoryPoints extends JInternalFrame{
 	
 	JButton confirm;
 	
-	Hero lCharacter;
 	ViewModel lModel;
 	
 	int pAssigned;
 	
 	public VictoryPoints(Hero aCharacter, ViewModel aModel){
 		super("Victory Conditions for " + aCharacter.getName());
-		lCharacter = aCharacter;
 		
 		int xSize = 300;
 		int ySize = 400;
@@ -255,7 +253,8 @@ public class VictoryPoints extends JInternalFrame{
 					    						  (int)notorietyPoints.getValue(), 
 					    						  (int)goldPoints.getValue()};
 			  
-			  lCharacter.setVictoryConditions(victoryConditions);
+			  lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().setVictoryConditions(victoryConditions);
+			  lModel.requestStartingLocation(lModel);
 			  dispose();
 		  }
 		});

@@ -30,11 +30,15 @@ public final class Config {
 		TOP, TOP_RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, TOP_LEFT
 	}
 	
-	public enum ImageType {
+	public enum CharacterImageType {
 		captainPage, swordsmanPage, amazonPage, dwarfPage, elfPage, bKnightPage, captainChit, swordsmanChit, amazonChit, dwarfChit, elfChit, bKnightChit
 	};
 	
 	public enum ChitType {
 		SOUND, WARNING, SITE, WEATHER, VISTOR_MISSION
 	};
+	
+	public enum DwellingType {
+		INN, HOUSE, GUARD, CHAPEL
+	}
 }

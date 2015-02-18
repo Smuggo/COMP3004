@@ -49,9 +49,6 @@ public class CharacterList extends JInternalFrame{
 		lCharacterView = aCharacterView;
 		characterMap = aModel.getCharacters();
 		
-		int xSize = lModel.getScreenDimensions().width;
-		int ySize = lModel.getScreenDimensions().height;
-		
 		boolean available = true;
 		
 		for (String chName : allCharacters){
@@ -102,7 +99,7 @@ public class CharacterList extends JInternalFrame{
 		
 		characterList.setSelectedIndex(0);
 
-		charSheet = new JLabel(new ImageIcon(aModel.getGameManager().getImage(characterMap.get(characterList.getSelectedValue()).getCharSheet())));
+		charSheet = new JLabel(new ImageIcon(aModel.getGameManager().getCharacterImage(characterMap.get(characterList.getSelectedValue()).getCharSheet())));
 		c.anchor = GridBagConstraints.NORTH;
 		c.fill = GridBagConstraints.NONE;
 		c.gridx = 1;
@@ -139,7 +136,7 @@ public class CharacterList extends JInternalFrame{
 
 		characterList.addListSelectionListener(new ListSelectionListener(){
 			public void valueChanged(ListSelectionEvent e) {
-				charSheet.setIcon(new ImageIcon(lModel.getGameManager().getImage(characterMap.get(characterList.getSelectedValue()).getCharSheet())));
+				charSheet.setIcon(new ImageIcon(lModel.getGameManager().getCharacterImage(characterMap.get(characterList.getSelectedValue()).getCharSheet())));
 				getContentPane().repaint();
 			}
 		});
