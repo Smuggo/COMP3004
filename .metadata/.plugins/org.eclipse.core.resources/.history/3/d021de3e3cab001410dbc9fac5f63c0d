@@ -1,9 +1,0 @@
-package view.internals.game;
-
-import javax.swing.JInternalFrame;
-
-public class GameBoardView extends JInternalFrame{
-
-	private static final long serialVersionUID = -4478656155793467601L;
-
-}

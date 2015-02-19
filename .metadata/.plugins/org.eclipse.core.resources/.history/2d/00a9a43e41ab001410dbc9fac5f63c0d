@@ -1,7 +1,0 @@
-package view.internals.game;
-
-import java.awt.Canvas;
-
-public class GameBoardCanvas extends Canvas{
-
-}

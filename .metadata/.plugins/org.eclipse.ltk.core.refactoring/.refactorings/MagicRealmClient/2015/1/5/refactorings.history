@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Move package &apos;client&apos; to &apos;MagicRealm/src&apos;&#x0D;&#x0A;- Original project: &apos;MagicRealmClient&apos;&#x0D;&#x0A;- Destination element: &apos;MagicRealm/src&apos;&#x0D;&#x0A;- Original element: &apos;MagicRealmClient/src/client&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move package" destination="=MagicRealm/src" element1="/src&lt;client" flags="589830" fragments="1" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.movePackages" stamp="1422554951560" version="1.0"/>
-</session>
