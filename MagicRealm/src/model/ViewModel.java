@@ -162,8 +162,10 @@ public class ViewModel {
 				lViewManager.updatePlayerTable(tempList);
 		}
 		
-		lGameState = aGameState;
-		lViewManager.gameStateUpdated();
+		if(!aGameState.equals(lGameState)){
+			lGameState = aGameState;
+			lViewManager.gameStateUpdated();
+		}
 	}
 	
 	public GameState getGameState(){ return lGameState; }

@@ -23,6 +23,7 @@ public class Client implements Runnable {
 	NetworkManager lNetworkManager;
 	boolean lWaiting;
 	boolean gameRunning;
+	boolean streamBusy;
 	
 	
 	public Client(Socket s, NetworkManager aNetworkManager)
@@ -32,6 +33,7 @@ public class Client implements Runnable {
 		lWaiting = false;
 		gameRunning = false;
 		lNetworkManager = aNetworkManager;
+		streamBusy = false;
 	}
 	
 	@Override
@@ -54,7 +56,7 @@ public class Client implements Runnable {
 						gameRunning = true;
 					}
 				}else{
-					if(gameRunning){
+					if(gameRunning && !streamBusy){
 						lNetworkManager.updateLocalGameState(requestGameState());
 					}
 				}
@@ -76,11 +78,17 @@ public class Client implements Runnable {
 	
 	public boolean sendPing(){
 		try{
+			
+			while(streamBusy){
+				Thread.sleep(1);
+			}
+			streamBusy=true;
 			String lRequest = "Server Test";
 			lOutputStream.writeObject(lRequest);
 			lOutputStream.reset();	
 			
 			System.out.println((String)lInputStream.readObject());
+			streamBusy=false;
 			return true;
 		}
 		catch (Exception e)
@@ -89,12 +97,18 @@ public class Client implements Runnable {
 			System.out.println("Client Error:");
 			e.printStackTrace();
 		}
+		streamBusy=false;
 		return false;
 	}
 	
 	
 	public int sendPlayerPacket(PlayerPacket aPlayerPacket){
 		try{
+			
+			while(streamBusy){
+				Thread.sleep(1);
+			}
+			streamBusy=true;
 			
 			if(!isStreamsOpened()){
 				while(!isStreamsOpened()){
@@ -111,6 +125,7 @@ public class Client implements Runnable {
 			
 			lOutputStream.reset();	
 			
+			streamBusy=false;
 			return (Integer)lInputStream.readObject();
 		}
 		catch (Exception e)
@@ -119,17 +134,25 @@ public class Client implements Runnable {
 			System.out.println("Client Error:");
 			e.printStackTrace();
 		}
+		streamBusy=false;
 		return 0;
 	}
 	
 	public GameState requestGameState(){
 		try{
-
+			while(streamBusy){
+				Thread.sleep(1);
+			}
+			streamBusy=true;
+			
 			String lRequest = "GameState";
 			lOutputStream.writeObject(lRequest);
 			lOutputStream.flush();		
+			lOutputStream.reset();
 			
-			return (GameState)lInputStream.readObject();
+			GameState gamestate = (GameState)lInputStream.readObject();
+			streamBusy=false;
+			return gamestate;
 		}
 		catch (Exception e)
 		{
@@ -137,6 +160,7 @@ public class Client implements Runnable {
 			System.out.println("Client Error:");
 			e.printStackTrace();
 		}
+		streamBusy=false;
 		return null;
 	}
 	
@@ -147,6 +171,12 @@ public class Client implements Runnable {
 	
 	public void setPlayerCharacter(GameState aGameState, int aLocalPlayerNumber){
 		try {
+			
+			while(streamBusy){
+				Thread.sleep(1);
+			}
+			
+			streamBusy=true;
 			String lRequest = "UpdatePlayerCharacter";
 			lOutputStream.writeObject(lRequest);
 			lOutputStream.flush();
@@ -155,9 +185,12 @@ public class Client implements Runnable {
 			lOutputStream.writeObject(aLocalPlayerNumber);
 			lOutputStream.flush();
 			lOutputStream.reset();
-		} catch (IOException e) {
+			
+			streamBusy=false;
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		streamBusy=false;
 	}
 	
 	public void updateCharacterTable(JTable aCharacterTable){
@@ -165,12 +198,14 @@ public class Client implements Runnable {
 	
 	public boolean checkGameStarted(){
 		try{
+
 			
 			String lRequest = "GameStart";
 			lOutputStream.writeObject(lRequest);
 			lOutputStream.flush();
 			lOutputStream.reset();
 			
+			streamBusy=false;
 			return (boolean) lInputStream.readObject();
 			
 			
@@ -181,11 +216,16 @@ public class Client implements Runnable {
 			System.out.println("Client Error:");
 			e.printStackTrace();
 		}
+		streamBusy=false;
 		return false;
 	}
 	
 	public boolean updateStateWithPlayerClicked(int aPlayer, Point aPoint){
 		try{
+			while(streamBusy){
+				Thread.sleep(1);
+			}
+			streamBusy=true;
 			
 			String lRequest = "PlayerPointClicked";
 			lOutputStream.writeObject(lRequest);
@@ -196,6 +236,7 @@ public class Client implements Runnable {
 			lOutputStream.flush();
 			lOutputStream.reset();
 			
+			streamBusy=false;
 			return (boolean) lInputStream.readObject();
 			
 			
@@ -206,11 +247,16 @@ public class Client implements Runnable {
 			System.out.println("Client Error:");
 			e.printStackTrace();
 		}
+		streamBusy=false;
 		return false;
 	}
 	
 	public boolean createNewMap(HexGrid aHexGrid){
 		try{
+			while(streamBusy){
+				Thread.sleep(1);
+			}
+			streamBusy=true;
 			
 			String lRequest = "CreateMap";
 			lOutputStream.writeObject(lRequest);
@@ -219,6 +265,7 @@ public class Client implements Runnable {
 			lOutputStream.flush();
 			lOutputStream.reset();
 			
+			streamBusy=false;
 			return (boolean) lInputStream.readObject();
 			
 			
@@ -229,11 +276,16 @@ public class Client implements Runnable {
 			System.out.println("Client Error:");
 			e.printStackTrace();
 		}
+		streamBusy=false;
 		return false;
 	}
 	
 	public boolean setPlayerStartingLocation(String aDwelling, int aPlayer){
 		try{
+			while(streamBusy){
+				Thread.sleep(1);
+			}
+			streamBusy=true;
 			
 			String lRequest = "SetStartingLocation";
 			lOutputStream.writeObject(lRequest);
@@ -244,6 +296,7 @@ public class Client implements Runnable {
 			lOutputStream.flush();
 			lOutputStream.reset();
 			
+			streamBusy=false;
 			return (boolean) lInputStream.readObject();
 			
 			
@@ -254,6 +307,7 @@ public class Client implements Runnable {
 			System.out.println("Client Error:");
 			e.printStackTrace();
 		}
+		streamBusy=false;
 		return false;
 	}
 
