@@ -17,7 +17,6 @@ public class GameState implements Serializable{
 	private HexGrid lHexGrid;
 	private int lTurn;
 	
-	
 	public GameState(){
 		lVersion = 1;
 		lTurn = 1;
@@ -35,7 +34,7 @@ public class GameState implements Serializable{
 		return lPlayers.size();
 	}
 	
-	public Player getPlayer(int i){ return lPlayers.get(i-1);} 
+	public Player getPlayer(int i){ return lPlayers.get(i-1); } 
 	
 	public void updatePointClicked(int aPlayer, Point aPoint){
 		if(lPlayers == null)
@@ -49,6 +48,10 @@ public class GameState implements Serializable{
 	
 	public HexGrid getHexGrid(){
 		return lHexGrid;
+	}
+	
+	public int getDay(){
+		return lTurn;
 	}
 	
 	public void setHexGrid(HexGrid aHexGrid){

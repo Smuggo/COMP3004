@@ -1,6 +1,7 @@
 package action;
 
 import java.io.Serializable;
+import java.util.Random;
 
 import game.environment.hex.Clearing;
 import config.Config.ActionType;
@@ -16,8 +17,8 @@ public class Action implements Serializable{
 	private int cost;
 	
 	//Move
-	Clearing lClearingStart;
-	Clearing lClearingEnd;
+	private Clearing lClearingStart;
+	private Clearing lClearingEnd;
 	
 	//Hide
 	
@@ -61,7 +62,9 @@ public class Action implements Serializable{
 		return lActionType;
 	}
 	
-
+	public Clearing getClearingEnd(){
+		return lClearingEnd;
+	}
 	
 	
 }

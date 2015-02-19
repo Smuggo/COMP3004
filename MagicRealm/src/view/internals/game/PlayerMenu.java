@@ -28,8 +28,11 @@ public class PlayerMenu extends JInternalFrame{
 	private JButton lHide;
 	private JButton lRest;
 	private JButton lSearch;
+	private JButton lRemove;
 	private JButton lSendActionsOrCancel;
 
+	private String lTurnActions;
+	private boolean lPrevMove; //Was the previous action was a movement
 	
 	private JScrollPane lActionPane;
 	
@@ -37,6 +40,8 @@ public class PlayerMenu extends JInternalFrame{
 	
 	public PlayerMenu(ViewModel aModel){
 		lModel = aModel;
+		lTurnActions = "";
+		lPrevMove = false;
 		
 		int xSize = lModel.getScreenDimensions().width/2;
 		int ySize = lModel.getScreenDimensions().height/2;
@@ -69,13 +74,18 @@ public class PlayerMenu extends JInternalFrame{
 		c.gridy = 0;
 		add(lSearch, c);
 		
-		lSendActionsOrCancel = new JButton("Send Actions");
+		lRemove = new JButton("Remove Prev.");
 		c.gridx = 4;
+		c.gridy = 0;
+		add(lRemove, c);
+		
+		lSendActionsOrCancel = new JButton("Send Actions");
+		c.gridx = 5;
 		c.gridy = 0;
 		add(lSendActionsOrCancel, c);
 		
 		
-		lActionTable = new JTable(new DefaultTableModel(new Object[]{"Turn", "Day", "Actions", "Die"}, 0))
+		lActionTable = new JTable(new DefaultTableModel(new Object[]{"Day", "Actions", "Die"}, 0))
 		{
 			/**
 			 * 
@@ -91,12 +101,13 @@ public class PlayerMenu extends JInternalFrame{
 				return getValueAt(0, column).getClass();
 			}
 		};
+		DefaultTableModel firstRow = (DefaultTableModel) lActionTable.getModel();
+		firstRow.addRow(new Object[] {1, "", 0});
 		
 		lActionTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		lActionTable.getColumnModel().getColumn(0).setPreferredWidth(50);
-		lActionTable.getColumnModel().getColumn(1).setPreferredWidth(50);
-		lActionTable.getColumnModel().getColumn(2).setPreferredWidth(400);
-		lActionTable.getColumnModel().getColumn(3).setPreferredWidth(50);
+		lActionTable.getColumnModel().getColumn(1).setPreferredWidth(400);
+		lActionTable.getColumnModel().getColumn(2).setPreferredWidth(50);
 		lActionTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		lActionPane = new JScrollPane(lActionTable,
@@ -106,7 +117,7 @@ public class PlayerMenu extends JInternalFrame{
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0;
 		c.gridheight = 0;
-		c.gridwidth = 6;
+		c.gridwidth = 7;
 		c.ipadx = xSize - 100;
 		c.ipady = ySize - 100;
 		c.gridx = 0;
@@ -128,9 +139,39 @@ public class PlayerMenu extends JInternalFrame{
 				lHide.setEnabled(false);
 				lRest.setEnabled(false);
 				lSearch.setEnabled(false);
+				lPrevMove = true;
 			}
 		});
 		
+		lHide.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				lModel.getActionManager().getActionList().addHideAction();
+				lTurnActions += "H,";
+				lActionTable.setValueAt(lTurnActions, lModel.getGameState().getDay()-1, 1);
+				lPrevMove = false;
+			}
+		});
+		
+		lRemove.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				if(lModel.getActionManager().getActionList().getActionPoints() != 4){
+					lModel.getActionManager().getActionList().removeAction();
+					
+					if(lPrevMove){
+						lTurnActions = lTurnActions.substring(0, lTurnActions.length()-5);
+						lActionTable.setValueAt(lTurnActions, lModel.getGameState().getDay()-1, 1);
+					}
+					else{
+						lTurnActions = lTurnActions.substring(0, lTurnActions.length()-2);
+						lActionTable.setValueAt(lTurnActions, 0, 1);
+					}
+				}
+			}
+		});
 		
 		lSendActionsOrCancel.addActionListener(new ActionListener()
 		{
