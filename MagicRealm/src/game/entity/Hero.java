@@ -3,7 +3,9 @@ package game.entity;
 import game.environment.hex.Clearing;
 
 import java.awt.Color;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
 import config.Config.CharacterImageType;
@@ -45,10 +47,18 @@ public class Hero implements Serializable{
 		hidden = false;
 	}
 	
-	public void draw(Graphics g){
+	public void draw(Graphics g, Player aPlayer){
 		if(lClearing != null){
-			g.setColor(Color.cyan);
-			g.drawString(name, (int)lClearing.getRotPosition().getX(), (int)lClearing.getRotPosition().getY());
+			FontMetrics fm = g.getFontMetrics();
+			String string = name+" : "+aPlayer.getUserName();
+			Rectangle2D rect = fm.getStringBounds(string, g);
+			int x = (int)lClearing.getRotPosition().getX();
+			int y = (int)lClearing.getRotPosition().getY();
+			
+			g.setColor(new Color(20,20,20));
+			g.fillRect(x-3, y - fm.getAscent(), (int) rect.getWidth()+6, (int) rect.getHeight());
+			g.setColor(new Color(0,200,200));
+			g.drawString(string, x, y);
 			g.setColor(Color.black);
 		}
 	}

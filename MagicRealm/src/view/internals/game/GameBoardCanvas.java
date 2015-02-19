@@ -73,7 +73,7 @@ public class GameBoardCanvas extends JPanel{
 	    
 	    for(int i = 1; i < lGameState.getPlayers().size()+1; i++){
 	    	if(lGameState.getPlayer(i)!= null && lGameState.getPlayer(i).getChosenHero() != null){
-	    		lGameState.getPlayer(i).getChosenHero().draw(g);
+	    		lGameState.getPlayer(i).getChosenHero().draw(g, lGameState.getPlayer(i));
 	    	}
 	    }
 
