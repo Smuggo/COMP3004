@@ -8,6 +8,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
 
 import model.ViewModel;
 
@@ -23,6 +27,11 @@ public class PlayerMenu extends JInternalFrame{
 	private JButton lHide;
 	private JButton lRest;
 	private JButton lSearch;
+	private JButton lSendActions;
+	
+	private JScrollPane lActionPane;
+	
+	private JTable lActionTable;
 	
 	public PlayerMenu(ViewModel aModel){
 		lModel = aModel;
@@ -57,6 +66,51 @@ public class PlayerMenu extends JInternalFrame{
 		c.gridx = 3;
 		c.gridy = 0;
 		add(lSearch, c);
+		
+		lSendActions = new JButton("Send Actions");
+		c.gridx = 4;
+		c.gridy = 0;
+		add(lSendActions, c);
+		
+		lActionTable = new JTable(new DefaultTableModel(new Object[]{"Turn", "Day", "Actions", "Die"}, 0))
+		{
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -4125272036513549574L;
+			public boolean isCellEditable(int row, int column)
+			{
+				return false;
+			}
+			@SuppressWarnings({ "rawtypes", "unchecked" })
+			public Class getColumnClass(int column)
+			{
+				return getValueAt(0, column).getClass();
+			}
+		};
+		
+		lActionTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		lActionTable.getColumnModel().getColumn(0).setPreferredWidth(50);
+		lActionTable.getColumnModel().getColumn(1).setPreferredWidth(50);
+		lActionTable.getColumnModel().getColumn(2).setPreferredWidth(400);
+		lActionTable.getColumnModel().getColumn(3).setPreferredWidth(50);
+		lActionTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		lActionPane = new JScrollPane(lActionTable,
+				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 0;
+		c.gridheight = 0;
+		c.gridwidth = 6;
+		c.ipadx = xSize - 100;
+		c.ipady = ySize - 100;
+		c.gridx = 0;
+		c.gridy = 1;
+		add(lActionPane, c);
+		
+		
 		
 		createButtonListeners();
 		setVisible(true);

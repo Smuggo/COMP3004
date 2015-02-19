@@ -104,7 +104,7 @@ public class CharacterView extends JInternalFrame{
 		c.ipadx = (int)(lModel.getScreenDimensions().width/2.25);
 		c.ipady = (int)(lModel.getScreenDimensions().height/4);
 		c.weightx = 0;
-		c.gridheight = 4;
+		c.gridheight = 0;
 		c.gridwidth = 2;
 		c.gridx = 0;
 		c.gridy = 1;
