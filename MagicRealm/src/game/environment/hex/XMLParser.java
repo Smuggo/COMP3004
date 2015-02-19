@@ -125,14 +125,7 @@ public class XMLParser {
                                         nodeList = c.getElementsByTagName("dwellingType");
                                         Config.DwellingType dwellingType = null;
                                         if (!nodeList.item(0).getChildNodes().item(0).getNodeValue().equals("null"))
-                                        	dwellingType = Config.DwellingType.valueOf(nodeList.item(0).getChildNodes().item(0).getNodeValue());
-                                        
-                                        nodeList = c.getElementsByTagName("dwellingImage");
-                                        BufferedImage dwellingImage = null;
-                                        if (dwellingType != null)
-                                        	dwellingImage = ImageIO.read(new File("media/images/dwellings/" + nodeList.item(0).getChildNodes().item(0).getNodeValue() + ".gif"));
-                                        
-                                        
+                                        	dwellingType = Config.DwellingType.valueOf(nodeList.item(0).getChildNodes().item(0).getNodeValue());                                                                      
                                         
                                         clearing.setPosition(new Point(posx,posy));
                                         
