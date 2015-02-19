@@ -22,6 +22,7 @@ public class Hero implements Serializable{
 	private int fame;
 	private int notoriety;
 	private int gold;
+	private int actionPoints;
 	
 	private String name;
 	
@@ -43,6 +44,7 @@ public class Hero implements Serializable{
 		fame = 0;
 		notoriety = 0;
 		gold = 0;
+		actionPoints = 10;
 		
 		hidden = false;
 	}
@@ -73,6 +75,10 @@ public class Hero implements Serializable{
 	public int getGold()               { return gold; }
 	public DwellingType[] getStartingLocations() { return startingLocations; }
 	public Clearing getClearing() { return lClearing; }
+	
+	public int getActionPoints(){
+		return actionPoints;
+	}
 	
 	public void setVictoryConditions(int[] vCond){ victoryConditions = vCond; }
 	public void setFame(int nFame)               { fame = nFame; }
