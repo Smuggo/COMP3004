@@ -8,8 +8,10 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
 
 import config.Config;
+import config.ImageMap;
 
 public class Hex{
 	private boolean active;
@@ -68,28 +70,30 @@ public class Hex{
 	}
 	
 	
-	public void drawHex (int aX, int aY, Graphics g, Dimension aCanvasSize, Point aMouse){
+	public void drawHex (int aX, int aY, Graphics g, Dimension aCanvasSize, Point aMouse, ImageMap aImageMap){
 		if(active){
 			
 			
 			int drawLocationX = lCenterX-(width/2);
 			int drawLocationY = lCenterY-(height/2)-1;
+			BufferedImage image = aImageMap.getHexImage(hextile.getTileImage());
+			
 			
 			// No rotation necessary
 			if (hextile.getRotation() == 0) {
-				g.drawImage(hextile.getTileImage(), drawLocationX, drawLocationY, null);
+				g.drawImage(image , drawLocationX, drawLocationY, null);
 			}
 			else {
 				// Rotation information
 				double rotationRequired = Math.toRadians(hextile.getRotation());
-				double rotationlocationX = hextile.getTileImage().getWidth() / 2;
-				double rotationlocationY = hextile.getTileImage().getHeight() / 2;
+				double rotationlocationX = image.getWidth() / 2;
+				double rotationlocationY = image.getHeight() / 2;
 				
 				// Do some crazy rotation stuff // Source: http://stackoverflow.com/questions/8639567/java-rotating-images
 				AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, rotationlocationX, rotationlocationY);
 				AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 				
-				g.drawImage(op.filter(hextile.getTileImage(), null), drawLocationX, drawLocationY, null);
+				g.drawImage(op.filter(image, null), drawLocationX, drawLocationY, null);
 			}
 
 			int x[] = getHexXCoords(lCenterX);
@@ -110,7 +114,7 @@ public class Hex{
 			}
 			
 			if(Config.drawingClearingBoxes){
-				hextile.drawClearings(g, lCenterX, lCenterY);
+				hextile.drawClearings(g, lCenterX, lCenterY, aImageMap);
 			}
 			
 			

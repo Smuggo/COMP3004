@@ -16,10 +16,11 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import config.Config;
+import config.ImageMap;
  
 public class XMLParser {
 	
-	public static ArrayList<Hextile> newGameHexs(String fileName){
+	public static ArrayList<Hextile> newGameHexs(String fileName, ImageMap aImageMap){
 		
     	ArrayList<Hextile> hextiles = new ArrayList<Hextile>();
     	
@@ -54,12 +55,18 @@ public class XMLParser {
                             nodeList = h.getElementsByTagName("abbreviation");
                             String abbreviation = nodeList.item(0).getChildNodes().item(0).getNodeValue();
                             	
+
                             // Hextile Image File
+                            
                             nodeList = h.getElementsByTagName("image");
-                            BufferedImage imageFile = null;
-                            if (isFile("media/images/tiles/" + nodeList.item(0).getChildNodes().item(0).getNodeValue() + ".gif")) {
-                            	imageFile = ImageIO.read(new File("media/images/tiles/" + nodeList.item(0).getChildNodes().item(0).getNodeValue() + ".gif"));
+                            String imageType = null;
+                            imageType = nodeList.item(0).getChildNodes().item(0).getNodeValue();
+                            BufferedImage image = null;
+                            if (isFile("media/images/tiles/" + imageType + ".gif")) {
+                            	image = ImageIO.read(new File("media/images/tiles/" + nodeList.item(0).getChildNodes().item(0).getNodeValue() + ".gif"));
                     		}
+                            
+                            aImageMap.addHexImage(imageType, image);
                             
                             // Hextile Type
                             nodeList = h.getElementsByTagName("hextiletype");
@@ -83,7 +90,7 @@ public class XMLParser {
                             boolean enchanted = Boolean.parseBoolean(nodeList.item(0).getChildNodes().item(0).getNodeValue());
                             
                             // Fill Hextile Object
-                            hextile.initialize(name, abbreviation, imageFile, hextileType, xLocation, yLocation, rotation, enchanted);
+                            hextile.initialize(name, abbreviation, imageType, hextileType, xLocation, yLocation, rotation, enchanted);
                             
                             // Create NodeLists for Hextile Components
                             NodeList clearingList = h.getElementsByTagName("clearing");
@@ -125,10 +132,12 @@ public class XMLParser {
                                         if (dwellingType != null)
                                         	dwellingImage = ImageIO.read(new File("media/images/dwellings/" + nodeList.item(0).getChildNodes().item(0).getNodeValue() + ".gif"));
                                         
+                                        
+                                        
                                         clearing.setPosition(new Point(posx,posy));
                                         
                                         // Initialize Clearing Object
-                                        clearing.initialize(abbreviation, number, clearingType, dwellingType, dwellingImage);
+                                        clearing.initialize(abbreviation, number, clearingType, dwellingType);
                                         
                                         // Add Clearing Object to Hextile
                                         hextile.addClearing(clearing);

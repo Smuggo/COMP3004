@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import config.ImageMap;
+
 public class HexGrid {
 	
 	private Hex[][] lGrid; //DO NOT ACCESS GRID VIA ARRAY, USE GET METHOD
@@ -53,11 +55,11 @@ public class HexGrid {
 	}
 	
 	
-	public void drawGrid(Graphics g, Dimension aCanvasSize, Point aMouse){
+	public void drawGrid(Graphics g, Dimension aCanvasSize, Point aMouse, ImageMap aImageMap){
 		for(int y = -lRadius; y <= lRadius; y++ ){
 			for(int x = -lRadius; x <= lRadius; x++){
 				if (getHex(x,y) != null) {
-					getHex(x,y).drawHex(x,y,g, aCanvasSize, aMouse);
+					getHex(x,y).drawHex(x,y,g, aCanvasSize, aMouse, aImageMap);
 				}
 			}
 		}

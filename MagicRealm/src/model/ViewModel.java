@@ -11,6 +11,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Map;
 
+import config.ImageMap;
 import network.NetworkManager;
 import network.packet.PlayerPacket;
 import view.ViewManager;
@@ -169,5 +170,9 @@ public class ViewModel {
 	
 	public int getLocalPlayerNum() {
 		return lLocalPlayerNumber;
+	}
+	
+	public ImageMap getImageMap(){
+		return lGameManager.getGameImages();
 	}
 }

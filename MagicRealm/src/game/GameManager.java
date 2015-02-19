@@ -25,7 +25,7 @@ public class GameManager {
 	}
 
 	public Dimension createNewMap(){
-		return lEnvironmentManager.createNewMap();
+		return lEnvironmentManager.createNewMap( gameImages);
 	}
 	
 	public HexGrid getGrid(){
@@ -42,5 +42,13 @@ public class GameManager {
 	
 	public BufferedImage getDwellingImage(DwellingType aDwellingType){
 		return gameImages.getDwellingImage(aDwellingType);
+	}
+	
+	public BufferedImage getHexImage(String aHexType){
+		return gameImages.getHexImage(aHexType);
+	}
+	
+	public ImageMap getGameImages(){
+		return gameImages;
 	}
 }

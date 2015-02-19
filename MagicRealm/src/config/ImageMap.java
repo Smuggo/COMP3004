@@ -15,6 +15,7 @@ public class ImageMap {
 
 	private Map<CharacterImageType, BufferedImage> characterImageMap = new HashMap<CharacterImageType, BufferedImage>();
 	private Map<Config.DwellingType, BufferedImage> dwellingImageMap = new HashMap<Config.DwellingType, BufferedImage>();
+	private Map<String, BufferedImage> gridImageMap = new HashMap<String, BufferedImage>();
 
 	public ImageMap(){
 		try {
@@ -35,6 +36,9 @@ public class ImageMap {
 			dwellingImageMap.put(DwellingType.CHAPEL, ImageIO.read(new File("media/images/dwellings/chapel.gif")));
 			dwellingImageMap.put(DwellingType.HOUSE, ImageIO.read(new File("media/images/dwellings/house.gif")));
 			dwellingImageMap.put(DwellingType.INN, ImageIO.read(new File("media/images/dwellings/inn.gif")));
+			
+			
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -42,4 +46,9 @@ public class ImageMap {
 
 	public BufferedImage getCharacterImage (CharacterImageType aCharacterImageType){ return characterImageMap.get(aCharacterImageType); }
 	public BufferedImage getDwellingImage (DwellingType aDwellingType) { return dwellingImageMap.get(aDwellingType); }
+	public BufferedImage getHexImage(String aHexType){ return gridImageMap.get(aHexType);}
+	
+	public void addHexImage(String aHexType, BufferedImage aHexImage){
+		gridImageMap.put(aHexType, aHexImage);
+	}
 }

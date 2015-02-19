@@ -3,6 +3,7 @@ package game.environment;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
+import config.ImageMap;
 import game.chit.ChitFactory;
 import game.environment.hex.HexGrid;
 import game.environment.hex.HexGridFactory;
@@ -17,10 +18,10 @@ public class EnvironmentManager {
 		
 	}
 
-	public Dimension createNewMap(){
+	public Dimension createNewMap(ImageMap aImageMap){
 		
 		// Create hextiles logic
-		ArrayList<Hextile> hextiles = XMLParser.newGameHexs("HexTiles.xml");
+		ArrayList<Hextile> hextiles = XMLParser.newGameHexs("HexTiles.xml", aImageMap);
 		
 		// Create hextile chits
 		ChitFactory cF = new ChitFactory();

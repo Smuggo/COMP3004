@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import config.Config;
+import config.ImageMap;
 
 public class Hextile {
 	ArrayList<Clearing> clearings;
@@ -18,7 +19,7 @@ public class Hextile {
 	int yLocation;
 	int rotation; //in degrees between 0 and 300
 	boolean enchanted;
-	private BufferedImage imageFile;
+	private String imageFile;
 	Hex ownedHex;
 	private Config.HextileType hextileType;
 	private Chit warningChit;
@@ -30,7 +31,7 @@ public class Hextile {
 		roadways = new ArrayList<Roadway>();
 	}
 	
-	public void initialize(String n, String a, BufferedImage i, Config.HextileType hT, int x, int y, int r, boolean e) {
+	public void initialize(String n, String a, String i, Config.HextileType hT, int x, int y, int r, boolean e) {
 		name = n;
 		abbreviation = a;
 		imageFile = i;
@@ -60,7 +61,7 @@ public class Hextile {
 		return rotation;
 	}
 	
-	public BufferedImage getTileImage(){
+	public String getTileImage(){
 		return imageFile;
 	}
 	
@@ -72,10 +73,10 @@ public class Hextile {
 		roadways.add(roadway);
 	}
 	
-	public void drawClearings(Graphics g, int centerX, int centerY){
+	public void drawClearings(Graphics g, int centerX, int centerY, ImageMap aImageMap){
 		for(int i = 0; i < clearings.size(); i++){
 			Clearing lClearing = clearings.get(i);
-			lClearing.draw(g, centerX, centerY, rotation);
+			lClearing.draw(g, centerX, centerY, rotation, aImageMap);
 		}
 	}
 	

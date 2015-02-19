@@ -10,8 +10,9 @@ import java.util.ArrayList;
 
 import config.Config;
 import config.Config.DwellingType;
+import config.ImageMap;
 
-public class Clearing {
+public class Clearing{
 	ArrayList<Roadway> roadways;
 	String identifier; //Abbreviation of Hex Tile Name + Number
 	int number;
@@ -20,7 +21,7 @@ public class Clearing {
 	Point position; //Actual position from center
 	Hex ownedHex;
 	DwellingType lDwellingType;
-	BufferedImage lDwellingImage;
+
 	
 	public Clearing() {
 		roadways = new ArrayList<Roadway>();
@@ -28,12 +29,11 @@ public class Clearing {
 		position = new Point(0,0);
 	}
 
-	public Clearing(String str, Config.ClearingType cT, Config.DwellingType dT, BufferedImage aDwellingImage) {
+	public Clearing(String str, Config.ClearingType cT, Config.DwellingType dT) {
 		identifier = str;
 		clearingType = cT;
 		position = new Point(0,0);
 		lDwellingType = dT;
-		lDwellingImage = aDwellingImage;
 	}
 
 	public Hex getOwnedHex(){
@@ -78,12 +78,11 @@ public class Clearing {
 		return identifier;
 	}
 
-	public void initialize(String abbreviation, int n, Config.ClearingType cT, DwellingType dwellingType, BufferedImage dwellingImage) {
+	public void initialize(String abbreviation, int n, Config.ClearingType cT, DwellingType dwellingType) {
 		number = n;
 		identifier = abbreviation + n;
 		clearingType = cT;
 		lDwellingType = dwellingType;
-		lDwellingImage = dwellingImage;
 	}
 
 	public void addRoadway(Roadway roadway) {
@@ -94,7 +93,7 @@ public class Clearing {
 		return true;
 	}
 
-	public void draw(Graphics g, int centerX, int centerY, int degrees){
+	public void draw(Graphics g, int centerX, int centerY, int degrees, ImageMap aImageMap){
 		double angle = Math.toRadians(degrees);
 		Point p = new Point((int)(centerX+(position.getX())), (int)(centerY+(position.getY())));
 
@@ -107,7 +106,7 @@ public class Clearing {
 		g.drawOval(newP.x,newP.y, clearingDiameter, clearingDiameter);
 
 		if(lDwellingType != null){
-			g.drawImage(lDwellingImage, newP.x, newP.y, Color.ORANGE, null);
+			g.drawImage(aImageMap.getDwellingImage(lDwellingType), newP.x, newP.y, Color.ORANGE, null);
 		}
 	}
 
