@@ -1,6 +1,7 @@
 package network.client;
 
 import game.GameState;
+import game.environment.hex.Clearing;
 import game.environment.hex.HexGrid;
 
 import java.awt.Point;
@@ -280,7 +281,7 @@ public class Client implements Runnable {
 		return false;
 	}
 	
-	public boolean setPlayerStartingLocation(String aDwelling, int aPlayer){
+	public Clearing setPlayerStartingLocation(String aDwelling, int aPlayer){
 		try{
 			while(streamBusy){
 				Thread.sleep(1);
@@ -297,7 +298,7 @@ public class Client implements Runnable {
 			lOutputStream.reset();
 			
 			streamBusy=false;
-			return (boolean) lInputStream.readObject();
+			return (Clearing) lInputStream.readObject();
 			
 			
 		}
@@ -308,7 +309,7 @@ public class Client implements Runnable {
 			e.printStackTrace();
 		}
 		streamBusy=false;
-		return false;
+		return null;
 	}
 
 	

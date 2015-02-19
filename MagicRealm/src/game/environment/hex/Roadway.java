@@ -30,6 +30,23 @@ public class Roadway implements Serializable{
 		}
 	}
 	
+	public boolean has(Clearing aClearing){
+		if(headClearing.equals(aClearing) || tailClearing.equals(aClearing)){
+			return true;
+		}
+		return false;
+	}
+	
+	public Clearing getOtherClearing(Clearing aClearing){
+		if(headClearing.equals(aClearing)){
+			return tailClearing;
+		}
+		if(tailClearing.equals(aClearing)){
+			return headClearing;
+		}
+		return null;
+	}
+	
 	
 	// Has head and tail therefore no roadway Exit
 	public void initialize(Clearing head, Clearing tail, Config.RoadwayType rT, Config.IncompleteRoadwayDirection iRD) {

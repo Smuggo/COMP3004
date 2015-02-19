@@ -3,6 +3,7 @@ package network;
 import java.awt.Point;
 
 import game.GameState;
+import game.environment.hex.Clearing;
 import game.environment.hex.HexGrid;
 import model.ViewModel;
 import network.client.Client;
@@ -100,7 +101,7 @@ public class NetworkManager {
 		}
 	}
 	
-	public void setPlayerStartingLocation(String aDwelling){
-		lLocalClient.setPlayerStartingLocation(aDwelling, lLocalPlayerNumber);
+	public Clearing setPlayerStartingLocation(String aDwelling){
+		return lLocalClient.setPlayerStartingLocation(aDwelling, lLocalPlayerNumber);
 	}
 }

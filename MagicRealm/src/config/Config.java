@@ -41,4 +41,12 @@ public final class Config {
 	public enum DwellingType {
 		INN, HOUSE, GUARD, CHAPEL
 	}
+	
+	public enum ActionType {
+		MOVE, HIDE, REST, SEARCH
+	}
+	
+	public enum ActionState {
+		MOVING, NOTHING
+	}
 }

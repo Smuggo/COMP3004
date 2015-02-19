@@ -11,6 +11,8 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Map;
 
+import action.ActionManager;
+import config.Config.ActionState;
 import config.ImageMap;
 import network.NetworkManager;
 import network.packet.PlayerPacket;
@@ -22,12 +24,15 @@ public class ViewModel {
 	NetworkManager lNetworkManager;
 	GameManager lGameManager;
 	GameState lGameState;
+	ActionManager lActionManager;
+	
 	boolean isServer;
 	int lLocalPlayerNumber;
 	
 	public ViewModel(NetworkManager aNetworkManager){
 		isServer = false;
 		lGameManager = new GameManager();
+		lActionManager = new ActionManager();
 	}
 	
 	public Dimension getScreenDimensions(){
@@ -185,6 +190,16 @@ public class ViewModel {
 	}
 	
 	public void setPlayerStartingLocation(String aDwelling){
-		lNetworkManager.setPlayerStartingLocation(aDwelling);
+		lActionManager.createNewTurn(lNetworkManager.setPlayerStartingLocation(aDwelling));
+
+	}
+	
+	
+	public void setLocalActionState(ActionState aActionState){
+		lActionManager.setState(aActionState);
+	}
+	
+	public ActionManager getActionManager(){
+		return lActionManager;
 	}
 }

@@ -1,5 +1,6 @@
 package network.server;
 import game.entity.Player;
+import game.environment.hex.Clearing;
 import game.environment.hex.HexGrid;
 
 import java.net.Socket;
@@ -68,8 +69,9 @@ public class Server implements Runnable{
 					lOutputStream.writeObject(true);
 				}
 				if(lRequestHeader.equals("SetStartingLocation")){
-					lServerApp.getGameState().setStartingLocation((String)lInputStream.readObject(), (Integer)lInputStream.readObject());
-					lOutputStream.writeObject(true);
+					
+					Clearing currentClearing = lServerApp.getGameState().setStartingLocation((String)lInputStream.readObject(), (Integer)lInputStream.readObject());
+					lOutputStream.writeObject(currentClearing);
 				}
 				
 				lOutputStream.flush();

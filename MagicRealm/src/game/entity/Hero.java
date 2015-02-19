@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
+import action.ActionList;
 import config.Config.CharacterImageType;
 import config.Config.DwellingType;
 
@@ -22,7 +23,6 @@ public class Hero implements Serializable{
 	private int fame;
 	private int notoriety;
 	private int gold;
-	private int actionPoints;
 	
 	private String name;
 	
@@ -44,7 +44,6 @@ public class Hero implements Serializable{
 		fame = 0;
 		notoriety = 0;
 		gold = 0;
-		actionPoints = 10;
 		
 		hidden = false;
 	}
@@ -76,9 +75,7 @@ public class Hero implements Serializable{
 	public DwellingType[] getStartingLocations() { return startingLocations; }
 	public Clearing getClearing() { return lClearing; }
 	
-	public int getActionPoints(){
-		return actionPoints;
-	}
+
 	
 	public void setVictoryConditions(int[] vCond){ victoryConditions = vCond; }
 	public void setFame(int nFame)               { fame = nFame; }
