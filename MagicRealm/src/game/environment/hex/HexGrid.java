@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import config.Config.ActionState;
 import config.ImageMap;
 
 public class HexGrid implements Serializable{
@@ -69,6 +70,7 @@ public class HexGrid implements Serializable{
 			}
 		}
 		
+		
 		//DrawSelected
 		for(int y = -lRadius; y <= lRadius; y++ ){
 			for(int x = -lRadius; x <= lRadius; x++){
@@ -77,6 +79,33 @@ public class HexGrid implements Serializable{
 				}
 			}
 		}
+		
+		
+	}
+	
+	public void drawAdjacentClearings(Graphics g, Clearing aClearing, Point aMouse){
+		for(int i = 0; i < aClearing.getRoadways().size(); i++){
+			Roadway lRoadway = aClearing.getRoadways().get(i);
+			Clearing otherClearing = lRoadway.getOtherClearing(aClearing);
+			if(otherClearing != null){
+				otherClearing.drawAdjacent(g, aMouse);
+			}
+		}
+	}
+	
+	public Clearing getClearingByMouse(Point aMouse){
+		Clearing lClearing = null;
+		for(int y = -lRadius; y <= lRadius; y++ ){
+			for(int x = -lRadius; x <= lRadius; x++){
+				if (getHex(x,y) != null) {
+					lClearing = getHex(x,y).getHextile().getClearingByMouse(aMouse);
+					if(lClearing != null){
+						return lClearing;
+					}
+				}
+			}
+		}
+		return lClearing;
 	}
 
 	public Dimension getCanvasSize() {

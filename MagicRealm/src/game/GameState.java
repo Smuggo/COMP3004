@@ -15,9 +15,12 @@ public class GameState implements Serializable{
 	private int lVersion;
 	private ArrayList<Player> lPlayers;
 	private HexGrid lHexGrid;
+	private int lTurn;
+	
 	
 	public GameState(){
 		lVersion = 1;
+		lTurn = 1;
 		lPlayers = new ArrayList<Player>();
 	}
 	
@@ -52,8 +55,9 @@ public class GameState implements Serializable{
 		lHexGrid = aHexGrid;
 	}
 	
-	public void setStartingLocation(String aDwelling, int aPlayer){
+	public Clearing setStartingLocation(String aDwelling, int aPlayer){
 		Clearing lClearing = lHexGrid.getClearingByDwelling(aDwelling);
 		getPlayer(aPlayer).getChosenHero().setClearing(lClearing);
+		return lClearing;
 	}
 }

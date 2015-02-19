@@ -101,6 +101,16 @@ public class Hextile implements Serializable{
 		}
 	}
 	
+	
+	public Clearing getClearingByMouse(Point aMouse){
+			for(int i = 0; i < clearings.size(); i++){
+				if(aMouse.distance(clearings.get(i).getRotPosition()) < clearings.get(i).getClearingDiameter()){
+					return clearings.get(i);
+				}
+			}
+		return null;
+	}
+	
 	public void connectTo(Hextile hexTile, Config.IncompleteRoadwayDirection relativePosition) {
 		Config.IncompleteRoadwayDirection head = null;
 		Config.IncompleteRoadwayDirection tail = null;

@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import config.Config;
+import config.Config.ClearingType;
 import config.Config.DwellingType;
 import config.ImageMap;
 
@@ -40,6 +41,13 @@ public class Clearing implements Serializable{
 		clearingType = cT;
 		position = new Point(0,0);
 		lDwellingType = dT;
+	}
+	
+	public int getCost(){
+		if(clearingType.equals(ClearingType.MOUNTAIN)){
+			return 2;
+		}
+		return 1;
 	}
 
 	public Hex getOwnedHex(){
@@ -115,7 +123,25 @@ public class Clearing implements Serializable{
 			g.drawImage(aImageMap.getDwellingImage(lDwellingType), newP.x, newP.y, Color.ORANGE, null);
 		}
 	}
+	
+	
+	public void drawAdjacent(Graphics g, Point aMouse){
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setStroke(new BasicStroke(2));
+		
+		if(aMouse.distance(getRotPosition()) < clearingDiameter/2){
+			g2.setColor(new Color(0, 150, 150));
+		}else{
+			g2.setColor(new Color(0, 220, 220));
+		}
+		
+		
+		g.drawOval(getRotPosition().x-(clearingDiameter/2),getRotPosition().y-(clearingDiameter/2), clearingDiameter, clearingDiameter);
+		g2.setColor(Color.BLACK);
+		g2.setStroke(new BasicStroke(1));
+	}
 
+	
 	public void drawSelected(Graphics g, int centerX, int centerY, int degrees, Point aMouse){
 		double angle = Math.toRadians(degrees);
 		Point p = new Point((int)(centerX+(position.getX())), (int)(centerY+(position.getY())));
@@ -140,6 +166,9 @@ public class Clearing implements Serializable{
 		return lDwellingType;
 	}
 
+	public ArrayList<Roadway> getRoadways(){
+		return roadways;
+	}
 
 
 

@@ -13,6 +13,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
+import config.Config.ActionState;
 import model.ViewModel;
 
 public class PlayerMenu extends JInternalFrame{
@@ -27,7 +28,8 @@ public class PlayerMenu extends JInternalFrame{
 	private JButton lHide;
 	private JButton lRest;
 	private JButton lSearch;
-	private JButton lSendActions;
+	private JButton lSendActionsOrCancel;
+
 	
 	private JScrollPane lActionPane;
 	
@@ -67,10 +69,11 @@ public class PlayerMenu extends JInternalFrame{
 		c.gridy = 0;
 		add(lSearch, c);
 		
-		lSendActions = new JButton("Send Actions");
+		lSendActionsOrCancel = new JButton("Send Actions");
 		c.gridx = 4;
 		c.gridy = 0;
-		add(lSendActions, c);
+		add(lSendActionsOrCancel, c);
+		
 		
 		lActionTable = new JTable(new DefaultTableModel(new Object[]{"Turn", "Day", "Actions", "Die"}, 0))
 		{
@@ -117,6 +120,33 @@ public class PlayerMenu extends JInternalFrame{
 	}
 	
 	protected void createButtonListeners(){
+		lMove.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				lModel.setLocalActionState(ActionState.MOVING);
+				lSendActionsOrCancel.setText("Cancel");
+				lMove.setEnabled(false);
+				lHide.setEnabled(false);
+				lRest.setEnabled(false);
+				lSearch.setEnabled(false);
+			}
+		});
 		
+		
+		lSendActionsOrCancel.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				if(lSendActionsOrCancel.getText().equals("Cancel")){
+					lSendActionsOrCancel.setText("Send Actions");
+					lModel.setLocalActionState(ActionState.NOTHING);
+					lMove.setEnabled(true);
+					lHide.setEnabled(true);
+					lRest.setEnabled(true);
+					lSearch.setEnabled(true);
+				}
+			}
+		});
 	}
 }
