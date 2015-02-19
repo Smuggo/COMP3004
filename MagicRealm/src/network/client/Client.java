@@ -12,6 +12,7 @@ import java.net.Socket;
 
 import javax.swing.JTable;
 
+import action.ActionList;
 import network.NetworkManager;
 import network.packet.PlayerPacket;
 
@@ -318,6 +319,37 @@ public class Client implements Runnable {
 		return lIsStreamsOpened;			
 	}
 	
+	public boolean sendActionList(ActionList aActionList, int aPlayer){
+		try{
+			while(streamBusy){
+				Thread.sleep(1);
+			}
+			streamBusy=true;
+			
+			String lRequest = "ActionList";
+			lOutputStream.writeObject(lRequest);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aActionList);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aPlayer);
+			lOutputStream.flush();
+			lOutputStream.reset();
+			
+			streamBusy=false;
+			boolean returnv = (boolean) lInputStream.readObject();
+			return returnv;
+			
+			
+		}
+		catch (Exception e)
+		{
+			//Dump stack
+			System.out.println("Client Error:");
+			e.printStackTrace();
+		}
+		streamBusy=false;
+		return false;
+	}
 	
 
 }

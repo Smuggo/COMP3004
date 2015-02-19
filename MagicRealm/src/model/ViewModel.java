@@ -202,4 +202,9 @@ public class ViewModel {
 	public ActionManager getActionManager(){
 		return lActionManager;
 	}
+	
+	public void sendActions(){
+		lNetworkManager.sendActions(lActionManager.getActionList());
+		lActionManager.createNewTurn(lActionManager.getActionList().getCurrentClearing());
+	}
 }

@@ -6,12 +6,17 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import config.Config.ActionType;
 
-public class ActionList {
+public class ActionList implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -810203100502782508L;
 	private List<Action> lActions;
 	private int lActionPoints;
 	
@@ -67,6 +72,7 @@ public class ActionList {
 	}
 	
 	public void newTurn(Clearing aStartingClearing){
+		lActions = new ArrayList<Action>();
 		lStartingClearing = aStartingClearing;
 		lCurrentClearing = aStartingClearing;
 	}
@@ -90,5 +96,9 @@ public class ActionList {
 			}
 		}
 
+	}
+	
+	public List<Action> getActions(){
+		return lActions;
 	}
 }

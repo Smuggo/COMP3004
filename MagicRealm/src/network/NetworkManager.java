@@ -2,6 +2,7 @@ package network;
 
 import java.awt.Point;
 
+import action.ActionList;
 import game.GameState;
 import game.environment.hex.Clearing;
 import game.environment.hex.HexGrid;
@@ -103,5 +104,10 @@ public class NetworkManager {
 	
 	public Clearing setPlayerStartingLocation(String aDwelling){
 		return lLocalClient.setPlayerStartingLocation(aDwelling, lLocalPlayerNumber);
+	}
+	
+	
+	public void sendActions(ActionList aActionList){
+		lLocalClient.sendActionList(aActionList, lLocalPlayerNumber);
 	}
 }

@@ -4,6 +4,9 @@ import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import config.Config.ActionType;
+import action.Action;
+import action.ActionList;
 import game.entity.Player;
 import game.environment.hex.Clearing;
 import game.environment.hex.HexGrid;
@@ -59,5 +62,12 @@ public class GameState implements Serializable{
 		Clearing lClearing = lHexGrid.getClearingByDwelling(aDwelling);
 		getPlayer(aPlayer).getChosenHero().setClearing(lClearing);
 		return lClearing;
+	}
+	
+	public void executeActionList(ActionList aActionList, int aPlayer){
+		for(int i = 0; i < aActionList.getActions().size(); i++){
+			Action lAction = aActionList.getActions().get(i);
+			getPlayer(aPlayer).getChosenHero().executeAction(lAction);
+		}
 	}
 }

@@ -8,7 +8,9 @@ import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
+import action.Action;
 import action.ActionList;
+import config.Config.ActionType;
 import config.Config.CharacterImageType;
 import config.Config.DwellingType;
 
@@ -83,4 +85,12 @@ public class Hero implements Serializable{
 	public void setGold(int nGold)               { gold = nGold; }
 	public void setHidden(boolean nHidden)       { hidden = nHidden; }
 	public void setClearing(Clearing aClearing)  { lClearing = aClearing; }
+	
+	public void executeAction(Action aAction){
+		ActionType aActionType = aAction.getActionType();
+		
+		if(aActionType.equals(ActionType.MOVE)){
+			lClearing = aAction.getClearingEnd();
+		}
+	}
 }

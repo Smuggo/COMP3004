@@ -8,6 +8,7 @@ import java.awt.Point;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import action.ActionList;
 import network.NetworkManager;
 import network.packet.PlayerPacket;
 
@@ -72,6 +73,13 @@ public class Server implements Runnable{
 					
 					Clearing currentClearing = lServerApp.getGameState().setStartingLocation((String)lInputStream.readObject(), (Integer)lInputStream.readObject());
 					lOutputStream.writeObject(currentClearing);
+				}
+				if(lRequestHeader.equals("ActionList")){
+					
+					ActionList lActionList =  (ActionList)lInputStream.readObject();
+					int lPlayer = (Integer)lInputStream.readObject();
+					lServerApp.getGameState().executeActionList(lActionList, lPlayer);
+					lOutputStream.writeObject(true);
 				}
 				
 				lOutputStream.flush();

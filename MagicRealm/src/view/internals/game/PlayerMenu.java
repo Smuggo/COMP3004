@@ -145,6 +145,13 @@ public class PlayerMenu extends JInternalFrame{
 					lHide.setEnabled(true);
 					lRest.setEnabled(true);
 					lSearch.setEnabled(true);
+				}else{
+					lModel.sendActions();
+					lSendActionsOrCancel.setEnabled(false);
+					lMove.setEnabled(false);
+					lHide.setEnabled(false);
+					lRest.setEnabled(false);
+					lSearch.setEnabled(false);
 				}
 			}
 		});
