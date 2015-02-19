@@ -108,6 +108,7 @@ public class ViewManager {
 		lGameBoard = new GameBoardView(lModel, aCanvasSize);
 		lGameBoard.setVisible(true);
 		lWindow.addWindow(lGameBoard);
+		lGameBoard.center();
 	}
 	
 	public void createCharacterView(){
