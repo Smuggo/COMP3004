@@ -77,7 +77,6 @@ public class GameBoardCanvas extends JPanel{
 	    	}
 	    }
 
-	    g.drawString(lMouse.x+","+lMouse.y, 200, 200);		
 		
 	    for(int i = 0; i < lGameState.getPlayers().size(); i++){
 	    	g.drawString("Player "+(i+1), lGameState.getPlayers().get(i).lastClick.x, lGameState.getPlayers().get(i).lastClick.y);

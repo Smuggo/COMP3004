@@ -28,6 +28,8 @@ public class GameBoardView extends JInternalFrame{
 	public GameBoardView(ViewModel aModel, Dimension aCanvasSize){
 		super("Game Board",false,false,false,true);
 		
+		this.setDoubleBuffered(true);
+		
 		lModel = aModel;
 		
 		Dimension lScreenSize = lModel.getScreenDimensions();
@@ -91,12 +93,16 @@ public class GameBoardView extends JInternalFrame{
 		
 	}
 	
-	
+
 	public void fillScrollPane(Dimension aCanvasSize){
 		lCanvas = new GameBoardCanvas(lModel);
 		lCanvas.setPreferredSize(aCanvasSize);
 		lCanvas.setSize(aCanvasSize);
 		lScrollPane.add(lCanvas);
+	}
+	
+	public void center(){
+		lScrollPane.setScrollPosition(1000, 1000);
 	}
 	
 	public void redraw(){
