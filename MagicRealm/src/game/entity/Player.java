@@ -1,5 +1,7 @@
 package game.entity;
 
+import game.environment.hex.Clearing;
+
 import java.awt.Point;
 import java.io.Serializable;
 
@@ -29,4 +31,5 @@ public class Player implements Serializable{
 			playerString = lUserName + lChosenHero.getName();
 		return playerString;
 	}
+	
 }

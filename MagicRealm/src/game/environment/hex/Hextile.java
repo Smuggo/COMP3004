@@ -281,6 +281,15 @@ public class Hextile implements Serializable{
 	public Chit getOtherChit() {
 		return otherChit;
 	}
+	
+	public Clearing getClearingByDwelling(String aDwelling){
+		for(int i = 0; i < clearings.size(); i++){
+			if(clearings.get(i).getDwellingType() != null && clearings.get(i).getDwellingType().name().equals(aDwelling)){
+				return clearings.get(i);
+			}
+		}
+		return null;
+	}
 		
 }
 

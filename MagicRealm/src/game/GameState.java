@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import game.entity.Player;
+import game.environment.hex.Clearing;
 import game.environment.hex.HexGrid;
 
 public class GameState implements Serializable{
@@ -49,5 +50,10 @@ public class GameState implements Serializable{
 	
 	public void setHexGrid(HexGrid aHexGrid){
 		lHexGrid = aHexGrid;
+	}
+	
+	public void setStartingLocation(String aDwelling, int aPlayer){
+		Clearing lClearing = lHexGrid.getClearingByDwelling(aDwelling);
+		getPlayer(aPlayer).getChosenHero().setClearing(lClearing);
 	}
 }

@@ -99,4 +99,8 @@ public class NetworkManager {
 			lLocalClient.createNewMap(aHexGrid);
 		}
 	}
+	
+	public void setPlayerStartingLocation(String aDwelling){
+		lLocalClient.setPlayerStartingLocation(aDwelling, lLocalPlayerNumber);
+	}
 }

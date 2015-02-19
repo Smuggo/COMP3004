@@ -67,6 +67,10 @@ public class Server implements Runnable{
 					lServerApp.getGameState().setHexGrid((HexGrid)lInputStream.readObject());
 					lOutputStream.writeObject(true);
 				}
+				if(lRequestHeader.equals("SetStartingLocation")){
+					lServerApp.getGameState().setStartingLocation((String)lInputStream.readObject(), (Integer)lInputStream.readObject());
+					lOutputStream.writeObject(true);
+				}
 				
 				lOutputStream.flush();
 				lOutputStream.reset();

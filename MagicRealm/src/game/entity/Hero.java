@@ -2,6 +2,8 @@ package game.entity;
 
 import game.environment.hex.Clearing;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.io.Serializable;
 
 import config.Config.CharacterImageType;
@@ -41,6 +43,14 @@ public class Hero implements Serializable{
 		gold = 0;
 		
 		hidden = false;
+	}
+	
+	public void draw(Graphics g){
+		if(lClearing != null){
+			g.setColor(Color.cyan);
+			g.drawString(name, (int)lClearing.getRotPosition().getX(), (int)lClearing.getRotPosition().getY());
+			g.setColor(Color.black);
+		}
 	}
 	
 	public String  getName()           { return name; }

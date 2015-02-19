@@ -70,6 +70,12 @@ public class GameBoardCanvas extends JPanel{
 	    if(lModel.requestGrid() != null){
 	    	lModel.requestGrid().drawGrid(g, this.getSize(), lMouse, lModel.getImageMap());
 	    }
+	    
+	    for(int i = 1; i < lGameState.getPlayers().size()+1; i++){
+	    	if(lGameState.getPlayer(i)!= null && lGameState.getPlayer(i).getChosenHero() != null){
+	    		lGameState.getPlayer(i).getChosenHero().draw(g);
+	    	}
+	    }
 
 	    g.drawString(lMouse.x+","+lMouse.y, 200, 200);		
 		

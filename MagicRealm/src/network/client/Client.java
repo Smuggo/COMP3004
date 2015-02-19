@@ -231,6 +231,31 @@ public class Client implements Runnable {
 		}
 		return false;
 	}
+	
+	public boolean setPlayerStartingLocation(String aDwelling, int aPlayer){
+		try{
+			
+			String lRequest = "SetStartingLocation";
+			lOutputStream.writeObject(lRequest);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aDwelling);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aPlayer);
+			lOutputStream.flush();
+			lOutputStream.reset();
+			
+			return (boolean) lInputStream.readObject();
+			
+			
+		}
+		catch (Exception e)
+		{
+			//Dump stack
+			System.out.println("Client Error:");
+			e.printStackTrace();
+		}
+		return false;
+	}
 
 	
 	

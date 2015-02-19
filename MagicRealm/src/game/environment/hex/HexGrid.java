@@ -82,6 +82,21 @@ public class HexGrid implements Serializable{
 	public Dimension getCanvasSize() {
 		return lCanvasSize;
 	}
+	
+	public Clearing getClearingByDwelling(String aDwelling){
+		Clearing lClearing = null;
+		for(int y = -lRadius; y <= lRadius; y++ ){
+			for(int x = -lRadius; x <= lRadius; x++){
+				if (getHex(x,y) != null && getHex(x,y).getHextile() != null) {
+					lClearing = getHex(x,y).getHextile().getClearingByDwelling(aDwelling);
+					if(lClearing != null){
+						return lClearing;
+					}
+				}
+			}
+		}
+		return null;
+	}
 
 	
 	

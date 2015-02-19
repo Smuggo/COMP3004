@@ -40,7 +40,7 @@ public class StartingLocation extends JInternalFrame{
 		GridBagConstraints c = new GridBagConstraints();
 		
 		for(DwellingType dType: cStartingLocations){
-			startingLocations.add(new JButton(new ImageIcon(lModel.getGameManager().getDwellingImage(dType))));
+			startingLocations.add(new JButton(dType.name(), new ImageIcon(lModel.getGameManager().getDwellingImage(dType))));
 		}
 		
 		c.gridx = 0;
@@ -58,5 +58,16 @@ public class StartingLocation extends JInternalFrame{
 	}
 	
 	protected void createButtonListeners(){
+		for(int i = 0; i < startingLocations.size(); i++){
+			String text = startingLocations.get(i).getText();
+			startingLocations.get(i).addActionListener(new ActionListener()
+			{
+				public void actionPerformed(ActionEvent e)
+				{
+					lModel.setPlayerStartingLocation(text);
+					dispose();
+				}
+			});
+		}
 	}
 }

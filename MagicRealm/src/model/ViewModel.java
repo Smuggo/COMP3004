@@ -177,4 +177,8 @@ public class ViewModel {
 	public ImageMap getImageMap(){
 		return lGameManager.getGameImages();
 	}
+	
+	public void setPlayerStartingLocation(String aDwelling){
+		lNetworkManager.setPlayerStartingLocation(aDwelling);
+	}
 }

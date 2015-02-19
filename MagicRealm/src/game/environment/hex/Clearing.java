@@ -135,6 +135,10 @@ public class Clearing implements Serializable{
 			g2.setStroke(new BasicStroke(1));
 		}
 	}
+	
+	public DwellingType getDwellingType(){
+		return lDwellingType;
+	}
 
 
 
