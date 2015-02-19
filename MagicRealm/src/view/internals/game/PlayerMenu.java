@@ -110,8 +110,6 @@ public class PlayerMenu extends JInternalFrame{
 		c.gridy = 1;
 		add(lActionPane, c);
 		
-		
-		
 		createButtonListeners();
 		setVisible(true);
 	}
