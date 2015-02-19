@@ -65,6 +65,7 @@ public class StartingLocation extends JInternalFrame{
 				public void actionPerformed(ActionEvent e)
 				{
 					lModel.setPlayerStartingLocation(text);
+					lModel.requestPlayerMenu(lModel);
 					dispose();
 				}
 			});

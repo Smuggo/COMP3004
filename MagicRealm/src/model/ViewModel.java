@@ -142,8 +142,12 @@ public class ViewModel {
 		lNetworkManager.updatePlayerCharacter(lGameState, lLocalPlayerNumber);
 	}
 	
-	public void requestStartingLocation(ViewModel lModel){
-		lViewManager.showStartingLocations(lModel);
+	public void requestStartingLocation(ViewModel aModel){
+		lViewManager.showStartingLocations(aModel);
+	}
+	
+	public void requestPlayerMenu(ViewModel aModel){
+		lViewManager.showPlayerMenu(aModel);
 	}
 	
 	public void updateLocalGameState(GameState aGameState){

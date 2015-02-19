@@ -18,26 +18,28 @@ import view.internals.menu.NewGameView;
 import view.internals.menu.ServerMenuView;
 import view.internals.game.CharacterView;
 import view.internals.game.CharacterList;
+import view.internals.game.PlayerMenu;
 import view.internals.game.StartingLocation;
 import view.internals.game.VictoryPoints;
 
 public class ViewManager {
 	
-	MagicRealmWindow lWindow;
+	private MagicRealmWindow lWindow;
 	
-	MenuView lMenu;
-	NewGameView lNewGame;
-	JoinGameView lJoinGame;
-	LoadGameView lLoadGame;
-	ServerMenuView lServerMenu;
-	ClientLobbyView lClientLobby;
-	GameBoardView lGameBoard;
-	CharacterView lCharacterView;
-	CharacterList lCharacterList;
-	VictoryPoints lVictoryPoints;
-	StartingLocation lStartingLocation;
+	private MenuView lMenu;
+	private NewGameView lNewGame;
+	private JoinGameView lJoinGame;
+	private LoadGameView lLoadGame;
+	private ServerMenuView lServerMenu;
+	private ClientLobbyView lClientLobby;
+	private GameBoardView lGameBoard;
+	private CharacterView lCharacterView;
+	private CharacterList lCharacterList;
+	private VictoryPoints lVictoryPoints;
+	private StartingLocation lStartingLocation;
+	private PlayerMenu lPlayerMenu;
 	
-	ViewModel lModel;
+	private ViewModel lModel;
 	
 	public ViewManager(ViewModel aModel){
 		lModel = aModel;
@@ -151,5 +153,10 @@ public class ViewManager {
 	public void showStartingLocations(ViewModel lModel){
 		lStartingLocation = new StartingLocation(lModel);
 		lWindow.addWindow(lStartingLocation);
+	}
+	
+	public void showPlayerMenu(ViewModel lModel){
+		lPlayerMenu = new PlayerMenu(lModel);
+		lWindow.addWindow(lPlayerMenu);
 	}
 }
