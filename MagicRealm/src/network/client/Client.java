@@ -1,6 +1,7 @@
 package network.client;
 
 import game.GameState;
+import game.environment.hex.HexGrid;
 
 import java.awt.Point;
 import java.io.IOException;
@@ -192,6 +193,29 @@ public class Client implements Runnable {
 			lOutputStream.writeObject(aPlayer);
 			lOutputStream.flush();
 			lOutputStream.writeObject(aPoint);
+			lOutputStream.flush();
+			lOutputStream.reset();
+			
+			return (boolean) lInputStream.readObject();
+			
+			
+		}
+		catch (Exception e)
+		{
+			//Dump stack
+			System.out.println("Client Error:");
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public boolean createNewMap(HexGrid aHexGrid){
+		try{
+			
+			String lRequest = "CreateMap";
+			lOutputStream.writeObject(lRequest);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aHexGrid);
 			lOutputStream.flush();
 			lOutputStream.reset();
 			

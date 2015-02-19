@@ -3,7 +3,9 @@ package game;
 import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
+
 import game.entity.Player;
+import game.environment.hex.HexGrid;
 
 public class GameState implements Serializable{
 
@@ -11,6 +13,7 @@ public class GameState implements Serializable{
 	
 	private int lVersion;
 	private ArrayList<Player> lPlayers;
+	private HexGrid lHexGrid;
 	
 	public GameState(){
 		lVersion = 1;
@@ -38,5 +41,13 @@ public class GameState implements Serializable{
 	
 	public void updatePlayer(Player aPlayer, int aPlayerNum){
 		lPlayers.get(aPlayerNum).setHero(aPlayer.getChosenHero());
+	}
+	
+	public HexGrid getHexGrid(){
+		return lHexGrid;
+	}
+	
+	public void setHexGrid(HexGrid aHexGrid){
+		lHexGrid = aHexGrid;
 	}
 }

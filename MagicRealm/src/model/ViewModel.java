@@ -106,6 +106,8 @@ public class ViewModel {
 		updateLocalGameState(lNetworkManager.refreshGameState());
 		lGameManager.createNewMap();
 		
+		lNetworkManager.createNewMap(lGameManager.getGrid());
+		
 		lViewManager.clearMenu();
 		lViewManager.createCharacterView();
 		
@@ -121,7 +123,7 @@ public class ViewModel {
 	}
 	
 	public HexGrid requestGrid(){
-		return lGameManager.getGrid();
+		return lGameState.getHexGrid();
 	}
 	
 	public void refreshGameState(){

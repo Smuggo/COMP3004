@@ -1,18 +1,24 @@
 package game.environment.hex;
 
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import config.Config;
 import config.Config.DwellingType;
 import config.ImageMap;
 
-public class Clearing{
+public class Clearing implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -403029986388081133L;
 	ArrayList<Roadway> roadways;
 	String identifier; //Abbreviation of Hex Tile Name + Number
 	int number;

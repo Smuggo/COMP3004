@@ -1,9 +1,14 @@
 package game.environment.hex;
 import java.awt.Graphics;
+import java.io.Serializable;
 
 import config.Config;
 
-public class Roadway {
+public class Roadway implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3934951441765390826L;
 	Clearing headClearing;
 	Clearing tailClearing;
 	Config.RoadwayType roadwayType;

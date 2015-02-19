@@ -67,8 +67,9 @@ public class GameBoardCanvas extends JPanel{
 	    g.fillRect(0, 0, getWidth(), getHeight());
 	    g.setColor(Color.black);
 		
-	    lModel.requestGrid().drawGrid(g, this.getSize(), lMouse, lModel.getImageMap());
-	    
+	    if(lModel.requestGrid() != null){
+	    	lModel.requestGrid().drawGrid(g, this.getSize(), lMouse, lModel.getImageMap());
+	    }
 
 	    g.drawString(lMouse.x+","+lMouse.y, 200, 200);		
 		

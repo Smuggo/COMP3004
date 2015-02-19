@@ -5,12 +5,17 @@ import game.chit.Chit;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import config.Config;
 import config.ImageMap;
 
-public class Hextile {
+public class Hextile implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2473184465313439203L;
 	ArrayList<Clearing> clearings;
 	ArrayList<Roadway> roadways;
 	String name;

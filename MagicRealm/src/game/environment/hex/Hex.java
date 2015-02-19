@@ -9,11 +9,16 @@ import java.awt.Point;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
 import config.Config;
 import config.ImageMap;
 
-public class Hex{
+public class Hex implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8270022659681237312L;
 	private boolean active;
 	private int radius = 248;
 	private int width = radius*2;

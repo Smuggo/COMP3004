@@ -3,12 +3,17 @@ package game.environment.hex;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import config.ImageMap;
 
-public class HexGrid {
+public class HexGrid implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -848201332949488463L;
 	private Hex[][] lGrid; //DO NOT ACCESS GRID VIA ARRAY, USE GET METHOD
 	private Hex lCenterHex;
 	private int lRadius;

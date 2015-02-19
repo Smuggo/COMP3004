@@ -1,5 +1,6 @@
 package network.server;
 import game.entity.Player;
+import game.environment.hex.HexGrid;
 
 import java.net.Socket;
 import java.awt.Point;
@@ -61,6 +62,10 @@ public class Server implements Runnable{
 				}
 				if(lRequestHeader.equals("UpdatePlayerCharacter")){
 					lServerApp.getGameState().updatePlayer((Player)lInputStream.readObject(), (Integer)lInputStream.readObject()-1);
+				}
+				if(lRequestHeader.equals("CreateMap")){
+					lServerApp.getGameState().setHexGrid((HexGrid)lInputStream.readObject());
+					lOutputStream.writeObject(true);
 				}
 				
 				lOutputStream.flush();

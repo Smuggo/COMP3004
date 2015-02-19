@@ -3,6 +3,7 @@ package network;
 import java.awt.Point;
 
 import game.GameState;
+import game.environment.hex.HexGrid;
 import model.ViewModel;
 import network.client.Client;
 import network.client.ClientApp;
@@ -91,5 +92,11 @@ public class NetworkManager {
 	
 	public void updateLocalGameState(GameState aGameState){
 		lViewModel.updateLocalGameState(aGameState);
+	}
+	
+	public void createNewMap(HexGrid aHexGrid){
+		if(lLocalPlayerNumber == 1){
+			lLocalClient.createNewMap(aHexGrid);
+		}
 	}
 }

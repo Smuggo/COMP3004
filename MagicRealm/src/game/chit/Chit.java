@@ -1,8 +1,14 @@
 package game.chit;
 
+import java.io.Serializable;
+
 import config.Config;
 
-public class Chit {
+public class Chit implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1376754877806100989L;
 	/*
 	 * Represents in game chits, e.g. Bones, Dank, Ruins...
 	 */
