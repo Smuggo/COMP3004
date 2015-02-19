@@ -104,7 +104,7 @@ public class Hextile implements Serializable{
 	
 	public Clearing getClearingByMouse(Point aMouse){
 			for(int i = 0; i < clearings.size(); i++){
-				if(aMouse.distance(clearings.get(i).getRotPosition()) < clearings.get(i).getClearingDiameter()){
+				if(aMouse.distance(clearings.get(i).getRotPosition()) < clearings.get(i).getClearingDiameter()/2){
 					return clearings.get(i);
 				}
 			}

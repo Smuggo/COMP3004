@@ -1,5 +1,7 @@
 package action;
 
+import java.awt.Graphics;
+
 import game.environment.hex.Clearing;
 import config.Config.ActionState;
 
@@ -29,5 +31,7 @@ public class ActionManager {
 	public void createNewTurn(Clearing aStartingClearing){
 		lActionList.newTurn(aStartingClearing);
 	}
+	
+
 
 }

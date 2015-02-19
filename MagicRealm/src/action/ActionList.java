@@ -2,8 +2,14 @@ package action;
 
 import game.environment.hex.Clearing;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
+
+import config.Config.ActionType;
 
 public class ActionList {
 	private List<Action> lActions;
@@ -67,5 +73,22 @@ public class ActionList {
 	
 	public Clearing getCurrentClearing(){
 		return lCurrentClearing;
+	}
+	
+	public void drawMovements(Graphics g){
+		for(int i = 0; i < lActions.size(); i++){
+			Action lAction = lActions.get(i);
+			if(lAction.getActionType().equals(ActionType.MOVE)){
+				Clearing c1 = lAction.getClearingStart();
+				Clearing c2 = lAction.getClearingEnd();
+				Graphics2D g2 = (Graphics2D) g;
+				g2.setStroke(new BasicStroke(3, BasicStroke.JOIN_ROUND, BasicStroke.CAP_ROUND));
+				g2.setColor(new Color(255-(i*5),255-(i*15),0));
+				g2.drawLine(c1.getRotPosition().x,c1.getRotPosition().y, c2.getRotPosition().x,c2.getRotPosition().y);
+				g2.setColor(Color.BLACK);
+				g2.setStroke(new BasicStroke(1));
+			}
+		}
+
 	}
 }

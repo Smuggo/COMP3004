@@ -93,13 +93,13 @@ public class HexGrid implements Serializable{
 		}
 	}
 	
-	public Clearing getClearingByMouse(Point aMouse){
+	public Clearing getAdjacentClearingByMouse(Clearing aClearing, Point aMouse){
 		Clearing lClearing = null;
 		for(int y = -lRadius; y <= lRadius; y++ ){
 			for(int x = -lRadius; x <= lRadius; x++){
 				if (getHex(x,y) != null) {
 					lClearing = getHex(x,y).getHextile().getClearingByMouse(aMouse);
-					if(lClearing != null){
+					if(lClearing != null && lClearing.neighbourTo(aClearing)){
 						return lClearing;
 					}
 				}

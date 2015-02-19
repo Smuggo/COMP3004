@@ -104,7 +104,13 @@ public class Clearing implements Serializable{
 	}
 
 	public boolean neighbourTo(Clearing possibleNeighbour) {
-		return true;
+		for(int i = 0; i < roadways.size(); i++){
+			Roadway lRoadway = roadways.get(i);
+			if(lRoadway.getOtherClearing(this).getIdentifier().equals(possibleNeighbour.getIdentifier())){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void draw(Graphics g, int centerX, int centerY, int degrees, ImageMap aImageMap){

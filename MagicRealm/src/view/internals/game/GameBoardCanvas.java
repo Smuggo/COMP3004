@@ -70,9 +70,13 @@ public class GameBoardCanvas extends JPanel{
 	public void releaseMouse(MouseEvent arg0){
 		ActionManager lActionManager = lModel.getActionManager();
 		if(lActionManager.getState().equals(ActionState.MOVING)){
-			Clearing lClearing = lModel.getGameState().getHexGrid().getClearingByMouse(lMouse);
+			Clearing lClearing = lModel.getGameState().getHexGrid().getAdjacentClearingByMouse(lActionManager.getActionList().getCurrentClearing(), 
+																								lMouse);
+			
 			if(lClearing != null){
+				
 				lActionManager.getActionList().addMoveAction(lClearing);
+				
 			}
 		}
 	}
@@ -88,6 +92,10 @@ public class GameBoardCanvas extends JPanel{
 		
 	    if(lModel.requestGrid() != null){
 	    	lModel.requestGrid().drawGrid(g, this.getSize(), lMouse, lModel.getImageMap());
+	    }
+	    
+	    if(lActionManager != null){
+	    	lActionManager.getActionList().drawMovements(g);
 	    }
 	    
 	    if(lActionManager.getState().equals(ActionState.MOVING)){

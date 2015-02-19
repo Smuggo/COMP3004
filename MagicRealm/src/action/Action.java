@@ -61,6 +61,14 @@ public class Action implements Serializable{
 		return lActionType;
 	}
 	
+	public Clearing getClearingStart(){
+		return lClearingStart;
+	}
+	
+	public Clearing getClearingEnd(){
+		return lClearingEnd;
+	}
+	
 
 	
 	
