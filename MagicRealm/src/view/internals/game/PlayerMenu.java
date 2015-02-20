@@ -153,6 +153,16 @@ public class PlayerMenu extends JInternalFrame{
 			}
 		});
 		
+		lSearch.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				lModel.getActionManager().getActionList().addSearchAction();
+				lTurnActions += "S,";
+				lActionTable.setValueAt(lTurnActions, lModel.getGameState().getDay()-1, 1);
+			}
+		});
+		
 		lRemove.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -161,7 +171,7 @@ public class PlayerMenu extends JInternalFrame{
 				if(lModel.getActionManager().getActionList().getActions().size() != 0){
 					if(lModel.getActionManager().getActionList().getActions().get(lCurrentActionNum).getActionType().equals(ActionType.MOVE)){
 						lTurnActions = lTurnActions.substring(0, lTurnActions.length() - (lModel.getActionManager().getActionList().getActions().get(lCurrentActionNum).getClearingEnd().getIdentifier().length()+3));
-						lActionTable.setValueAt(lTurnActions, lModel.getGameState().getDay()-1, 1);
+						lActionTable.setValueAt(lTurnActions, lModel.getGameState().getDay(), 1);
 					}
 					else{
 						lTurnActions = lTurnActions.substring(0, lTurnActions.length()-2);

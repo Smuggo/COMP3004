@@ -19,6 +19,7 @@ import view.internals.menu.ServerMenuView;
 import view.internals.game.CharacterView;
 import view.internals.game.CharacterList;
 import view.internals.game.PlayerMenu;
+import view.internals.game.Searching;
 import view.internals.game.StartingLocation;
 import view.internals.game.VictoryPoints;
 
@@ -38,6 +39,7 @@ public class ViewManager {
 	private VictoryPoints lVictoryPoints;
 	private StartingLocation lStartingLocation;
 	private PlayerMenu lPlayerMenu;
+	private Searching lSearching;
 	
 	private ViewModel lModel;
 	
@@ -169,5 +171,10 @@ public class ViewManager {
 	
 	public void addToActionTable(String aClearingID){
 		lPlayerMenu.addToActionTable(aClearingID);
+	}
+	
+	public void showSearching(ViewModel aModel){
+		lSearching = new Searching(lModel);
+		lWindow.addWindow(lSearching);
 	}
 }

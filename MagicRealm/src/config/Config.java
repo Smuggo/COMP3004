@@ -49,4 +49,8 @@ public final class Config {
 	public enum ActionState {
 		MOVING, NOTHING
 	}
+	
+	public enum SearchType {
+		PEER, LOCATE, LOOT
+	}
 }

@@ -218,4 +218,8 @@ public class ViewModel {
 	public void addToActionTable(String aClearingID){
 		lViewManager.addToActionTable(aClearingID);
 	}
+	
+	public void requestSearching(ViewModel aModel){
+		lViewManager.showSearching(aModel);
+	}
 }

@@ -14,6 +14,7 @@ import action.ActionList;
 import config.Config.ActionType;
 import config.Config.CharacterImageType;
 import config.Config.DwellingType;
+import config.Config.SearchType;
 
 public class Hero implements Serializable{
 	/**
@@ -32,6 +33,7 @@ public class Hero implements Serializable{
 	private Clearing lClearing;
 
 	private boolean hidden;
+	private boolean lViewingHidden; //Can the player see hidden enemies
 
 	private CharacterImageType characterSheet;
 	private CharacterImageType characterChit;
@@ -39,18 +41,22 @@ public class Hero implements Serializable{
 	
 	private ActionList lActionList;
 	
+	private SearchType lSearchType;
+	
 	public Hero(String n, CharacterImageType charPage, CharacterImageType charChit, DwellingType[] aStartingLocations){
 		name = n;
 		characterSheet = charPage;
 		characterChit = charChit;
 		startingLocations = aStartingLocations;
 		victoryConditions = new int[5];
+		lSearchType = null;
 		
 		fame = 0;
 		notoriety = 0;
 		gold = 0;
 		
 		hidden = false;
+		lViewingHidden = false;
 	}
 	
 	public void draw(Graphics g, Player aPlayer){
@@ -71,6 +77,7 @@ public class Hero implements Serializable{
 	
 	public String  getName()           { return name; }
 	public boolean getHidden()         { return hidden; }
+	public boolean getViewingHidden()  { return lViewingHidden; }
 	public CharacterImageType getCharSheet(){ return characterSheet; }
 	public CharacterImageType getCharChit() { return characterChit; }
 	public int[] getVictoryConditions(){ return victoryConditions; }
@@ -88,6 +95,8 @@ public class Hero implements Serializable{
 	public void setGold(int nGold)               { gold = nGold; }
 	public void setHidden(boolean nHidden)       { hidden = nHidden; }
 	public void setClearing(Clearing aClearing)  { lClearing = aClearing; }
+	public void setSearchType(SearchType aSearchType){ lSearchType = aSearchType; }
+	public void setViewingHidden(boolean aViewingHidden){ lViewingHidden = aViewingHidden; }
 	
 	public void executeAction(Action aAction){
 		ActionType aActionType = aAction.getActionType();
@@ -95,17 +104,67 @@ public class Hero implements Serializable{
 		int lRoll1 = lRandomGenerator.nextInt(6) + 1;
 		int lRoll2 = lRandomGenerator.nextInt(6) + 1;
 		
+		int lFinalRoll;
+		if(lRoll1 >= lRoll2)
+			lFinalRoll = lRoll1;
+		else
+			lFinalRoll = lRoll2;
+		
+		//Movement
 		if(aActionType.equals(ActionType.MOVE)){
 			lClearing = aAction.getClearingEnd();
 		}
+		
+		//Hiding
 		else if(aActionType.equals(ActionType.HIDE)){
-			if(lRoll1 == 6 || lRoll2 == 6){
+			if(lFinalRoll == 6){
 				System.out.println("FAILED TO HIDE; DIE1 = " + lRoll1 + " DIE2 = " + lRoll2);
 			} else {
 				System.out.println("HIDE SUCCESS; DIE1 = " + lRoll1 + " DIE2 = " + lRoll2);
 				hidden = true;
+			}	
+		}
+		
+		//Searching
+		else if(aActionType.equals(ActionType.SEARCH)){
+			boolean lSearched = false;
+			
+			while (!lSearched){
+				if(lSearchType == SearchType.PEER){
+					if(lFinalRoll == 1){
+						
+					} else if(lFinalRoll == 2){
+						
+					} else if(lFinalRoll == 3){
+						
+					} else if(lFinalRoll == 4){
+						
+					} else if(lFinalRoll == 5){
+						
+					} else {
+						
+					}
+					lSearched = true;
+				} 
+				else if(lSearchType == SearchType.LOCATE){
+					if(lFinalRoll == 1){
+						
+					} else if(lFinalRoll == 2){
+						
+					} else if(lFinalRoll == 3){
+						
+					} else if(lFinalRoll == 4){
+						
+					} else {
+						
+					}
+					lSearched = true;
+				} 
+				else if(lSearchType == SearchType.LOOT){
+					lSearched = true;
+				}
 			}
-				
+			lSearchType = null;
 		}
 	}
 	
