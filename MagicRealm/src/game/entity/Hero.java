@@ -176,7 +176,27 @@ public class Hero implements Serializable {
 
 		// Movement
 		if (aActionType.equals(ActionType.MOVE)) {
+			Roadway lTempRoadway = null;
+			
+			for(int i = 0; i < lActionList.getCurrentClearing().getRoadways().size(); i++){
+				if(lActionList.getCurrentClearing().getRoadways().get(i).has(aAction.getClearingEnd())){
+					lTempRoadway = lActionList.getCurrentClearing().getRoadways().get(i);
+				}
+			}
+			if(lTempRoadway != null){
+				if(lHiddenRoadways.containsKey(lTempRoadway.getName())){
+					System.out.println("TEST");
+					if(lHiddenRoadways.get(lTempRoadway.getName()).getDiscovered() && lActionList.getCurrentClearing().equals(aAction.getClearingStart())){
+						lClearing = aAction.getClearingEnd();
+					} else {
+						System.out.println("FAILED TO MOVE");
+					}
+				}
+			}
+			//else if(lActionList.getCurrentClearing().equals(aAction.getClearingStart()))
 			lClearing = aAction.getClearingEnd();
+			//else
+				//System.out.println("FAILED TO MOVE");
 		}
 
 		// Hiding

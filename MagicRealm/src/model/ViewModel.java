@@ -117,7 +117,6 @@ public class ViewModel {
 		lViewManager.createCharacterView();
 		
 		Dimension lMapSize = lGameManager.createNewMap();
-		
 		lViewManager.clearMenu();
 		lViewManager.newGameBoard(lMapSize);
 	}
@@ -180,8 +179,6 @@ public class ViewModel {
 			lGameState = aGameState;
 			lViewManager.gameStateUpdated();
 		}
-		
-		
 	}
 	
 	public GameState getGameState(){ return lGameState; }

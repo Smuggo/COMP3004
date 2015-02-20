@@ -27,9 +27,7 @@ public class GameManager {
 	}
 
 	public Dimension createNewMap(){
-		Dimension tempDimension = lEnvironmentManager.createNewMap(gameImages);
-		characters.setHiddenRoadways(lEnvironmentManager.getHexGrid());
-		return tempDimension;
+		return lEnvironmentManager.createNewMap(gameImages);
 	}
 	
 	public HexGrid getGrid(){
@@ -54,5 +52,9 @@ public class GameManager {
 	
 	public ImageMap getGameImages(){
 		return gameImages;
+	}
+	
+	public void setHiddenRoads(HexGrid aHexGrid){
+		characters.setHiddenRoadways(aHexGrid);
 	}
 }

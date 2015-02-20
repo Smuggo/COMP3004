@@ -3,7 +3,6 @@ package game.entity;
 import game.environment.hex.HexGrid;
 import game.environment.hex.Roadway;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,14 +40,8 @@ public class HeroFactory {
 		for(int y = 0; y <  lGridSize; y++){
 			for(int x = 0; x < lGridSize; x++){
 				if(aHexGrid.getHex(x, y) != null && aHexGrid.getHex(x, y).isActive()){
-					for(int r = 0; r < aHexGrid.getHex(x, y).getHextile().getRoadways().size(); r++){
-						if(aHexGrid.getHex(x, y).getHextile().getRoadways().get(r).getRoadwayType().equals(RoadwayType.HIDDEN_PATH) ||
-								aHexGrid.getHex(x, y).getHextile().getRoadways().get(r).getRoadwayType().equals(RoadwayType.SECRET_PASSAGE)){
-							String lRoadwayString = aHexGrid.getHex(x, y).getHextile().getName() + 
-									aHexGrid.getHex(x, y).getHextile().getRoadways().get(r).getHeadClearing() +
-									aHexGrid.getHex(x, y).getHextile().getRoadways().get(r).getTailClearing();
-							lTempMap.put(lRoadwayString, aHexGrid.getHex(x, y).getHextile().getRoadways().get(r));
-						}
+					for(int c = 0; c < aHexGrid.getHex(x, y).getHextile().getClearings().size(); c++){
+						//System.out.println(aHexGrid.getHex(x, y).getHextile().getClearing(c).getOwnedHex());
 					}
 				}
 			}

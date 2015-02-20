@@ -10,11 +10,13 @@ public class Roadway implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -3934951441765390826L;
+	String lName;
 	Clearing headClearing;
 	Clearing tailClearing;
 	RoadwayType roadwayType;
 	IncompleteRoadwayDirection incompleteRoadwayDirection;
 	boolean interconnected;
+	boolean lDiscovered;
 	
 	public Roadway() {
 
@@ -35,7 +37,9 @@ public class Roadway implements Serializable{
 		if(headClearing.equals(aClearing) || tailClearing.equals(aClearing)){
 			return true;
 		}
-		return false;
+		else{
+			return false;
+		}
 	}
 	
 	public Clearing getOtherClearing(Clearing aClearing){
@@ -55,6 +59,12 @@ public class Roadway implements Serializable{
 		tailClearing = tail;
 		roadwayType = rT;
 		incompleteRoadwayDirection = iRD;
+		lName = null;
+		
+		if(roadwayType.equals(RoadwayType.HIDDEN_PATH) || roadwayType.equals(RoadwayType.SECRET_PASSAGE))
+			lDiscovered = false;
+		else
+			lDiscovered = true;
 		
 		// If the roadway is complete, it must be connected within the hextile, at initalization.
 		if (incompleteRoadwayDirection == null) {
@@ -63,7 +73,6 @@ public class Roadway implements Serializable{
 		else {
 			interconnected = false;
 		}
-
 	}
 	
 	public void print() {
@@ -111,5 +120,18 @@ public class Roadway implements Serializable{
 	
 	public RoadwayType getRoadwayType(){
 		return roadwayType;
+	}
+	
+	public boolean getDiscovered(){
+		return lDiscovered;
+	}
+	
+	public String getName(){
+		if(tailClearing != null && headClearing != null){
+			lName = headClearing.getOwnedHex().getHextile().getName() +
+					headClearing.getNumber() + 
+					tailClearing.getNumber();
+		}
+		return lName;
 	}
 }
