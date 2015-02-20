@@ -6,12 +6,9 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import config.Config.SearchType;
 import model.ViewModel;
@@ -43,13 +40,15 @@ public class Searching extends JInternalFrame{
 		add(lSelectTable, c);
 		
 		lPeerTable = new JButton("Peer: Paths and Hidden Enemies");
+		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
-		c.gridy = 0;
+		c.gridy = 1;
 		add(lPeerTable, c);
 		
 		lLocateTable = new JButton("Locate: Passages and Treasure Locations");
+		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
-		c.gridy = 0;
+		c.gridy = 2;
 		add(lLocateTable, c);
 		
 		createButtonListeners();
@@ -62,7 +61,8 @@ public class Searching extends JInternalFrame{
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().setSearchType(SearchType.PEER);;
+				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().setSearchType(SearchType.PEER);
+				dispose();
 			}
 		});
 		lLocateTable.addActionListener(new ActionListener()
@@ -70,6 +70,7 @@ public class Searching extends JInternalFrame{
 			public void actionPerformed(ActionEvent e)
 			{
 				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().setSearchType(SearchType.LOCATE);
+				dispose();
 			}
 		});
 	}
