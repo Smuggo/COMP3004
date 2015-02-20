@@ -90,7 +90,9 @@ public class GameState implements Serializable{
 		for(int i = 0; i < lPlayers.size(); i++){
 			lPlayers.get(i).getChosenHero().executeTurn();
 		}
-		
+		for(int i = 0; i < lPlayers.size(); i++){
+			lPlayers.get(i).getChosenHero().setHidden(false);
+		}
 		lTurn++;
 	}
 	

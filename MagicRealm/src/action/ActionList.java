@@ -115,8 +115,10 @@ public class ActionList implements Serializable{
 				if(lActions.get(i).getActionType() == ActionType.MOVE)
 					lTempAction = lActions.get(i);
 			}
-			if(lTempAction != null)
+			if(lTempAction != null && lActions.size() - 1 != 0)
 				lCurrentClearing = lTempAction.getClearingEnd();
+			else
+				lCurrentClearing = lStartingClearing;
 		}
 		lActions.remove(lActions.size()-1);
 		

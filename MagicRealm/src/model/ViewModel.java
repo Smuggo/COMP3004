@@ -214,4 +214,8 @@ public class ViewModel {
 		lNetworkManager.sendActions(lActionManager.getActionList());
 		lActionManager.createNewTurn(lActionManager.getActionList().getCurrentClearing());
 	}
+	
+	public void addToActionTable(String aClearingID){
+		lViewManager.addToActionTable(aClearingID);
+	}
 }

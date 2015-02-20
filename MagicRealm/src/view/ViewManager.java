@@ -166,4 +166,8 @@ public class ViewManager {
 			lPlayerMenu.newTurn();
 		}
 	}
+	
+	public void addToActionTable(String aClearingID){
+		lPlayerMenu.addToActionTable(aClearingID);
+	}
 }

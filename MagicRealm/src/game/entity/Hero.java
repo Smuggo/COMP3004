@@ -7,6 +7,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
+import java.util.Random;
 
 import action.Action;
 import action.ActionList;
@@ -90,9 +91,21 @@ public class Hero implements Serializable{
 	
 	public void executeAction(Action aAction){
 		ActionType aActionType = aAction.getActionType();
+		Random lRandomGenerator = new Random();
+		int lRoll1 = lRandomGenerator.nextInt(6) + 1;
+		int lRoll2 = lRandomGenerator.nextInt(6) + 1;
 		
 		if(aActionType.equals(ActionType.MOVE)){
 			lClearing = aAction.getClearingEnd();
+		}
+		else if(aActionType.equals(ActionType.HIDE)){
+			if(lRoll1 == 6 || lRoll2 == 6){
+				System.out.println("FAILED TO HIDE; DIE1 = " + lRoll1 + " DIE2 = " + lRoll2);
+			} else {
+				System.out.println("HIDE SUCCESS; DIE1 = " + lRoll1 + " DIE2 = " + lRoll2);
+				hidden = true;
+			}
+				
 		}
 	}
 	
