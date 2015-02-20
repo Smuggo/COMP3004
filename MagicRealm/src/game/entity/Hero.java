@@ -36,6 +36,8 @@ public class Hero implements Serializable{
 	private CharacterImageType characterChit;
 	private DwellingType[] startingLocations;
 	
+	private ActionList lActionList;
+	
 	public Hero(String n, CharacterImageType charPage, CharacterImageType charChit, DwellingType[] aStartingLocations){
 		name = n;
 		characterSheet = charPage;
@@ -92,5 +94,28 @@ public class Hero implements Serializable{
 		if(aActionType.equals(ActionType.MOVE)){
 			lClearing = aAction.getClearingEnd();
 		}
+	}
+	
+	public void executeTurn(){
+		for(int i = 0; i < lActionList.getActions().size(); i++){
+			Action lAction = lActionList.getActions().get(i);
+			if(lActionList.getActionPoints() >= lAction.getCost()){
+				executeAction(lAction);
+				lActionList.modifyActionPoints(-lAction.getCost());
+			}	
+		}
+	}
+	
+	public void addActionList(ActionList aActionList){
+		lActionList = aActionList;
+	}
+	
+	public boolean hasUpToDateActionSheet(int aTurn){
+		if(lActionList != null){
+			if(lActionList.getTurn() == aTurn){
+				return true;
+			}
+		}
+		return false;
 	}
 }

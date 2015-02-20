@@ -172,9 +172,16 @@ public class ViewModel {
 		}
 		
 		if(!aGameState.equals(lGameState)){
+			if(lGameState!= null && aGameState != null && lGameState.getDay() != aGameState.getDay()){
+				lActionManager.createNewTurn(aGameState, lLocalPlayerNumber);
+				lGameState = aGameState;
+				lViewManager.newTurn();
+			}
 			lGameState = aGameState;
 			lViewManager.gameStateUpdated();
 		}
+		
+		
 	}
 	
 	public GameState getGameState(){ return lGameState; }

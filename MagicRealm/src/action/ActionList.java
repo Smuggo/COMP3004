@@ -20,6 +20,7 @@ public class ActionList implements Serializable{
 
 	private List<Action> lActions;
 	private int lActionPoints;
+	private int lTurn;
 	
 	private Clearing lStartingClearing;
 	private Clearing lCurrentClearing;
@@ -27,6 +28,7 @@ public class ActionList implements Serializable{
 	public ActionList(){
 		lActions = new ArrayList<Action>();
 		lActionPoints = 4;
+		lTurn = 0;
 	}
 	
 	
@@ -34,7 +36,6 @@ public class ActionList implements Serializable{
 		Action newAction = new Action();
 		newAction.createMoveAction(lCurrentClearing, newClearing);
 		lActions.add(newAction);
-		lActionPoints -= newAction.getCost();
 		lCurrentClearing = newClearing;
 	}
 	
@@ -42,21 +43,18 @@ public class ActionList implements Serializable{
 		Action newAction = new Action();
 		newAction.createHideAction();
 		lActions.add(newAction);
-		lActionPoints -= newAction.getCost();
 	}
 	
 	public void addRestAction(){
 		Action newAction = new Action();
 		newAction.createRestAction();
 		lActions.add(newAction);
-		lActionPoints -= newAction.getCost();
 	}
 	
 	public void addSearchAction(){
 		Action newAction = new Action();
 		newAction.createSearchAction();
 		lActions.add(newAction);
-		lActionPoints -= newAction.getCost();
 	}
 	
 	
@@ -76,10 +74,15 @@ public class ActionList implements Serializable{
 		lActions = new ArrayList<Action>();
 		lStartingClearing = aStartingClearing;
 		lCurrentClearing = aStartingClearing;
+		lTurn++;
 	}
 	
 	public Clearing getCurrentClearing(){
 		return lCurrentClearing;
+	}
+	
+	public void setTurn(int aTurn){
+		lTurn = aTurn;
 	}
 	
 
@@ -116,6 +119,10 @@ public class ActionList implements Serializable{
 				lCurrentClearing = lTempAction.getClearingEnd();
 		}
 		lActions.remove(lActions.size()-1);
-		lActionPoints++;
+		
+	}
+	
+	public int getTurn(){
+		return lTurn;
 	}
 }

@@ -160,4 +160,10 @@ public class ViewManager {
 		lPlayerMenu = new PlayerMenu(lModel);
 		lWindow.addWindow(lPlayerMenu);
 	}
+	
+	public void newTurn(){
+		if(lPlayerMenu != null){
+			lPlayerMenu.newTurn();
+		}
+	}
 }

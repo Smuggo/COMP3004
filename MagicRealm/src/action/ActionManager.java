@@ -2,6 +2,7 @@ package action;
 
 import java.awt.Graphics;
 
+import game.GameState;
 import game.environment.hex.Clearing;
 import config.Config.ActionState;
 
@@ -30,6 +31,11 @@ public class ActionManager {
 	
 	public void createNewTurn(Clearing aStartingClearing){
 		lActionList.newTurn(aStartingClearing);
+	}
+	
+	public void createNewTurn(GameState aGameState, int aPlayer){
+		createNewTurn(aGameState.getClearingByPlayer(aPlayer));
+		lActionList.setTurn(aGameState.getDay());
 	}
 	
 

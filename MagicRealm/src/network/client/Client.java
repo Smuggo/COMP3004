@@ -335,8 +335,9 @@ public class Client implements Runnable {
 			lOutputStream.flush();
 			lOutputStream.reset();
 			
-			streamBusy=false;
+			
 			boolean returnv = (boolean) lInputStream.readObject();
+			streamBusy=false;
 			return returnv;
 			
 			

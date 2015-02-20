@@ -128,6 +128,7 @@ public class PlayerMenu extends JInternalFrame{
 		setVisible(true);
 	}
 	
+	
 	protected void createButtonListeners(){
 		lMove.addActionListener(new ActionListener()
 		{
@@ -139,6 +140,7 @@ public class PlayerMenu extends JInternalFrame{
 				lHide.setEnabled(false);
 				lRest.setEnabled(false);
 				lSearch.setEnabled(false);
+				lRemove.setEnabled(false);
 				lPrevMove = true;
 			}
 		});
@@ -184,6 +186,7 @@ public class PlayerMenu extends JInternalFrame{
 					lHide.setEnabled(true);
 					lRest.setEnabled(true);
 					lSearch.setEnabled(true);
+					lRemove.setEnabled(true);
 				}else{
 					lModel.sendActions();
 					lSendActionsOrCancel.setEnabled(false);
@@ -191,8 +194,21 @@ public class PlayerMenu extends JInternalFrame{
 					lHide.setEnabled(false);
 					lRest.setEnabled(false);
 					lSearch.setEnabled(false);
+					lRemove.setEnabled(false);
 				}
 			}
 		});
+	}
+	
+	public void newTurn(){
+		lSendActionsOrCancel.setText("Send Actions");
+		lModel.setLocalActionState(ActionState.NOTHING);
+		lMove.setEnabled(true);
+		lHide.setEnabled(true);
+		lRest.setEnabled(true);
+		lSearch.setEnabled(true);
+		lRemove.setEnabled(true);
+		lSendActionsOrCancel.setEnabled(true);
+		((DefaultTableModel) lActionTable.getModel()).addRow(new Object[] {lModel.getGameState().getDay(), "", 0});
 	}
 }

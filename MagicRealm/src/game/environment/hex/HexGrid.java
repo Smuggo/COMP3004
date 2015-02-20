@@ -84,11 +84,13 @@ public class HexGrid implements Serializable{
 	}
 	
 	public void drawAdjacentClearings(Graphics g, Clearing aClearing, Point aMouse){
-		for(int i = 0; i < aClearing.getRoadways().size(); i++){
-			Roadway lRoadway = aClearing.getRoadways().get(i);
-			Clearing otherClearing = lRoadway.getOtherClearing(aClearing);
-			if(otherClearing != null){
-				otherClearing.drawAdjacent(g, aMouse);
+		if(aClearing != null){
+			for(int i = 0; i < aClearing.getRoadways().size(); i++){
+				Roadway lRoadway = aClearing.getRoadways().get(i);
+				Clearing otherClearing = lRoadway.getOtherClearing(aClearing);
+				if(otherClearing != null){
+					otherClearing.drawAdjacent(g, aMouse);
+				}
 			}
 		}
 	}

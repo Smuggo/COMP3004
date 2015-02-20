@@ -78,7 +78,7 @@ public class Server implements Runnable{
 					
 					ActionList lActionList =  (ActionList)lInputStream.readObject();
 					int lPlayer = (Integer)lInputStream.readObject();
-					lServerApp.getGameState().executeActionList(lActionList, lPlayer);
+					lServerApp.getGameState().addActionList(lActionList, lPlayer);
 					lOutputStream.writeObject(true);
 				}
 				
