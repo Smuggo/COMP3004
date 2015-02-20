@@ -42,8 +42,4 @@ public class EnvironmentManager {
 	public void setHexGrid(HexGrid aHexGrid) {
 		lHexGrid = aHexGrid;
 	}
-	
-	public ArrayList<Roadway> getRoadways(){
-		return lHexGrid.getRoadways();
-	}
 }

@@ -19,11 +19,9 @@ public class HexGrid implements Serializable{
 	private Hex lCenterHex;
 	private int lRadius;
 	private Dimension lCanvasSize;
-	private ArrayList<Roadway> lRoadways; 
 	
 	public HexGrid(int aRadius, Dimension aCanvasSize, ArrayList<Hextile> hextiles){
 		lRadius = aRadius;
-		lRoadways = new ArrayList<Roadway>();
 		
 		int lGridSize = (2*aRadius)+1;
 		lGrid = new Hex[lGridSize][lGridSize];
@@ -41,15 +39,6 @@ public class HexGrid implements Serializable{
 					// Set Center Hex
 					if(x == (aRadius) && y == (aRadius)){
 						lCenterHex = lGrid[x][y];
-					}
-				}
-			}
-		}
-		for(int y = 0; y <lGridSize; y++){
-			for(int x = 0; x < lGridSize; x++){
-				if(lGrid[x][y] != null && lGrid[x][y].isActive()){
-					for(int r = 0; r < lGrid[x][y].getHextile().getRoadways().size(); r++){
-						lRoadways.add(lGrid[x][y].getHextile().getRoadways().get(r));
 					}
 				}
 			}
@@ -141,5 +130,7 @@ public class HexGrid implements Serializable{
 		return null;
 	}
 	
-	public ArrayList<Roadway> getRoadways(){ return lRoadways; }
+	public int getRadius(){
+		return lRadius;
+	}
 }

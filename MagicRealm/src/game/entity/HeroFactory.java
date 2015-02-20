@@ -1,5 +1,6 @@
 package game.entity;
 
+import game.environment.hex.HexGrid;
 import game.environment.hex.Roadway;
 
 import java.util.ArrayList;
@@ -15,10 +16,6 @@ public class HeroFactory {
 	private Map<String, Hero> characters = new HashMap<String, Hero>();
 
 	public HeroFactory() {
-		//for(int i = 0; i < aRoadways.size(); i++){
-		//	if(aRoadways.get(i).getRoadwayType().equals(RoadwayType.HIDDEN_PATH) || aRoadways.get(i).getRoadwayType().equals(RoadwayType.SECRET_PASSAGE))
-		//		System.out.println(i);
-		//}
 		characters.put("Captain", new Hero("Captain", CharacterImageType.captainPage, CharacterImageType.captainChit, 
 				new DwellingType[]{DwellingType.GUARD, DwellingType.HOUSE, DwellingType.INN}));
 		characters.put("Swordsman", new Hero("Swordsman", CharacterImageType.swordsmanPage, CharacterImageType.swordsmanChit,
@@ -35,5 +32,32 @@ public class HeroFactory {
 
 	public Map<String, Hero> getCharacters() {
 		return characters;
+	}
+	
+	public void setHiddenRoadways(HexGrid aHexGrid){
+		int lGridSize = aHexGrid.getRadius()+1;
+		Map<String, Roadway> lTempMap = new HashMap<String, Roadway>();
+		
+		for(int y = 0; y <  lGridSize; y++){
+			for(int x = 0; x < lGridSize; x++){
+				if(aHexGrid.getHex(x, y) != null && aHexGrid.getHex(x, y).isActive()){
+					for(int r = 0; r < aHexGrid.getHex(x, y).getHextile().getRoadways().size(); r++){
+						if(aHexGrid.getHex(x, y).getHextile().getRoadways().get(r).getRoadwayType().equals(RoadwayType.HIDDEN_PATH) ||
+								aHexGrid.getHex(x, y).getHextile().getRoadways().get(r).getRoadwayType().equals(RoadwayType.SECRET_PASSAGE)){
+							String lRoadwayString = aHexGrid.getHex(x, y).getHextile().getName() + 
+									aHexGrid.getHex(x, y).getHextile().getRoadways().get(r).getHeadClearing() +
+									aHexGrid.getHex(x, y).getHextile().getRoadways().get(r).getTailClearing();
+							lTempMap.put(lRoadwayString, aHexGrid.getHex(x, y).getHextile().getRoadways().get(r));
+						}
+					}
+				}
+			}
+		}
+		characters.get("Captain").setHiddenRoadways(lTempMap);
+		characters.get("Swordsman").setHiddenRoadways(lTempMap);
+		characters.get("Amazon").setHiddenRoadways(lTempMap);
+		characters.get("Dwarf").setHiddenRoadways(lTempMap);
+		characters.get("Elf").setHiddenRoadways(lTempMap);
+		characters.get("Black Knight").setHiddenRoadways(lTempMap);
 	}
 }

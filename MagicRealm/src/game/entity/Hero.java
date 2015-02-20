@@ -1,12 +1,15 @@
 package game.entity;
 
 import game.environment.hex.Clearing;
+import game.environment.hex.Roadway;
 
 import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import action.Action;
@@ -42,6 +45,8 @@ public class Hero implements Serializable {
 	private ActionList lActionList;
 
 	private SearchType lSearchType;
+	
+	private Map<String, Roadway> lHiddenRoadways;
 
 	public Hero(String n, CharacterImageType charPage,
 			CharacterImageType charChit, DwellingType[] aStartingLocations) {
@@ -51,6 +56,7 @@ public class Hero implements Serializable {
 		startingLocations = aStartingLocations;
 		victoryConditions = new int[5];
 		lSearchType = null;
+		lHiddenRoadways = new HashMap<String, Roadway>();
 
 		fame = 0;
 		notoriety = 0;
@@ -151,6 +157,9 @@ public class Hero implements Serializable {
 
 	public void setViewingHidden(boolean aViewingHidden) {
 		lViewingHidden = aViewingHidden;
+	}
+	public void setHiddenRoadways(Map<String, Roadway> aHiddenRoadways) {
+		lHiddenRoadways = aHiddenRoadways;
 	}
 
 	public void executeAction(Action aAction) {

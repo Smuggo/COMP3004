@@ -87,6 +87,10 @@ public class Roadway implements Serializable{
 		return headClearing;
 	}
 	
+	public Clearing getTailClearing() {
+		return tailClearing;
+	}
+	
 	public IncompleteRoadwayDirection getIncompleteRoadwayDirection() {
 		return incompleteRoadwayDirection;
 	}
