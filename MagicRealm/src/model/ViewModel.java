@@ -222,4 +222,8 @@ public class ViewModel {
 	public void requestSearching(ViewModel aModel){
 		lViewManager.showSearching(aModel);
 	}
+	
+	public void enableOrDisablePlayer(boolean aButtonState){
+		lViewManager.enableOrDisablePlayer(aButtonState);
+	}
 }

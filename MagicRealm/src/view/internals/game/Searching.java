@@ -14,7 +14,6 @@ import config.Config.SearchType;
 import model.ViewModel;
 
 public class Searching extends JInternalFrame{
-
 	/**
 	 * 
 	 */
@@ -62,6 +61,7 @@ public class Searching extends JInternalFrame{
 			public void actionPerformed(ActionEvent e)
 			{
 				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().setSearchType(SearchType.PEER);
+				lModel.enableOrDisablePlayer(true);
 				dispose();
 			}
 		});
@@ -70,6 +70,7 @@ public class Searching extends JInternalFrame{
 			public void actionPerformed(ActionEvent e)
 			{
 				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().setSearchType(SearchType.LOCATE);
+				lModel.enableOrDisablePlayer(true);
 				dispose();
 			}
 		});

@@ -2,7 +2,8 @@ package game.environment.hex;
 import java.awt.Graphics;
 import java.io.Serializable;
 
-import config.Config;
+import config.Config.RoadwayType;
+import config.Config.IncompleteRoadwayDirection;
 
 public class Roadway implements Serializable{
 	/**
@@ -11,8 +12,8 @@ public class Roadway implements Serializable{
 	private static final long serialVersionUID = -3934951441765390826L;
 	Clearing headClearing;
 	Clearing tailClearing;
-	Config.RoadwayType roadwayType;
-	Config.IncompleteRoadwayDirection incompleteRoadwayDirection;
+	RoadwayType roadwayType;
+	IncompleteRoadwayDirection incompleteRoadwayDirection;
 	boolean interconnected;
 	
 	public Roadway() {
@@ -49,7 +50,7 @@ public class Roadway implements Serializable{
 	
 	
 	// Has head and tail therefore no roadway Exit
-	public void initialize(Clearing head, Clearing tail, Config.RoadwayType rT, Config.IncompleteRoadwayDirection iRD) {
+	public void initialize(Clearing head, Clearing tail, RoadwayType rT, IncompleteRoadwayDirection iRD) {
 		headClearing = head;
 		tailClearing = tail;
 		roadwayType = rT;
@@ -86,11 +87,11 @@ public class Roadway implements Serializable{
 		return headClearing;
 	}
 	
-	public Config.IncompleteRoadwayDirection getIncompleteRoadwayDirection() {
+	public IncompleteRoadwayDirection getIncompleteRoadwayDirection() {
 		return incompleteRoadwayDirection;
 	}
 	
-	public void setIncompleteRoadwayDirection(Config.IncompleteRoadwayDirection i) {
+	public void setIncompleteRoadwayDirection(IncompleteRoadwayDirection i) {
 		incompleteRoadwayDirection = i;
 	}
 	
@@ -102,5 +103,9 @@ public class Roadway implements Serializable{
 	
 	public boolean getInterconnected() {
 		return interconnected;
+	}
+	
+	public RoadwayType getRoadwayType(){
+		return roadwayType;
 	}
 }

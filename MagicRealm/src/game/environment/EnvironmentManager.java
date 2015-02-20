@@ -8,6 +8,7 @@ import game.chit.ChitFactory;
 import game.environment.hex.HexGrid;
 import game.environment.hex.HexGridFactory;
 import game.environment.hex.Hextile;
+import game.environment.hex.Roadway;
 import game.environment.hex.XMLParser;
 
 public class EnvironmentManager {
@@ -42,6 +43,7 @@ public class EnvironmentManager {
 		lHexGrid = aHexGrid;
 	}
 	
-	
-	
+	public ArrayList<Roadway> getRoadways(){
+		return lHexGrid.getRoadways();
+	}
 }

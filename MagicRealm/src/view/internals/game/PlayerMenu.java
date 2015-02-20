@@ -159,6 +159,7 @@ public class PlayerMenu extends JInternalFrame{
 			{
 				lModel.requestSearching(lModel);
 				lModel.getActionManager().getActionList().addSearchAction();
+				enableOrDisableButtons(false);
 				lTurnActions += "S,";
 				lActionTable.setValueAt(lTurnActions, lModel.getGameState().getDay()-1, 1);
 			}
@@ -224,5 +225,14 @@ public class PlayerMenu extends JInternalFrame{
 	public void addToActionTable(String aClearingID){
 		lTurnActions += "M-" + aClearingID + ",";
 		lActionTable.setValueAt(lTurnActions, lModel.getGameState().getDay()-1, 1);
+	}
+	
+	public void enableOrDisableButtons(boolean aButtonState){
+		lSendActionsOrCancel.setEnabled(aButtonState);
+		lMove.setEnabled(aButtonState);
+		lHide.setEnabled(aButtonState);
+		lRest.setEnabled(aButtonState);
+		lSearch.setEnabled(aButtonState);
+		lRemove.setEnabled(aButtonState);
 	}
 }

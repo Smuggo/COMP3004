@@ -177,4 +177,8 @@ public class ViewManager {
 		lSearching = new Searching(lModel);
 		lWindow.addWindow(lSearching);
 	}
+	
+	public void enableOrDisablePlayer(boolean aButtonState){
+		lPlayerMenu.enableOrDisableButtons(aButtonState);
+	}
 }

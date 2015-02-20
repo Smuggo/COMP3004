@@ -1,5 +1,6 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
@@ -9,6 +10,7 @@ import config.Config.DwellingType;
 import config.ImageMap;
 import game.environment.EnvironmentManager;
 import game.environment.hex.HexGrid;
+import game.environment.hex.Roadway;
 import game.entity.HeroFactory;
 import game.entity.Hero;
 
@@ -50,5 +52,9 @@ public class GameManager {
 	
 	public ImageMap getGameImages(){
 		return gameImages;
+	}
+	
+	public ArrayList<Roadway> getRoadways(){
+		return lEnvironmentManager.getRoadways();
 	}
 }

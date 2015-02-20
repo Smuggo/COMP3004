@@ -1,15 +1,24 @@
 package game.entity;
 
+import game.environment.hex.Roadway;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 import config.Config.CharacterImageType;
 import config.Config.DwellingType;
+import config.Config.RoadwayType;
 
 public class HeroFactory {
 	// Initializes player characters
 	private Map<String, Hero> characters = new HashMap<String, Hero>();
 
 	public HeroFactory() {
+		//for(int i = 0; i < aRoadways.size(); i++){
+		//	if(aRoadways.get(i).getRoadwayType().equals(RoadwayType.HIDDEN_PATH) || aRoadways.get(i).getRoadwayType().equals(RoadwayType.SECRET_PASSAGE))
+		//		System.out.println(i);
+		//}
 		characters.put("Captain", new Hero("Captain", CharacterImageType.captainPage, CharacterImageType.captainChit, 
 				new DwellingType[]{DwellingType.GUARD, DwellingType.HOUSE, DwellingType.INN}));
 		characters.put("Swordsman", new Hero("Swordsman", CharacterImageType.swordsmanPage, CharacterImageType.swordsmanChit,

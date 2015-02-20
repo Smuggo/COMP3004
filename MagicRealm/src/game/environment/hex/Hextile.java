@@ -233,6 +233,8 @@ public class Hextile implements Serializable{
 		return null;
 	}
 	
+	public ArrayList<Clearing> getClearings(){ return clearings; }
+	
 	public Roadway findRoadway(Config.IncompleteRoadwayDirection direction) {
 		for (int i = 0; i < roadways.size(); i++) {
 			if (roadways.get(i).getIncompleteRoadwayDirection() == direction) {
@@ -301,5 +303,6 @@ public class Hextile implements Serializable{
 		return null;
 	}
 		
+	public ArrayList<Roadway> getRoadways(){ return roadways; }
 }
 
