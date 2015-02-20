@@ -1,14 +1,12 @@
 package game.entity;
 
 import game.environment.hex.HexGrid;
-import game.environment.hex.Roadway;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import config.Config.CharacterImageType;
 import config.Config.DwellingType;
-import config.Config.RoadwayType;
 
 public class HeroFactory {
 	// Initializes player characters
@@ -34,23 +32,5 @@ public class HeroFactory {
 	}
 	
 	public void setHiddenRoadways(HexGrid aHexGrid){
-		int lGridSize = aHexGrid.getRadius()+1;
-		Map<String, Roadway> lTempMap = new HashMap<String, Roadway>();
-		
-		for(int y = 0; y <  lGridSize; y++){
-			for(int x = 0; x < lGridSize; x++){
-				if(aHexGrid.getHex(x, y) != null && aHexGrid.getHex(x, y).isActive()){
-					for(int c = 0; c < aHexGrid.getHex(x, y).getHextile().getClearings().size(); c++){
-						//System.out.println(aHexGrid.getHex(x, y).getHextile().getClearing(c).getOwnedHex());
-					}
-				}
-			}
-		}
-		characters.get("Captain").setHiddenRoadways(lTempMap);
-		characters.get("Swordsman").setHiddenRoadways(lTempMap);
-		characters.get("Amazon").setHiddenRoadways(lTempMap);
-		characters.get("Dwarf").setHiddenRoadways(lTempMap);
-		characters.get("Elf").setHiddenRoadways(lTempMap);
-		characters.get("Black Knight").setHiddenRoadways(lTempMap);
 	}
 }

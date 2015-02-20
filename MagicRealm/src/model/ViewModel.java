@@ -119,6 +119,7 @@ public class ViewModel {
 		Dimension lMapSize = lGameManager.createNewMap();
 		lViewManager.clearMenu();
 		lViewManager.newGameBoard(lMapSize);
+		lGameManager.setHiddenRoads(lGameManager.getGrid());
 	}
 	
 	

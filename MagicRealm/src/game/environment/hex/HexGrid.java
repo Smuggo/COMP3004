@@ -50,8 +50,9 @@ public class HexGrid implements Serializable{
 		int lGridSize = (2*lRadius)+1;
 		for(int y = 0; y < lGridSize; y++){
 			for(int x = 0; x < lGridSize; x++){
-				if(lGrid[x][y] != null && lGrid[x][y].isActive())
-				lGrid[x][y].setHexClearings();
+				if(lGrid[x][y] != null && lGrid[x][y].isActive()){
+					lGrid[x][y].setHexClearings();
+				}
 			}
 		}
 	}
@@ -128,9 +129,5 @@ public class HexGrid implements Serializable{
 			}
 		}
 		return null;
-	}
-	
-	public int getRadius(){
-		return lRadius;
 	}
 }
