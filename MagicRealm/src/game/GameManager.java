@@ -1,6 +1,7 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
@@ -19,15 +20,17 @@ public class GameManager {
 	private EnvironmentManager lEnvironmentManager;
 	private HeroFactory   characters;
 	private ImageMap gameImages;
+	private Map<String, Roadway> lHiddenRoadways;
 	
 	public GameManager(){
 		lEnvironmentManager = new EnvironmentManager();
 		characters = new HeroFactory();
 		gameImages = new ImageMap();
+		lHiddenRoadways = new HashMap<String, Roadway>();
 	}
 
 	public Dimension createNewMap(){
-		return lEnvironmentManager.createNewMap(gameImages);
+		return lEnvironmentManager.createNewMap(gameImages, lHiddenRoadways);
 	}
 	
 	public HexGrid getGrid(){
@@ -54,7 +57,7 @@ public class GameManager {
 		return gameImages;
 	}
 	
-	public void setHiddenRoads(HexGrid aHexGrid){
-		characters.setHiddenRoadways(aHexGrid);
+	public void setHiddenRoads(){
+		characters.setHiddenRoadways(lHiddenRoadways);
 	}
 }

@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
@@ -16,11 +17,12 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import config.Config;
+import config.Config.RoadwayType;
 import config.ImageMap;
  
 public class XMLParser {
 	
-	public static ArrayList<Hextile> newGameHexs(String fileName, ImageMap aImageMap){
+	public static ArrayList<Hextile> newGameHexs(String fileName, ImageMap aImageMap, Map<String, Roadway> aHiddenRoadways){
 		
     	ArrayList<Hextile> hextiles = new ArrayList<Hextile>();
     	
@@ -130,7 +132,7 @@ public class XMLParser {
                                         clearing.setPosition(new Point(posx,posy));
                                         
                                         // Initialize Clearing Object
-                                        clearing.initialize(abbreviation, number, clearingType, dwellingType);
+                                        clearing.initialize(abbreviation, number, clearingType, dwellingType, hextile);
                                         
                                         // Add Clearing Object to Hextile
                                         hextile.addClearing(clearing);
@@ -198,6 +200,8 @@ public class XMLParser {
                                         if (tailClearing != null) {
                                         	tailClearing.addRoadway(roadway);
                                         }
+                                        if (roadwayType == RoadwayType.HIDDEN_PATH || roadwayType == RoadwayType.SECRET_PASSAGE)
+                                        	aHiddenRoadways.put(roadway.getName(), roadway);
                                     }
                                 }
                             } else {

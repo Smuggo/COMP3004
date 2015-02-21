@@ -37,7 +37,4 @@ public class ActionManager {
 		createNewTurn(aGameState.getClearingByPlayer(aPlayer));
 		lActionList.setTurn(aGameState.getDay());
 	}
-	
-
-
 }

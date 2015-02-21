@@ -2,6 +2,7 @@ package game.environment;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Map;
 
 import config.ImageMap;
 import game.chit.ChitFactory;
@@ -19,10 +20,10 @@ public class EnvironmentManager {
 		
 	}
 
-	public Dimension createNewMap(ImageMap aImageMap){
+	public Dimension createNewMap(ImageMap aImageMap, Map<String, Roadway> aHiddenRoadways){
 		
 		// Create hextiles logic
-		ArrayList<Hextile> hextiles = XMLParser.newGameHexs("HexTiles.xml", aImageMap);
+		ArrayList<Hextile> hextiles = XMLParser.newGameHexs("HexTiles.xml", aImageMap, aHiddenRoadways);
 		
 		// Create hextile chits
 		ChitFactory cF = new ChitFactory();

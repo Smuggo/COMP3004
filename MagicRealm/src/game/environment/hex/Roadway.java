@@ -10,13 +10,13 @@ public class Roadway implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -3934951441765390826L;
-	String lName;
-	Clearing headClearing;
-	Clearing tailClearing;
-	RoadwayType roadwayType;
-	IncompleteRoadwayDirection incompleteRoadwayDirection;
-	boolean interconnected;
-	boolean lDiscovered;
+	private String lName;
+	private Clearing headClearing;
+	private Clearing tailClearing;
+	private RoadwayType roadwayType;
+	private IncompleteRoadwayDirection incompleteRoadwayDirection;
+	private boolean interconnected;
+	private boolean lDiscovered;
 	
 	public Roadway() {
 
@@ -59,7 +59,12 @@ public class Roadway implements Serializable{
 		tailClearing = tail;
 		roadwayType = rT;
 		incompleteRoadwayDirection = iRD;
-		lName = null;
+		lName = "";
+		if(tailClearing != null && headClearing != null){
+			lName = headClearing.getOwnedHextile().getName() + " " +  
+					Integer.toString(headClearing.getNumber()) + "-" +
+					Integer.toString(getOtherClearing(headClearing).getNumber());
+		}
 		
 		if(roadwayType.equals(RoadwayType.HIDDEN_PATH) || roadwayType.equals(RoadwayType.SECRET_PASSAGE))
 			lDiscovered = false;
@@ -127,11 +132,6 @@ public class Roadway implements Serializable{
 	}
 	
 	public String getName(){
-		if(tailClearing != null && headClearing != null){
-			lName = headClearing.getOwnedHex().getHextile().getName() +
-					headClearing.getNumber() + 
-					tailClearing.getNumber();
-		}
 		return lName;
 	}
 }

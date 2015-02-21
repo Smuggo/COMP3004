@@ -16,16 +16,16 @@ public class Hextile implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -2473184465313439203L;
-	ArrayList<Clearing> clearings;
-	ArrayList<Roadway> roadways;
-	String name;
-	String abbreviation;
-	int xLocation;
-	int yLocation;
-	int rotation; //in degrees between 0 and 300
-	boolean enchanted;
+	private ArrayList<Clearing> clearings;
+	private ArrayList<Roadway> roadways;
+	private String name;
+	private String abbreviation;
+	private int xLocation;
+	private int yLocation;
+	private int rotation; //in degrees between 0 and 300
+	private boolean enchanted;
 	private String imageFile;
-	Hex ownedHex;
+	private Hex ownedHex;
 	private Config.HextileType hextileType;
 	private Chit warningChit;
 	private Chit otherChit; // Can be a Site Chit, Sound Chit, Lost City Chit, Lost Castle Chit, or null;

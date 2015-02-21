@@ -1,6 +1,7 @@
 package game.entity;
 
 import game.environment.hex.HexGrid;
+import game.environment.hex.Roadway;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +32,13 @@ public class HeroFactory {
 		return characters;
 	}
 	
-	public void setHiddenRoadways(HexGrid aHexGrid){
+	public void setHiddenRoadways(Map<String, Roadway> aHiddenRoadways){
+		characters.get("Captain").setHiddenRoadways(aHiddenRoadways);
+		characters.get("Captain").setHiddenRoadways(aHiddenRoadways);
+		characters.get("Captain").setHiddenRoadways(aHiddenRoadways);
+		characters.get("Captain").setHiddenRoadways(aHiddenRoadways);
+		characters.get("Captain").setHiddenRoadways(aHiddenRoadways);
+		characters.get("Captain").setHiddenRoadways(aHiddenRoadways);
+		characters.get("Captain").setHiddenRoadways(aHiddenRoadways);
 	}
 }
