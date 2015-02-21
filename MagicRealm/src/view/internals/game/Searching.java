@@ -23,6 +23,7 @@ public class Searching extends JInternalFrame{
 	private JLabel lSelectTable;
 	private JButton lPeerTable;
 	private JButton lLocateTable;
+	private JButton lLootTable;
 	
 	public Searching(ViewModel aModel){
 		lModel = aModel;
@@ -50,6 +51,12 @@ public class Searching extends JInternalFrame{
 		c.gridy = 2;
 		add(lLocateTable, c);
 		
+		lLootTable = new JButton("Loot: Take Item On Ground");
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 3;
+		add(lLootTable, c);
+		
 		createButtonListeners();
 		setVisible(true);
 	}
@@ -60,7 +67,7 @@ public class Searching extends JInternalFrame{
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().setSearchType(SearchType.PEER);
+				lModel.getActionManager().getActionList().addSearchAction(SearchType.PEER);
 				lModel.enableOrDisablePlayer(true);
 				dispose();
 			}
@@ -69,7 +76,16 @@ public class Searching extends JInternalFrame{
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().setSearchType(SearchType.LOCATE);
+				lModel.getActionManager().getActionList().addSearchAction(SearchType.LOCATE);;
+				lModel.enableOrDisablePlayer(true);
+				dispose();
+			}
+		});
+		lLootTable.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				lModel.getActionManager().getActionList().addSearchAction(SearchType.LOOT);
 				lModel.enableOrDisablePlayer(true);
 				dispose();
 			}

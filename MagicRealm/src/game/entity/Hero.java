@@ -43,8 +43,6 @@ public class Hero implements Serializable {
 	private DwellingType[] startingLocations;
 
 	private ActionList lActionList;
-
-	private SearchType lSearchType;
 	
 	private Map<String, Roadway> lHiddenRoadways;
 
@@ -55,7 +53,6 @@ public class Hero implements Serializable {
 		characterChit = charChit;
 		startingLocations = aStartingLocations;
 		victoryConditions = new int[5];
-		lSearchType = null;
 		lHiddenRoadways = new HashMap<String, Roadway>();
 
 		fame = 0;
@@ -155,10 +152,6 @@ public class Hero implements Serializable {
 		lClearing = aClearing;
 	}
 
-	public void setSearchType(SearchType aSearchType) {
-		lSearchType = aSearchType;
-	}
-
 	public void setViewingHidden(boolean aViewingHidden) {
 		lViewingHidden = aViewingHidden;
 	}
@@ -198,7 +191,7 @@ public class Hero implements Serializable {
 
 		// Searching
 		else if (aActionType.equals(ActionType.SEARCH)) {
-			if (lSearchType == SearchType.PEER) {
+			if (aAction.getSearchType() == SearchType.PEER) {
 				if (lFinalRoll == 1) {
 
 				} else if (lFinalRoll == 2) {
@@ -212,7 +205,7 @@ public class Hero implements Serializable {
 				} else {
 
 				}
-			} else if (lSearchType == SearchType.LOCATE) {
+			} else if (aAction.getSearchType() == SearchType.LOCATE) {
 				if (lFinalRoll == 1) {
 
 				} else if (lFinalRoll == 2) {
@@ -224,10 +217,9 @@ public class Hero implements Serializable {
 				} else {
 
 				}
-			} else if (lSearchType == SearchType.LOOT) {
+			} else if (aAction.getSearchType() == SearchType.LOOT) {
 				
 			}
-			lSearchType = null;
 		}
 	}
 

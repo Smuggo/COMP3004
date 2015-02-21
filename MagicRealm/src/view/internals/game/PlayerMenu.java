@@ -158,7 +158,6 @@ public class PlayerMenu extends JInternalFrame{
 			public void actionPerformed(ActionEvent e)
 			{
 				lModel.requestSearching(lModel);
-				lModel.getActionManager().getActionList().addSearchAction();
 				enableOrDisableButtons(false);
 				lTurnActions += "S,";
 				lActionTable.setValueAt(lTurnActions, lModel.getGameState().getDay()-1, 1);

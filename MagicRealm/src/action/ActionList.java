@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import config.Config.ActionType;
+import config.Config.SearchType;
 
 public class ActionList implements Serializable{
 	/**
@@ -51,9 +52,10 @@ public class ActionList implements Serializable{
 		lActions.add(newAction);
 	}
 	
-	public void addSearchAction(){
+	public void addSearchAction(SearchType aSearchType){
 		Action newAction = new Action();
 		newAction.createSearchAction();
+		newAction.setSearchType(aSearchType);
 		lActions.add(newAction);
 	}
 	
