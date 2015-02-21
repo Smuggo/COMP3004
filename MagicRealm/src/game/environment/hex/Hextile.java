@@ -244,6 +244,11 @@ public class Hextile implements Serializable{
 		return null;
 	}
 	
+	public void removeChits() {
+		warningChit = null;
+		otherChit = null;
+	}
+	
 	public int getXLocation() {
 		return xLocation;
 	}
@@ -290,6 +295,14 @@ public class Hextile implements Serializable{
 	}
 	public Chit getOtherChit() {
 		return otherChit;
+	}
+	
+	public void setWarningChit(Chit c) {
+		warningChit = c;
+	}
+	
+	public void setOtherChit(Chit c) {
+		otherChit = c;
 	}
 	
 	public Clearing getClearingByDwelling(String aDwelling){

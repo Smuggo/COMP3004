@@ -3,6 +3,7 @@ package game.environment;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
+import config.Config;
 import config.ImageMap;
 import game.chit.ChitFactory;
 import game.environment.hex.HexGrid;
@@ -13,21 +14,22 @@ import game.environment.hex.XMLParser;
 public class EnvironmentManager {
 
 	private HexGrid lHexGrid;
+	private ChitFactory lChitFactory;
+	private ArrayList<Hextile> hextiles;
 	
 	public EnvironmentManager(){
 		
 	}
 
 	public Dimension createNewMap(ImageMap aImageMap){
-		
 		// Create hextiles logic
-		ArrayList<Hextile> hextiles = XMLParser.newGameHexs("HexTiles.xml", aImageMap);
+		hextiles = XMLParser.newGameHexs("HexTiles.xml", aImageMap);
 		
+		// Attach hextile chits to hextiles		
 		// Create hextile chits
-		ChitFactory cF = new ChitFactory();
+		lChitFactory = new ChitFactory(hextiles);
 		
-		// Attach hextile chits to hextiles
-		cF.addChitsToHextiles(hextiles);
+		//lChitFactory.addChitsRandomly();
 				
 		HexGrid lNewHexGrid = HexGridFactory.newHexGrid(hextiles);
 		setHexGrid(lNewHexGrid);
@@ -42,6 +44,11 @@ public class EnvironmentManager {
 		lHexGrid = aHexGrid;
 	}
 	
+	public ChitFactory getChitFactory() {
+		return lChitFactory;
+	}
 	
-	
+	public ArrayList<Hextile> getHextiles() {
+		return hextiles;
+	}
 }

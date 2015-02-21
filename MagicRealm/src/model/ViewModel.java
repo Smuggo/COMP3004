@@ -17,6 +17,7 @@ import config.ImageMap;
 import network.NetworkManager;
 import network.packet.PlayerPacket;
 import view.ViewManager;
+import view.internals.game.CheatModeSelection;
 
 public class ViewModel {
 
@@ -109,17 +110,20 @@ public class ViewModel {
 	
 	public void startGame(){
 		updateLocalGameState(lNetworkManager.refreshGameState());
-		lGameManager.createNewMap();
+		
+		//lGameManager.createNewMap(); //We already created a new map
+		Dimension lMapSize = lGameManager.createNewMap();
 		
 		lNetworkManager.createNewMap(lGameManager.getGrid());
 		
 		lViewManager.clearMenu();
 		lViewManager.createCharacterView();
 		
-		Dimension lMapSize = lGameManager.createNewMap();
-		
 		lViewManager.clearMenu();
 		lViewManager.newGameBoard(lMapSize);
+		
+		// Allow user to enable cheat mode
+		lViewManager.showCheatModeSelection();
 	}
 	
 	
@@ -154,6 +158,15 @@ public class ViewModel {
 	public void requestPlayerMenu(ViewModel aModel){
 		lViewManager.showPlayerMenu(aModel);
 	}
+	
+	public void requestChitList(ViewModel aModel){
+		lViewManager.showChitList(aModel);
+	}
+	
+	// Cheat Mode
+	/*public void requestCheatModeSelection(){
+		lViewManager.showCheatModeSelection();
+	}*/
 	
 	public void updateLocalGameState(GameState aGameState){
 		ArrayList<Player> tempList = new ArrayList<>();

@@ -2,6 +2,7 @@ package view;
 
 import game.entity.Hero;
 import game.entity.Player;
+import game.environment.hex.Hextile;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ import view.internals.menu.NewGameView;
 import view.internals.menu.ServerMenuView;
 import view.internals.game.CharacterView;
 import view.internals.game.CharacterList;
+import view.internals.game.CheatModeSelection;
+import view.internals.game.ChitList;
 import view.internals.game.PlayerMenu;
 import view.internals.game.StartingLocation;
 import view.internals.game.VictoryPoints;
@@ -40,6 +43,8 @@ public class ViewManager {
 	private PlayerMenu lPlayerMenu;
 	
 	private ViewModel lModel;
+	private ChitList lChitList;
+	private CheatModeSelection lCheatModeSelection;
 	
 	public ViewManager(ViewModel aModel){
 		lModel = aModel;
@@ -159,5 +164,17 @@ public class ViewManager {
 	public void showPlayerMenu(ViewModel lModel){
 		lPlayerMenu = new PlayerMenu(lModel);
 		lWindow.addWindow(lPlayerMenu);
+	}
+	
+	public void showCheatModeSelection(){
+		lCheatModeSelection = new CheatModeSelection(lModel);
+		lCheatModeSelection.setVisible(true);
+		lWindow.addWindow(lCheatModeSelection);
+	}
+	
+	public void showChitList(ViewModel lModel){		
+		lChitList = new ChitList(lModel);
+		lChitList.setVisible(true);
+		lWindow.addWindow(lChitList);
 	}
 }

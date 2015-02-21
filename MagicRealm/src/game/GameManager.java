@@ -51,4 +51,8 @@ public class GameManager {
 	public ImageMap getGameImages(){
 		return gameImages;
 	}
+	
+	public EnvironmentManager getEnvironmentManager() {
+		return lEnvironmentManager;
+	}
 }
