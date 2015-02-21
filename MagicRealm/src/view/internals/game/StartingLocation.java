@@ -29,7 +29,6 @@ public class StartingLocation extends JInternalFrame{
 	
 	public StartingLocation(ViewModel aModel){
 		super("Starting Location");
-	
 		lModel = aModel;
 		cStartingLocations = lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().getStartingLocations();
 		
