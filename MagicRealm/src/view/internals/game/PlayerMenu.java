@@ -14,6 +14,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 import config.Config.ActionState;
+import config.Config.ActionType;
 import model.ViewModel;
 
 public class PlayerMenu extends JInternalFrame{
@@ -29,10 +30,10 @@ public class PlayerMenu extends JInternalFrame{
 	private JButton lRest;
 	private JButton lSearch;
 	private JButton lRemove;
+	private JButton lBlocking;
 	private JButton lSendActionsOrCancel;
 
 	private String lTurnActions;
-	private boolean lPrevMove; //Was the previous action was a movement
 	
 	private JScrollPane lActionPane;
 	
@@ -41,7 +42,6 @@ public class PlayerMenu extends JInternalFrame{
 	public PlayerMenu(ViewModel aModel){
 		lModel = aModel;
 		lTurnActions = "";
-		lPrevMove = false;
 		
 		int xSize = lModel.getScreenDimensions().width/2;
 		int ySize = lModel.getScreenDimensions().height/2;
@@ -49,7 +49,7 @@ public class PlayerMenu extends JInternalFrame{
 		setPreferredSize(new Dimension(xSize, ySize));
 		setSize(xSize, ySize);
 		
-		setLocation(0, ySize);
+		setLocation(0, ySize-100);
 		
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -119,14 +119,27 @@ public class PlayerMenu extends JInternalFrame{
 		c.gridheight = 0;
 		c.gridwidth = 7;
 		c.ipadx = xSize - 100;
-		c.ipady = ySize - 100;
+		c.ipady = ySize - 150;
 		c.gridx = 0;
 		c.gridy = 1;
 		add(lActionPane, c);
 		
+		lBlocking = new JButton("Currently Blocking: False");
+		c.fill = GridBagConstraints.NONE;
+		c.weightx = 0;
+		c.weightx = 0;
+		c.gridheight = 1;
+		c.gridwidth = 1;
+		c.ipadx = 0;
+		c.ipady = 0;
+		c.gridx = 6;
+		c.gridy = 0;
+		add(lBlocking, c);
+		
 		createButtonListeners();
 		setVisible(true);
 	}
+	
 	
 	protected void createButtonListeners(){
 		lMove.addActionListener(new ActionListener()
@@ -139,7 +152,7 @@ public class PlayerMenu extends JInternalFrame{
 				lHide.setEnabled(false);
 				lRest.setEnabled(false);
 				lSearch.setEnabled(false);
-				lPrevMove = true;
+				lRemove.setEnabled(false);
 			}
 		});
 		
@@ -150,7 +163,17 @@ public class PlayerMenu extends JInternalFrame{
 				lModel.getActionManager().getActionList().addHideAction();
 				lTurnActions += "H,";
 				lActionTable.setValueAt(lTurnActions, lModel.getGameState().getDay()-1, 1);
-				lPrevMove = false;
+			}
+		});
+		
+		lSearch.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				lModel.requestSearching(lModel);
+				lTurnActions += "S,";
+				enableOrDisableButtons(false);
+				lActionTable.setValueAt(lTurnActions, lModel.getGameState().getDay()-1, 1);
 			}
 		});
 		
@@ -158,17 +181,17 @@ public class PlayerMenu extends JInternalFrame{
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				if(lModel.getActionManager().getActionList().getActionPoints() != 4){
-					lModel.getActionManager().getActionList().removeAction();
-					
-					if(lPrevMove){
-						lTurnActions = lTurnActions.substring(0, lTurnActions.length()-5);
+				int lCurrentActionNum = lModel.getActionManager().getActionList().getActions().size()-1;
+				if(lModel.getActionManager().getActionList().getActions().size() != 0){
+					if(lModel.getActionManager().getActionList().getActions().get(lCurrentActionNum).getActionType().equals(ActionType.MOVE)){
+						lTurnActions = lTurnActions.substring(0, lTurnActions.length() - (lModel.getActionManager().getActionList().getActions().get(lCurrentActionNum).getClearingEnd().getIdentifier().length()+3));
 						lActionTable.setValueAt(lTurnActions, lModel.getGameState().getDay()-1, 1);
 					}
 					else{
 						lTurnActions = lTurnActions.substring(0, lTurnActions.length()-2);
-						lActionTable.setValueAt(lTurnActions, 0, 1);
+						lActionTable.setValueAt(lTurnActions, lModel.getGameState().getDay()-1, 1);
 					}
+					lModel.getActionManager().getActionList().removeAction();
 				}
 			}
 		});
@@ -184,6 +207,7 @@ public class PlayerMenu extends JInternalFrame{
 					lHide.setEnabled(true);
 					lRest.setEnabled(true);
 					lSearch.setEnabled(true);
+					lRemove.setEnabled(true);
 				}else{
 					lModel.sendActions();
 					lSendActionsOrCancel.setEnabled(false);
@@ -191,8 +215,48 @@ public class PlayerMenu extends JInternalFrame{
 					lHide.setEnabled(false);
 					lRest.setEnabled(false);
 					lSearch.setEnabled(false);
+					lRemove.setEnabled(false);
 				}
 			}
 		});
+		
+		lBlocking.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().setBlocking(!lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().getBlocking());
+				if(lBlocking.getText().equals("Currently Blocking: False"))
+					lBlocking.setText("Currently Blocking: True");
+				else
+					lBlocking.setText("Currently Blocking: False");
+			}
+		});
+	}
+	
+	public void newTurn(){
+		lTurnActions = "";
+		lSendActionsOrCancel.setText("Send Actions");
+		lModel.setLocalActionState(ActionState.NOTHING);
+		lMove.setEnabled(true);
+		lHide.setEnabled(true);
+		lRest.setEnabled(true);
+		lSearch.setEnabled(true);
+		lRemove.setEnabled(true);
+		lSendActionsOrCancel.setEnabled(true);
+		((DefaultTableModel) lActionTable.getModel()).addRow(new Object[] {lModel.getGameState().getDay(), "", 0});
+	}
+	
+	public void addToActionTable(String aClearingID){
+		lTurnActions += "M-" + aClearingID + ",";
+		lActionTable.setValueAt(lTurnActions, lModel.getGameState().getDay()-1, 1);
+	}
+	
+	public void enableOrDisableButtons(boolean aButtonState){
+		lSendActionsOrCancel.setEnabled(aButtonState);
+		lMove.setEnabled(aButtonState);
+		lHide.setEnabled(aButtonState);
+		lRest.setEnabled(aButtonState);
+		lSearch.setEnabled(aButtonState);
+		lRemove.setEnabled(aButtonState);
 	}
 }

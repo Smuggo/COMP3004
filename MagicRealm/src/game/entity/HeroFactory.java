@@ -1,7 +1,11 @@
 package game.entity;
 
+import game.environment.hex.HexGrid;
+import game.environment.hex.Roadway;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import config.Config.CharacterImageType;
 import config.Config.DwellingType;
 
@@ -26,5 +30,15 @@ public class HeroFactory {
 
 	public Map<String, Hero> getCharacters() {
 		return characters;
+	}
+	
+	public void setHiddenRoadways(Map<String, Roadway> aHiddenRoadways){
+		characters.get("Captain").setHiddenRoadways(aHiddenRoadways);
+		characters.get("Captain").setHiddenRoadways(aHiddenRoadways);
+		characters.get("Captain").setHiddenRoadways(aHiddenRoadways);
+		characters.get("Captain").setHiddenRoadways(aHiddenRoadways);
+		characters.get("Captain").setHiddenRoadways(aHiddenRoadways);
+		characters.get("Captain").setHiddenRoadways(aHiddenRoadways);
+		characters.get("Captain").setHiddenRoadways(aHiddenRoadways);
 	}
 }

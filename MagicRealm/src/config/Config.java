@@ -13,8 +13,7 @@ public final class Config {
 	public static boolean drawingHexCoords = true;
 	public static boolean drawingClearingBoxes = true;
 	public static boolean drawingRoadways = true;
-	public static boolean cheatMode = false; // User places chits on hextiles in cheatMode instead of being placed randomly
-	
+		
 	public enum RoadwayType {
 		TUNNEL, OPEN_ROAD, HIDDEN_PATH, SECRET_PASSAGE
 	}
@@ -49,5 +48,9 @@ public final class Config {
 	
 	public enum ActionState {
 		MOVING, NOTHING
+	}
+	
+	public enum SearchType {
+		PEER, LOCATE, LOOT
 	}
 }

@@ -9,10 +9,12 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Map;
 
 import config.Config;
 import config.Config.ClearingType;
 import config.Config.DwellingType;
+import config.Config.RoadwayType;
 import config.ImageMap;
 
 public class Clearing implements Serializable{
@@ -20,14 +22,15 @@ public class Clearing implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -403029986388081133L;
-	ArrayList<Roadway> roadways;
-	String identifier; //Abbreviation of Hex Tile Name + Number
-	int number;
-	Config.ClearingType clearingType;
-	int clearingDiameter;
-	Point position; //Actual position from center
-	Hex ownedHex;
-	DwellingType lDwellingType;
+	private ArrayList<Roadway> roadways;
+	private String identifier; //Abbreviation of Hex Tile Name + Number
+	private int number;
+	private Config.ClearingType clearingType;
+	private int clearingDiameter;
+	private Point position; //Actual position from center
+	private Hex ownedHex;
+	private Hextile lOwnedHextile;
+	private DwellingType lDwellingType;
 
 	
 	public Clearing() {
@@ -92,11 +95,12 @@ public class Clearing implements Serializable{
 		return identifier;
 	}
 
-	public void initialize(String abbreviation, int n, Config.ClearingType cT, DwellingType dwellingType) {
+	public void initialize(String abbreviation, int n, Config.ClearingType cT, DwellingType dwellingType, Hextile aOwnedHextile) {
 		number = n;
 		identifier = abbreviation + n;
 		clearingType = cT;
 		lDwellingType = dwellingType;
+		lOwnedHextile = aOwnedHextile;
 	}
 
 	public void addRoadway(Roadway roadway) {
@@ -106,6 +110,7 @@ public class Clearing implements Serializable{
 	public boolean neighbourTo(Clearing possibleNeighbour) {
 		for(int i = 0; i < roadways.size(); i++){
 			Roadway lRoadway = roadways.get(i);
+			
 			if(lRoadway.getOtherClearing(this).getIdentifier().equals(possibleNeighbour.getIdentifier())){
 				return true;
 			}
@@ -176,10 +181,12 @@ public class Clearing implements Serializable{
 		return roadways;
 	}
 
-
-
 	public void print() {
 		System.out.println("My identifier is: " + identifier);
 		System.out.println("My clearing type is: " + clearingType);
+	}
+	
+	public Hextile getOwnedHextile(){
+		return lOwnedHextile;
 	}
 }

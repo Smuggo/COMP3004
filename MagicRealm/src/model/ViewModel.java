@@ -122,8 +122,7 @@ public class ViewModel {
 		lViewManager.clearMenu();
 		lViewManager.newGameBoard(lMapSize);
 		
-		// Allow user to enable cheat mode
-		lViewManager.showCheatModeSelection();
+		lGameManager.setHiddenRoads();
 	}
 	
 	
@@ -185,6 +184,11 @@ public class ViewModel {
 		}
 		
 		if(!aGameState.equals(lGameState)){
+			if(lGameState!= null && aGameState != null && lGameState.getDay() != aGameState.getDay()){
+				lActionManager.createNewTurn(aGameState, lLocalPlayerNumber);
+				lGameState = aGameState;
+				lViewManager.newTurn();
+			}
 			lGameState = aGameState;
 			lViewManager.gameStateUpdated();
 		}
@@ -219,5 +223,17 @@ public class ViewModel {
 	public void sendActions(){
 		lNetworkManager.sendActions(lActionManager.getActionList());
 		lActionManager.createNewTurn(lActionManager.getActionList().getCurrentClearing());
+	}
+	
+	public void addToActionTable(String aClearingID){
+		lViewManager.addToActionTable(aClearingID);
+	}
+	
+	public void requestSearching(ViewModel aModel){
+		lViewManager.showSearching(aModel);
+	}
+	
+	public void enableOrDisablePlayer(boolean aButtonState){
+		lViewManager.enableOrDisablePlayer(aButtonState);
 	}
 }

@@ -67,10 +67,38 @@ public class GameState implements Serializable{
 		return lClearing;
 	}
 	
-	public void executeActionList(ActionList aActionList, int aPlayer){
-		for(int i = 0; i < aActionList.getActions().size(); i++){
-			Action lAction = aActionList.getActions().get(i);
-			getPlayer(aPlayer).getChosenHero().executeAction(lAction);
+	public void addActionList(ActionList aActionList, int aPlayer){
+		getPlayer(aPlayer).getChosenHero().addActionList(aActionList);
+
+		if(allPlayersActed()){
+			executePlayerActionSheets();
 		}
+
+	}
+	
+	public boolean allPlayersActed(){
+		for(int i = 0; i < lPlayers.size(); i++){
+			if(!lPlayers.get(i).getChosenHero().hasUpToDateActionSheet(lTurn)){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public void executePlayerActionSheets(){
+
+		for(int i = 0; i < lPlayers.size(); i++){
+			lPlayers.get(i).getChosenHero().executeTurn();
+		}
+		for(int i = 0; i < lPlayers.size(); i++){
+			lPlayers.get(i).getChosenHero().setHidden(false);
+			lPlayers.get(i).getChosenHero().setViewingHidden(false);
+			lPlayers.get(i).getChosenHero().setBlocked(false);
+		}
+		lTurn++;
+	}
+	
+	public Clearing getClearingByPlayer(int aPlayer){
+		return getPlayer(aPlayer).getChosenHero().getClearing();
 	}
 }

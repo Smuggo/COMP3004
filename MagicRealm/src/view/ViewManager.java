@@ -22,6 +22,7 @@ import view.internals.game.CharacterList;
 import view.internals.game.CheatModeSelection;
 import view.internals.game.ChitList;
 import view.internals.game.PlayerMenu;
+import view.internals.game.Searching;
 import view.internals.game.StartingLocation;
 import view.internals.game.VictoryPoints;
 
@@ -41,6 +42,7 @@ public class ViewManager {
 	private VictoryPoints lVictoryPoints;
 	private StartingLocation lStartingLocation;
 	private PlayerMenu lPlayerMenu;
+	private Searching lSearching;
 	
 	private ViewModel lModel;
 	private ChitList lChitList;
@@ -166,6 +168,7 @@ public class ViewManager {
 		lWindow.addWindow(lPlayerMenu);
 	}
 	
+<<<<<<< HEAD
 	public void showCheatModeSelection(){
 		lCheatModeSelection = new CheatModeSelection(lModel);
 		lCheatModeSelection.setVisible(true);
@@ -176,5 +179,24 @@ public class ViewManager {
 		lChitList = new ChitList(lModel);
 		lChitList.setVisible(true);
 		lWindow.addWindow(lChitList);
+=======
+	public void newTurn(){
+		if(lPlayerMenu != null){
+			lPlayerMenu.newTurn();
+		}
+	}
+	
+	public void addToActionTable(String aClearingID){
+		lPlayerMenu.addToActionTable(aClearingID);
+	}
+	
+	public void showSearching(ViewModel aModel){
+		lSearching = new Searching(lModel);
+		lWindow.addWindow(lSearching);
+	}
+	
+	public void enableOrDisablePlayer(boolean aButtonState){
+		lPlayerMenu.enableOrDisableButtons(aButtonState);
+>>>>>>> 908a113ea685191d8e9e2453fa1f9fcd0b7d9286
 	}
 }

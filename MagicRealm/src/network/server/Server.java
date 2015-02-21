@@ -70,15 +70,13 @@ public class Server implements Runnable{
 					lOutputStream.writeObject(true);
 				}
 				if(lRequestHeader.equals("SetStartingLocation")){
-					
 					Clearing currentClearing = lServerApp.getGameState().setStartingLocation((String)lInputStream.readObject(), (Integer)lInputStream.readObject());
 					lOutputStream.writeObject(currentClearing);
 				}
 				if(lRequestHeader.equals("ActionList")){
-					
 					ActionList lActionList =  (ActionList)lInputStream.readObject();
 					int lPlayer = (Integer)lInputStream.readObject();
-					lServerApp.getGameState().executeActionList(lActionList, lPlayer);
+					lServerApp.getGameState().addActionList(lActionList, lPlayer);
 					lOutputStream.writeObject(true);
 				}
 				

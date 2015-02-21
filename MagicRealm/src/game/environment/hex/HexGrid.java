@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Map;
 
 import config.Config.ActionState;
 import config.ImageMap;
@@ -22,6 +23,7 @@ public class HexGrid implements Serializable{
 	
 	public HexGrid(int aRadius, Dimension aCanvasSize, ArrayList<Hextile> hextiles){
 		lRadius = aRadius;
+		
 		int lGridSize = (2*aRadius)+1;
 		lGrid = new Hex[lGridSize][lGridSize];
 		
@@ -49,8 +51,9 @@ public class HexGrid implements Serializable{
 		int lGridSize = (2*lRadius)+1;
 		for(int y = 0; y < lGridSize; y++){
 			for(int x = 0; x < lGridSize; x++){
-				if(lGrid[x][y] != null && lGrid[x][y].isActive())
-				lGrid[x][y].setHexClearings();
+				if(lGrid[x][y] != null && lGrid[x][y].isActive()){
+					lGrid[x][y].setHexClearings();
+				}
 			}
 		}
 	}
@@ -84,11 +87,13 @@ public class HexGrid implements Serializable{
 	}
 	
 	public void drawAdjacentClearings(Graphics g, Clearing aClearing, Point aMouse){
-		for(int i = 0; i < aClearing.getRoadways().size(); i++){
-			Roadway lRoadway = aClearing.getRoadways().get(i);
-			Clearing otherClearing = lRoadway.getOtherClearing(aClearing);
-			if(otherClearing != null){
-				otherClearing.drawAdjacent(g, aMouse);
+		if(aClearing != null){
+			for(int i = 0; i < aClearing.getRoadways().size(); i++){
+				Roadway lRoadway = aClearing.getRoadways().get(i);
+				Clearing otherClearing = lRoadway.getOtherClearing(aClearing);
+				if(otherClearing != null){
+					otherClearing.drawAdjacent(g, aMouse);
+				}
 			}
 		}
 	}
@@ -126,10 +131,4 @@ public class HexGrid implements Serializable{
 		}
 		return null;
 	}
-
-	
-	
-	
-
-
 }

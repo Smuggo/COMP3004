@@ -2,6 +2,7 @@ package game.environment;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Map;
 
 import config.Config;
 import config.ImageMap;
@@ -9,6 +10,7 @@ import game.chit.ChitFactory;
 import game.environment.hex.HexGrid;
 import game.environment.hex.HexGridFactory;
 import game.environment.hex.Hextile;
+import game.environment.hex.Roadway;
 import game.environment.hex.XMLParser;
 
 public class EnvironmentManager {
@@ -17,13 +19,21 @@ public class EnvironmentManager {
 	private ChitFactory lChitFactory;
 	private ArrayList<Hextile> hextiles;
 	
+	public Dimension createNewMap(ImageMap aImageMap){
+		// Create hextiles logic
+		hextiles = XMLParser.newGameHexs("HexTiles.xml", aImageMap);
+	}
+	
 	public EnvironmentManager(){
 		
 	}
 
-	public Dimension createNewMap(ImageMap aImageMap){
+	
+	
+	public Dimension createNewMap(ImageMap aImageMap, Map<String, Roadway> aHiddenRoadways){
+		
 		// Create hextiles logic
-		hextiles = XMLParser.newGameHexs("HexTiles.xml", aImageMap);
+		ArrayList<Hextile> hextiles = XMLParser.newGameHexs("HexTiles.xml", aImageMap, aHiddenRoadways);
 		
 		// Attach hextile chits to hextiles		
 		// Create hextile chits

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import config.Config.ActionType;
+import config.Config.SearchType;
 
 public class ActionList implements Serializable{
 	/**
@@ -20,6 +21,7 @@ public class ActionList implements Serializable{
 
 	private List<Action> lActions;
 	private int lActionPoints;
+	private int lTurn;
 	
 	private Clearing lStartingClearing;
 	private Clearing lCurrentClearing;
@@ -27,6 +29,7 @@ public class ActionList implements Serializable{
 	public ActionList(){
 		lActions = new ArrayList<Action>();
 		lActionPoints = 4;
+		lTurn = 0;
 	}
 	
 	
@@ -34,7 +37,6 @@ public class ActionList implements Serializable{
 		Action newAction = new Action();
 		newAction.createMoveAction(lCurrentClearing, newClearing);
 		lActions.add(newAction);
-		lActionPoints -= newAction.getCost();
 		lCurrentClearing = newClearing;
 	}
 	
@@ -42,21 +44,19 @@ public class ActionList implements Serializable{
 		Action newAction = new Action();
 		newAction.createHideAction();
 		lActions.add(newAction);
-		lActionPoints -= newAction.getCost();
 	}
 	
 	public void addRestAction(){
 		Action newAction = new Action();
 		newAction.createRestAction();
 		lActions.add(newAction);
-		lActionPoints -= newAction.getCost();
 	}
 	
-	public void addSearchAction(){
+	public void addSearchAction(SearchType aSearchType){
 		Action newAction = new Action();
-		newAction.createSearchAction();
+		newAction.createSearchAction(lCurrentClearing);
+		newAction.setSearchType(aSearchType);
 		lActions.add(newAction);
-		lActionPoints -= newAction.getCost();
 	}
 	
 	
@@ -76,10 +76,15 @@ public class ActionList implements Serializable{
 		lActions = new ArrayList<Action>();
 		lStartingClearing = aStartingClearing;
 		lCurrentClearing = aStartingClearing;
+		lTurn++;
 	}
 	
 	public Clearing getCurrentClearing(){
 		return lCurrentClearing;
+	}
+	
+	public void setTurn(int aTurn){
+		lTurn = aTurn;
 	}
 	
 
@@ -112,10 +117,16 @@ public class ActionList implements Serializable{
 				if(lActions.get(i).getActionType() == ActionType.MOVE)
 					lTempAction = lActions.get(i);
 			}
-			if(lTempAction != null)
+			if(lTempAction != null && lActions.size() - 1 != 0)
 				lCurrentClearing = lTempAction.getClearingEnd();
+			else
+				lCurrentClearing = lStartingClearing;
 		}
 		lActions.remove(lActions.size()-1);
-		lActionPoints++;
+		
+	}
+	
+	public int getTurn(){
+		return lTurn;
 	}
 }
