@@ -5,7 +5,5 @@
 
 .metadata
 *.class
-*/bin
+bin/*
 /.recommenders/*
-/MagicRealm/.gitignore
-/MagicRealm/bin/view/internals/menu/*.class
