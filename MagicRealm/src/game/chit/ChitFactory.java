@@ -2,7 +2,7 @@ package game.chit;
 
 import java.util.ArrayList;
 
-import view.internals.game.ChitList;
+//import view.internals.game.ChitList;
 import config.Config;
 import game.environment.hex.Hextile;
 

@@ -19,11 +19,6 @@ public class EnvironmentManager {
 	private ChitFactory lChitFactory;
 	private ArrayList<Hextile> hextiles;
 	
-	public Dimension createNewMap(ImageMap aImageMap){
-		// Create hextiles logic
-		hextiles = XMLParser.newGameHexs("HexTiles.xml", aImageMap);
-	}
-	
 	public EnvironmentManager(){
 		
 	}

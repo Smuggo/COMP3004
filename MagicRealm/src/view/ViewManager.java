@@ -19,8 +19,6 @@ import view.internals.menu.NewGameView;
 import view.internals.menu.ServerMenuView;
 import view.internals.game.CharacterView;
 import view.internals.game.CharacterList;
-import view.internals.game.CheatModeSelection;
-import view.internals.game.ChitList;
 import view.internals.game.PlayerMenu;
 import view.internals.game.Searching;
 import view.internals.game.StartingLocation;
@@ -45,8 +43,6 @@ public class ViewManager {
 	private Searching lSearching;
 	
 	private ViewModel lModel;
-	private ChitList lChitList;
-	private CheatModeSelection lCheatModeSelection;
 	
 	public ViewManager(ViewModel aModel){
 		lModel = aModel;
@@ -168,18 +164,6 @@ public class ViewManager {
 		lWindow.addWindow(lPlayerMenu);
 	}
 	
-<<<<<<< HEAD
-	public void showCheatModeSelection(){
-		lCheatModeSelection = new CheatModeSelection(lModel);
-		lCheatModeSelection.setVisible(true);
-		lWindow.addWindow(lCheatModeSelection);
-	}
-	
-	public void showChitList(ViewModel lModel){		
-		lChitList = new ChitList(lModel);
-		lChitList.setVisible(true);
-		lWindow.addWindow(lChitList);
-=======
 	public void newTurn(){
 		if(lPlayerMenu != null){
 			lPlayerMenu.newTurn();
@@ -197,6 +181,5 @@ public class ViewManager {
 	
 	public void enableOrDisablePlayer(boolean aButtonState){
 		lPlayerMenu.enableOrDisableButtons(aButtonState);
->>>>>>> 908a113ea685191d8e9e2453fa1f9fcd0b7d9286
 	}
 }

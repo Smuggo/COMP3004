@@ -17,7 +17,6 @@ import config.ImageMap;
 import network.NetworkManager;
 import network.packet.PlayerPacket;
 import view.ViewManager;
-import view.internals.game.CheatModeSelection;
 
 public class ViewModel {
 
@@ -159,7 +158,7 @@ public class ViewModel {
 	}
 	
 	public void requestChitList(ViewModel aModel){
-		lViewManager.showChitList(aModel);
+		//lViewManager.showChitList(aModel);
 	}
 	
 	// Cheat Mode
