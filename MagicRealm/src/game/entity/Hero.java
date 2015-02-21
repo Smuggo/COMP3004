@@ -39,6 +39,7 @@ public class Hero implements Serializable {
 	private boolean hidden;
 	private boolean lViewingHidden; // Can the player see hidden enemies
 	private boolean lBlocking;
+	private boolean lBlocked;
 
 	private CharacterImageType characterSheet;
 	private CharacterImageType characterChit;
@@ -97,6 +98,10 @@ public class Hero implements Serializable {
 	
 	public boolean getBlocking() {
 		return lBlocking;
+	}
+	
+	public boolean getBlocked() {
+		return lBlocked;
 	}
 
 	public CharacterImageType getCharSheet() {
@@ -168,6 +173,10 @@ public class Hero implements Serializable {
 	public void setBlocking(boolean aBlocking){
 		lBlocking = aBlocking;
 	}
+	
+	public void setBlocked(boolean aBlocked){
+		lBlocked = aBlocked;
+	}
 
 	public void executeAction(Action aAction) {
 		ActionType aActionType = aAction.getActionType();
@@ -183,8 +192,29 @@ public class Hero implements Serializable {
 
 		// Movement
 		if (aActionType.equals(ActionType.MOVE)) {
+			String lTempRoadName1 = aAction.getClearingStart().getOwnedHextile().getName() + " " +
+					aAction.getClearingStart().getNumber() + "-" +
+					aAction.getClearingEnd().getNumber();
+			String lTempRoadName2 = aAction.getClearingStart().getOwnedHextile().getName() + " " +
+					aAction.getClearingEnd().getNumber() + "-" +
+					aAction.getClearingStart().getNumber();
 			
-			lClearing = aAction.getClearingEnd();
+			if(lHiddenRoadways.containsKey(lTempRoadName1)){
+				if(!lHiddenRoadways.get(lTempRoadName1).getDiscovered()){
+					System.out.println("FAILED TO MOVE");
+					lBlocked = true;
+				}
+			}
+			else if(lHiddenRoadways.containsKey(lTempRoadName2)){
+				if(!lHiddenRoadways.get(lTempRoadName2).getDiscovered()){
+					System.out.println("FAILED TO MOVE");
+					lBlocked = true;
+				}
+			}
+			
+			if(!lBlocked && !lBlocked){
+				lClearing = aAction.getClearingEnd();
+			}
 		}
 
 		// Hiding
