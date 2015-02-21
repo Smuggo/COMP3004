@@ -54,7 +54,7 @@ public class ActionList implements Serializable{
 	
 	public void addSearchAction(SearchType aSearchType){
 		Action newAction = new Action();
-		newAction.createSearchAction();
+		newAction.createSearchAction(lCurrentClearing);
 		newAction.setSearchType(aSearchType);
 		lActions.add(newAction);
 	}

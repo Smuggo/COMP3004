@@ -97,6 +97,10 @@ public class Roadway implements Serializable{
 		tailClearing = clearing;
 	}
 
+	public void setDiscovered(boolean aDiscovered) {
+		lDiscovered = aDiscovered;
+	}
+	
 	public Clearing getHeadClearing() {
 		return headClearing;
 	}

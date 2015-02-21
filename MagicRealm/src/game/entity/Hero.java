@@ -17,6 +17,7 @@ import action.ActionList;
 import config.Config.ActionType;
 import config.Config.CharacterImageType;
 import config.Config.DwellingType;
+import config.Config.RoadwayType;
 import config.Config.SearchType;
 
 public class Hero implements Serializable {
@@ -37,6 +38,7 @@ public class Hero implements Serializable {
 
 	private boolean hidden;
 	private boolean lViewingHidden; // Can the player see hidden enemies
+	private boolean lBlocking;
 
 	private CharacterImageType characterSheet;
 	private CharacterImageType characterChit;
@@ -61,6 +63,7 @@ public class Hero implements Serializable {
 
 		hidden = false;
 		lViewingHidden = false;
+		lBlocking = false;
 	}
 
 	public void draw(Graphics g, Player aPlayer) {
@@ -90,6 +93,10 @@ public class Hero implements Serializable {
 
 	public boolean getViewingHidden() {
 		return lViewingHidden;
+	}
+	
+	public boolean getBlocking() {
+		return lBlocking;
 	}
 
 	public CharacterImageType getCharSheet() {
@@ -158,6 +165,9 @@ public class Hero implements Serializable {
 	public void setHiddenRoadways(Map<String, Roadway> aHiddenRoadways) {
 		lHiddenRoadways = aHiddenRoadways;
 	}
+	public void setBlocking(boolean aBlocking){
+		lBlocking = aBlocking;
+	}
 
 	public void executeAction(Action aAction) {
 		ActionType aActionType = aAction.getActionType();
@@ -193,19 +203,56 @@ public class Hero implements Serializable {
 		else if (aActionType.equals(ActionType.SEARCH)) {
 			if (aAction.getSearchType() == SearchType.PEER) {
 				if (lFinalRoll == 1) {
-
+					System.out.println("NOT IMPLEMENTED: 1");
 				} else if (lFinalRoll == 2) {
-
+					for(int i = 0; i < lClearing.getRoadways().size(); i++){
+						if(aAction.getClearingStart().getRoadways().get(i).getRoadwayType().equals(RoadwayType.HIDDEN_PATH)){
+							lHiddenRoadways.get(aAction.getClearingStart().getRoadways().get(i).getName()).setDiscovered(true);
+							System.out.println("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
+						}
+					}
 				} else if (lFinalRoll == 3) {
-
+					for(int i = 0; i < lClearing.getRoadways().size(); i++){
+						if(aAction.getClearingStart().getRoadways().get(i).getRoadwayType().equals(RoadwayType.HIDDEN_PATH)){
+							lHiddenRoadways.get(aAction.getClearingStart().getRoadways().get(i).getName()).setDiscovered(true);
+							System.out.println("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
+						}
+					}
+					lViewingHidden = true;
+					
 				} else if (lFinalRoll == 4) {
+					lViewingHidden = true;
 
 				} else if (lFinalRoll == 5) {
-
+					System.out.println("NOT IMPLEMENTED: 5");
 				} else {
-
+					System.out.println("FAILED TO FIND ANYTHING.");
 				}
 			} else if (aAction.getSearchType() == SearchType.LOCATE) {
+				if (lFinalRoll == 1) {
+					System.out.println("NOT IMPLEMENTED: 1");
+				} else if (lFinalRoll == 2) {
+					for(int i = 0; i < lClearing.getRoadways().size(); i++){
+						if(aAction.getClearingStart().getRoadways().get(i).getRoadwayType().equals(RoadwayType.SECRET_PASSAGE)){
+							lHiddenRoadways.get(aAction.getClearingStart().getRoadways().get(i).getName()).setDiscovered(true);
+							System.out.println("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
+						}
+					}
+
+				} else if (lFinalRoll == 3) {
+					for(int i = 0; i < lClearing.getRoadways().size(); i++){
+						if(aAction.getClearingStart().getRoadways().get(i).getRoadwayType().equals(RoadwayType.SECRET_PASSAGE)){
+							lHiddenRoadways.get(aAction.getClearingStart().getRoadways().get(i).getName()).setDiscovered(true);
+							System.out.println("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
+						}
+					}
+
+				} else if (lFinalRoll == 4) {
+					System.out.println("NOT IMPLEMENTED: 4");
+				} else {
+					System.out.println("FAILED TO LOCATE ANYTHING.");
+				}
+			} else if (aAction.getSearchType() == SearchType.LOOT) {
 				if (lFinalRoll == 1) {
 
 				} else if (lFinalRoll == 2) {
@@ -214,11 +261,11 @@ public class Hero implements Serializable {
 
 				} else if (lFinalRoll == 4) {
 
-				} else {
+				} else if (lFinalRoll == 5){
 
+				} else {
+					
 				}
-			} else if (aAction.getSearchType() == SearchType.LOOT) {
-				
 			}
 		}
 	}

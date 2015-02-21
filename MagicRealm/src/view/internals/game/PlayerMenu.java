@@ -30,6 +30,7 @@ public class PlayerMenu extends JInternalFrame{
 	private JButton lRest;
 	private JButton lSearch;
 	private JButton lRemove;
+	private JButton lBlocking;
 	private JButton lSendActionsOrCancel;
 
 	private String lTurnActions;
@@ -48,7 +49,7 @@ public class PlayerMenu extends JInternalFrame{
 		setPreferredSize(new Dimension(xSize, ySize));
 		setSize(xSize, ySize);
 		
-		setLocation(0, ySize);
+		setLocation(0, ySize-100);
 		
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -118,10 +119,22 @@ public class PlayerMenu extends JInternalFrame{
 		c.gridheight = 0;
 		c.gridwidth = 7;
 		c.ipadx = xSize - 100;
-		c.ipady = ySize - 100;
+		c.ipady = ySize - 150;
 		c.gridx = 0;
 		c.gridy = 1;
 		add(lActionPane, c);
+		
+		lBlocking = new JButton("Currently Blocking: False");
+		c.fill = GridBagConstraints.NONE;
+		c.weightx = 0;
+		c.weightx = 0;
+		c.gridheight = 1;
+		c.gridwidth = 1;
+		c.ipadx = 0;
+		c.ipady = 0;
+		c.gridx = 6;
+		c.gridy = 0;
+		add(lBlocking, c);
 		
 		createButtonListeners();
 		setVisible(true);
@@ -158,8 +171,8 @@ public class PlayerMenu extends JInternalFrame{
 			public void actionPerformed(ActionEvent e)
 			{
 				lModel.requestSearching(lModel);
-				enableOrDisableButtons(false);
 				lTurnActions += "S,";
+				enableOrDisableButtons(false);
 				lActionTable.setValueAt(lTurnActions, lModel.getGameState().getDay()-1, 1);
 			}
 		});
@@ -204,6 +217,18 @@ public class PlayerMenu extends JInternalFrame{
 					lSearch.setEnabled(false);
 					lRemove.setEnabled(false);
 				}
+			}
+		});
+		
+		lBlocking.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().setBlocking(!lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().getBlocking());
+				if(lBlocking.getText().equals("Currently Blocking: False"))
+					lBlocking.setText("Currently Blocking: True");
+				else
+					lBlocking.setText("Currently Blocking: False");
 			}
 		});
 	}
