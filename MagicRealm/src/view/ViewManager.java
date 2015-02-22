@@ -19,6 +19,8 @@ import view.internals.menu.NewGameView;
 import view.internals.menu.ServerMenuView;
 import view.internals.game.CharacterView;
 import view.internals.game.CharacterList;
+import view.internals.game.ChitList;
+import view.internals.game.ChitPlacementSelection;
 import view.internals.game.PlayerMenu;
 import view.internals.game.Searching;
 import view.internals.game.StartingLocation;
@@ -41,7 +43,8 @@ public class ViewManager {
 	private StartingLocation lStartingLocation;
 	private PlayerMenu lPlayerMenu;
 	private Searching lSearching;
-	
+	private ChitPlacementSelection lChitPlacementSelection;
+	private ChitList lChitList;	
 	private ViewModel lModel;
 	
 	public ViewManager(ViewModel aModel){
@@ -181,5 +184,17 @@ public class ViewManager {
 	
 	public void enableOrDisablePlayer(boolean aButtonState){
 		lPlayerMenu.enableOrDisableButtons(aButtonState);
+	}
+	
+	public void showChitPlacementSelection(){
+		lChitPlacementSelection = new ChitPlacementSelection(lModel);
+		lChitPlacementSelection.setVisible(true);
+		lWindow.addWindow(lChitPlacementSelection);
+	}
+	
+	public void showChitList(ViewModel lModel){		
+		lChitList = new ChitList(lModel);
+		lChitList.setVisible(true);
+		lWindow.addWindow(lChitList);
 	}
 }

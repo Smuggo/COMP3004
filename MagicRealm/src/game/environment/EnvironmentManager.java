@@ -19,25 +19,27 @@ public class EnvironmentManager {
 	private ChitFactory lChitFactory;
 	private ArrayList<Hextile> hextiles;
 	
-	public EnvironmentManager(){
+	public EnvironmentManager() {
 		
 	}
-
+	
+	/*public Dimension createNewMap(ImageMap aImageMap){
+		// Create hextiles logic
+		hextiles = XMLParser.newGameHexs("HexTiles.xml", aImageMap);
+	}*/
 	
 	
 	public Dimension createNewMap(ImageMap aImageMap, Map<String, Roadway> aHiddenRoadways){
 		
-		// Create hextiles logic
-		ArrayList<Hextile> hextiles = XMLParser.newGameHexs("HexTiles.xml", aImageMap, aHiddenRoadways);
+		// Set hextiles logic
+		hextiles = XMLParser.newGameHexs("HexTiles.xml", aImageMap, aHiddenRoadways);
 		
-		// Attach hextile chits to hextiles		
 		// Create hextile chits
 		lChitFactory = new ChitFactory(hextiles);
-		
-		//lChitFactory.addChitsRandomly();
 				
 		HexGrid lNewHexGrid = HexGridFactory.newHexGrid(hextiles);
 		setHexGrid(lNewHexGrid);
+
 		return lHexGrid.getCanvasSize();
 	}
 
