@@ -2,6 +2,7 @@ package view.internals.game;
 
 import game.GameState;
 import game.environment.hex.Clearing;
+import game.environment.hex.HexGrid;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -82,7 +83,10 @@ public class GameBoardCanvas extends JPanel{
 	public void paint(Graphics g){
 		
 		GameState lGameState = lModel.getGameState();
+		HexGrid lHexGrid = lModel.getGameManager().getGrid();
 		ActionManager lActionManager = lModel.getActionManager();
+		int lChitx;
+		int lChity;
 		
 		g.setColor(Color.white);
 	    g.fillRect(0, 0, getWidth(), getHeight());
@@ -102,21 +106,29 @@ public class GameBoardCanvas extends JPanel{
 	    
 	    for(int i = 1; i < lGameState.getPlayers().size()+1; i++){
 	    	if(lGameState.getPlayer(i)!= null && lGameState.getPlayer(i).getChosenHero() != null){
-	    		lGameState.getPlayer(i).getChosenHero().draw(g, lGameState.getPlayer(i));
+	    		lGameState.getPlayer(i).getChosenHero().draw(lModel.getGameManager(), g, lGameState.getPlayer(i));
 	    	}
 	    }
-
-		
+	
 	    for(int i = 0; i < lGameState.getPlayers().size(); i++){
 	    	g.drawString("Player "+(i+1), lGameState.getPlayers().get(i).lastClick.x, lGameState.getPlayers().get(i).lastClick.y);
 	    }
 	    
-
-	    
-
+	   for(int x = 0; x < lHexGrid.getGridRadius(); x++){
+	    	for(int y = 0; y < lHexGrid.getGridRadius(); y++){
+	    		if(lHexGrid.getHex(x, y) != null){
+	    			if(lHexGrid.getHex(x, y).isActive()){
+	    				if(lHexGrid.getHex(x, y).getHextile().getWarningChit() != null){
+	    					lChitx = lHexGrid.getHex(x, y).getCenter().x;
+	    					lChity = lHexGrid.getHex(x, y).getCenter().y;
+	    					g.setColor(Color.WHITE);
+	    					g.fillRect(lChitx, lChity, 55, 55);
+	    					g.setColor(Color.BLACK);
+	    					g.drawString(lHexGrid.getHex(x, y).getHextile().getWarningChit().getName(), lChitx, lChity+20);
+	    				}
+	    			}
+	    		}
+	    	}
+	    }
 	}
-	
-
-	
-
 }

@@ -117,7 +117,7 @@ public class ViewModel {
 		
 		lViewManager.clearMenu();
 		lViewManager.createCharacterView();
-		//lViewManager.showChitPlacementSelection();
+		lViewManager.showChitPlacementSelection();
 		
 		lViewManager.clearMenu();
 		lViewManager.newGameBoard(lMapSize);

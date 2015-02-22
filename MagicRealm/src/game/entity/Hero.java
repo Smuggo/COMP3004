@@ -1,12 +1,17 @@
 package game.entity;
 
+import game.GameManager;
 import game.environment.hex.Clearing;
 import game.environment.hex.Roadway;
 
 import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -67,20 +72,11 @@ public class Hero implements Serializable {
 		lBlocking = false;
 	}
 
-	public void draw(Graphics g, Player aPlayer) {
+	public void draw(GameManager aManager, Graphics g, Player aPlayer) {
 		if (lClearing != null) {
-			FontMetrics fm = g.getFontMetrics();
-			String string = name + " : " + aPlayer.getUserName();
-			Rectangle2D rect = fm.getStringBounds(string, g);
 			int x = (int) lClearing.getRotPosition().getX();
 			int y = (int) lClearing.getRotPosition().getY();
-
-			g.setColor(new Color(20, 20, 20));
-			g.fillRect(x - 3, y - fm.getAscent(), (int) rect.getWidth() + 6,
-					(int) rect.getHeight());
-			g.setColor(new Color(0, 200, 200));
-			g.drawString(string, x, y);
-			g.setColor(Color.black);
+			g.drawImage(getScaledImage(aManager.getCharacterImage(characterChit), 50, 50), x - 25, y - 25, Color.WHITE, null);
 		}
 	}
 
@@ -321,5 +317,14 @@ public class Hero implements Serializable {
 			}
 		}
 		return false;
+	}
+	
+	private Image getScaledImage(Image srcImg, int w, int h){
+		BufferedImage symbol = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2 = symbol.createGraphics();
+		g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		g2.drawImage(srcImg, 0, 0, w, h, null);
+		g2.dispose();
+		return symbol;
 	}
 }

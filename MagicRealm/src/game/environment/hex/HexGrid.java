@@ -131,4 +131,8 @@ public class HexGrid implements Serializable{
 		}
 		return null;
 	}
+	
+	public int getGridRadius(){
+		return lRadius;
+	}
 }
