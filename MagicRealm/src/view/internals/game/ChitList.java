@@ -48,7 +48,7 @@ public class ChitList extends JInternalFrame{
 
 		// Set the size of the Chit List Window
 		int xSize = 300;
-		int ySize = 1000;
+		int ySize = 600;
 		setPreferredSize(new Dimension(xSize, ySize));
 		setSize(xSize, ySize);
 		
@@ -144,27 +144,29 @@ public class ChitList extends JInternalFrame{
 						return;
 					}
 				}
-				else if (hextiles.get(i).getOtherChit() == null) {
-					
+			}
+			
+			for (int i = 0; i < hextiles.size(); i++) {
+				if (hextiles.get(i).getOtherChit() == null) {
+					if (hextiles.get(i).getHextileType() == Config.HextileType.CAVE) {
+						chitSelectionDescription.setText("Select a site/sound chit or the Lost City Chit to be placed in " + hextiles.get(i).getName());
+						hextile = hextiles.get(i);
+						otherChit = true;
+						chits.addAll(chitFactory.getSiteSoundLostCityChits());
+						return;
+					}
+					else if (hextiles.get(i).getHextileType() == Config.HextileType.MOUNTAIN) {
+						chitSelectionDescription.setText("Select a site/sound chit or the Lost Castle Chit to be placed in " + hextiles.get(i).getName());
+						hextile = hextiles.get(i);
+						otherChit = true;
+						chits.addAll(chitFactory.getSiteSoundLostCastleChits());
+						return;
+					}
 				}
 			}
+			System.out.println("WE are done");
+			// If we make it this far we have added all the chits to all the hextiles we can
+			dispose();
 		}
 	}
 }
-
-/*
- * else if (hextiles.get(i).getOtherChit() == null) {
-						chits.addAll(chitFactory.getSiteSoundLostCityChits());
-						hextile = hextiles.get(i);
-						otherChit = true;
-						chitSelectionDescription.setText("Select a site/sound chit to be placed in " + hextiles.get(i).getName());
-					}
-					
-				else if (hextiles.get(i).getOtherChit() == null) {
-						chits.addAll(chitFactory.getSiteSoundLostCastleChits());
-						hextile = hextiles.get(i);
-						otherChit = true;
-					}	
- */
-
-// Make sure to remove from siteSoundLostCityChits && siteSoundLostCastleChits always

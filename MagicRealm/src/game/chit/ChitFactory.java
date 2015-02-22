@@ -122,25 +122,74 @@ public class ChitFactory {
 		visitorMissionChits.add(new Chit("REVOLT", "QUEST"));*/
 	}
 	
+	public void addChitsManually() {
+		// Create basic Chit groups
+		siteSoundLostCityChits.add(lostCity);
+		siteSoundLostCityChits.addAll(siteSoundChits);
+		
+		siteSoundLostCastleChits.add(lostCastle);
+		siteSoundLostCastleChits.addAll(siteSoundChits);
+	}
+	
 	public void addChitManually(Chit aChit, Hextile hextile, boolean lostCity, boolean lostCastle, boolean warningChit) {
 		if (lostCity) {
 			lostCityChits.add(aChit);
 			siteSoundChits.remove(aChit);
+			siteSoundLostCityChits.remove(aChit);
+			siteSoundLostCastleChits.remove(aChit);
 		}
 		else if (lostCastle) {
 			lostCastleChits.add(aChit);
 			siteSoundChits.remove(aChit);
+			siteSoundLostCityChits.remove(aChit);
+			siteSoundLostCastleChits.remove(aChit);
 		}
 		// Add to hextile
 		else {
 			if (warningChit) {
 				hextile.setWarningChit(aChit);
+				
+				// Remove chit from its pile
+				for (int i = 0; i < valleyWarningChits.size(); i++) {
+					if (valleyWarningChits.get(i) == aChit) {
+						valleyWarningChits.remove(aChit);
+					}
+				}
+				for (int i = 0; i < woodsWarningChits.size(); i++) {
+					if (woodsWarningChits.get(i) == aChit) {
+						woodsWarningChits.remove(aChit);
+					}
+				}
+				for (int i = 0; i < caveWarningChits.size(); i++) {
+					if (caveWarningChits.get(i) == aChit) {
+						caveWarningChits.remove(aChit);
+					}
+				}
+				for (int i = 0; i < mountainWarningChits.size(); i++) {
+					if (mountainWarningChits.get(i) == aChit) {
+						mountainWarningChits.remove(aChit);
+					}
+				}
 			}
 			else {
 				hextile.setOtherChit(aChit);
+				
+				// Remove chit
+				for (int i = 0; i < siteSoundLostCityChits.size(); i++) {
+					if (siteSoundLostCityChits.get(i) == aChit) {
+						siteSoundLostCityChits.remove(aChit);
+						siteSoundLostCastleChits.remove(aChit);
+					}
+				}
+				for (int i = 0; i < siteSoundLostCastleChits.size(); i++) {
+					if (siteSoundLostCastleChits.get(i) == aChit) {
+						siteSoundLostCityChits.remove(aChit);
+						siteSoundLostCastleChits.remove(aChit);
+					}
+				}
 			}
 		}
-		printChitLocations(hextiles);
+		//printChitLocations(hextiles);
 	}
 	
 	public void addChitsRandomly() {
