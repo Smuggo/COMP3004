@@ -49,7 +49,7 @@ public class ChitList extends JInternalFrame{
 		determineChitPlacement();
 
 		// Set the size of the Chit List Window
-		int xSize = 300;
+		int xSize = 500;
 		int ySize = 600;
 		setPreferredSize(new Dimension(xSize, ySize));
 		setSize(xSize, ySize);
@@ -93,6 +93,7 @@ public class ChitList extends JInternalFrame{
 					// We are adding the last chit
 					if (chitFactory.getSiteSoundLostCastleChits().size() == 1) {
 						chitFactory.addChitManually(correspondingChit, hextile, lostCity, lostCastle, warningChit);
+						lModel.notifyClientsGameStarting();
 						dispose();
 					}
 					else {
