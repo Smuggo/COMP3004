@@ -93,7 +93,7 @@ public class ChitList extends JInternalFrame{
 				{
 					chitFactory.addChitManually(correspondingChit, hextile, lostCity, lostCastle, warningChit);
 					// Call another instince
-					lModel.requestChitList(lModel);
+					lModel.requestChitList();
 					dispose();
 				}
 			});

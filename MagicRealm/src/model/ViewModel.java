@@ -153,21 +153,16 @@ public class ViewModel {
 		lNetworkManager.updatePlayerCharacter(lGameState, lLocalPlayerNumber);
 	}
 	
-	public void requestStartingLocation(ViewModel aModel){
-		lViewManager.showStartingLocations(aModel);
+	public void requestStartingLocation(){
+		lViewManager.showStartingLocations();
 	}
 	
-	public void requestPlayerMenu(ViewModel aModel){
-		lViewManager.showPlayerMenu(aModel);
+	public void requestPlayerMenu(){
+		lViewManager.showPlayerMenu();
 	}
 	
-	public void requestChitList(ViewModel aModel){
-		lViewManager.showChitList(aModel);
-	}
-	
-	// Cheat Mode
-	public void requestCheatModeSelection(){
-		//lViewManager.showCheatModeSelection();
+	public void requestChitList(){
+		lViewManager.showChitList();
 	}
 	
 	public void updateLocalGameState(GameState aGameState){
@@ -232,8 +227,8 @@ public class ViewModel {
 		lViewManager.addToActionTable(aClearingID);
 	}
 	
-	public void requestSearching(ViewModel aModel){
-		lViewManager.showSearching(aModel);
+	public void requestSearching(){
+		lViewManager.showSearching();
 	}
 	
 	public void enableOrDisablePlayer(boolean aButtonState){

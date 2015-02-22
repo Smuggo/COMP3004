@@ -25,6 +25,7 @@ import view.internals.game.PlayerMenu;
 import view.internals.game.Searching;
 import view.internals.game.StartingLocation;
 import view.internals.game.VictoryPoints;
+import view.internals.game.ClearingView;
 
 public class ViewManager {
 	
@@ -46,6 +47,7 @@ public class ViewManager {
 	private ChitPlacementSelection lChitPlacementSelection;
 	private ChitList lChitList;	
 	private ViewModel lModel;
+	private ClearingView lClearingView;
 	
 	public ViewManager(ViewModel aModel){
 		lModel = aModel;
@@ -157,13 +159,15 @@ public class ViewManager {
 		lCharacterView.updateCharacterTable(aPlayers);
 	}
 	
-	public void showStartingLocations(ViewModel lModel){
+	public void showStartingLocations(){
 		lStartingLocation = new StartingLocation(lModel);
 		lWindow.addWindow(lStartingLocation);
 	}
 	
-	public void showPlayerMenu(ViewModel lModel){
+	public void showPlayerMenu(){
 		lPlayerMenu = new PlayerMenu(lModel);
+		lClearingView = new ClearingView(lModel);
+		lWindow.addWindow(lClearingView);
 		lWindow.addWindow(lPlayerMenu);
 	}
 	
@@ -177,7 +181,7 @@ public class ViewManager {
 		lPlayerMenu.addToActionTable(aClearingID);
 	}
 	
-	public void showSearching(ViewModel aModel){
+	public void showSearching(){
 		lSearching = new Searching(lModel);
 		lWindow.addWindow(lSearching);
 	}
@@ -192,7 +196,7 @@ public class ViewManager {
 		lWindow.addWindow(lChitPlacementSelection);
 	}
 	
-	public void showChitList(ViewModel lModel){		
+	public void showChitList(){		
 		lChitList = new ChitList(lModel);
 		lChitList.setVisible(true);
 		lWindow.addWindow(lChitList);

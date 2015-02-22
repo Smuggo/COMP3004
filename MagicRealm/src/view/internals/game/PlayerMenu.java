@@ -40,6 +40,7 @@ public class PlayerMenu extends JInternalFrame{
 	private JTable lActionTable;
 	
 	public PlayerMenu(ViewModel aModel){
+		super("Player Menu",false,false,false,true);
 		lModel = aModel;
 		lTurnActions = "";
 		
@@ -170,7 +171,7 @@ public class PlayerMenu extends JInternalFrame{
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				lModel.requestSearching(lModel);
+				lModel.requestSearching();
 				lTurnActions += "S,";
 				enableOrDisableButtons(false);
 				lActionTable.setValueAt(lTurnActions, lModel.getGameState().getDay()-1, 1);

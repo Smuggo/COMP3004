@@ -5,6 +5,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 
 import model.ViewModel;
 
@@ -15,9 +16,11 @@ public class ClearingView extends JInternalFrame {
 	private static final long serialVersionUID = -1011994368090366319L;
 	
 	ViewModel lModel;
+	
+	JLabel lInClearing;
 
 	public ClearingView(ViewModel aModel){
-		super("Clearing View");
+		super("Clearing View",false,false,false,true);
 		
 		lModel = aModel;
 
@@ -31,6 +34,11 @@ public class ClearingView extends JInternalFrame {
 		
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
+		
+		lInClearing = new JLabel("Entities In Clearing:");
+		c.gridx = 0;
+		c.gridy = 0;
+		add(lInClearing, c);
 		
 		setVisible(true);
 	}
