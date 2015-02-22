@@ -21,6 +21,7 @@ import action.Action;
 import action.ActionList;
 import config.Config.ActionType;
 import config.Config.CharacterImageType;
+import config.Config.DelayPrompt;
 import config.Config.DwellingType;
 import config.Config.RoadwayType;
 import config.Config.SearchType;
@@ -51,6 +52,7 @@ public class Hero implements Serializable {
 	private DwellingType[] startingLocations;
 
 	private ActionList lActionList;
+	private boolean needsActionInput;
 	
 	private Map<String, Roadway> lHiddenRoadways;
 
@@ -70,6 +72,7 @@ public class Hero implements Serializable {
 		hidden = false;
 		lViewingHidden = false;
 		lBlocking = false;
+		needsActionInput = false;
 	}
 
 	public void draw(GameManager aManager, Graphics g, Player aPlayer) {
@@ -178,7 +181,7 @@ public class Hero implements Serializable {
 		lBlocked = aBlocked;
 	}
 
-	public void executeAction(Action aAction) {
+	public DelayPrompt executeAction(Action aAction) {
 		ActionType aActionType = aAction.getActionType();
 		Random lRandomGenerator = new Random();
 		int lRoll1 = lRandomGenerator.nextInt(6) + 1;
@@ -219,13 +222,19 @@ public class Hero implements Serializable {
 
 		// Hiding
 		else if (aActionType.equals(ActionType.HIDE)) {
-			if (lFinalRoll == 6) {
-				System.out.println("FAILED TO HIDE; DIE1 = " + lRoll1
-						+ " DIE2 = " + lRoll2);
-			} else {
-				System.out.println("HIDE SUCCESS; DIE1 = " + lRoll1
-						+ " DIE2 = " + lRoll2);
-				hidden = true;
+			if(needsActionInput){
+				if (lFinalRoll == 6) {
+					System.out.println("FAILED TO HIDE; DIE1 = " + lRoll1
+							+ " DIE2 = " + lRoll2);
+				} else {
+					System.out.println("HIDE SUCCESS; DIE1 = " + lRoll1
+							+ " DIE2 = " + lRoll2);
+					hidden = true;
+				}
+				needsActionInput = false;
+			}else{
+				needsActionInput = true;
+				return DelayPrompt.HIDING;
 			}
 		}
 
@@ -298,14 +307,22 @@ public class Hero implements Serializable {
 				}
 			}
 		}
+		return null;
+	}
+	
+	public boolean getNeedsActionInput(){
+		return needsActionInput;
 	}
 
-	public void executeTurn() {
+	public DelayPrompt executeTurn() {
 		while(lActionList.incomplete()){
 			if(lActionList.getCurrentAction() < lActionList.getActions().size()){
 				Action lAction = lActionList.getActions().get(lActionList.getCurrentAction());
 				if (lActionList.getActionPoints() >= lAction.getCost()) {
-					executeAction(lAction);
+					DelayPrompt r = executeAction(lAction);
+					if(needsActionInput){
+						return r;
+					}
 					lActionList.modifyActionPoints(-lAction.getCost());
 					lActionList.nextAction();
 				}else{
@@ -316,6 +333,7 @@ public class Hero implements Serializable {
 			}
 			System.out.println(lActionList.incomplete());
 		}
+		return null;
 	}
 
 	public void addActionList(ActionList aActionList) {

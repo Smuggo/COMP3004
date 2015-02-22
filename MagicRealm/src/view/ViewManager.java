@@ -1,5 +1,6 @@
 package view;
 
+import game.GameState;
 import game.entity.Hero;
 import game.entity.Player;
 import game.environment.hex.Hextile;
@@ -7,6 +8,8 @@ import game.environment.hex.Hextile;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
+import config.Config.DelayPrompt;
+import config.Config.TurnState;
 import network.packet.PlayerPacket;
 import model.ViewModel;
 import view.externals.MagicRealmWindow;
@@ -151,6 +154,16 @@ public class ViewManager {
 		if(lGameBoard != null){
 			lGameBoard.redraw();
 		}
+		GameState lGameState = lModel.getGameState();
+		if(lGameState != null){
+			if(lGameState.getTurnState().equals(TurnState.EXECUTING) && lGameState.getPlayerUpdating() == lModel.getLocalPlayerNum()){
+				if(lGameState.getDelayPrompt().equals(DelayPrompt.HIDING)){
+					lPlayerMenu.promptHiding();
+				}
+				
+			}
+		}
+		
 	}
 	
 	public void updatePlayerTable(ArrayList<Player> aPlayers){

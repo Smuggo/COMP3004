@@ -28,6 +28,7 @@ public class ViewModel {
 	
 	boolean isServer;
 	int lLocalPlayerNumber;
+	boolean doneInit = false;
 	
 	public ViewModel(NetworkManager aNetworkManager){
 		isServer = false;
@@ -106,12 +107,24 @@ public class ViewModel {
 		lNetworkManager.notifyClientWaitForGameStart();
 	}
 	
+	
 	public void startGame(){
+		
+		if(lLocalPlayerNumber == 1 && !doneInit){
+			lNetworkManager.createNewMap(lGameManager.getGrid());
+			lNetworkManager.notifyClientsGameStarting();
+			doneInit = true;
+			return;
+		}
+		
 		updateLocalGameState(lNetworkManager.refreshGameState());
 		
-		Dimension lMapSize = lGameManager.getMapDimension();
+		if(lLocalPlayerNumber != 1){
+			lGameManager.createNewMap();
+		}
 		
-		lNetworkManager.createNewMap(lGameManager.getGrid());
+		Dimension lMapSize = lGameState.getHexGrid().getCanvasSize();
+		
 		lViewManager.clearMenu();
 
 		lViewManager.createCharacterView();
@@ -180,6 +193,7 @@ public class ViewModel {
 				lViewManager.updatePlayerTable(tempList);
 		}
 		
+		
 		if(!aGameState.equals(lGameState)){
 			if(lGameState!= null && aGameState != null && lGameState.getDay() != aGameState.getDay()){
 				lActionManager.createNewTurn(aGameState, lLocalPlayerNumber);
@@ -235,14 +249,15 @@ public class ViewModel {
 	public void promptCheatMode() {
 		
 		lGameManager.createNewMap();
-		lNetworkManager.createNewMap(lGameManager.getGrid());
 		lViewManager.clearMenu();
 		
 		if (lLocalPlayerNumber == 1) {
 			lViewManager.showChitPlacementSelection();
 		}
-		else {
-			notifyClientsGameStarting();
-		}
+
+	}
+	
+	public void hideConfirmed(){
+		lNetworkManager.sendContinueActions();
 	}
 }
