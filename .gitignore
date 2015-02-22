@@ -5,5 +5,5 @@
 
 .metadata
 bin/*
-/MagicRealm/.gitignore
 /.recommenders
+/MagicRealm/.gitignore
