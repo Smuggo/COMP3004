@@ -2,6 +2,7 @@ package model;
 
 import game.GameManager;
 import game.GameState;
+import game.environment.hex.Clearing;
 import game.environment.hex.HexGrid;
 import game.entity.Hero;
 import game.entity.Player;
@@ -233,5 +234,9 @@ public class ViewModel {
 	
 	public void enableOrDisablePlayer(boolean aButtonState){
 		lViewManager.enableOrDisablePlayer(aButtonState);
+	}
+	
+	public void addClearingChits(Clearing aClearing){
+		lViewManager.addClearingChits(aClearing);
 	}
 }

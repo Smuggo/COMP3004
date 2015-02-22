@@ -1,15 +1,28 @@
 package view.internals.game;
 
+import game.environment.hex.Clearing;
+import game.entity.Player;
+import config.Config.CharacterImageType;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import model.ViewModel;
 
@@ -23,7 +36,7 @@ public class GameBoardView extends JInternalFrame{
 	
 	GameBoardCanvas lCanvas;
 	
-	JButton lTestButton;
+	JScrollPane lChits;
 	
 	public GameBoardView(ViewModel aModel, Dimension aCanvasSize){
 		super("Game Board",false,false,false,true);
@@ -50,7 +63,8 @@ public class GameBoardView extends JInternalFrame{
 		
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
-
+		c.insets = new Insets(0,0,0,0);
+		
 		lScrollPane = new ScrollPane();
 		lScrollPane.getVAdjustable().setUnitIncrement(16);
 		
@@ -61,38 +75,22 @@ public class GameBoardView extends JInternalFrame{
 		c.weighty = 1;
 		c.gridx = 0;
 		c.gridy = 0;
-		c.insets = new Insets(0,0,0,0);
 		add(lScrollPane, c);
 		
-		lTestButton = new JButton("Test");
-		c.fill = GridBagConstraints.HORIZONTAL;
+		lChits = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		lChits.setPreferredSize(new Dimension(xSize, 25));
+		lChits.setSize(xSize, 25);
+		lChits.setVisible(true);
+		
+		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 0;
 		c.gridx = 0;
 		c.gridy = 1;
-		c.insets = new Insets(0,0,0,0);
-		add(lTestButton, c);
-		
-		
-		createButtonListeners();
-	}
-	
-	
-	
-	protected void createButtonListeners(){
-		
-		
-		lTestButton.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				lCanvas.repaint();
-			}
-		});
-		
+		add(lChits, c);
 		
 	}
-	
 
 	public void fillScrollPane(Dimension aCanvasSize){
 		lCanvas = new GameBoardCanvas(lModel);
@@ -110,4 +108,33 @@ public class GameBoardView extends JInternalFrame{
 			lCanvas.repaint();
 	}
 	
+	public void addClearingChits(Clearing aClearing){
+		ArrayList<String> lCharacterNames = new ArrayList<String>();
+		JPanel lPanel = new JPanel();
+		lPanel.setSize(1000, 200);
+		
+		if(lModel.getGameState() != null){
+			for(Player aPlayer: lModel.getGameState().getPlayers()){
+				if(aPlayer.getChosenHero() != null){
+					if(aPlayer.getChosenHero().getClearing() != null){
+						if(aPlayer.getChosenHero().getClearing().getIdentifier().equals(aClearing.getIdentifier())){
+							lCharacterNames.add(aPlayer.getChosenHero().getName());
+						}
+					}
+				}
+			}
+		
+			for(int i = 0; i < lCharacterNames.size(); i++){
+				JPanel imagePanel = new JPanel();
+				imagePanel.add(new JLabel(lCharacterNames.get(i)));
+				
+				lPanel.add(imagePanel);
+				lChits.add(lPanel);
+				lChits.setViewportView(lPanel);
+			}
+		}
+		lChits.setSize((int)lModel.getScreenDimensions().getWidth()/2, 25);
+		lChits.validate();
+		lChits.repaint();
+	}
 }
