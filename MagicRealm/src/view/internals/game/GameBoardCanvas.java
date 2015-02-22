@@ -112,8 +112,8 @@ public class GameBoardCanvas extends JPanel{
 	    	g.drawString("Player "+(i+1), lGameState.getPlayers().get(i).lastClick.x, lGameState.getPlayers().get(i).lastClick.y);
 	    }
 	    
-	   for(int x = 0; x < lHexGrid.getGridRadius(); x++){
-	    	for(int y = 0; y < lHexGrid.getGridRadius(); y++){
+	   for(int x = -4; x < lHexGrid.getGridRadius() + 1; x++){
+	    	for(int y = -4; y < lHexGrid.getGridRadius() + 1; y++){
 	    		if(lHexGrid.getHex(x, y) != null){
 	    			if(lHexGrid.getHex(x, y).isActive()){
 	    				if(lHexGrid.getHex(x, y).getHextile().getWarningChit() != null){
