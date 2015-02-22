@@ -5,6 +5,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
@@ -14,12 +15,15 @@ import model.ViewModel;
 
 public class ChitPlacementSelection extends JInternalFrame{
 	
-	// Change serial Version
-	private static final long serialVersionUID = 3742758020392137899L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1998851506025417299L;
 	
 	private ViewModel lModel;
 	
-	private JLabel cheatModeDescription;
+	private ArrayList<JLabel> cheatModeDescription  = new ArrayList<>();
+	
 	
 	private JButton manuallyPlaceChits;
 	private JButton randomlyPlaceChits;
@@ -28,10 +32,18 @@ public class ChitPlacementSelection extends JInternalFrame{
 		super("Cheat Mode",false,false,false,true);
 		
 		lModel = aModel;
-			
+		
+		// Set JLabels and JButtons
+		cheatModeDescription.add(new JLabel("Would you like to turn on cheat mode?"));
+		//cheatModeDescription.add(new JLabel("In cheat mode the all chits all placed manually."));
+		//cheatModeDescription.add(new JLabel("In the future cheat mode will allow the user to control dice rolls."));
+		manuallyPlaceChits = new JButton("Yes");
+		randomlyPlaceChits = new JButton("No");
+		
 		// Set the size of the Chit List Window
 		int xSize = 400;
 		int ySize = 200;
+		
 		setPreferredSize(new Dimension(xSize, ySize));
 		setSize(xSize, ySize);
 		
@@ -39,36 +51,35 @@ public class ChitPlacementSelection extends JInternalFrame{
 		Dimension lScreenSize = lModel.getScreenDimensions();
 		int xScreen = (int)lScreenSize.getWidth();
 		int yScreen = (int)lScreenSize.getHeight();
-		setLocation((xScreen/8)-(xSize/8), (3 * yScreen/4)-(3 * ySize/4)); 
+		setLocation((xScreen/2)-(xSize/2), (yScreen/2)-(ySize/2)); 
 		
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
+				 
+		for (int i = 0; i < cheatModeDescription.size(); i++) {
+			c.ipadx = 50;
+			c.ipady = 0;
+			c.gridx = 0;
+			c.gridy = i;
+			c.gridwidth = 2;
+			add(cheatModeDescription.get(i), c);
+		}
 		
-		cheatModeDescription = new JLabel("How would you like to place the chits?");
-		c.ipadx = 50;
-		c.ipady = 0;
-		c.gridx = 0;
-		c.gridy = 0;
-		c.gridwidth = 2;
-		add(cheatModeDescription, c);
-		
-		manuallyPlaceChits = new JButton("Manually");
 		c.anchor = GridBagConstraints.SOUTHEAST;
 		c.fill = GridBagConstraints.NONE;
 		c.ipadx = 50;
 		c.ipady = 0;
 		c.gridx = 0;
-		c.gridy = 2;
+		c.gridy = cheatModeDescription.size();
 		c.gridwidth = 1;
 		add(manuallyPlaceChits, c);
 		
-		randomlyPlaceChits = new JButton("Randomly");
 		c.anchor = GridBagConstraints.SOUTHWEST;
 		c.fill = GridBagConstraints.NONE;
 		c.ipadx = 0;
 		c.ipady = 0;
 		c.gridx = 1;
-		c.gridy = 2;
+		c.gridy = cheatModeDescription.size();
 		c.gridwidth = 1;
 		add(randomlyPlaceChits, c);
 		

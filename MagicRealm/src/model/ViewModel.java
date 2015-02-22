@@ -117,7 +117,10 @@ public class ViewModel {
 		
 		lViewManager.clearMenu();
 		lViewManager.createCharacterView();
-		lViewManager.showChitPlacementSelection();
+		
+		// Prompt Host if they would like to enable cheat mode
+		if (lLocalPlayerNumber == 1)
+			lViewManager.showChitPlacementSelection();
 		
 		lViewManager.clearMenu();
 		lViewManager.newGameBoard(lMapSize);

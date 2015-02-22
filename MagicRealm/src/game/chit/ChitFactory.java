@@ -201,7 +201,7 @@ public class ChitFactory {
 		// Should be empty
 		System.out.println("");
 		//printAllArraylists();
-		printChitLocations(hextiles);
+		//printChitLocations(hextiles);
 	}
 	
 	private void createSiteSoundChits() {
@@ -348,9 +348,16 @@ public class ChitFactory {
 		System.out.println("");
 		
 		for (int i = 0; i < hextiles.size(); i++) {
-			if (hextiles.get(i).getWarningChit() == null || (hextiles.get(i).getOtherChit() == null)) {
+			if (hextiles.get(i).getWarningChit() == null && (hextiles.get(i).getOtherChit() == null)) {
 				System.out.println("My name is " + hextiles.get(i).getName() + " and I have a " + hextiles.get(i).getWarningChit() + " warning chit and a " + hextiles.get(i).getOtherChit() + " other chit.");
-			} else {
+			} 
+			else if (hextiles.get(i).getWarningChit() == null) {
+				System.out.println("My name is " + hextiles.get(i).getName() + " and I have a " + hextiles.get(i).getWarningChit() + " warning chit and a " + hextiles.get(i).getOtherChit().getName() + " other chit.");
+			}
+			else if (hextiles.get(i).getOtherChit() == null) {
+				System.out.println("My name is " + hextiles.get(i).getName() + " and I have a " + hextiles.get(i).getWarningChit().getName() + " warning chit and a " + hextiles.get(i).getOtherChit() + " other chit.");
+			}
+			else {
 				System.out.println("My name is " + hextiles.get(i).getName() + " and I have a " + hextiles.get(i).getWarningChit().getName() + " warning chit and a " + hextiles.get(i).getOtherChit().getName() + " other chit.");
 			}
 		}

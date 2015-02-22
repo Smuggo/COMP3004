@@ -20,9 +20,11 @@ import model.ViewModel;
 
 public class ChitList extends JInternalFrame{
 	
-	// May have to change serialVersionUID
-	private static final long serialVersionUID = 3742758020392137899L;
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5919121963644991941L;
 	private ViewModel lModel;
 	private ArrayList<JButton> chitButtons = new ArrayList<JButton>();
 	
