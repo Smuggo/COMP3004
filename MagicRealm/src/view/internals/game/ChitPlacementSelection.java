@@ -41,9 +41,19 @@ public class ChitPlacementSelection extends JInternalFrame{
 		randomlyPlaceChits = new JButton("No");
 		
 		// Set the size of the Chit List Window
-		int xSize = 400;
+		int xSize = 0;
 		int ySize = 200;
 		
+		for (int i = 0; i < cheatModeDescription.size(); i++) {
+			if (xSize < (int)cheatModeDescription.get(i).getPreferredSize().getWidth() + 100) {
+				xSize = (int)cheatModeDescription.get(i).getPreferredSize().getWidth() + 100;
+			}
+		}
+		
+		//ySize += (int)cheatModeDescription.get(0).getPreferredSize().getHeight() * cheatModeDescription.size();
+		//ySize += manuallyPlaceChits.getPreferredSize().getHeight();
+
+		System.out.println(cheatModeDescription.get(0).getPreferredSize().getWidth());
 		setPreferredSize(new Dimension(xSize, ySize));
 		setSize(xSize, ySize);
 		
@@ -57,7 +67,8 @@ public class ChitPlacementSelection extends JInternalFrame{
 		GridBagConstraints c = new GridBagConstraints();
 				 
 		for (int i = 0; i < cheatModeDescription.size(); i++) {
-			c.ipadx = 50;
+			c.anchor = GridBagConstraints.NORTH;
+			//c.ipadx = 50;
 			c.ipady = 0;
 			c.gridx = 0;
 			c.gridy = i;
@@ -65,17 +76,19 @@ public class ChitPlacementSelection extends JInternalFrame{
 			add(cheatModeDescription.get(i), c);
 		}
 		
-		c.anchor = GridBagConstraints.SOUTHEAST;
-		c.fill = GridBagConstraints.NONE;
-		c.ipadx = 50;
+		c.anchor = GridBagConstraints.CENTER;
+		//c.fill = GridBagConstraints.NONE;
+		//c.ipadx = 50;
+		c.ipadx = 0;
 		c.ipady = 0;
 		c.gridx = 0;
 		c.gridy = cheatModeDescription.size();
 		c.gridwidth = 1;
 		add(manuallyPlaceChits, c);
 		
-		c.anchor = GridBagConstraints.SOUTHWEST;
-		c.fill = GridBagConstraints.NONE;
+		c.anchor = GridBagConstraints.CENTER;
+		//c.fill = GridBagConstraints.NONE;
+		//c.ipadx = 0;
 		c.ipadx = 0;
 		c.ipady = 0;
 		c.gridx = 1;
@@ -101,6 +114,7 @@ public class ChitPlacementSelection extends JInternalFrame{
 		  public void actionPerformed(ActionEvent e)
 		  {
 			  lModel.getGameManager().getEnvironmentManager().getChitFactory().addChitsRandomly();
+			  lModel.notifyClientsGameStarting();
 			  dispose();
 		  }
 		});

@@ -106,21 +106,15 @@ public class ViewModel {
 		lNetworkManager.notifyClientWaitForGameStart();
 	}
 	
-	
 	public void startGame(){
 		updateLocalGameState(lNetworkManager.refreshGameState());
 		
-		//lGameManager.createNewMap(); //We already created a new map
-		Dimension lMapSize = lGameManager.createNewMap();
+		Dimension lMapSize = lGameManager.getMapDimension();
 		
 		lNetworkManager.createNewMap(lGameManager.getGrid());
-		
 		lViewManager.clearMenu();
+
 		lViewManager.createCharacterView();
-		
-		// Prompt Host if they would like to enable cheat mode
-		if (lLocalPlayerNumber == 1)
-			lViewManager.showChitPlacementSelection();
 		
 		lViewManager.clearMenu();
 		lViewManager.newGameBoard(lMapSize);
@@ -211,9 +205,7 @@ public class ViewModel {
 	
 	public void setPlayerStartingLocation(String aDwelling){
 		lActionManager.createNewTurn(lNetworkManager.setPlayerStartingLocation(aDwelling));
-
 	}
-	
 	
 	public void setLocalActionState(ActionState aActionState){
 		lActionManager.setState(aActionState);
@@ -238,5 +230,19 @@ public class ViewModel {
 	
 	public void enableOrDisablePlayer(boolean aButtonState){
 		lViewManager.enableOrDisablePlayer(aButtonState);
+	}
+
+	public void promptCheatMode() {
+		
+		lGameManager.createNewMap();
+		lNetworkManager.createNewMap(lGameManager.getGrid());
+		lViewManager.clearMenu();
+		
+		if (lLocalPlayerNumber == 1) {
+			lViewManager.showChitPlacementSelection();
+		}
+		else {
+			notifyClientsGameStarting();
+		}
 	}
 }
