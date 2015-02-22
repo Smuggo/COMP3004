@@ -117,7 +117,7 @@ public class ViewModel {
 		
 		lViewManager.clearMenu();
 		lViewManager.createCharacterView();
-		lViewManager.showChitPlacementSelection();
+		//lViewManager.showChitPlacementSelection();
 		
 		lViewManager.clearMenu();
 		lViewManager.newGameBoard(lMapSize);
@@ -158,9 +158,9 @@ public class ViewModel {
 		lViewManager.showPlayerMenu(aModel);
 	}
 	
-	public void requestChitList(ViewModel aModel){
+	/*public void requestChitList(ViewModel aModel){
 		lViewManager.showChitList(aModel);
-	}
+	}*/
 	
 	// Cheat Mode
 	/*public void requestCheatModeSelection(){
