@@ -1,5 +1,9 @@
 package game.chit;
 
+import game.GameManager;
+
+import java.awt.Color;
+import java.awt.Graphics;
 import java.io.Serializable;
 
 import config.Config;
@@ -44,4 +48,28 @@ public class Chit implements Serializable{
 	
 	public String getName() { return name; }
 	public boolean isRevealed() { return revealed; } 
+	public int getClearingNumber() { return clearingNumber; }
+	
+	public void draw(GameManager aManager, Graphics g, int aGridx, int aGridy){
+		int lChitx;
+		int lChity;
+		
+		if(clearingNumber == -1){
+			lChitx = aManager.getGrid().getHex(aGridx, aGridy).getCenter().x;
+			lChity = aManager.getGrid().getHex(aGridx, aGridy).getCenter().y;
+			g.setColor(Color.WHITE);
+			g.fillRect(lChitx, lChity, 55, 55);
+			g.setColor(Color.BLACK);
+			g.drawString(name, lChitx, lChity+20);
+		}
+		else{
+			lChitx = aManager.getGrid().getHex(aGridx, aGridy).getHextile().getClearing(clearingNumber).getRotPosition().x - 25;
+			lChity = aManager.getGrid().getHex(aGridx, aGridy).getHextile().getClearing(clearingNumber).getRotPosition().y - 25;
+			g.setColor(Color.WHITE);
+			g.fillRect(lChitx, lChity, 55, 55);
+			g.setColor(Color.BLACK);
+			g.drawString(aManager.getGrid().getHex(aGridx, aGridy).getHextile().getOtherChit().getName(), lChitx, lChity+20);
+			g.drawString(Integer.toString(aManager.getGrid().getHex(aGridx, aGridy).getHextile().getOtherChit().getClearingNumber()), lChitx+25, lChity+40);
+		}
+	}
 }

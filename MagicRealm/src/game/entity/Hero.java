@@ -76,7 +76,11 @@ public class Hero implements Serializable {
 		if (lClearing != null) {
 			int x = (int) lClearing.getRotPosition().getX();
 			int y = (int) lClearing.getRotPosition().getY();
-			g.drawImage(getScaledImage(aManager.getCharacterImage(characterChit), 50, 50), x - 25, y - 25, Color.WHITE, null);
+			
+			if(!hidden)
+				g.drawImage(getScaledImage(aManager.getCharacterImage(characterChit), 50, 50), x - 25, y - 25, Color.WHITE, null);
+			else
+				g.drawImage(getScaledImage(aManager.getCharacterImage(characterChit), 50, 50), x - 25, y - 25, Color.GREEN, null);
 		}
 	}
 

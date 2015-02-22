@@ -85,8 +85,6 @@ public class GameBoardCanvas extends JPanel{
 		GameState lGameState = lModel.getGameState();
 		HexGrid lHexGrid = lModel.getGameManager().getGrid();
 		ActionManager lActionManager = lModel.getActionManager();
-		int lChitx;
-		int lChity;
 		
 		g.setColor(Color.white);
 	    g.fillRect(0, 0, getWidth(), getHeight());
@@ -119,12 +117,10 @@ public class GameBoardCanvas extends JPanel{
 	    		if(lHexGrid.getHex(x, y) != null){
 	    			if(lHexGrid.getHex(x, y).isActive()){
 	    				if(lHexGrid.getHex(x, y).getHextile().getWarningChit() != null){
-	    					lChitx = lHexGrid.getHex(x, y).getCenter().x;
-	    					lChity = lHexGrid.getHex(x, y).getCenter().y;
-	    					g.setColor(Color.WHITE);
-	    					g.fillRect(lChitx, lChity, 55, 55);
-	    					g.setColor(Color.BLACK);
-	    					g.drawString(lHexGrid.getHex(x, y).getHextile().getWarningChit().getName(), lChitx, lChity+20);
+	    					lHexGrid.getHex(x, y).getHextile().getWarningChit().draw(lModel.getGameManager(), g, x, y);
+	    				}
+	    				if(lHexGrid.getHex(x, y).getHextile().getOtherChit() != null){
+	    					lHexGrid.getHex(x, y).getHextile().getOtherChit().draw(lModel.getGameManager(), g, x, y);
 	    				}
 	    			}
 	    		}
