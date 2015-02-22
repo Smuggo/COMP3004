@@ -301,17 +301,29 @@ public class Hero implements Serializable {
 	}
 
 	public void executeTurn() {
-		for (int i = 0; i < lActionList.getActions().size(); i++) {
-			Action lAction = lActionList.getActions().get(i);
-			if (lActionList.getActionPoints() >= lAction.getCost()) {
-				executeAction(lAction);
-				lActionList.modifyActionPoints(-lAction.getCost());
+		while(lActionList.incomplete()){
+			if(lActionList.getCurrentAction() < lActionList.getActions().size()){
+				Action lAction = lActionList.getActions().get(lActionList.getCurrentAction());
+				if (lActionList.getActionPoints() >= lAction.getCost()) {
+					executeAction(lAction);
+					lActionList.modifyActionPoints(-lAction.getCost());
+					lActionList.nextAction();
+				}else{
+					lActionList.complete();
+				}
+			}else{
+				lActionList.complete();
 			}
+			System.out.println(lActionList.incomplete());
 		}
 	}
 
 	public void addActionList(ActionList aActionList) {
 		lActionList = aActionList;
+	}
+	
+	public ActionList getActionList(){
+		return lActionList;
 	}
 
 	public boolean hasUpToDateActionSheet(int aTurn) {

@@ -3,8 +3,11 @@ package game;
 import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
 
+import config.Config;
 import config.Config.ActionType;
+import config.Config.TurnState;
 import action.Action;
 import action.ActionList;
 import game.entity.Player;
@@ -19,11 +22,17 @@ public class GameState implements Serializable{
 	private ArrayList<Player> lPlayers;
 	private HexGrid lHexGrid;
 	private int lTurn;
+	private TurnState lTurnState;
+	private int lTurnPlayerExecuting;
+	private int lTurnPlayerExecutingActionNum;
 	
 	public GameState(){
 		lVersion = 1;
 		lTurn = 1;
 		lPlayers = new ArrayList<Player>();
+		lTurnState = TurnState.SELECTING;
+		lTurnPlayerExecuting = 0;
+		lTurnPlayerExecutingActionNum = 0;
 	}
 	
 	//Version
@@ -85,17 +94,59 @@ public class GameState implements Serializable{
 		return true;
 	}
 	
-	public void executePlayerActionSheets(){
-
+	public void setRandomTurnOrder(){
+		ArrayList<Integer> avail = new ArrayList<Integer>();
+		Random r = new Random();
 		for(int i = 0; i < lPlayers.size(); i++){
-			lPlayers.get(i).getChosenHero().executeTurn();
+			avail.add(i);
 		}
+		
+		for(int i = 0; i < lPlayers.size(); i++){
+			int val = r.nextInt(avail.size());
+			lPlayers.get(i).setTurnOrder(avail.get(val));
+			avail.remove(val);
+		}		
+	}
+	
+	public void executePlayerActionSheets(){
+		lTurnState = TurnState.EXECUTING;
+		lTurnPlayerExecuting = 0;
+		lTurnPlayerExecutingActionNum = 0;
+		setRandomTurnOrder();
+		
+		continueExecutingPlayerActionSheets();
+		
+		newTurn();
+	}
+	
+	public void continueExecutingPlayerActionSheets(){
+		Player currentPlayer = null;
+		while(lTurnPlayerExecuting < lPlayers.size()){
+			for(int i = 0; i < lPlayers.size(); i++){
+				if(lPlayers.get(i).getTurnOrder() == lTurnPlayerExecuting){
+					currentPlayer = lPlayers.get(i);
+					break;
+				}
+			}
+			if(currentPlayer != null){
+				currentPlayer.getChosenHero().executeTurn();
+				if(!currentPlayer.getChosenHero().getActionList().incomplete()){
+					lTurnPlayerExecuting++;
+				}
+			}else{
+				lTurnPlayerExecuting++;
+			}
+		}
+	}
+	
+	public void newTurn(){
 		for(int i = 0; i < lPlayers.size(); i++){
 			lPlayers.get(i).getChosenHero().setHidden(false);
 			lPlayers.get(i).getChosenHero().setViewingHidden(false);
 			lPlayers.get(i).getChosenHero().setBlocked(false);
 		}
-		lTurn++;
+		lTurn++;	
+		lTurnState = TurnState.SELECTING;
 	}
 	
 	public Clearing getClearingByPlayer(int aPlayer){

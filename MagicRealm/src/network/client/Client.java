@@ -171,7 +171,7 @@ public class Client implements Runnable {
 		return lWaiting;
 	}
 	
-	public void setPlayerCharacter(GameState aGameState, int aLocalPlayerNumber){
+	public boolean setPlayerCharacter(GameState aGameState, int aLocalPlayerNumber){
 		try {
 			
 			while(streamBusy){
@@ -188,11 +188,14 @@ public class Client implements Runnable {
 			lOutputStream.flush();
 			lOutputStream.reset();
 			
+			boolean r = (boolean) lInputStream.readObject();
 			streamBusy=false;
+			return r;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		streamBusy=false;
+		return false;
 	}
 	
 	public void updateCharacterTable(JTable aCharacterTable){
@@ -207,8 +210,10 @@ public class Client implements Runnable {
 			lOutputStream.flush();
 			lOutputStream.reset();
 			
+			
+			boolean r = (boolean) lInputStream.readObject();
 			streamBusy=false;
-			return (boolean) lInputStream.readObject();
+			return r;
 			
 			
 		}

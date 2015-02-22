@@ -73,8 +73,8 @@ public class GameBoardCanvas extends JPanel{
 		if(lActionManager.getState().equals(ActionState.MOVING)){
 			Clearing lClearing = lModel.getGameState().getHexGrid().getAdjacentClearingByMouse(lActionManager.getActionList().getCurrentClearing(), 
 																								lMouse);
-			lModel.addToActionTable(lClearing.getIdentifier());
 			if(lClearing != null){
+				lModel.addToActionTable(lClearing.getIdentifier());
 				lActionManager.getActionList().addMoveAction(lClearing);		
 			}
 		}

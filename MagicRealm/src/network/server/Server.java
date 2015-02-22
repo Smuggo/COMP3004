@@ -64,6 +64,7 @@ public class Server implements Runnable{
 				}
 				if(lRequestHeader.equals("UpdatePlayerCharacter")){
 					lServerApp.getGameState().updatePlayer((Player)lInputStream.readObject(), (Integer)lInputStream.readObject()-1);
+					lOutputStream.writeObject(true);
 				}
 				if(lRequestHeader.equals("CreateMap")){
 					lServerApp.getGameState().setHexGrid((HexGrid)lInputStream.readObject());
@@ -77,6 +78,10 @@ public class Server implements Runnable{
 					ActionList lActionList =  (ActionList)lInputStream.readObject();
 					int lPlayer = (Integer)lInputStream.readObject();
 					lServerApp.getGameState().addActionList(lActionList, lPlayer);
+					lOutputStream.writeObject(true);
+				}
+				if(lRequestHeader.equals("ContinueActions")){
+					lServerApp.getGameState().continueExecutingPlayerActionSheets();
 					lOutputStream.writeObject(true);
 				}
 				
