@@ -80,7 +80,6 @@ public class ChitList extends JInternalFrame{
 			c.gridy = i+1;
 			add(chitButtons.get(i), c);
 		}
-		
 		// Attach Button Listener
 		createButtonListeners();
 	}
@@ -91,10 +90,17 @@ public class ChitList extends JInternalFrame{
 			chitButtons.get(i).addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-					chitFactory.addChitManually(correspondingChit, hextile, lostCity, lostCastle, warningChit);
-					// Call another instince
-					lModel.requestChitList(lModel);
-					dispose();
+					// We are adding the last chit
+					if (chitFactory.getSiteSoundLostCastleChits().size() == 1) {
+						chitFactory.addChitManually(correspondingChit, hextile, lostCity, lostCastle, warningChit);
+						dispose();
+					}
+					else {
+						chitFactory.addChitManually(correspondingChit, hextile, lostCity, lostCastle, warningChit);
+						// Call another instince
+						lModel.requestChitList(lModel);
+						dispose();
+					}
 				}
 			});
 		}
@@ -166,9 +172,6 @@ public class ChitList extends JInternalFrame{
 					}
 				}
 			}
-			System.out.println("WE are done");
-			// If we make it this far we have added all the chits to all the hextiles we can
-			dispose();
 		}
 	}
 }
