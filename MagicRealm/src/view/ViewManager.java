@@ -25,7 +25,6 @@ import view.internals.game.PlayerMenu;
 import view.internals.game.Searching;
 import view.internals.game.StartingLocation;
 import view.internals.game.VictoryPoints;
-import view.internals.game.ClearingView;
 
 public class ViewManager {
 	
@@ -47,7 +46,6 @@ public class ViewManager {
 	private ChitPlacementSelection lChitPlacementSelection;
 	private ChitList lChitList;	
 	private ViewModel lModel;
-	private ClearingView lClearingView;
 	
 	public ViewManager(ViewModel aModel){
 		lModel = aModel;
@@ -166,8 +164,6 @@ public class ViewManager {
 	
 	public void showPlayerMenu(){
 		lPlayerMenu = new PlayerMenu(lModel);
-		lClearingView = new ClearingView(lModel);
-		lWindow.addWindow(lClearingView);
 		lWindow.addWindow(lPlayerMenu);
 	}
 	
