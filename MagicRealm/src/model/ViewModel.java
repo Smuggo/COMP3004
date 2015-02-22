@@ -158,14 +158,14 @@ public class ViewModel {
 		lViewManager.showPlayerMenu(aModel);
 	}
 	
-	/*public void requestChitList(ViewModel aModel){
+	public void requestChitList(ViewModel aModel){
 		lViewManager.showChitList(aModel);
-	}*/
+	}
 	
 	// Cheat Mode
-	/*public void requestCheatModeSelection(){
-		lViewManager.showCheatModeSelection();
-	}*/
+	public void requestCheatModeSelection(){
+		//lViewManager.showCheatModeSelection();
+	}
 	
 	public void updateLocalGameState(GameState aGameState){
 		ArrayList<Player> tempList = new ArrayList<>();
