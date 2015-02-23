@@ -260,6 +260,12 @@ public class ViewModel {
 	public void hideConfirmed(){
 		lNetworkManager.sendContinueActions();
 	}
+	public void searchConfirmed(){
+		lNetworkManager.sendContinueActions();
+	}
+	public void moveConfirmed(){
+		lNetworkManager.sendContinueActions();
+	}
 	
 	public void addClearingChits(Clearing aClearing){
 		lViewManager.addClearingChits(aClearing);
@@ -267,6 +273,10 @@ public class ViewModel {
 	
 	public void enableCheat(){
 		lNetworkManager.enableCheat();
+	}
+	
+	public void disposeActionDisplay(){
+		lViewManager.disposeActionDisplay();
 	}
 	
 }

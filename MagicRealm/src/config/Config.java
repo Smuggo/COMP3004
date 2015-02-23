@@ -59,7 +59,7 @@ public final class Config {
 	}
 	
 	public enum DelayPrompt{
-		HIDING
+		HIDING, MOVING, SEARCHING, RESTING
 	}
 	
 	public enum MonsterType{

@@ -200,28 +200,38 @@ public class Hero implements Serializable {
 
 		// Movement
 		if (aActionType.equals(ActionType.MOVE)) {
-			String lTempRoadName1 = aAction.getClearingStart().getOwnedHextile().getName() + " " +
-					aAction.getClearingStart().getNumber() + "-" +
-					aAction.getClearingEnd().getNumber();
-			String lTempRoadName2 = aAction.getClearingStart().getOwnedHextile().getName() + " " +
-					aAction.getClearingEnd().getNumber() + "-" +
-					aAction.getClearingStart().getNumber();
-			
-			if(lHiddenRoadways.containsKey(lTempRoadName1)){
-				if(!lHiddenRoadways.get(lTempRoadName1).getDiscovered()){
-					System.out.println("FAILED TO MOVE");
-					lBlocked = true;
+			if(needsActionInput){
+				needsActionInput = false;
+				System.out.println("Moving");
+				String lTempRoadName1 = aAction.getClearingStart().getOwnedHextile().getName() + " " +
+						aAction.getClearingStart().getNumber() + "-" +
+						aAction.getClearingEnd().getNumber();
+				String lTempRoadName2 = aAction.getClearingStart().getOwnedHextile().getName() + " " +
+						aAction.getClearingEnd().getNumber() + "-" +
+						aAction.getClearingStart().getNumber();
+				
+				if(lHiddenRoadways.containsKey(lTempRoadName1)){
+					if(!lHiddenRoadways.get(lTempRoadName1).getDiscovered()){
+						aAction.setResult("FAILED TO MOVE");
+						System.out.println("FAILED TO MOVE");
+						lBlocked = true;
+					}
 				}
-			}
-			else if(lHiddenRoadways.containsKey(lTempRoadName2)){
-				if(!lHiddenRoadways.get(lTempRoadName2).getDiscovered()){
-					System.out.println("FAILED TO MOVE");
-					lBlocked = true;
+				else if(lHiddenRoadways.containsKey(lTempRoadName2)){
+					if(!lHiddenRoadways.get(lTempRoadName2).getDiscovered()){
+						aAction.setResult("FAILED TO MOVE");
+						System.out.println("FAILED TO MOVE");
+						lBlocked = true;
+					}
 				}
-			}
-			
-			if(!lBlocked && !lBlocked){
-				lClearing = aAction.getClearingEnd();
+				
+				if(!lBlocked && !lBlocked){
+					aAction.setResult("MOVE SUCCESSFUL");
+					lClearing = aAction.getClearingEnd();
+				}
+			}else{
+				needsActionInput = true;
+				return DelayPrompt.MOVING;
 			}
 		}
 
@@ -229,10 +239,14 @@ public class Hero implements Serializable {
 		else if (aActionType.equals(ActionType.HIDE)) {
 			if(needsActionInput){
 				if (lFinalRoll == 6) {
+					aAction.setResult("FAILED TO HIDE; DIE1 = " + lRoll1
+							+ " DIE2 = " + lRoll2);
 					System.out.println("FAILED TO HIDE; DIE1 = " + lRoll1
 							+ " DIE2 = " + lRoll2);
 					hidden = false;
 				} else {
+					aAction.setResult("HIDE SUCCESS; DIE1 = " + lRoll1
+							+ " DIE2 = " + lRoll2);
 					System.out.println("HIDE SUCCESS; DIE1 = " + lRoll1
 							+ " DIE2 = " + lRoll2);
 					hidden = true;
@@ -246,74 +260,91 @@ public class Hero implements Serializable {
 
 		// Searching
 		else if (aActionType.equals(ActionType.SEARCH)) {
-			if (aAction.getSearchType() == SearchType.PEER) {
-				if (lFinalRoll == 1) {
-					System.out.println("NOT IMPLEMENTED: 1");
-				} else if (lFinalRoll == 2) {
-					for(int i = 0; i < lClearing.getRoadways().size(); i++){
-						if(aAction.getClearingStart().getRoadways().get(i).getRoadwayType().equals(RoadwayType.HIDDEN_PATH)){
-							lHiddenRoadways.get(aAction.getClearingStart().getRoadways().get(i).getName()).setDiscovered(true);
-							System.out.println("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
+			if(needsActionInput){
+				needsActionInput = false;
+				if (aAction.getSearchType() == SearchType.PEER) {
+					if (lFinalRoll == 1) {
+						aAction.setResult("ERROR SEARCHING");
+						System.out.println("NOT IMPLEMENTED: 1");
+					} else if (lFinalRoll == 2) {
+						for(int i = 0; i < lClearing.getRoadways().size(); i++){
+							if(aAction.getClearingStart().getRoadways().get(i).getRoadwayType().equals(RoadwayType.HIDDEN_PATH)){
+								lHiddenRoadways.get(aAction.getClearingStart().getRoadways().get(i).getName()).setDiscovered(true);
+								System.out.println("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
+								aAction.setResult("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
+							}
 						}
-					}
-				} else if (lFinalRoll == 3) {
-					for(int i = 0; i < lClearing.getRoadways().size(); i++){
-						if(aAction.getClearingStart().getRoadways().get(i).getRoadwayType().equals(RoadwayType.HIDDEN_PATH)){
-							lHiddenRoadways.get(aAction.getClearingStart().getRoadways().get(i).getName()).setDiscovered(true);
-							System.out.println("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
+					} else if (lFinalRoll == 3) {
+						for(int i = 0; i < lClearing.getRoadways().size(); i++){
+							if(aAction.getClearingStart().getRoadways().get(i).getRoadwayType().equals(RoadwayType.HIDDEN_PATH)){
+								lHiddenRoadways.get(aAction.getClearingStart().getRoadways().get(i).getName()).setDiscovered(true);
+								System.out.println("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
+								aAction.setResult("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
+							}
 						}
+						lViewingHidden = true;
+						
+					} else if (lFinalRoll == 4) {
+						lViewingHidden = true;
+	
+					} else if (lFinalRoll == 5) {
+						System.out.println("NOT IMPLEMENTED: 5");
+						aAction.setResult("ERROR SEARCHING");
+					} else {
+						System.out.println("FAILED TO FIND ANYTHING.");
+						aAction.setResult("FAILED TO FIND ANYTHING");
 					}
-					lViewingHidden = true;
-					
-				} else if (lFinalRoll == 4) {
-					lViewingHidden = true;
-
-				} else if (lFinalRoll == 5) {
-					System.out.println("NOT IMPLEMENTED: 5");
-				} else {
-					System.out.println("FAILED TO FIND ANYTHING.");
+				} else if (aAction.getSearchType() == SearchType.LOCATE) {
+					if (lFinalRoll == 1) {
+						System.out.println("NOT IMPLEMENTED: 1");
+						aAction.setResult("ERROR LOCATING");
+					} else if (lFinalRoll == 2) {
+						for(int i = 0; i < lClearing.getRoadways().size(); i++){
+							if(aAction.getClearingStart().getRoadways().get(i).getRoadwayType().equals(RoadwayType.SECRET_PASSAGE)){
+								lHiddenRoadways.get(aAction.getClearingStart().getRoadways().get(i).getName()).setDiscovered(true);
+								System.out.println("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
+								aAction.setResult("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
+							}
+						}
+	
+					} else if (lFinalRoll == 3) {
+						for(int i = 0; i < lClearing.getRoadways().size(); i++){
+							if(aAction.getClearingStart().getRoadways().get(i).getRoadwayType().equals(RoadwayType.SECRET_PASSAGE)){
+								lHiddenRoadways.get(aAction.getClearingStart().getRoadways().get(i).getName()).setDiscovered(true);
+								System.out.println("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
+								aAction.setResult("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
+							}
+						}
+	
+					} else if (lFinalRoll == 4) {
+						System.out.println("NOT IMPLEMENTED: 4");
+						aAction.setResult("Error");
+					} else {
+						System.out.println("FAILED TO LOCATE ANYTHING.");
+						aAction.setResult("FAILED TO LOCATE ANYTHING");
+					}
+				} else if (aAction.getSearchType() == SearchType.LOOT) {
+					if (lFinalRoll == 1) {
+	
+					} else if (lFinalRoll == 2) {
+	
+					} else if (lFinalRoll == 3) {
+	
+					} else if (lFinalRoll == 4) {
+	
+					} else if (lFinalRoll == 5){
+	
+					} else {
+						
+					}
 				}
-			} else if (aAction.getSearchType() == SearchType.LOCATE) {
-				if (lFinalRoll == 1) {
-					System.out.println("NOT IMPLEMENTED: 1");
-				} else if (lFinalRoll == 2) {
-					for(int i = 0; i < lClearing.getRoadways().size(); i++){
-						if(aAction.getClearingStart().getRoadways().get(i).getRoadwayType().equals(RoadwayType.SECRET_PASSAGE)){
-							lHiddenRoadways.get(aAction.getClearingStart().getRoadways().get(i).getName()).setDiscovered(true);
-							System.out.println("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
-						}
-					}
-
-				} else if (lFinalRoll == 3) {
-					for(int i = 0; i < lClearing.getRoadways().size(); i++){
-						if(aAction.getClearingStart().getRoadways().get(i).getRoadwayType().equals(RoadwayType.SECRET_PASSAGE)){
-							lHiddenRoadways.get(aAction.getClearingStart().getRoadways().get(i).getName()).setDiscovered(true);
-							System.out.println("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
-						}
-					}
-
-				} else if (lFinalRoll == 4) {
-					System.out.println("NOT IMPLEMENTED: 4");
-				} else {
-					System.out.println("FAILED TO LOCATE ANYTHING.");
-				}
-			} else if (aAction.getSearchType() == SearchType.LOOT) {
-				if (lFinalRoll == 1) {
-
-				} else if (lFinalRoll == 2) {
-
-				} else if (lFinalRoll == 3) {
-
-				} else if (lFinalRoll == 4) {
-
-				} else if (lFinalRoll == 5){
-
-				} else {
-					
-				}
+			}else{
+				needsActionInput = true;
+				return DelayPrompt.SEARCHING;
 			}
 		}
 		return null;
+		
 	}
 	
 	public boolean getNeedsActionInput(){
@@ -366,5 +397,9 @@ public class Hero implements Serializable {
 		g2.drawImage(srcImg, 0, 0, w, h, null);
 		g2.dispose();
 		return symbol;
+	}
+	
+	public String getExecutedResult(){
+		return lActionList.getExecutedResult();
 	}
 }

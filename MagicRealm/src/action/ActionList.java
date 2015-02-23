@@ -168,4 +168,11 @@ public class ActionList implements Serializable{
 	public void nextAction(){
 		currentAction++;
 	}
+	
+	public String getExecutedResult(){
+		if(currentAction > 0){
+			return lActions.get(currentAction-1).getResult();
+		}
+		return "";
+	}
 }

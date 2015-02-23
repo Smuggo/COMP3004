@@ -112,9 +112,10 @@ public class GameBoardCanvas extends JPanel{
 	    	}
 	    }
 	
+	    /*
 	    for(int i = 0; i < lGameState.getPlayers().size(); i++){
 	    	g.drawString("Player "+(i+1), lGameState.getPlayers().get(i).lastClick.x, lGameState.getPlayers().get(i).lastClick.y);
-	    }
+	    }*/
 	    
 	   for(int x = -4; x < lHexGrid.getGridRadius() + 1; x++){
 	    	for(int y = -4; y < lHexGrid.getGridRadius() + 1; y++){
