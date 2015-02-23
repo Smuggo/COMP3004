@@ -112,6 +112,20 @@ public class HexGrid implements Serializable{
 		}
 		return lClearing;
 	}
+	
+	public Clearing getClearingByMouse(Point aMouse){
+		Clearing lClearing = null;
+		for(int y = -lRadius; y <= lRadius; y++){
+			for(int x = -lRadius; x <= lRadius; x++){
+				if(getHex(x, y) != null){
+					lClearing = getHex(x, y).getHextile().getClearingByMouse(aMouse);
+				}
+				if(lClearing != null)
+					return lClearing;
+			}
+		}
+		return lClearing;
+	}
 
 	public Dimension getCanvasSize() {
 		return lCanvasSize;
@@ -130,5 +144,9 @@ public class HexGrid implements Serializable{
 			}
 		}
 		return null;
+	}
+	
+	public int getGridRadius(){
+		return lRadius;
 	}
 }

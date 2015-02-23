@@ -2,6 +2,7 @@ package view.internals.game;
 
 import game.GameState;
 import game.environment.hex.Clearing;
+import game.environment.hex.HexGrid;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -69,19 +70,24 @@ public class GameBoardCanvas extends JPanel{
 	
 	public void releaseMouse(MouseEvent arg0){
 		ActionManager lActionManager = lModel.getActionManager();
+		Clearing lClearing;
 		if(lActionManager.getState().equals(ActionState.MOVING)){
-			Clearing lClearing = lModel.getGameState().getHexGrid().getAdjacentClearingByMouse(lActionManager.getActionList().getCurrentClearing(), 
+			lClearing = lModel.getGameState().getHexGrid().getAdjacentClearingByMouse(lActionManager.getActionList().getCurrentClearing(), 
 																								lMouse);
-			lModel.addToActionTable(lClearing.getIdentifier());
 			if(lClearing != null){
+				lModel.addToActionTable(lClearing.getIdentifier());
 				lActionManager.getActionList().addMoveAction(lClearing);		
 			}
+		} else {
+			lClearing = lModel.getGameState().getHexGrid().getClearingByMouse(lMouse);
+			lModel.addClearingChits(lClearing);
 		}
 	}
 	
 	public void paint(Graphics g){
 		
 		GameState lGameState = lModel.getGameState();
+		HexGrid lHexGrid = lModel.getGameState().getHexGrid();
 		ActionManager lActionManager = lModel.getActionManager();
 		
 		g.setColor(Color.white);
@@ -102,21 +108,27 @@ public class GameBoardCanvas extends JPanel{
 	    
 	    for(int i = 1; i < lGameState.getPlayers().size()+1; i++){
 	    	if(lGameState.getPlayer(i)!= null && lGameState.getPlayer(i).getChosenHero() != null){
-	    		lGameState.getPlayer(i).getChosenHero().draw(g, lGameState.getPlayer(i));
+	    		lGameState.getPlayer(i).getChosenHero().draw(lModel.getGameManager(), g, lGameState.getPlayer(i));
 	    	}
 	    }
-
-		
+	
 	    for(int i = 0; i < lGameState.getPlayers().size(); i++){
 	    	g.drawString("Player "+(i+1), lGameState.getPlayers().get(i).lastClick.x, lGameState.getPlayers().get(i).lastClick.y);
 	    }
 	    
-
-	    
-
+	   for(int x = -4; x < lHexGrid.getGridRadius() + 1; x++){
+	    	for(int y = -4; y < lHexGrid.getGridRadius() + 1; y++){
+	    		if(lHexGrid.getHex(x, y) != null){
+	    			if(lHexGrid.getHex(x, y).isActive()){
+	    				if(lHexGrid.getHex(x, y).getHextile().getWarningChit() != null){
+	    					lHexGrid.getHex(x, y).getHextile().getWarningChit().draw(lModel.getGameState(), g, x, y);
+	    				}
+	    				if(lHexGrid.getHex(x, y).getHextile().getOtherChit() != null){
+	    					lHexGrid.getHex(x, y).getHextile().getOtherChit().draw(lModel.getGameState(), g, x, y);
+	    				}
+	    			}
+	    		}
+	    	}
+	    }
 	}
-	
-
-	
-
 }

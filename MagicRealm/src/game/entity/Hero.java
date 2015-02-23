@@ -1,12 +1,17 @@
 package game.entity;
 
+import game.GameManager;
 import game.environment.hex.Clearing;
 import game.environment.hex.Roadway;
 
 import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +21,7 @@ import action.Action;
 import action.ActionList;
 import config.Config.ActionType;
 import config.Config.CharacterImageType;
+import config.Config.DelayPrompt;
 import config.Config.DwellingType;
 import config.Config.RoadwayType;
 import config.Config.SearchType;
@@ -46,6 +52,7 @@ public class Hero implements Serializable {
 	private DwellingType[] startingLocations;
 
 	private ActionList lActionList;
+	private boolean needsActionInput;
 	
 	private Map<String, Roadway> lHiddenRoadways;
 
@@ -65,22 +72,18 @@ public class Hero implements Serializable {
 		hidden = false;
 		lViewingHidden = false;
 		lBlocking = false;
+		needsActionInput = false;
 	}
 
-	public void draw(Graphics g, Player aPlayer) {
+	public void draw(GameManager aManager, Graphics g, Player aPlayer) {
 		if (lClearing != null) {
-			FontMetrics fm = g.getFontMetrics();
-			String string = name + " : " + aPlayer.getUserName();
-			Rectangle2D rect = fm.getStringBounds(string, g);
 			int x = (int) lClearing.getRotPosition().getX();
 			int y = (int) lClearing.getRotPosition().getY();
-
-			g.setColor(new Color(20, 20, 20));
-			g.fillRect(x - 3, y - fm.getAscent(), (int) rect.getWidth() + 6,
-					(int) rect.getHeight());
-			g.setColor(new Color(0, 200, 200));
-			g.drawString(string, x, y);
-			g.setColor(Color.black);
+			
+			if(!hidden)
+				g.drawImage(getScaledImage(aManager.getCharacterImage(characterChit), 50, 50), x - 25, y - 25, Color.WHITE, null);
+			else
+				g.drawImage(getScaledImage(aManager.getCharacterImage(characterChit), 50, 50), x - 25, y - 25, Color.GREEN, null);
 		}
 	}
 
@@ -178,7 +181,7 @@ public class Hero implements Serializable {
 		lBlocked = aBlocked;
 	}
 
-	public void executeAction(Action aAction) {
+	public DelayPrompt executeAction(Action aAction) {
 		ActionType aActionType = aAction.getActionType();
 		Random lRandomGenerator = new Random();
 		int lRoll1 = lRandomGenerator.nextInt(6) + 1;
@@ -189,6 +192,11 @@ public class Hero implements Serializable {
 			lFinalRoll = lRoll1;
 		else
 			lFinalRoll = lRoll2;
+		
+		if(aAction.getRoll() != -1){
+			System.out.println("CHEATING ROLL: " + aAction.getRoll());
+			lFinalRoll = aAction.getRoll();
+		}
 
 		// Movement
 		if (aActionType.equals(ActionType.MOVE)) {
@@ -219,13 +227,20 @@ public class Hero implements Serializable {
 
 		// Hiding
 		else if (aActionType.equals(ActionType.HIDE)) {
-			if (lFinalRoll == 6) {
-				System.out.println("FAILED TO HIDE; DIE1 = " + lRoll1
-						+ " DIE2 = " + lRoll2);
-			} else {
-				System.out.println("HIDE SUCCESS; DIE1 = " + lRoll1
-						+ " DIE2 = " + lRoll2);
-				hidden = true;
+			if(needsActionInput){
+				if (lFinalRoll == 6) {
+					System.out.println("FAILED TO HIDE; DIE1 = " + lRoll1
+							+ " DIE2 = " + lRoll2);
+					hidden = false;
+				} else {
+					System.out.println("HIDE SUCCESS; DIE1 = " + lRoll1
+							+ " DIE2 = " + lRoll2);
+					hidden = true;
+				}
+				needsActionInput = false;
+			}else{
+				needsActionInput = true;
+				return DelayPrompt.HIDING;
 			}
 		}
 
@@ -298,20 +313,41 @@ public class Hero implements Serializable {
 				}
 			}
 		}
+		return null;
+	}
+	
+	public boolean getNeedsActionInput(){
+		return needsActionInput;
 	}
 
-	public void executeTurn() {
-		for (int i = 0; i < lActionList.getActions().size(); i++) {
-			Action lAction = lActionList.getActions().get(i);
-			if (lActionList.getActionPoints() >= lAction.getCost()) {
-				executeAction(lAction);
-				lActionList.modifyActionPoints(-lAction.getCost());
+	public DelayPrompt executeTurn() {
+		while(lActionList.incomplete()){
+			if(lActionList.getCurrentAction() < lActionList.getActions().size()){
+				Action lAction = lActionList.getActions().get(lActionList.getCurrentAction());
+				if (lActionList.getActionPoints() >= lAction.getCost()) {
+					DelayPrompt r = executeAction(lAction);
+					if(needsActionInput){
+						return r;
+					}
+					lActionList.modifyActionPoints(-lAction.getCost());
+					lActionList.nextAction();
+				}else{
+					lActionList.complete();
+				}
+			}else{
+				lActionList.complete();
 			}
+			System.out.println(lActionList.incomplete());
 		}
+		return null;
 	}
 
 	public void addActionList(ActionList aActionList) {
 		lActionList = aActionList;
+	}
+	
+	public ActionList getActionList(){
+		return lActionList;
 	}
 
 	public boolean hasUpToDateActionSheet(int aTurn) {
@@ -321,5 +357,14 @@ public class Hero implements Serializable {
 			}
 		}
 		return false;
+	}
+	
+	private Image getScaledImage(Image srcImg, int w, int h){
+		BufferedImage symbol = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2 = symbol.createGraphics();
+		g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		g2.drawImage(srcImg, 0, 0, w, h, null);
+		g2.dispose();
+		return symbol;
 	}
 }

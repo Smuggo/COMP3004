@@ -4,5 +4,7 @@
 
 
 .metadata
-*/bin
+bin/*
+/.recommenders
+/MagicRealm/.gitignore
 /MagicRealm/bin

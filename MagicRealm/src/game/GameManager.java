@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 
 import config.Config.CharacterImageType;
 import config.Config.DwellingType;
+import config.Config.MonsterType;
 import config.ImageMap;
 import game.environment.EnvironmentManager;
 import game.environment.hex.HexGrid;
@@ -32,7 +33,6 @@ public class GameManager {
 	public Dimension createNewMap(){
 		return lEnvironmentManager.createNewMap(gameImages, lHiddenRoadways);
 	}
-	
 	public HexGrid getGrid(){
 		return lEnvironmentManager.getHexGrid();
 	}
@@ -49,6 +49,11 @@ public class GameManager {
 		return gameImages.getDwellingImage(aDwellingType);
 	}
 	
+	// Return monster image
+	public BufferedImage getMonsterImage(MonsterType aMonsterType){
+		return gameImages.getMonsterImage(aMonsterType);
+	}
+	
 	public BufferedImage getHexImage(String aHexType){
 		return gameImages.getHexImage(aHexType);
 	}
@@ -57,7 +62,15 @@ public class GameManager {
 		return gameImages;
 	}
 	
+	public EnvironmentManager getEnvironmentManager() {
+		return lEnvironmentManager;
+	}
+	
 	public void setHiddenRoads(){
 		characters.setHiddenRoadways(lHiddenRoadways);
+	}
+
+	public Dimension getMapDimension() {
+		return lEnvironmentManager.getHexGrid().getCanvasSize();
 	}
 }

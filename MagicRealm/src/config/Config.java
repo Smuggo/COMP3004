@@ -13,7 +13,7 @@ public final class Config {
 	public static boolean drawingHexCoords = true;
 	public static boolean drawingClearingBoxes = true;
 	public static boolean drawingRoadways = true;
-	
+		
 	public enum RoadwayType {
 		TUNNEL, OPEN_ROAD, HIDDEN_PATH, SECRET_PASSAGE
 	}
@@ -52,5 +52,17 @@ public final class Config {
 	
 	public enum SearchType {
 		PEER, LOCATE, LOOT
+	}
+	
+	public enum TurnState{
+		SELECTING, EXECUTING
+	}
+	
+	public enum DelayPrompt{
+		HIDING
+	}
+	
+	public enum MonsterType{
+		GHOST
 	}
 }

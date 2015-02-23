@@ -2,6 +2,7 @@ package model;
 
 import game.GameManager;
 import game.GameState;
+import game.environment.hex.Clearing;
 import game.environment.hex.HexGrid;
 import game.entity.Hero;
 import game.entity.Player;
@@ -13,6 +14,8 @@ import java.util.Map;
 
 import action.ActionManager;
 import config.Config.ActionState;
+import config.Config.ActionType;
+import config.Config.SearchType;
 import config.ImageMap;
 import network.NetworkManager;
 import network.packet.PlayerPacket;
@@ -28,6 +31,7 @@ public class ViewModel {
 	
 	boolean isServer;
 	int lLocalPlayerNumber;
+	boolean doneInit = false;
 	
 	public ViewModel(NetworkManager aNetworkManager){
 		isServer = false;
@@ -108,17 +112,29 @@ public class ViewModel {
 	
 	
 	public void startGame(){
-		updateLocalGameState(lNetworkManager.refreshGameState());
-		lGameManager.createNewMap();
 		
-		lNetworkManager.createNewMap(lGameManager.getGrid());
+		if(lLocalPlayerNumber == 1 && !doneInit){
+			lNetworkManager.createNewMap(lGameManager.getGrid());
+			lNetworkManager.notifyClientsGameStarting();
+			doneInit = true;
+			return;
+		}
+		
+		updateLocalGameState(lNetworkManager.refreshGameState());
+		
+		if(lLocalPlayerNumber != 1){
+			lGameManager.createNewMap();
+		}
+		
+		Dimension lMapSize = lGameState.getHexGrid().getCanvasSize();
 		
 		lViewManager.clearMenu();
+
 		lViewManager.createCharacterView();
 		
-		Dimension lMapSize = lGameManager.createNewMap();
 		lViewManager.clearMenu();
 		lViewManager.newGameBoard(lMapSize);
+		
 		lGameManager.setHiddenRoads();
 	}
 	
@@ -147,12 +163,16 @@ public class ViewModel {
 		lNetworkManager.updatePlayerCharacter(lGameState, lLocalPlayerNumber);
 	}
 	
-	public void requestStartingLocation(ViewModel aModel){
-		lViewManager.showStartingLocations(aModel);
+	public void requestStartingLocation(){
+		lViewManager.showStartingLocations();
 	}
 	
-	public void requestPlayerMenu(ViewModel aModel){
-		lViewManager.showPlayerMenu(aModel);
+	public void requestPlayerMenu(){
+		lViewManager.showPlayerMenu();
+	}
+	
+	public void requestChitList(){
+		lViewManager.showChitList();
 	}
 	
 	public void updateLocalGameState(GameState aGameState){
@@ -196,9 +216,7 @@ public class ViewModel {
 	
 	public void setPlayerStartingLocation(String aDwelling){
 		lActionManager.createNewTurn(lNetworkManager.setPlayerStartingLocation(aDwelling));
-
 	}
-	
 	
 	public void setLocalActionState(ActionState aActionState){
 		lActionManager.setState(aActionState);
@@ -217,11 +235,35 @@ public class ViewModel {
 		lViewManager.addToActionTable(aClearingID);
 	}
 	
-	public void requestSearching(ViewModel aModel){
-		lViewManager.showSearching(aModel);
+	public void requestSearching(){
+		lViewManager.showSearching();
+	}
+	
+	public void requestDieRoller(ActionType aActionType, SearchType aSearchType){
+		lViewManager.showDieRoller(aActionType, aSearchType);
 	}
 	
 	public void enableOrDisablePlayer(boolean aButtonState){
 		lViewManager.enableOrDisablePlayer(aButtonState);
 	}
+
+	public void promptCheatMode() {
+		lGameManager.createNewMap();
+		lViewManager.clearMenu();
+		lNetworkManager.enableCheat();
+		
+		if (lLocalPlayerNumber == 1) {
+			lViewManager.showChitPlacementSelection();
+		}
+
+	}
+	
+	public void hideConfirmed(){
+		lNetworkManager.sendContinueActions();
+	}
+	
+	public void addClearingChits(Clearing aClearing){
+		lViewManager.addClearingChits(aClearing);
+	}
+	
 }

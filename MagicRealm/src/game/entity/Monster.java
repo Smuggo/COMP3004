@@ -1,5 +1,7 @@
 package game.entity;
 
+import config.Config.MonsterType;
+
 public class Monster {
 	//Represents monsters in the Magic Realm
 	
@@ -17,12 +19,14 @@ public class Monster {
 	private char alertedHarm;
 	private int  alertedAttackSpeed;
 	private int  alertedMoveSpeed;
+	private MonsterType monsterType;
 	
 	public Monster(String mName, String s, char uH, int uAS, int uMS, char aH, int aAS, int aMS, 
-				   boolean iA){
+				   boolean iA, MonsterType mT){
 		
 		name = mName;
 		size = s;
+	
 		
 		unalertedHarm = uH;
 		unalertedAttackSpeed = uAS;
@@ -34,6 +38,7 @@ public class Monster {
 		
 		armoured = iA;
 		alerted = false;
+		monsterType = mT;
 	}
 	
 	public String getName()        { return name; }
@@ -49,4 +54,6 @@ public class Monster {
 	
 	public boolean isAlerted() 	   { return alerted; }
 	public boolean isArmoured()    { return armoured; }
+	
+	public MonsterType getMonsterType() {return monsterType; }
 }

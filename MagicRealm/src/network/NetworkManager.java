@@ -110,4 +110,13 @@ public class NetworkManager {
 	public void sendActions(ActionList aActionList){
 		lLocalClient.sendActionList(aActionList, lLocalPlayerNumber);
 	}
+	
+	public void sendContinueActions(){
+		lLocalClient.sendContinueActions();
+	}
+	
+	public void enableCheat(){
+		lLocalClient.sendEnableCheat();
+	}
+	
 }

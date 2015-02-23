@@ -133,11 +133,10 @@ public class NewGameView extends JInternalFrame{
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				lModel.notifyClientsGameStarting();
+				// Ask the user if they would like cheat mode then start game
+				lModel.promptCheatMode();
 			}
 		});
-		
-		
 	}
 	
 	

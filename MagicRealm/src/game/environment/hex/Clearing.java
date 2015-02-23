@@ -1,6 +1,8 @@
 package game.environment.hex;
 
 
+import game.entity.Monster;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -14,6 +16,7 @@ import java.util.Map;
 import config.Config;
 import config.Config.ClearingType;
 import config.Config.DwellingType;
+import config.Config.MonsterType;
 import config.Config.RoadwayType;
 import config.ImageMap;
 
@@ -31,7 +34,10 @@ public class Clearing implements Serializable{
 	private Hex ownedHex;
 	private Hextile lOwnedHextile;
 	private DwellingType lDwellingType;
+	private ArrayList<Monster> monsters = new ArrayList<Monster>();
 
+	// Testing, do this correct later
+	boolean ghosts = false;
 	
 	public Clearing() {
 		roadways = new ArrayList<Roadway>();
@@ -52,6 +58,8 @@ public class Clearing implements Serializable{
 		}
 		return 1;
 	}
+	
+
 
 	public Hex getOwnedHex(){
 		return ownedHex;
@@ -99,7 +107,7 @@ public class Clearing implements Serializable{
 		number = n;
 		identifier = abbreviation + n;
 		clearingType = cT;
-		lDwellingType = dwellingType;
+		//lDwellingType = dwellingType;
 		lOwnedHextile = aOwnedHextile;
 	}
 
@@ -132,6 +140,12 @@ public class Clearing implements Serializable{
 
 		if(lDwellingType != null){
 			g.drawImage(aImageMap.getDwellingImage(lDwellingType), newP.x, newP.y, Color.ORANGE, null);
+		}
+		//if(monsters.size() != 0){
+			//g.drawImage(aImageMap.getMonsterImage(monsters.get(0).getMonsterType()), newP.x, newP.y, Color.GREEN, null);
+		//}
+		if(ghosts){
+			g.drawImage(aImageMap.getMonsterImage(MonsterType.GHOST), newP.x, newP.y, Color.GREEN, null);
 		}
 	}
 	
@@ -176,6 +190,10 @@ public class Clearing implements Serializable{
 	public DwellingType getDwellingType(){
 		return lDwellingType;
 	}
+	
+	public void setDwellingType(DwellingType dT){
+		lDwellingType = dT;
+	}
 
 	public ArrayList<Roadway> getRoadways(){
 		return roadways;
@@ -188,5 +206,14 @@ public class Clearing implements Serializable{
 	
 	public Hextile getOwnedHextile(){
 		return lOwnedHextile;
+	}
+	
+	public void addMonsters(ArrayList<Monster> m) {
+		for (int i = 0; i < m.size(); i++) {
+			//System.out.println(m.get(i).getName());
+			//monsters.add(m.get(i));
+			ghosts = true;
+		}
+		
 	}
 }
