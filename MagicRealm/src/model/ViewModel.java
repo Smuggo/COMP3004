@@ -245,6 +245,10 @@ public class ViewModel {
 		lViewManager.showDieRoller(aActionType, aSearchType);
 	}
 	
+	public void requestSearchChoice(SearchType aSearchType){
+		lViewManager.showSearchChoiceSelection(aSearchType);
+	}
+	
 	public void enableOrDisablePlayer(boolean aButtonState){
 		lViewManager.enableOrDisablePlayer(aButtonState);
 	}

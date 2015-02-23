@@ -28,6 +28,7 @@ import view.internals.game.CharacterList;
 import view.internals.game.ChitList;
 import view.internals.game.ChitPlacementSelection;
 import view.internals.game.PlayerMenu;
+import view.internals.game.SearchChoiceSelection;
 import view.internals.game.Searching;
 import view.internals.game.StartingLocation;
 import view.internals.game.VictoryPoints;
@@ -54,6 +55,7 @@ public class ViewManager {
 	private ChitList lChitList;	
 	private ViewModel lModel;
 	private DieRoller lDieRoller;
+	private SearchChoiceSelection lSearchChoice;
 	
 	public ViewManager(ViewModel aModel){
 		lModel = aModel;
@@ -226,5 +228,10 @@ public class ViewManager {
 	public void showDieRoller(ActionType aActionType, SearchType aSearchType){
 		lDieRoller = new DieRoller(lModel, aActionType, aSearchType);
 		lWindow.addWindow(lDieRoller);
+	}
+	
+	public void showSearchChoiceSelection(SearchType aSearchType){
+		lSearchChoice = new SearchChoiceSelection(lModel, aSearchType);
+		lWindow.addWindow(lSearchChoice);
 	}
 }
