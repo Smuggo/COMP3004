@@ -55,8 +55,8 @@ public class NewGameView extends JInternalFrame{
 		int xScreen = (int)lScreenSize.getWidth();
 		int yScreen = (int)lScreenSize.getHeight();
 		
-		int xSize = 800;
-		int ySize = 600;
+		int xSize = 300;
+		int ySize = 400;
 		
 		
 		setPreferredSize(new Dimension(xSize,ySize));

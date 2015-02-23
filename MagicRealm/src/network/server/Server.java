@@ -1,4 +1,5 @@
 package network.server;
+import game.entity.Hero;
 import game.entity.Player;
 import game.environment.hex.Clearing;
 import game.environment.hex.HexGrid;
@@ -63,7 +64,7 @@ public class Server implements Runnable{
 					lOutputStream.writeObject(true);
 				}
 				if(lRequestHeader.equals("UpdatePlayerCharacter")){
-					lServerApp.getGameState().updatePlayer((Player)lInputStream.readObject(), (Integer)lInputStream.readObject()-1);
+					lServerApp.getGameState().updatePlayer((Hero)lInputStream.readObject(), (Integer)lInputStream.readObject()-1);
 					lOutputStream.writeObject(true);
 				}
 				if(lRequestHeader.equals("CreateMap")){

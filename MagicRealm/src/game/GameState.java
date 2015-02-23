@@ -11,6 +11,7 @@ import config.Config.DelayPrompt;
 import config.Config.TurnState;
 import action.Action;
 import action.ActionList;
+import game.entity.Hero;
 import game.entity.Player;
 import game.environment.hex.Clearing;
 import game.environment.hex.HexGrid;
@@ -36,6 +37,7 @@ public class GameState implements Serializable{
 		lTurnState = TurnState.SELECTING;
 		lTurnPlayerExecuting = 0;
 		lDelayPrompt = null;
+		lCheating = false;
 	}
 	
 	//Version
@@ -57,8 +59,8 @@ public class GameState implements Serializable{
 		lPlayers.get(aPlayer-1).lastClick = aPoint;
 	}
 	
-	public void updatePlayer(Player aPlayer, int aPlayerNum){
-		lPlayers.get(aPlayerNum).setHero(aPlayer.getChosenHero());
+	public void updatePlayer(Hero aHero, int aPlayerNum){
+		lPlayers.get(aPlayerNum).setHero(aHero);
 	}
 	
 	public HexGrid getHexGrid(){

@@ -135,9 +135,6 @@ public class Clearing implements Serializable{
 
 		Point newP = new Point((int)x-(clearingDiameter/2), (int)y-(clearingDiameter/2));
 
-
-		g.drawOval(newP.x,newP.y, clearingDiameter, clearingDiameter);
-
 		if(lDwellingType != null){
 			g.drawImage(aImageMap.getDwellingImage(lDwellingType), newP.x, newP.y, Color.ORANGE, null);
 		}
@@ -147,6 +144,20 @@ public class Clearing implements Serializable{
 		if(ghosts){
 			g.drawImage(aImageMap.getMonsterImage(MonsterType.GHOST), newP.x, newP.y, Color.GREEN, null);
 		}
+	}
+	
+	public void drawBorder(Graphics g, int centerX, int centerY, int degrees, ImageMap aImageMap){
+		double angle = Math.toRadians(degrees);
+		Point p = new Point((int)(centerX+(position.getX())), (int)(centerY+(position.getY())));
+
+		double x = Math.cos(angle) * (p.x-centerX) - Math.sin(angle) * (p.y-centerY) + centerX;
+		double y = Math.sin(angle) * (p.x-centerX) + Math.cos(angle) * (p.y-centerY) + centerY;
+
+		Point newP = new Point((int)x-(clearingDiameter/2), (int)y-(clearingDiameter/2));
+
+
+		g.drawOval(newP.x,newP.y, clearingDiameter, clearingDiameter);
+
 	}
 	
 	

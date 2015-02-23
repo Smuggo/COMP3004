@@ -105,6 +105,7 @@ public class ChitPlacementSelection extends JInternalFrame{
 		  {
 			  lModel.getGameManager().getEnvironmentManager().getChitFactory().addChitsManually();
 			  lModel.requestChitList();
+			  lModel.enableCheat();
 			  dispose();
 		  }
 		});

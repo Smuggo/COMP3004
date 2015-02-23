@@ -10,9 +10,9 @@ public final class Config {
 	public static boolean isDebugging = true;
 	public static int lMaxPlayers = 7;
 	
-	public static boolean drawingHexCoords = true;
-	public static boolean drawingClearingBoxes = true;
-	public static boolean drawingRoadways = true;
+	public static boolean drawingHexCoords = false;
+	public static boolean drawingClearingBoxes = false;
+	public static boolean drawingRoadways = false;
 		
 	public enum RoadwayType {
 		TUNNEL, OPEN_ROAD, HIDDEN_PATH, SECRET_PASSAGE

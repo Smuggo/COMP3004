@@ -39,12 +39,12 @@ public class CharacterView extends JInternalFrame{
 	private ViewModel lModel;
 	
 	public CharacterView(ViewModel aModel){
-		super("Character List",false,false,false,true);
+		super("Character List",true,false,false,true);
 		
 		lModel = aModel;
 
 		int xSize = aModel.getScreenDimensions().width/2;
-		int ySize = 400;
+		int ySize = 300;
 		
 		setPreferredSize(new Dimension(xSize, ySize));
 		setSize(xSize, ySize);
@@ -73,6 +73,7 @@ public class CharacterView extends JInternalFrame{
 		c.gridy = 0;
 		c.insets = new Insets(0,0,5,10);
 		add(removeCharacter, c);
+		removeCharacter.setEnabled(false);
 		
 		characterList = new JTable(new DefaultTableModel(new Object[]{"Character", "Player Name", "Symbol"}, 0))
 		{
@@ -166,6 +167,7 @@ public class CharacterView extends JInternalFrame{
 	public JButton getChooseCharacter(){ return chooseCharacter; }
 	
 	public void updateCharacterTable(ArrayList<Player> aPlayers){	
+		
 		for(Player player: aPlayers){
 			if(player.getChosenHero() != null){
 				setCharacterTableData(player.getChosenHero().getName(), player.getUserName());

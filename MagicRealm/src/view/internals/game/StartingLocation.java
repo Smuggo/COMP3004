@@ -32,8 +32,18 @@ public class StartingLocation extends JInternalFrame{
 		lModel = aModel;
 		cStartingLocations = lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().getStartingLocations();
 		
-		setPreferredSize(new Dimension(500, 500));
-		setSize(500, 500);
+		int xSize = 300;
+		int ySize = 400;
+		
+		setPreferredSize(new Dimension(xSize, ySize));
+		setSize(xSize, ySize);
+		
+		Dimension lScreenSize = lModel.getScreenDimensions();
+		
+		int xScreen = (int)lScreenSize.getWidth();
+		int yScreen = (int)lScreenSize.getHeight();
+		
+		setLocation((xScreen/4)-(xSize/2), (yScreen/2)-(ySize/2));
 		
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();

@@ -9,7 +9,7 @@ import config.Config.DwellingType;
 import config.ImageMap;
 import config.Config.HextileType;
 import game.chit.ChitFactory;
-import game.dwelling.DwellingFactory;
+//import game.dwelling.DwellingFactory;
 import game.entity.Monster;
 import game.entity.MonsterFactory;
 import game.environment.hex.HexGrid;
@@ -22,7 +22,7 @@ public class EnvironmentManager {
 
 	private HexGrid lHexGrid;
 	private ChitFactory lChitFactory;
-	private DwellingFactory lDwellingFactory;
+	//private DwellingFactory lDwellingFactory;
 	private ArrayList<Hextile> hextiles;
 	
 	public EnvironmentManager() {

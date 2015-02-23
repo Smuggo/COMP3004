@@ -39,7 +39,7 @@ public class GameBoardView extends JInternalFrame{
 	JScrollPane lChits;
 	
 	public GameBoardView(ViewModel aModel, Dimension aCanvasSize){
-		super("Game Board",false,false,false,true);
+		super("Game Board",true,false,false,true);
 		
 		this.setDoubleBuffered(true);
 		

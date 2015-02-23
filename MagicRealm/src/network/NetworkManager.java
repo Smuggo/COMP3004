@@ -4,6 +4,8 @@ import java.awt.Point;
 
 import action.ActionList;
 import game.GameState;
+import game.entity.Hero;
+import game.entity.Player;
 import game.environment.hex.Clearing;
 import game.environment.hex.HexGrid;
 import model.ViewModel;
@@ -88,8 +90,8 @@ public class NetworkManager {
 		lLocalClient.updateStateWithPlayerClicked(lLocalPlayerNumber, aPoint);
 	}
 	
-	public void updatePlayerCharacter(GameState aGameState, int aLocalPlayerNumber){
-		lLocalClient.setPlayerCharacter(aGameState, aLocalPlayerNumber);
+	public void updatePlayerCharacter(Hero aHero, int aLocalPlayerNumber){
+		lLocalClient.setPlayerCharacter(aHero, aLocalPlayerNumber);
 	}
 	
 	public void updateLocalGameState(GameState aGameState){

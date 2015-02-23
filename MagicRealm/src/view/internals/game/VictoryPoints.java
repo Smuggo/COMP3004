@@ -57,6 +57,13 @@ public class VictoryPoints extends JInternalFrame{
 		setPreferredSize(new Dimension(xSize, ySize));
 		setSize(xSize, ySize);
 		
+		Dimension lScreenSize = lModel.getScreenDimensions();
+		
+		int xScreen = (int)lScreenSize.getWidth();
+		int yScreen = (int)lScreenSize.getHeight();
+		
+		setLocation((xScreen/4)-(xSize/2), (yScreen/2)-(ySize/2));
+		
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		

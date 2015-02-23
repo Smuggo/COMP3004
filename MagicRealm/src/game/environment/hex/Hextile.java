@@ -85,6 +85,13 @@ public class Hextile implements Serializable{
 		}
 	}
 	
+	public void drawClearingBorders(Graphics g, int centerX, int centerY, ImageMap aImageMap){
+		for(int i = 0; i < clearings.size(); i++){
+			Clearing lClearing = clearings.get(i);
+			lClearing.drawBorder(g, centerX, centerY, rotation, aImageMap);
+		}
+	}
+	
 	public void drawSelectedClearing(Graphics g, int centerX, int centerY, Point aMouse){
 		for(int i = 0; i < clearings.size(); i++){
 			Clearing lClearing = clearings.get(i);

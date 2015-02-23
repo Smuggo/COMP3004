@@ -108,6 +108,8 @@ public class Hex implements Serializable{
 			g2.setStroke(new BasicStroke(3));
 			g2.drawPolygon(x,y,6);
 			g2.setStroke(new BasicStroke(1));
+			
+			hextile.drawClearings(g, lCenterX, lCenterY, aImageMap);
 
 			
 			if(Config.drawingHexCoords){
@@ -119,7 +121,7 @@ public class Hex implements Serializable{
 			}
 			
 			if(Config.drawingClearingBoxes){
-				hextile.drawClearings(g, lCenterX, lCenterY, aImageMap);
+				hextile.drawClearingBorders(g, lCenterX, lCenterY, aImageMap);
 			}
 			
 			
