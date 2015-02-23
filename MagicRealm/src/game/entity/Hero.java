@@ -192,6 +192,11 @@ public class Hero implements Serializable {
 			lFinalRoll = lRoll1;
 		else
 			lFinalRoll = lRoll2;
+		
+		if(aAction.getRoll() != -1){
+			System.out.println("CHEATING ROLL: " + aAction.getRoll());
+			lFinalRoll = aAction.getRoll();
+		}
 
 		// Movement
 		if (aActionType.equals(ActionType.MOVE)) {
@@ -226,6 +231,7 @@ public class Hero implements Serializable {
 				if (lFinalRoll == 6) {
 					System.out.println("FAILED TO HIDE; DIE1 = " + lRoll1
 							+ " DIE2 = " + lRoll2);
+					hidden = false;
 				} else {
 					System.out.println("HIDE SUCCESS; DIE1 = " + lRoll1
 							+ " DIE2 = " + lRoll2);

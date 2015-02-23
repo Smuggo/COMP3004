@@ -37,23 +37,27 @@ public class Action implements Serializable {
 	public void createMoveAction(Clearing aClearingStart, Clearing aClearingEnd) {
 		lActionType = ActionType.MOVE;
 		cost = 1;
+		lRoll = -1;
 		lClearingStart = aClearingStart;
 		lClearingEnd = aClearingEnd;
 	}
 
 	public void createHideAction() {
 		lActionType = ActionType.HIDE;
+		lRoll = -1;
 		cost = 1;
 	}
 
 	public void createRestAction() {
 		lActionType = ActionType.REST;
+		lRoll = -1;
 		cost = 1;
 	}
 
 	public void createSearchAction(Clearing aClearingStart) {
 		lClearingStart = aClearingStart;
 		lActionType = ActionType.SEARCH;
+		lRoll = -1;
 		cost = 1;
 	}
 
