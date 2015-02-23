@@ -1,5 +1,7 @@
 package game.environment.hex;
 
+import game.entity.Monster;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -20,9 +22,11 @@ public class HexGrid implements Serializable{
 	private Hex lCenterHex;
 	private int lRadius;
 	private Dimension lCanvasSize;
+	private ArrayList<Monster> lMonsters;
 	
 	public HexGrid(int aRadius, Dimension aCanvasSize, ArrayList<Hextile> hextiles){
 		lRadius = aRadius;
+		lMonsters = new ArrayList<Monster>();
 		
 		int lGridSize = (2*aRadius)+1;
 		lGrid = new Hex[lGridSize][lGridSize];
@@ -148,5 +152,13 @@ public class HexGrid implements Serializable{
 	
 	public int getGridRadius(){
 		return lRadius;
+	}
+	
+	public ArrayList<Monster> getMonsters(){
+		return lMonsters;
+	}
+	
+	public void addMonster(Monster aMonster){
+		lMonsters.add(aMonster);
 	}
 }

@@ -2,6 +2,7 @@ package view.internals.game;
 
 import game.chit.Chit;
 import game.chit.ChitFactory;
+import game.entity.Monster;
 import game.environment.hex.Hextile;
 
 import java.awt.Dimension;

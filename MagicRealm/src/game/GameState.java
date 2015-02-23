@@ -14,6 +14,7 @@ import config.Config.TurnState;
 import action.Action;
 import action.ActionList;
 import game.entity.Hero;
+import game.entity.Monster;
 import game.entity.Player;
 import game.environment.hex.Clearing;
 import game.environment.hex.HexGrid;

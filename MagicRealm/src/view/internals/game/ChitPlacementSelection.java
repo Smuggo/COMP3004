@@ -1,5 +1,7 @@
 package view.internals.game;
 
+import game.entity.Monster;
+
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

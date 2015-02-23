@@ -38,7 +38,7 @@ public class ViewModel {
 	
 	public ViewModel(NetworkManager aNetworkManager){
 		isServer = false;
-		lGameManager = new GameManager();
+		lGameManager = new GameManager(this);
 		lActionManager = new ActionManager();
 		lHiddenRoadways = new HashMap<String, Roadway>();
 	}

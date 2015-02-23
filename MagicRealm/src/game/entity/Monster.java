@@ -1,10 +1,18 @@
 package game.entity;
 
+import game.environment.hex.Clearing;
 import config.Config.MonsterType;
+import java.io.Serializable; 
 
-public class Monster {
+public class Monster implements Serializable{
 	//Represents monsters in the Magic Realm
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4686595445356482134L;
+	
+	private Clearing lClearing;
 	private String name;
 	private String size;
 	private boolean alerted;
@@ -49,8 +57,10 @@ public class Monster {
 	public int  getAlertedAS()     { return alertedAttackSpeed; }
 	public int  getAlertedMS()     { return alertedMoveSpeed; }
 	public String  getSize()       { return size; }
+	public Clearing getClearing(){ return lClearing;}
 	
 	public void setAlerted(boolean newState){ alerted = newState; }
+	public void setClearing(Clearing aClearing){ lClearing = aClearing; }
 	
 	public boolean isAlerted() 	   { return alerted; }
 	public boolean isArmoured()    { return armoured; }

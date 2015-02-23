@@ -6,6 +6,7 @@ import java.util.Map;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 
+import model.ViewModel;
 import config.Config.CharacterImageType;
 import config.Config.DwellingType;
 import config.Config.MonsterType;
@@ -22,8 +23,8 @@ public class GameManager {
 	private HeroFactory   characters;
 	private ImageMap gameImages;
 	
-	public GameManager(){
-		lEnvironmentManager = new EnvironmentManager();
+	public GameManager(ViewModel aModel){
+		lEnvironmentManager = new EnvironmentManager(aModel);
 		characters = new HeroFactory();
 		gameImages = new ImageMap();
 	}

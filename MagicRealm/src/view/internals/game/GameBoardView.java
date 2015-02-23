@@ -2,23 +2,15 @@ package view.internals.game;
 
 import game.environment.hex.Clearing;
 import game.entity.Player;
-import config.Config.CharacterImageType;
+import game.entity.Monster;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.ScrollPane;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -108,12 +100,14 @@ public class GameBoardView extends JInternalFrame{
 			lCanvas.repaint();
 	}
 	
+	//Adds all of the characters and monsters to the clearing display
 	public void addClearingChits(Clearing aClearing){
 		ArrayList<String> lCharacterNames = new ArrayList<String>();
 		JPanel lPanel = new JPanel();
 		lPanel.setSize((int)lModel.getScreenDimensions().getWidth()/2, 25);
 		
 		if(lModel.getGameState() != null){
+			//Adds Heroes
 			for(Player aPlayer: lModel.getGameState().getPlayers()){
 				if(aPlayer.getChosenHero() != null){
 					if(aPlayer.getChosenHero().getClearing() != null){
@@ -123,8 +117,19 @@ public class GameBoardView extends JInternalFrame{
 					}
 				}
 			}
+			
+			//Adds Monsters
+			for(Monster aMonster: lModel.getGameState().getHexGrid().getMonsters()){
+				if(aMonster.getClearing() != null){
+					if(aMonster.getClearing().getIdentifier().equals(aClearing.getIdentifier())){
+						lCharacterNames.add(aMonster.getName());
+					}
+				}
+			}
 		
 			for(int i = 0; i < lCharacterNames.size(); i++){
+				/*A JScrollFrame only accepts one JPanel, so make a JPanel that has a bunch
+				  of JPanels inside of it then add that to the JScrollFrame.*/
 				JPanel imagePanel = new JPanel();
 				imagePanel.add(new JLabel(lCharacterNames.get(i)));
 				

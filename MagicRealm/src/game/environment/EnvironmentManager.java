@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Map;
 
+import model.ViewModel;
 import config.Config;
 import config.Config.DwellingType;
 import config.ImageMap;
@@ -24,9 +25,10 @@ public class EnvironmentManager {
 	private ChitFactory lChitFactory;
 	//private DwellingFactory lDwellingFactory;
 	private ArrayList<Hextile> hextiles;
+	private ViewModel lModel;
 	
-	public EnvironmentManager() {
-		
+	public EnvironmentManager(ViewModel aModel) {
+		lModel = aModel;
 	}
 	
 	/*public Dimension createNewMap(ImageMap aImageMap){
@@ -71,6 +73,10 @@ public class EnvironmentManager {
 				}
 				else if (hextiles.get(i).getWarningChit().getName() == "BONES V") {
 					hextiles.get(i).getClearing(5).addMonsters(ghosts);
+					for(int j = 0; j < ghosts.size(); j++){
+						ghosts.get(j).setClearing(hextiles.get(i).getClearing(5));
+						lHexGrid.addMonster(ghosts.get(j));
+					}
 				}
 			}
 		}
