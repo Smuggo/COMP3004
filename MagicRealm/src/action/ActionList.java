@@ -22,14 +22,19 @@ public class ActionList implements Serializable{
 	private List<Action> lActions;
 	private int lActionPoints;
 	private int lTurn;
+	private int currentAction;
 	
 	private Clearing lStartingClearing;
 	private Clearing lCurrentClearing;
+	
+	public boolean incomplete;
 	
 	public ActionList(){
 		lActions = new ArrayList<Action>();
 		lActionPoints = 4;
 		lTurn = 0;
+		currentAction = 0;
+		incomplete = true;
 	}
 	
 	
@@ -66,6 +71,9 @@ public class ActionList implements Serializable{
 
 	public void modifyActionPoints(int aModifyValue){
 		lActionPoints+= aModifyValue;
+		if(lActionPoints <= 0){
+			complete();
+		}
 	}
 	
 	public int getActionPoints(){
@@ -128,5 +136,21 @@ public class ActionList implements Serializable{
 	
 	public int getTurn(){
 		return lTurn;
+	}
+	
+	public int getCurrentAction(){
+		return currentAction;
+	}
+	
+	public boolean incomplete(){
+		return incomplete;
+	}
+	
+	public void complete(){
+		incomplete = false;
+	}
+	
+	public void nextAction(){
+		currentAction++;
 	}
 }

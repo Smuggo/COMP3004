@@ -53,4 +53,12 @@ public final class Config {
 	public enum SearchType {
 		PEER, LOCATE, LOOT
 	}
+	
+	public enum TurnState{
+		SELECTING, EXECUTING
+	}
+	
+	public enum DelayPrompt{
+		HIDING
+	}
 }

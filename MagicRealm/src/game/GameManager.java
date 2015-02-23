@@ -32,7 +32,6 @@ public class GameManager {
 	public Dimension createNewMap(){
 		return lEnvironmentManager.createNewMap(gameImages, lHiddenRoadways);
 	}
-	
 	public HexGrid getGrid(){
 		return lEnvironmentManager.getHexGrid();
 	}
@@ -63,5 +62,9 @@ public class GameManager {
 	
 	public void setHiddenRoads(){
 		characters.setHiddenRoadways(lHiddenRoadways);
+	}
+
+	public Dimension getMapDimension() {
+		return lEnvironmentManager.getHexGrid().getCanvasSize();
 	}
 }

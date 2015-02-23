@@ -29,6 +29,7 @@ public class ViewModel {
 	
 	boolean isServer;
 	int lLocalPlayerNumber;
+	boolean doneInit = false;
 	
 	public ViewModel(NetworkManager aNetworkManager){
 		isServer = false;
@@ -109,19 +110,25 @@ public class ViewModel {
 	
 	
 	public void startGame(){
+		
+		if(lLocalPlayerNumber == 1 && !doneInit){
+			lNetworkManager.createNewMap(lGameManager.getGrid());
+			lNetworkManager.notifyClientsGameStarting();
+			doneInit = true;
+			return;
+		}
+		
 		updateLocalGameState(lNetworkManager.refreshGameState());
 		
-		//lGameManager.createNewMap(); //We already created a new map
-		Dimension lMapSize = lGameManager.createNewMap();
+		if(lLocalPlayerNumber != 1){
+			lGameManager.createNewMap();
+		}
 		
-		lNetworkManager.createNewMap(lGameManager.getGrid());
+		Dimension lMapSize = lGameState.getHexGrid().getCanvasSize();
 		
 		lViewManager.clearMenu();
+
 		lViewManager.createCharacterView();
-		
-		// Prompt Host if they would like to enable cheat mode
-		if (lLocalPlayerNumber == 1)
-			lViewManager.showChitPlacementSelection();
 		
 		lViewManager.clearMenu();
 		lViewManager.newGameBoard(lMapSize);
@@ -182,6 +189,7 @@ public class ViewModel {
 				lViewManager.updatePlayerTable(tempList);
 		}
 		
+		
 		if(!aGameState.equals(lGameState)){
 			if(lGameState!= null && aGameState != null && lGameState.getDay() != aGameState.getDay()){
 				lActionManager.createNewTurn(aGameState, lLocalPlayerNumber);
@@ -207,9 +215,7 @@ public class ViewModel {
 	
 	public void setPlayerStartingLocation(String aDwelling){
 		lActionManager.createNewTurn(lNetworkManager.setPlayerStartingLocation(aDwelling));
-
 	}
-	
 	
 	public void setLocalActionState(ActionState aActionState){
 		lActionManager.setState(aActionState);
@@ -234,6 +240,21 @@ public class ViewModel {
 	
 	public void enableOrDisablePlayer(boolean aButtonState){
 		lViewManager.enableOrDisablePlayer(aButtonState);
+	}
+
+	public void promptCheatMode() {
+		
+		lGameManager.createNewMap();
+		lViewManager.clearMenu();
+		
+		if (lLocalPlayerNumber == 1) {
+			lViewManager.showChitPlacementSelection();
+		}
+
+	}
+	
+	public void hideConfirmed(){
+		lNetworkManager.sendContinueActions();
 	}
 	
 	public void addClearingChits(Clearing aClearing){

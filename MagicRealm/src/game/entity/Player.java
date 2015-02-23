@@ -13,6 +13,7 @@ public class Player implements Serializable{
 	private String lUserName;
 	private Hero lChosenHero;
 	public Point lastClick;
+	private int turnOrder;
 	
 	public Player(String aUserName){
 		lUserName = aUserName;
@@ -30,6 +31,13 @@ public class Player implements Serializable{
 		if(lChosenHero != null)
 			playerString = lUserName + lChosenHero.getName();
 		return playerString;
+	}
+	
+	public void setTurnOrder(int aTurnOrder){
+		turnOrder = aTurnOrder;
+	}
+	public int getTurnOrder(){
+		return turnOrder;
 	}
 	
 	
