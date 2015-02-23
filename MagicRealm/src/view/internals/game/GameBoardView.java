@@ -77,7 +77,7 @@ public class GameBoardView extends JInternalFrame{
 		c.gridy = 0;
 		add(lScrollPane, c);
 		
-		lChits = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
+		lChits = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_NEVER, 
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		lChits.setPreferredSize(new Dimension(xSize, 25));
 		lChits.setSize(xSize, 25);
@@ -111,7 +111,7 @@ public class GameBoardView extends JInternalFrame{
 	public void addClearingChits(Clearing aClearing){
 		ArrayList<String> lCharacterNames = new ArrayList<String>();
 		JPanel lPanel = new JPanel();
-		lPanel.setSize(1000, 200);
+		lPanel.setSize((int)lModel.getScreenDimensions().getWidth()/2, 25);
 		
 		if(lModel.getGameState() != null){
 			for(Player aPlayer: lModel.getGameState().getPlayers()){

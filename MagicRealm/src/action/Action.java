@@ -16,6 +16,7 @@ public class Action implements Serializable {
 	private ActionType lActionType;
 
 	private int cost;
+	private int lRoll;
 
 	// Move
 	private Clearing lClearingStart;
@@ -78,5 +79,13 @@ public class Action implements Serializable {
 	
 	public SearchType getSearchType() {
 		return lSearchType;
+	}
+	
+	public void setRoll(int aRoll){
+		lRoll = aRoll;
+	}
+	
+	public int getRoll(){
+		return lRoll;
 	}
 }

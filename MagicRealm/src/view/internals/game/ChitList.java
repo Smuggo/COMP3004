@@ -43,6 +43,7 @@ public class ChitList extends JInternalFrame{
 		super("Chit List",false,false,false,true);
 		
 		lModel = aModel;
+		lModel.getGameState().setCheating(true);
 		chitFactory = lModel.getGameManager().getEnvironmentManager().getChitFactory();
 		hextiles = lModel.getGameManager().getEnvironmentManager().getHextiles();
 		

@@ -67,6 +67,9 @@ public class Searching extends JInternalFrame{
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				if(lModel.getGameState().getCheating()){
+					
+				}
 				lModel.getActionManager().getActionList().addSearchAction(SearchType.PEER);
 				lModel.enableOrDisablePlayer(true);
 				dispose();

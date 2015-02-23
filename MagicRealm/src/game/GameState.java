@@ -26,6 +26,7 @@ public class GameState implements Serializable{
 	private TurnState lTurnState;
 	private DelayPrompt lDelayPrompt;
 	private int lTurnPlayerExecuting;
+	private boolean lCheating;
 	
 	
 	public GameState(){
@@ -182,5 +183,13 @@ public class GameState implements Serializable{
 	
 	public Clearing getClearingByPlayer(int aPlayer){
 		return getPlayer(aPlayer).getChosenHero().getClearing();
+	}
+	
+	public void setCheating(boolean aCheating){
+		lCheating = aCheating;
+	}
+	
+	public boolean getCheating(){
+		return lCheating;
 	}
 }
