@@ -5,16 +5,15 @@ import game.environment.hex.Clearing;
 import game.environment.hex.HexGrid;
 
 import java.awt.Point;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import javax.swing.JTable;
 
-import action.ActionList;
 import network.NetworkManager;
 import network.packet.PlayerPacket;
+import action.ActionList;
 
 public class Client implements Runnable {
 
