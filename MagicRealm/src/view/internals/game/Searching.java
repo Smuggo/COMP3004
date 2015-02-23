@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 
+import config.Config.ActionType;
 import config.Config.SearchType;
 import model.ViewModel;
 
@@ -68,10 +69,12 @@ public class Searching extends JInternalFrame{
 			public void actionPerformed(ActionEvent e)
 			{
 				if(lModel.getGameState().getCheating()){
-					
+					lModel.requestDieRoller(ActionType.SEARCH, SearchType.PEER);
 				}
-				lModel.getActionManager().getActionList().addSearchAction(SearchType.PEER);
-				lModel.enableOrDisablePlayer(true);
+				else{
+					lModel.getActionManager().getActionList().addSearchAction(SearchType.PEER);
+					lModel.enableOrDisablePlayer(true);
+				}
 				dispose();
 			}
 		});
@@ -79,6 +82,9 @@ public class Searching extends JInternalFrame{
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				if(lModel.getGameState().getCheating()){
+					lModel.requestDieRoller(ActionType.SEARCH, SearchType.LOCATE);
+				}
 				lModel.getActionManager().getActionList().addSearchAction(SearchType.LOCATE);;
 				lModel.enableOrDisablePlayer(true);
 				dispose();
@@ -88,6 +94,9 @@ public class Searching extends JInternalFrame{
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				if(lModel.getGameState().getCheating()){
+					lModel.requestDieRoller(ActionType.SEARCH, SearchType.LOOT);
+				}
 				lModel.getActionManager().getActionList().addSearchAction(SearchType.LOOT);
 				lModel.enableOrDisablePlayer(true);
 				dispose();

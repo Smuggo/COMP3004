@@ -9,7 +9,9 @@ import game.environment.hex.Hextile;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
+import config.Config.ActionType;
 import config.Config.DelayPrompt;
+import config.Config.SearchType;
 import config.Config.TurnState;
 import network.packet.PlayerPacket;
 import model.ViewModel;
@@ -29,6 +31,7 @@ import view.internals.game.PlayerMenu;
 import view.internals.game.Searching;
 import view.internals.game.StartingLocation;
 import view.internals.game.VictoryPoints;
+import view.internals.game.DieRoller;
 
 public class ViewManager {
 	
@@ -50,6 +53,7 @@ public class ViewManager {
 	private ChitPlacementSelection lChitPlacementSelection;
 	private ChitList lChitList;	
 	private ViewModel lModel;
+	private DieRoller lDieRoller;
 	
 	public ViewManager(ViewModel aModel){
 		lModel = aModel;
@@ -214,5 +218,10 @@ public class ViewManager {
 	
 	public void addClearingChits(Clearing aClearing){
 		lGameBoard.addClearingChits(aClearing);
+	}
+	
+	public void showDieRoller(ActionType aActionType, SearchType aSearchType){
+		lDieRoller = new DieRoller(lModel, aActionType, aSearchType);
+		lWindow.addWindow(lDieRoller);
 	}
 }

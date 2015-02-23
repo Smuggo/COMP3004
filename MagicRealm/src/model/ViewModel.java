@@ -14,6 +14,8 @@ import java.util.Map;
 
 import action.ActionManager;
 import config.Config.ActionState;
+import config.Config.ActionType;
+import config.Config.SearchType;
 import config.ImageMap;
 import network.NetworkManager;
 import network.packet.PlayerPacket;
@@ -189,7 +191,6 @@ public class ViewModel {
 				lViewManager.updatePlayerTable(tempList);
 		}
 		
-		
 		if(!aGameState.equals(lGameState)){
 			if(lGameState!= null && aGameState != null && lGameState.getDay() != aGameState.getDay()){
 				lActionManager.createNewTurn(aGameState, lLocalPlayerNumber);
@@ -238,14 +239,18 @@ public class ViewModel {
 		lViewManager.showSearching();
 	}
 	
+	public void requestDieRoller(ActionType aActionType, SearchType aSearchType){
+		lViewManager.showDieRoller(aActionType, aSearchType);
+	}
+	
 	public void enableOrDisablePlayer(boolean aButtonState){
 		lViewManager.enableOrDisablePlayer(aButtonState);
 	}
 
 	public void promptCheatMode() {
-		
 		lGameManager.createNewMap();
 		lViewManager.clearMenu();
+		lNetworkManager.enableCheat();
 		
 		if (lLocalPlayerNumber == 1) {
 			lViewManager.showChitPlacementSelection();
@@ -260,4 +265,5 @@ public class ViewModel {
 	public void addClearingChits(Clearing aClearing){
 		lViewManager.addClearingChits(aClearing);
 	}
+	
 }

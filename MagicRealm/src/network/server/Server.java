@@ -84,6 +84,10 @@ public class Server implements Runnable{
 					lServerApp.getGameState().continueExecutingPlayerActionSheets();
 					lOutputStream.writeObject(true);
 				}
+				if(lRequestHeader.equals("EnableCheating")){
+					lServerApp.getGameState().setCheating(true);
+					lOutputStream.writeObject(true);
+				}
 				
 				lOutputStream.flush();
 				lOutputStream.reset();

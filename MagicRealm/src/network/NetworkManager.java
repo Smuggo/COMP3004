@@ -115,4 +115,8 @@ public class NetworkManager {
 		lLocalClient.sendContinueActions();
 	}
 	
+	public void enableCheat(){
+		lLocalClient.sendEnableCheat();
+	}
+	
 }

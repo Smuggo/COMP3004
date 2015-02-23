@@ -172,7 +172,12 @@ public class PlayerMenu extends JInternalFrame{
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				lModel.getActionManager().getActionList().addHideAction();
+				if(lModel.getGameState().getCheating()){
+					lModel.requestDieRoller(ActionType.HIDE, null);
+					lModel.enableOrDisablePlayer(false);
+				} else {
+					lModel.getActionManager().getActionList().addHideAction();	
+				}
 				lTurnActions += "H,";
 				lActionTable.setValueAt(lTurnActions, lModel.getGameState().getDay()-1, 1);
 			}

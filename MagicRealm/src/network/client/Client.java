@@ -386,5 +386,30 @@ public class Client implements Runnable {
 		return false;
 	}
 	
-
+	public boolean sendEnableCheat(){
+		try{
+			while(streamBusy){
+				Thread.sleep(1);
+			}
+			streamBusy=true;
+			
+			String lRequest = "EnableCheating";
+			lOutputStream.writeObject(lRequest);
+			lOutputStream.flush();
+			lOutputStream.reset();
+			
+			
+			boolean returnv = (boolean) lInputStream.readObject();
+			streamBusy=false;
+			return returnv;
+		}
+		catch (Exception e)
+		{
+			//Dump stack
+			System.out.println("Client Error:");
+			e.printStackTrace();
+		}
+		streamBusy=false;
+		return false;
+	}
 }

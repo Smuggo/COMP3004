@@ -51,6 +51,13 @@ public class ActionList implements Serializable{
 		lActions.add(newAction);
 	}
 	
+	public void addCheatHideAction(int aRoll){
+		Action newAction = new Action();
+		newAction.createHideAction();
+		newAction.setRoll(aRoll);
+		lActions.add(newAction);
+	}
+	
 	public void addRestAction(){
 		Action newAction = new Action();
 		newAction.createRestAction();
@@ -61,6 +68,14 @@ public class ActionList implements Serializable{
 		Action newAction = new Action();
 		newAction.createSearchAction(lCurrentClearing);
 		newAction.setSearchType(aSearchType);
+		lActions.add(newAction);
+	}
+	
+	public void addCheatSearchAction(SearchType aSearchType, int aRoll){
+		Action newAction = new Action();
+		newAction.createSearchAction(lCurrentClearing);
+		newAction.setSearchType(aSearchType);
+		newAction.setRoll(aRoll);
 		lActions.add(newAction);
 	}
 	
