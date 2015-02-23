@@ -3,6 +3,8 @@ package game;
 import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import config.Config;
@@ -15,6 +17,7 @@ import game.entity.Hero;
 import game.entity.Player;
 import game.environment.hex.Clearing;
 import game.environment.hex.HexGrid;
+import game.environment.hex.Roadway;
 
 public class GameState implements Serializable{
 

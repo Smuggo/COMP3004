@@ -4,12 +4,14 @@ import game.GameManager;
 import game.GameState;
 import game.environment.hex.Clearing;
 import game.environment.hex.HexGrid;
+import game.environment.hex.Roadway;
 import game.entity.Hero;
 import game.entity.Player;
 
 import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import action.ActionManager;
@@ -23,11 +25,12 @@ import view.ViewManager;
 
 public class ViewModel {
 
-	ViewManager lViewManager;
-	NetworkManager lNetworkManager;
-	GameManager lGameManager;
-	GameState lGameState;
-	ActionManager lActionManager;
+	private ViewManager lViewManager;
+	private NetworkManager lNetworkManager;
+	private GameManager lGameManager;
+	private GameState lGameState;
+	private ActionManager lActionManager;
+	private Map<String, Roadway> lHiddenRoadways;
 	
 	boolean isServer;
 	int lLocalPlayerNumber;
@@ -37,6 +40,7 @@ public class ViewModel {
 		isServer = false;
 		lGameManager = new GameManager();
 		lActionManager = new ActionManager();
+		lHiddenRoadways = new HashMap<String, Roadway>();
 	}
 	
 	public Dimension getScreenDimensions(){
@@ -123,7 +127,7 @@ public class ViewModel {
 		updateLocalGameState(lNetworkManager.refreshGameState());
 		
 		if(lLocalPlayerNumber != 1){
-			lGameManager.createNewMap();
+			lGameManager.createNewMap(lHiddenRoadways);
 		}
 		
 		Dimension lMapSize = lGameState.getHexGrid().getCanvasSize();
@@ -134,8 +138,6 @@ public class ViewModel {
 		
 		lViewManager.clearMenu();
 		lViewManager.newGameBoard(lMapSize);
-		
-		lGameManager.setHiddenRoads();
 	}
 	
 	
@@ -248,7 +250,7 @@ public class ViewModel {
 	}
 
 	public void promptCheatMode() {
-		lGameManager.createNewMap();
+		lGameManager.createNewMap(lHiddenRoadways);
 		lViewManager.clearMenu();
 		
 		if (lLocalPlayerNumber == 1) {
@@ -268,5 +270,8 @@ public class ViewModel {
 	public void enableCheat(){
 		lNetworkManager.enableCheat();
 	}
-	
+
+	public Map<String, Roadway> getHiddenRoadways(){
+		return lHiddenRoadways;
+	}
 }

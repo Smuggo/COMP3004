@@ -31,14 +31,4 @@ public class HeroFactory {
 	public Map<String, Hero> getCharacters() {
 		return characters;
 	}
-	
-	public void setHiddenRoadways(Map<String, Roadway> aHiddenRoadways){
-		characters.get("Captain").setHiddenRoadways(aHiddenRoadways);
-		characters.get("Captain").setHiddenRoadways(aHiddenRoadways);
-		characters.get("Captain").setHiddenRoadways(aHiddenRoadways);
-		characters.get("Captain").setHiddenRoadways(aHiddenRoadways);
-		characters.get("Captain").setHiddenRoadways(aHiddenRoadways);
-		characters.get("Captain").setHiddenRoadways(aHiddenRoadways);
-		characters.get("Captain").setHiddenRoadways(aHiddenRoadways);
-	}
 }

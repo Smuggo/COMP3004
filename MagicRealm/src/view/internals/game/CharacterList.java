@@ -115,6 +115,7 @@ public class CharacterList extends JInternalFrame{
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				characterMap.get(characterList.getSelectedValue()).setHiddenRoadways(lModel.getHiddenRoadways());
 				Hero lHero = characterMap.get(characterList.getSelectedValue());
 				lModel.updatePlayerCharacter(lHero);
 				lCharacterView.getChooseCharacter().setEnabled(false);

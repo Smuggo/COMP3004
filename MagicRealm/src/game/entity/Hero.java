@@ -214,13 +214,14 @@ public class Hero implements Serializable {
 				}
 			}
 			else if(lHiddenRoadways.containsKey(lTempRoadName2)){
+				System.out.println("TEST2");
 				if(!lHiddenRoadways.get(lTempRoadName2).getDiscovered()){
 					System.out.println("FAILED TO MOVE");
 					lBlocked = true;
 				}
 			}
 			
-			if(!lBlocked && !lBlocked){
+			if(!lBlocked){
 				lClearing = aAction.getClearingEnd();
 			}
 		}

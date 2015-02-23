@@ -21,17 +21,15 @@ public class GameManager {
 	private EnvironmentManager lEnvironmentManager;
 	private HeroFactory   characters;
 	private ImageMap gameImages;
-	private Map<String, Roadway> lHiddenRoadways;
 	
 	public GameManager(){
 		lEnvironmentManager = new EnvironmentManager();
 		characters = new HeroFactory();
 		gameImages = new ImageMap();
-		lHiddenRoadways = new HashMap<String, Roadway>();
 	}
 
-	public Dimension createNewMap(){
-		return lEnvironmentManager.createNewMap(gameImages, lHiddenRoadways);
+	public Dimension createNewMap(Map<String, Roadway> aHiddenRoadways){
+		return lEnvironmentManager.createNewMap(gameImages, aHiddenRoadways);
 	}
 	public HexGrid getGrid(){
 		return lEnvironmentManager.getHexGrid();
@@ -64,10 +62,6 @@ public class GameManager {
 	
 	public EnvironmentManager getEnvironmentManager() {
 		return lEnvironmentManager;
-	}
-	
-	public void setHiddenRoads(){
-		characters.setHiddenRoadways(lHiddenRoadways);
 	}
 
 	public Dimension getMapDimension() {
