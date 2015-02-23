@@ -1,6 +1,8 @@
 package network.client;
 
 import game.GameState;
+import game.entity.Hero;
+import game.entity.Player;
 import game.environment.hex.Clearing;
 import game.environment.hex.HexGrid;
 
@@ -126,8 +128,9 @@ public class Client implements Runnable {
 			
 			lOutputStream.reset();	
 			
+			int r = (Integer)lInputStream.readObject();
 			streamBusy=false;
-			return (Integer)lInputStream.readObject();
+			return r;
 		}
 		catch (Exception e)
 		{
@@ -170,7 +173,7 @@ public class Client implements Runnable {
 		return lWaiting;
 	}
 	
-	public boolean setPlayerCharacter(GameState aGameState, int aLocalPlayerNumber){
+	public boolean setPlayerCharacter(Hero aHero, int aLocalPlayerNumber){
 		try {
 			
 			while(streamBusy){
@@ -181,7 +184,7 @@ public class Client implements Runnable {
 			String lRequest = "UpdatePlayerCharacter";
 			lOutputStream.writeObject(lRequest);
 			lOutputStream.flush();
-			lOutputStream.writeObject(aGameState.getPlayer(aLocalPlayerNumber));
+			lOutputStream.writeObject(aHero);
 			lOutputStream.flush();
 			lOutputStream.writeObject(aLocalPlayerNumber);
 			lOutputStream.flush();
@@ -242,8 +245,9 @@ public class Client implements Runnable {
 			lOutputStream.flush();
 			lOutputStream.reset();
 			
-			streamBusy=false;
-			return (boolean) lInputStream.readObject();
+			boolean r = (boolean) lInputStream.readObject();
+			streamBusy=false;	
+			return r;
 			
 			
 		}
@@ -271,8 +275,9 @@ public class Client implements Runnable {
 			lOutputStream.flush();
 			lOutputStream.reset();
 			
-			streamBusy=false;
-			return (boolean) lInputStream.readObject();
+			boolean r = (boolean) lInputStream.readObject();
+			streamBusy=false;	
+			return r;
 			
 			
 		}
@@ -302,8 +307,9 @@ public class Client implements Runnable {
 			lOutputStream.flush();
 			lOutputStream.reset();
 			
+			Clearing r = (Clearing) lInputStream.readObject();
 			streamBusy=false;
-			return (Clearing) lInputStream.readObject();
+			return r;
 			
 			
 		}

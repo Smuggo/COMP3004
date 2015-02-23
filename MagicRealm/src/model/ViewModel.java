@@ -159,8 +159,8 @@ public class ViewModel {
 		lLocalPlayerNumber = aPlayerNum;
 	}
 	
-	public void updatePlayerCharacter(){
-		lNetworkManager.updatePlayerCharacter(lGameState, lLocalPlayerNumber);
+	public void updatePlayerCharacter(Hero aHero){
+		lNetworkManager.updatePlayerCharacter(aHero, lLocalPlayerNumber);
 	}
 	
 	public void requestStartingLocation(){
@@ -250,7 +250,6 @@ public class ViewModel {
 	public void promptCheatMode() {
 		lGameManager.createNewMap();
 		lViewManager.clearMenu();
-		lNetworkManager.enableCheat();
 		
 		if (lLocalPlayerNumber == 1) {
 			lViewManager.showChitPlacementSelection();
@@ -264,6 +263,10 @@ public class ViewModel {
 	
 	public void addClearingChits(Clearing aClearing){
 		lViewManager.addClearingChits(aClearing);
+	}
+	
+	public void enableCheat(){
+		lNetworkManager.enableCheat();
 	}
 	
 }

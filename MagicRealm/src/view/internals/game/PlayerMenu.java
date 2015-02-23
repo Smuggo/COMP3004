@@ -45,17 +45,17 @@ public class PlayerMenu extends JInternalFrame{
 	private JTable lActionTable;
 	
 	public PlayerMenu(ViewModel aModel){
-		super("Player Menu",false,false,false,true);
+		super("Player Menu",true,false,false,true);
 		lModel = aModel;
 		lTurnActions = "";
 		
 		int xSize = lModel.getScreenDimensions().width/2;
-		int ySize = lModel.getScreenDimensions().height/2;
+		int ySize = lModel.getScreenDimensions().height-340;
 		
 		setPreferredSize(new Dimension(xSize, ySize));
 		setSize(xSize, ySize);
 		
-		setLocation(0, ySize-100);
+		setLocation(0, 300);
 		
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -172,6 +172,7 @@ public class PlayerMenu extends JInternalFrame{
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				System.out.println("CHEATING: "+lModel.getGameState().getCheating());
 				if(lModel.getGameState().getCheating()){
 					lModel.requestDieRoller(ActionType.HIDE, null);
 					lModel.enableOrDisablePlayer(false);

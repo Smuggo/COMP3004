@@ -80,6 +80,9 @@ public class ViewManager {
 	
 	public void newJoinGame(){
 		
+		if(lJoinGame != null){
+			lJoinGame.dispose();
+		}
 		lJoinGame = new JoinGameView(lModel);
 		lJoinGame.setVisible(true);
 		lWindow.addWindow(lJoinGame);
