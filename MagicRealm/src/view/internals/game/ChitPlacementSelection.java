@@ -104,7 +104,7 @@ public class ChitPlacementSelection extends JInternalFrame{
 		  public void actionPerformed(ActionEvent e)
 		  {
 			  lModel.getGameManager().getEnvironmentManager().getChitFactory().addChitsManually();
-			  lModel.requestChitList(lModel);
+			  lModel.requestChitList();
 			  dispose();
 		  }
 		});
@@ -114,7 +114,7 @@ public class ChitPlacementSelection extends JInternalFrame{
 		  public void actionPerformed(ActionEvent e)
 		  {
 			  lModel.getGameManager().getEnvironmentManager().getChitFactory().addChitsRandomly();
-			  lModel.notifyClientsGameStarting();
+			  lModel.startGame();
 			  dispose();
 		  }
 		});

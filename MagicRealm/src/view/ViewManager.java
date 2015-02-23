@@ -1,12 +1,18 @@
 package view;
 
+import game.GameState;
 import game.entity.Hero;
 import game.entity.Player;
+import game.environment.hex.Clearing;
 import game.environment.hex.Hextile;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
 
+import config.Config.ActionType;
+import config.Config.DelayPrompt;
+import config.Config.SearchType;
+import config.Config.TurnState;
 import network.packet.PlayerPacket;
 import model.ViewModel;
 import view.externals.MagicRealmWindow;
@@ -25,6 +31,7 @@ import view.internals.game.PlayerMenu;
 import view.internals.game.Searching;
 import view.internals.game.StartingLocation;
 import view.internals.game.VictoryPoints;
+import view.internals.game.DieRoller;
 
 public class ViewManager {
 	
@@ -46,6 +53,7 @@ public class ViewManager {
 	private ChitPlacementSelection lChitPlacementSelection;
 	private ChitList lChitList;	
 	private ViewModel lModel;
+	private DieRoller lDieRoller;
 	
 	public ViewManager(ViewModel aModel){
 		lModel = aModel;
@@ -151,18 +159,28 @@ public class ViewManager {
 		if(lGameBoard != null){
 			lGameBoard.redraw();
 		}
+		GameState lGameState = lModel.getGameState();
+		if(lGameState != null){
+			if(lGameState.getTurnState().equals(TurnState.EXECUTING) && lGameState.getPlayerUpdating() == lModel.getLocalPlayerNum()){
+				if(lGameState.getDelayPrompt().equals(DelayPrompt.HIDING)){
+					lPlayerMenu.promptHiding();
+				}
+				
+			}
+		}
+		
 	}
 	
 	public void updatePlayerTable(ArrayList<Player> aPlayers){
 		lCharacterView.updateCharacterTable(aPlayers);
 	}
 	
-	public void showStartingLocations(ViewModel lModel){
+	public void showStartingLocations(){
 		lStartingLocation = new StartingLocation(lModel);
 		lWindow.addWindow(lStartingLocation);
 	}
 	
-	public void showPlayerMenu(ViewModel lModel){
+	public void showPlayerMenu(){
 		lPlayerMenu = new PlayerMenu(lModel);
 		lWindow.addWindow(lPlayerMenu);
 	}
@@ -177,7 +195,7 @@ public class ViewManager {
 		lPlayerMenu.addToActionTable(aClearingID);
 	}
 	
-	public void showSearching(ViewModel aModel){
+	public void showSearching(){
 		lSearching = new Searching(lModel);
 		lWindow.addWindow(lSearching);
 	}
@@ -192,9 +210,18 @@ public class ViewManager {
 		lWindow.addWindow(lChitPlacementSelection);
 	}
 	
-	public void showChitList(ViewModel lModel){		
+	public void showChitList(){		
 		lChitList = new ChitList(lModel);
 		lChitList.setVisible(true);
 		lWindow.addWindow(lChitList);
+	}
+	
+	public void addClearingChits(Clearing aClearing){
+		lGameBoard.addClearingChits(aClearing);
+	}
+	
+	public void showDieRoller(ActionType aActionType, SearchType aSearchType){
+		lDieRoller = new DieRoller(lModel, aActionType, aSearchType);
+		lWindow.addWindow(lDieRoller);
 	}
 }

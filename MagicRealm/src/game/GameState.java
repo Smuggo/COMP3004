@@ -7,6 +7,7 @@ import java.util.Random;
 
 import config.Config;
 import config.Config.ActionType;
+import config.Config.DelayPrompt;
 import config.Config.TurnState;
 import action.Action;
 import action.ActionList;
@@ -23,8 +24,10 @@ public class GameState implements Serializable{
 	private HexGrid lHexGrid;
 	private int lTurn;
 	private TurnState lTurnState;
+	private DelayPrompt lDelayPrompt;
 	private int lTurnPlayerExecuting;
-	private int lTurnPlayerExecutingActionNum;
+	private boolean lCheating;
+	
 	
 	public GameState(){
 		lVersion = 1;
@@ -32,7 +35,7 @@ public class GameState implements Serializable{
 		lPlayers = new ArrayList<Player>();
 		lTurnState = TurnState.SELECTING;
 		lTurnPlayerExecuting = 0;
-		lTurnPlayerExecutingActionNum = 0;
+		lDelayPrompt = null;
 	}
 	
 	//Version
@@ -111,12 +114,10 @@ public class GameState implements Serializable{
 	public void executePlayerActionSheets(){
 		lTurnState = TurnState.EXECUTING;
 		lTurnPlayerExecuting = 0;
-		lTurnPlayerExecutingActionNum = 0;
 		setRandomTurnOrder();
 		
 		continueExecutingPlayerActionSheets();
 		
-		newTurn();
 	}
 	
 	public void continueExecutingPlayerActionSheets(){
@@ -129,13 +130,20 @@ public class GameState implements Serializable{
 				}
 			}
 			if(currentPlayer != null){
-				currentPlayer.getChosenHero().executeTurn();
+				lDelayPrompt = currentPlayer.getChosenHero().executeTurn();
+				if(currentPlayer.getChosenHero().getNeedsActionInput()){
+					return;
+				}
 				if(!currentPlayer.getChosenHero().getActionList().incomplete()){
 					lTurnPlayerExecuting++;
 				}
 			}else{
 				lTurnPlayerExecuting++;
 			}
+		}
+		
+		if(lTurnPlayerExecuting >= lPlayers.size()){
+			newTurn();
 		}
 	}
 	
@@ -149,7 +157,39 @@ public class GameState implements Serializable{
 		lTurnState = TurnState.SELECTING;
 	}
 	
+	public TurnState getTurnState(){
+		return lTurnState;
+	}
+	
+	public int getPlayerUpdating(){
+		while(lTurnPlayerExecuting < lPlayers.size()){
+			for(int i = 0; i < lPlayers.size(); i++){
+				if(lPlayers.get(i).getTurnOrder() == lTurnPlayerExecuting){
+					return i+1;
+				}
+			}
+		}
+		System.out.println("Something has gone horribly wrong in gamestate.java");
+		return -1;
+	}
+	
+	public DelayPrompt getDelayPrompt(){
+		return lDelayPrompt;
+	}
+	
+	public void setDelayPrompt(DelayPrompt aDelayPrompt){
+		lDelayPrompt = aDelayPrompt;
+	}
+	
 	public Clearing getClearingByPlayer(int aPlayer){
 		return getPlayer(aPlayer).getChosenHero().getClearing();
+	}
+	
+	public void setCheating(boolean aCheating){
+		lCheating = aCheating;
+	}
+	
+	public boolean getCheating(){
+		return lCheating;
 	}
 }

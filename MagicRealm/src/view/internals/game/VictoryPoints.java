@@ -254,7 +254,7 @@ public class VictoryPoints extends JInternalFrame{
 					    						  (int)goldPoints.getValue()};
 			  
 			  lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().setVictoryConditions(victoryConditions);
-			  lModel.requestStartingLocation(lModel);
+			  lModel.requestStartingLocation();
 			  dispose();
 		  }
 		});

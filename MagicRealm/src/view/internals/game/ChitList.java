@@ -93,13 +93,13 @@ public class ChitList extends JInternalFrame{
 					// We are adding the last chit
 					if (chitFactory.getSiteSoundLostCastleChits().size() == 1) {
 						chitFactory.addChitManually(correspondingChit, hextile, lostCity, lostCastle, warningChit);
-						lModel.notifyClientsGameStarting();
+						lModel.startGame();
 						dispose();
 					}
 					else {
 						chitFactory.addChitManually(correspondingChit, hextile, lostCity, lostCastle, warningChit);
 						// Call another instince
-						lModel.requestChitList(lModel);
+						lModel.requestChitList();
 						dispose();
 					}
 				}

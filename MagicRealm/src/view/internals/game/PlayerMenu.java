@@ -1,5 +1,7 @@
 package view.internals.game;
 
+import game.GameState;
+
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -15,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 
 import config.Config.ActionState;
 import config.Config.ActionType;
+import config.Config.TurnState;
 import model.ViewModel;
 
 public class PlayerMenu extends JInternalFrame{
@@ -32,6 +35,8 @@ public class PlayerMenu extends JInternalFrame{
 	private JButton lRemove;
 	private JButton lBlocking;
 	private JButton lSendActionsOrCancel;
+	private JButton lConfirmHide;
+
 
 	private String lTurnActions;
 	
@@ -40,6 +45,7 @@ public class PlayerMenu extends JInternalFrame{
 	private JTable lActionTable;
 	
 	public PlayerMenu(ViewModel aModel){
+		super("Player Menu",false,false,false,true);
 		lModel = aModel;
 		lTurnActions = "";
 		
@@ -84,6 +90,12 @@ public class PlayerMenu extends JInternalFrame{
 		c.gridy = 0;
 		add(lSendActionsOrCancel, c);
 		
+		lConfirmHide = new JButton("Confirm Hide");
+		c.gridx = 6;
+		c.gridy = 0;
+		add(lConfirmHide);
+		lConfirmHide.setVisible(false);
+		
 		
 		lActionTable = new JTable(new DefaultTableModel(new Object[]{"Day", "Actions", "Die"}, 0))
 		{
@@ -117,7 +129,7 @@ public class PlayerMenu extends JInternalFrame{
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0;
 		c.gridheight = 0;
-		c.gridwidth = 7;
+		c.gridwidth = 8;
 		c.ipadx = xSize - 100;
 		c.ipady = ySize - 150;
 		c.gridx = 0;
@@ -132,7 +144,7 @@ public class PlayerMenu extends JInternalFrame{
 		c.gridwidth = 1;
 		c.ipadx = 0;
 		c.ipady = 0;
-		c.gridx = 6;
+		c.gridx = 7;
 		c.gridy = 0;
 		add(lBlocking, c);
 		
@@ -160,7 +172,12 @@ public class PlayerMenu extends JInternalFrame{
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				lModel.getActionManager().getActionList().addHideAction();
+				if(lModel.getGameState().getCheating()){
+					lModel.requestDieRoller(ActionType.HIDE, null);
+					lModel.enableOrDisablePlayer(false);
+				} else {
+					lModel.getActionManager().getActionList().addHideAction();	
+				}
 				lTurnActions += "H,";
 				lActionTable.setValueAt(lTurnActions, lModel.getGameState().getDay()-1, 1);
 			}
@@ -170,7 +187,7 @@ public class PlayerMenu extends JInternalFrame{
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				lModel.requestSearching(lModel);
+				lModel.requestSearching();
 				lTurnActions += "S,";
 				enableOrDisableButtons(false);
 				lActionTable.setValueAt(lTurnActions, lModel.getGameState().getDay()-1, 1);
@@ -231,6 +248,15 @@ public class PlayerMenu extends JInternalFrame{
 					lBlocking.setText("Currently Blocking: False");
 			}
 		});
+		
+		lConfirmHide.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				lConfirmHide.setVisible(false);
+				lModel.hideConfirmed();
+			}
+		});
 	}
 	
 	public void newTurn(){
@@ -258,5 +284,10 @@ public class PlayerMenu extends JInternalFrame{
 		lRest.setEnabled(aButtonState);
 		lSearch.setEnabled(aButtonState);
 		lRemove.setEnabled(aButtonState);
+	}
+	
+	public void promptHiding(){
+		lConfirmHide.setVisible(true);
+		
 	}
 }

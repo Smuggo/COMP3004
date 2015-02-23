@@ -70,20 +70,24 @@ public class GameBoardCanvas extends JPanel{
 	
 	public void releaseMouse(MouseEvent arg0){
 		ActionManager lActionManager = lModel.getActionManager();
+		Clearing lClearing;
 		if(lActionManager.getState().equals(ActionState.MOVING)){
-			Clearing lClearing = lModel.getGameState().getHexGrid().getAdjacentClearingByMouse(lActionManager.getActionList().getCurrentClearing(), 
+			lClearing = lModel.getGameState().getHexGrid().getAdjacentClearingByMouse(lActionManager.getActionList().getCurrentClearing(), 
 																								lMouse);
 			if(lClearing != null){
 				lModel.addToActionTable(lClearing.getIdentifier());
 				lActionManager.getActionList().addMoveAction(lClearing);		
 			}
+		} else {
+			lClearing = lModel.getGameState().getHexGrid().getClearingByMouse(lMouse);
+			lModel.addClearingChits(lClearing);
 		}
 	}
 	
 	public void paint(Graphics g){
 		
 		GameState lGameState = lModel.getGameState();
-		HexGrid lHexGrid = lModel.getGameManager().getGrid();
+		HexGrid lHexGrid = lModel.getGameState().getHexGrid();
 		ActionManager lActionManager = lModel.getActionManager();
 		
 		g.setColor(Color.white);
@@ -117,10 +121,10 @@ public class GameBoardCanvas extends JPanel{
 	    		if(lHexGrid.getHex(x, y) != null){
 	    			if(lHexGrid.getHex(x, y).isActive()){
 	    				if(lHexGrid.getHex(x, y).getHextile().getWarningChit() != null){
-	    					lHexGrid.getHex(x, y).getHextile().getWarningChit().draw(lModel.getGameManager(), g, x, y);
+	    					lHexGrid.getHex(x, y).getHextile().getWarningChit().draw(lModel.getGameState(), g, x, y);
 	    				}
 	    				if(lHexGrid.getHex(x, y).getHextile().getOtherChit() != null){
-	    					lHexGrid.getHex(x, y).getHextile().getOtherChit().draw(lModel.getGameManager(), g, x, y);
+	    					lHexGrid.getHex(x, y).getHextile().getOtherChit().draw(lModel.getGameState(), g, x, y);
 	    				}
 	    			}
 	    		}
