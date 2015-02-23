@@ -5,9 +5,13 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import config.Config;
+import config.Config.DwellingType;
 import config.ImageMap;
+import config.Config.HextileType;
 import game.chit.ChitFactory;
 import game.dwelling.DwellingFactory;
+import game.entity.Monster;
+import game.entity.MonsterFactory;
 import game.environment.hex.HexGrid;
 import game.environment.hex.HexGridFactory;
 import game.environment.hex.Hextile;
@@ -47,10 +51,29 @@ public class EnvironmentManager {
 	}
 	
 	// 3.6 REVEALING DWELLINGS //
-	public void addDwellings() {
-		// Create hextile dwelling
-		lDwellingFactory = new DwellingFactory();
+	public void setDwellingTypesAndGhosts() {
+		MonsterFactory mF = new MonsterFactory();
+		ArrayList<Monster> ghosts = mF.createTwoGhosts();
 		
+		for (int i = 0; i < hextiles.size(); i++) {
+			if (hextiles.get(i).getHextileType() == HextileType.VALLEY) {
+				if (hextiles.get(i).getWarningChit().getName() == "DANK V") {
+					hextiles.get(i).getClearing(5).setDwellingType(DwellingType.CHAPEL);
+				}
+				else if (hextiles.get(i).getWarningChit().getName() == "RUINS V") {
+					hextiles.get(i).getClearing(5).setDwellingType(DwellingType.GUARD);
+				}
+				else if (hextiles.get(i).getWarningChit().getName() == "SMOKE V") {
+					hextiles.get(i).getClearing(5).setDwellingType(DwellingType.HOUSE);
+				}
+				else if (hextiles.get(i).getWarningChit().getName() == "STINK V") {
+					hextiles.get(i).getClearing(5).setDwellingType(DwellingType.INN);
+				}
+				else if (hextiles.get(i).getWarningChit().getName() == "BONES V") {
+					hextiles.get(i).getClearing(5).addMonsters(ghosts);
+				}
+			}
+		}
 	}
 
 	public HexGrid getHexGrid() {

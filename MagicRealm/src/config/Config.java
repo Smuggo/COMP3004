@@ -61,4 +61,8 @@ public final class Config {
 	public enum DelayPrompt{
 		HIDING
 	}
+	
+	public enum MonsterType{
+		GHOST
+	}
 }

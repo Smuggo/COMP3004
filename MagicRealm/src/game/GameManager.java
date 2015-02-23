@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 
 import config.Config.CharacterImageType;
 import config.Config.DwellingType;
+import config.Config.MonsterType;
 import config.ImageMap;
 import game.environment.EnvironmentManager;
 import game.environment.hex.HexGrid;
@@ -46,6 +47,11 @@ public class GameManager {
 	
 	public BufferedImage getDwellingImage(DwellingType aDwellingType){
 		return gameImages.getDwellingImage(aDwellingType);
+	}
+	
+	// Return monster image
+	public BufferedImage getMonsterImage(MonsterType aMonsterType){
+		return gameImages.getMonsterImage(aMonsterType);
 	}
 	
 	public BufferedImage getHexImage(String aHexType){
