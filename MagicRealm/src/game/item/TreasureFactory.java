@@ -1,12 +1,31 @@
 package game.item;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class TreasureFactory {
 	ArrayList<Treasure> lTreasureList;
 	
+	ArrayList<Treasure> lHoardTreasures;
+	ArrayList<Treasure> lLairTreasures;
+	ArrayList<Treasure> lAltarTreasures;
+	ArrayList<Treasure> lShrineTreasures;
+	ArrayList<Treasure> lPoolTreasures;
+	ArrayList<Treasure> lVaultTreasures;
+	ArrayList<Treasure> lCairnsTreasures;
+	ArrayList<Treasure> lStatueTreasures;
+	
 	public TreasureFactory(){
 		lTreasureList = new ArrayList<Treasure>();
+		lHoardTreasures = new ArrayList<Treasure>();
+		lLairTreasures = new ArrayList<Treasure>();
+		lAltarTreasures = new ArrayList<Treasure>();
+		lShrineTreasures = new ArrayList<Treasure>();
+		lPoolTreasures = new ArrayList<Treasure>();
+		lVaultTreasures = new ArrayList<Treasure>();
+		lCairnsTreasures = new ArrayList<Treasure>();
+		lStatueTreasures = new ArrayList<Treasure>();
+		
 		lTreasureList.add(new Treasure("7-League Boots", false, false, 'N', 0, 0, 2 ,5));
 		lTreasureList.add(new Treasure("Alchemist's Mixture", false, false, 'N', 0, 0, 0, 4));
 		lTreasureList.add(new Treasure("Amulet", false, false, 'N', 0, 0, 0, 5));
@@ -82,9 +101,162 @@ public class TreasureFactory {
 		lTreasureList.add(new Treasure("Vial of Healing", false, false, 'N', 0, 0, 0, 2));
 		lTreasureList.add(new Treasure("Withered Claw", false, false, 'N', 0, 0, 0, 3));
 		
+		setupTreasureLists();
 	}
-	
-	public ArrayList<Treasure> getTreasureList(){
-		return lTreasureList;
+	public void setupTreasureLists(){
+		Random lRandom = new Random();
+		int lRoll;
+		int lLargeTreasures = 0;
+		int lSmallTreasures = 0;
+		
+		//HOARD
+		while(lLargeTreasures < 5){
+			lRoll = lRandom.nextInt(lTreasureList.size());
+			
+			if(lTreasureList.get(lRoll).isLargeTreasure()){
+				lLargeTreasures++;
+				lHoardTreasures.add(lTreasureList.get(lRoll));
+				lTreasureList.remove(lRoll);
+			}
+		}
+		while(lSmallTreasures < 4){
+			lRoll = lRandom.nextInt(lTreasureList.size());
+			if(!lTreasureList.get(lRoll).isLargeTreasure()){
+				lSmallTreasures++;
+				lHoardTreasures.add(lTreasureList.get(lRoll));
+				lTreasureList.remove(lRoll);
+			}
+		}
+		lLargeTreasures = 0;
+		lSmallTreasures = 0;
+
+		//LAIR
+		while(lLargeTreasures < 3){
+			lRoll = lRandom.nextInt(lTreasureList.size());
+			
+			if(lTreasureList.get(lRoll).isLargeTreasure()){
+				lLargeTreasures++;
+				lLairTreasures.add(lTreasureList.get(lRoll));
+				lTreasureList.remove(lRoll);
+			}
+		}
+		while(lSmallTreasures < 4){
+			lRoll = lRandom.nextInt(lTreasureList.size());
+			if(!lTreasureList.get(lRoll).isLargeTreasure()){
+				lSmallTreasures++;
+				lLairTreasures.add(lTreasureList.get(lRoll));
+				lTreasureList.remove(lRoll);
+			}
+		}
+		lLargeTreasures = 0;
+		lSmallTreasures = 0;
+		
+		//ALTAR
+		while(lLargeTreasures < 4){
+			lRoll = lRandom.nextInt(lTreasureList.size());
+			
+			if(lTreasureList.get(lRoll).isLargeTreasure()){
+				lLargeTreasures++;
+				lAltarTreasures.add(lTreasureList.get(lRoll));
+				lTreasureList.remove(lRoll);
+			}
+		}
+		lLargeTreasures = 0;
+		
+		//SHRINE
+		while(lLargeTreasures < 2){
+			lRoll = lRandom.nextInt(lTreasureList.size());
+			
+			if(lTreasureList.get(lRoll).isLargeTreasure()){
+				lLargeTreasures++;
+				lShrineTreasures.add(lTreasureList.get(lRoll));
+				lTreasureList.remove(lRoll);
+			}
+		}
+		while(lSmallTreasures < 2){
+			lRoll = lRandom.nextInt(lTreasureList.size());
+			if(!lTreasureList.get(lRoll).isLargeTreasure()){
+				lSmallTreasures++;
+				lShrineTreasures.add(lTreasureList.get(lRoll));
+				lTreasureList.remove(lRoll);
+			}
+		}
+		lLargeTreasures = 0;
+		lSmallTreasures = 0;
+		
+		//POOL
+		while(lLargeTreasures < 3){
+			lRoll = lRandom.nextInt(lTreasureList.size());
+			
+			if(lTreasureList.get(lRoll).isLargeTreasure()){
+				lLargeTreasures++;
+				lPoolTreasures.add(lTreasureList.get(lRoll));
+				lTreasureList.remove(lRoll);
+			}
+		}
+		while(lSmallTreasures < 6){
+			lRoll = lRandom.nextInt(lTreasureList.size());
+			if(!lTreasureList.get(lRoll).isLargeTreasure()){
+				lSmallTreasures++;
+				lPoolTreasures.add(lTreasureList.get(lRoll));
+				lTreasureList.remove(lRoll);
+			}
+		}
+		lLargeTreasures = 0;
+		lSmallTreasures = 0;
+		
+		//VAULT
+		while(lLargeTreasures < 5){
+			lRoll = lRandom.nextInt(lTreasureList.size());
+			
+			if(lTreasureList.get(lRoll).isLargeTreasure()){
+				lLargeTreasures++;
+				lVaultTreasures.add(lTreasureList.get(lRoll));
+				lTreasureList.remove(lRoll);
+			}
+		}
+		lLargeTreasures = 0;
+		
+		//CAIRNS
+		while(lLargeTreasures < 1){
+			lRoll = lRandom.nextInt(lTreasureList.size());
+			
+			if(lTreasureList.get(lRoll).isLargeTreasure()){
+				lLargeTreasures++;
+				lCairnsTreasures.add(lTreasureList.get(lRoll));
+				lTreasureList.remove(lRoll);
+			}
+		}
+		while(lSmallTreasures < 6){
+			lRoll = lRandom.nextInt(lTreasureList.size());
+			if(!lTreasureList.get(lRoll).isLargeTreasure()){
+				lSmallTreasures++;
+				lCairnsTreasures.add(lTreasureList.get(lRoll));
+				lTreasureList.remove(lRoll);
+			}
+		}
+		lLargeTreasures = 0;
+		lSmallTreasures = 0;
+		
+		//STATUE
+		while(lLargeTreasures < 1){
+			lRoll = lRandom.nextInt(lTreasureList.size());
+			
+			if(lTreasureList.get(lRoll).isLargeTreasure()){
+				lLargeTreasures++;
+				lStatueTreasures.add(lTreasureList.get(lRoll));
+				lTreasureList.remove(lRoll);
+			}
+		}
+		while(lSmallTreasures < 2){
+			lRoll = lRandom.nextInt(lTreasureList.size());
+			if(!lTreasureList.get(lRoll).isLargeTreasure()){
+				lSmallTreasures++;
+				lStatueTreasures.add(lTreasureList.get(lRoll));
+				lTreasureList.remove(lRoll);
+			}
+		}
+		lLargeTreasures = 0;
+		lSmallTreasures = 0;
 	}
 }

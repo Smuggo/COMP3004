@@ -7,6 +7,8 @@ import game.environment.hex.HexGrid;
 import game.environment.hex.Roadway;
 import game.entity.Hero;
 import game.entity.Player;
+import game.item.Treasure;
+import game.item.TreasureFactory;
 
 import java.awt.Dimension;
 import java.awt.Point;
@@ -31,6 +33,7 @@ public class ViewModel {
 	private GameState lGameState;
 	private ActionManager lActionManager;
 	private Map<String, Roadway> lHiddenRoadways;
+	private TreasureFactory lTreasureFactory;
 	
 	boolean isServer;
 	int lLocalPlayerNumber;
@@ -41,6 +44,7 @@ public class ViewModel {
 		lGameManager = new GameManager(this);
 		lActionManager = new ActionManager();
 		lHiddenRoadways = new HashMap<String, Roadway>();
+		lTreasureFactory = new TreasureFactory();
 	}
 	
 	public Dimension getScreenDimensions(){
