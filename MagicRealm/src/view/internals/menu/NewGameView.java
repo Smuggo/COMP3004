@@ -137,8 +137,6 @@ public class NewGameView extends JInternalFrame{
 				lModel.promptCheatMode();
 			}
 		});
-		
-		
 	}
 	
 	

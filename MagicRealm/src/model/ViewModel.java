@@ -107,6 +107,7 @@ public class ViewModel {
 	}
 	
 	public void startGame(){
+		lGameManager.createNewMap();
 		updateLocalGameState(lNetworkManager.refreshGameState());
 		
 		Dimension lMapSize = lGameManager.getMapDimension();

@@ -7,6 +7,7 @@ import java.util.Map;
 import config.Config;
 import config.ImageMap;
 import game.chit.ChitFactory;
+import game.dwelling.DwellingFactory;
 import game.environment.hex.HexGrid;
 import game.environment.hex.HexGridFactory;
 import game.environment.hex.Hextile;
@@ -17,6 +18,7 @@ public class EnvironmentManager {
 
 	private HexGrid lHexGrid;
 	private ChitFactory lChitFactory;
+	private DwellingFactory lDwellingFactory;
 	private ArrayList<Hextile> hextiles;
 	
 	public EnvironmentManager() {
@@ -37,10 +39,18 @@ public class EnvironmentManager {
 		// Create hextile chits
 		lChitFactory = new ChitFactory(hextiles);
 				
+		
 		HexGrid lNewHexGrid = HexGridFactory.newHexGrid(hextiles);
 		setHexGrid(lNewHexGrid);
 
 		return lHexGrid.getCanvasSize();
+	}
+	
+	// 3.6 REVEALING DWELLINGS //
+	public void addDwellings() {
+		// Create hextile dwelling
+		lDwellingFactory = new DwellingFactory();
+		
 	}
 
 	public HexGrid getHexGrid() {
