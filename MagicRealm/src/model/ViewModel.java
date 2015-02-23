@@ -193,7 +193,7 @@ public class ViewModel {
 		
 		if(!aGameState.equals(lGameState)){
 			if(lGameState!= null && aGameState != null && lGameState.getDay() != aGameState.getDay()){
-				lActionManager.createNewTurn(aGameState, lLocalPlayerNumber);
+				lActionManager.createNewTurn(aGameState, lLocalPlayerNumber, aGameState.getPlayer(lLocalPlayerNumber));
 				lGameState = aGameState;
 				lViewManager.newTurn();
 			}
@@ -215,7 +215,7 @@ public class ViewModel {
 	}
 	
 	public void setPlayerStartingLocation(String aDwelling){
-		lActionManager.createNewTurn(lNetworkManager.setPlayerStartingLocation(aDwelling));
+		lActionManager.createNewTurn(lNetworkManager.setPlayerStartingLocation(aDwelling), lGameState.getPlayer(lLocalPlayerNumber));
 	}
 	
 	public void setLocalActionState(ActionState aActionState){
@@ -228,7 +228,7 @@ public class ViewModel {
 	
 	public void sendActions(){
 		lNetworkManager.sendActions(lActionManager.getActionList());
-		lActionManager.createNewTurn(lActionManager.getActionList().getCurrentClearing());
+		lActionManager.createNewTurn(lActionManager.getActionList().getCurrentClearing(), lGameState.getPlayer(lLocalPlayerNumber));
 	}
 	
 	public void addToActionTable(String aClearingID){

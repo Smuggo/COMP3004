@@ -37,6 +37,8 @@ public class Hero implements Serializable {
 	private int fame;
 	private int notoriety;
 	private int gold;
+	private int turnAmazonBonus;
+	private int turnElfBonus;
 
 	private String name;
 
@@ -68,6 +70,8 @@ public class Hero implements Serializable {
 		fame = 0;
 		notoriety = 0;
 		gold = 0;
+		turnAmazonBonus = 0;
+		turnElfBonus = 0;
 
 		hidden = false;
 		lViewingHidden = false;
@@ -192,6 +196,10 @@ public class Hero implements Serializable {
 			lFinalRoll = lRoll1;
 		else
 			lFinalRoll = lRoll2;
+		
+		if(name.equals("Dwarf")){
+			lFinalRoll = lRoll1;
+		}
 		
 		if(aAction.getRoll() != -1){
 			System.out.println("CHEATING ROLL: " + aAction.getRoll());
@@ -356,11 +364,19 @@ public class Hero implements Serializable {
 			if(lActionList.getCurrentAction() < lActionList.getActions().size()){
 				Action lAction = lActionList.getActions().get(lActionList.getCurrentAction());
 				if (lActionList.getActionPoints() >= lAction.getCost()) {
+					System.out.println(lActionList.getActionPoints());
 					DelayPrompt r = executeAction(lAction);
 					if(needsActionInput){
 						return r;
 					}
-					lActionList.modifyActionPoints(-lAction.getCost());
+					if(name.equals("Amazon") && lAction.getActionType().equals(ActionType.MOVE) && lActionList.getTurn() != turnAmazonBonus){
+						turnAmazonBonus = lActionList.getTurn();
+					}else if(name.equals("Elf") && lAction.getActionType().equals(ActionType.HIDE) && lActionList.getTurn() != turnElfBonus){
+						turnElfBonus = lActionList.getTurn();
+					}else{
+						lActionList.modifyActionPoints(-lAction.getCost());
+					}
+					
 					lActionList.nextAction();
 				}else{
 					lActionList.complete();

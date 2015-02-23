@@ -1,5 +1,6 @@
 package action;
 
+import game.entity.Player;
 import game.environment.hex.Clearing;
 
 import java.awt.BasicStroke;
@@ -23,6 +24,7 @@ public class ActionList implements Serializable{
 	private int lActionPoints;
 	private int lTurn;
 	private int currentAction;
+	private boolean amazonBonusApplied;
 	
 	private Clearing lStartingClearing;
 	private Clearing lCurrentClearing;
@@ -95,10 +97,15 @@ public class ActionList implements Serializable{
 		return lActionPoints;
 	}
 	
-	public void newTurn(Clearing aStartingClearing){
+	public void newTurn(Clearing aStartingClearing, Player aPlayer){
 		lActions = new ArrayList<Action>();
 		lStartingClearing = aStartingClearing;
 		lCurrentClearing = aStartingClearing;
+		if(aPlayer.getChosenHero().getName().equals("Captain") && aStartingClearing.getDwellingType() != null){
+			lActionPoints = 5;
+		}else{
+		lActionPoints = 4;
+		}
 		lTurn++;
 	}
 	

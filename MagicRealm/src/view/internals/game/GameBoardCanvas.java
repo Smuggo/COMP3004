@@ -80,7 +80,9 @@ public class GameBoardCanvas extends JPanel{
 			}
 		} else {
 			lClearing = lModel.getGameState().getHexGrid().getClearingByMouse(lMouse);
-			lModel.addClearingChits(lClearing);
+			if(lClearing != null){
+				lModel.addClearingChits(lClearing);
+			}
 		}
 	}
 	
