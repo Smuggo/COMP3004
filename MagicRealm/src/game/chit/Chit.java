@@ -57,8 +57,8 @@ public class Chit implements Serializable{
 			int lChity;
 			
 			if(clearingNumber == -1){
-				lChitx = aState.getHexGrid().getHex(aGridx, aGridy).getCenter().x;
-				lChity = aState.getHexGrid().getHex(aGridx, aGridy).getCenter().y;
+				lChitx = aState.getHexGrid().getHex(aGridx, aGridy).getCenter().x + 65;
+				lChity = aState.getHexGrid().getHex(aGridx, aGridy).getCenter().y + 155;
 				g.setColor(Color.WHITE);
 				g.fillRect(lChitx, lChity, 55, 55);
 				g.setColor(Color.BLACK);
