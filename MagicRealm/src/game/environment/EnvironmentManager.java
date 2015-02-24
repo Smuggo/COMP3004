@@ -43,7 +43,7 @@ public class EnvironmentManager {
 		hextiles = XMLParser.newGameHexs("HexTiles.xml", aImageMap, aHiddenRoadways);
 		
 		// Create hextile chits
-		lChitFactory = new ChitFactory(hextiles);
+		lChitFactory = new ChitFactory(hextiles, lModel);
 				
 		
 		HexGrid lNewHexGrid = HexGridFactory.newHexGrid(hextiles);

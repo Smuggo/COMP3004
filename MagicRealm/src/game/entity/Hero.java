@@ -3,16 +3,16 @@ package game.entity;
 import game.GameManager;
 import game.environment.hex.Clearing;
 import game.environment.hex.Roadway;
+import game.item.Treasure;
 
 import java.awt.Color;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -21,6 +21,7 @@ import action.Action;
 import action.ActionList;
 import config.Config.ActionType;
 import config.Config.CharacterImageType;
+import config.Config.ChitType;
 import config.Config.DelayPrompt;
 import config.Config.DwellingType;
 import config.Config.RoadwayType;
@@ -55,6 +56,7 @@ public class Hero implements Serializable {
 	private boolean needsActionInput;
 	
 	private Map<String, Roadway> lHiddenRoadways;
+	private ArrayList<Treasure> lOwnedTreasures = new ArrayList<Treasure>();
 
 	public Hero(String n, CharacterImageType charPage,
 			CharacterImageType charChit, DwellingType[] aStartingLocations) {
@@ -300,17 +302,59 @@ public class Hero implements Serializable {
 				}
 			} else if (aAction.getSearchType() == SearchType.LOOT) {
 				if (lFinalRoll == 1) {
-
+					if(lClearing.getOwnedHextile().getOtherChit() != null){
+						if(lClearing.getOwnedHextile().getOtherChit().getChitType().equals(ChitType.SITE)){
+							if(1 <= lClearing.getOwnedHextile().getOtherChit().getTreasures().size()){
+								lOwnedTreasures.add(lClearing.getOwnedHextile().getOtherChit().getTreasures().get(0));
+								lClearing.getOwnedHextile().getOtherChit().getTreasures().remove(0);
+							}
+						}
+					}
 				} else if (lFinalRoll == 2) {
-
+					if(lClearing.getOwnedHextile().getOtherChit() != null){
+						if(lClearing.getOwnedHextile().getOtherChit().getChitType().equals(ChitType.SITE)){
+							if(2 <= lClearing.getOwnedHextile().getOtherChit().getTreasures().size()){
+								lOwnedTreasures.add(lClearing.getOwnedHextile().getOtherChit().getTreasures().get(1));
+								lClearing.getOwnedHextile().getOtherChit().getTreasures().remove(1);
+							}
+						}
+					}
 				} else if (lFinalRoll == 3) {
-
+					if(lClearing.getOwnedHextile().getOtherChit() != null){
+						if(lClearing.getOwnedHextile().getOtherChit().getChitType().equals(ChitType.SITE)){
+							if(3 <= lClearing.getOwnedHextile().getOtherChit().getTreasures().size()){
+								lOwnedTreasures.add(lClearing.getOwnedHextile().getOtherChit().getTreasures().get(2));
+								lClearing.getOwnedHextile().getOtherChit().getTreasures().remove(2);
+							}
+						}
+					}
 				} else if (lFinalRoll == 4) {
-
+					if(lClearing.getOwnedHextile().getOtherChit() != null){
+						if(lClearing.getOwnedHextile().getOtherChit().getChitType().equals(ChitType.SITE)){
+							if(4 <= lClearing.getOwnedHextile().getOtherChit().getTreasures().size()){
+								lOwnedTreasures.add(lClearing.getOwnedHextile().getOtherChit().getTreasures().get(3));
+								lClearing.getOwnedHextile().getOtherChit().getTreasures().remove(3);
+							}
+						}
+					}
 				} else if (lFinalRoll == 5){
-
+					if(lClearing.getOwnedHextile().getOtherChit() != null){
+						if(lClearing.getOwnedHextile().getOtherChit().getChitType().equals(ChitType.SITE)){
+							if(5 <= lClearing.getOwnedHextile().getOtherChit().getTreasures().size()){
+								lOwnedTreasures.add(lClearing.getOwnedHextile().getOtherChit().getTreasures().get(4));
+								lClearing.getOwnedHextile().getOtherChit().getTreasures().remove(4);
+							}
+						}
+					}
 				} else {
-					
+					if(lClearing.getOwnedHextile().getOtherChit() != null){
+						if(lClearing.getOwnedHextile().getOtherChit().getChitType().equals(ChitType.SITE)){
+							if(6 <= lClearing.getOwnedHextile().getOtherChit().getTreasures().size()){
+								lOwnedTreasures.add(lClearing.getOwnedHextile().getOtherChit().getTreasures().get(5));
+								lClearing.getOwnedHextile().getOtherChit().getTreasures().remove(5);
+							}
+						}
+					}
 				}
 			}
 		}

@@ -282,4 +282,8 @@ public class ViewModel {
 	public Map<String, Roadway> getHiddenRoadways(){
 		return lHiddenRoadways;
 	}
+	
+	public TreasureFactory getTreasures(){
+		return lTreasureFactory;
+	}
 }

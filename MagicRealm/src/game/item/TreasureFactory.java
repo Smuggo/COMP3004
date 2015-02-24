@@ -103,6 +103,16 @@ public class TreasureFactory {
 		
 		setupTreasureLists();
 	}
+	
+	public ArrayList<Treasure> getHoardTreasures(){ return lHoardTreasures; }
+	public ArrayList<Treasure> getLairTreasures(){ return lLairTreasures; }
+	public ArrayList<Treasure> getAltarTreasures(){ return lAltarTreasures; }
+	public ArrayList<Treasure> getShrineTreasures(){ return lShrineTreasures; }
+	public ArrayList<Treasure> getPoolTreasures(){ return lPoolTreasures; }
+	public ArrayList<Treasure> getVaultTreasures(){ return lVaultTreasures; }
+	public ArrayList<Treasure> getCairnsTreasures(){ return lCairnsTreasures; }
+	public ArrayList<Treasure> getStatueTreasures(){ return lStatueTreasures; }
+	
 	public void setupTreasureLists(){
 		Random lRandom = new Random();
 		int lRoll;

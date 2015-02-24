@@ -1,6 +1,12 @@
 package game.item;
 
-public class Treasure {
+import java.io.Serializable;
+
+public class Treasure implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3288643812632779023L;
 	private String lName;
 	private boolean lGreatTreasure;
 	private boolean lLargeTreasure;

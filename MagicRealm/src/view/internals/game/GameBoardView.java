@@ -3,6 +3,7 @@ package view.internals.game;
 import game.environment.hex.Clearing;
 import game.entity.Player;
 import game.entity.Monster;
+import game.item.Treasure;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -16,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import config.Config.ChitType;
 import model.ViewModel;
 
 public class GameBoardView extends JInternalFrame{
@@ -123,6 +125,14 @@ public class GameBoardView extends JInternalFrame{
 				if(aMonster.getClearing() != null){
 					if(aMonster.getClearing().getIdentifier().equals(aClearing.getIdentifier())){
 						lCharacterNames.add(aMonster.getName());
+					}
+				}
+			}
+			
+			if(aClearing.getOwnedHextile().getOtherChit() != null){
+				if(aClearing.getOwnedHextile().getOtherChit().getChitType().equals(ChitType.SITE)){
+					for(Treasure aTreasure: aClearing.getOwnedHextile().getOtherChit().getTreasures()){
+						lCharacterNames.add(aTreasure.getName());
 					}
 				}
 			}

@@ -2,12 +2,14 @@ package game.chit;
 
 import game.GameManager;
 import game.GameState;
+import game.item.Treasure;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.io.Serializable;
+import java.util.ArrayList;
 
-import config.Config;
+import config.Config.ChitType;;
 
 public class Chit implements Serializable{
 	/**
@@ -23,11 +25,13 @@ public class Chit implements Serializable{
 	//String faceDownTitle;
 	boolean revealed;
 	int clearingNumber;
-	Config.ChitType chitType;
+	ChitType chitType;
+	ArrayList<Treasure> lSiteTreasures;
 	
 	public Chit(String chitDescription){
 		//faceUpTitle = null;
 		//faceDownTitle = null;
+		lSiteTreasures = null;
 		name = chitDescription;
 		revealed = false;
 		clearingNumber = -1;
@@ -50,6 +54,13 @@ public class Chit implements Serializable{
 	public String getName() { return name; }
 	public boolean isRevealed() { return revealed; } 
 	public int getClearingNumber() { return clearingNumber; }
+	public ArrayList<Treasure> getTreasures(){ return lSiteTreasures; }
+	public ChitType getChitType(){ return chitType; }
+	public void setChitType(ChitType aChitType){ chitType = aChitType; }
+	
+	public void setTreasures(ArrayList<Treasure> aTreasureList){
+		lSiteTreasures = aTreasureList;
+	}
 	
 	public void draw(GameState aState, Graphics g, int aGridx, int aGridy){
 		if(aState != null){

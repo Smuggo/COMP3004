@@ -2,9 +2,12 @@ package game.chit;
 
 import java.util.ArrayList;
 
+
 //import view.internals.game.ChitList;
 import config.Config;
+import config.Config.ChitType;
 import game.environment.hex.Hextile;
+import model.ViewModel;
 
 // source for game pieces: http://www.globetrotter-games.com/index.htm?E&game/eMRealm.htm
 /*
@@ -48,7 +51,10 @@ public class ChitFactory {
 	Chit lostCity;
 	Chit lostCastle;
 
-	public ChitFactory(ArrayList<Hextile> allHextiles) {
+	private ViewModel lModel;
+	
+	public ChitFactory(ArrayList<Hextile> allHextiles, ViewModel aModel) {
+		lModel = aModel;
 		hextiles = allHextiles;
 		// LOST CITY & LOST CASTLE
 		lostCity = new Chit("LOST CITY");
@@ -60,6 +66,7 @@ public class ChitFactory {
 	
 	private void initializeArrayLists() {
 		// 3.5.2 Preparation //
+		Chit lTempChit;
 		
 		// VALLEY WARNING CHITS
 		valleyWarningChits.add(new Chit("BONES V"));
@@ -102,15 +109,45 @@ public class ChitFactory {
 		soundChits.add(new Chit("SLITHER", 6));
 		
 		// SITE CHITS
-		siteChits.add(new Chit("ALTAR", 1));
-		siteChits.add(new Chit("STATUE", 2));
-		siteChits.add(new Chit("VAULT", 3));
-		siteChits.add(new Chit("LAIR", 3));
-		siteChits.add(new Chit("SHRINE", 4));
-		siteChits.add(new Chit("CAIRNS", 5));
-		siteChits.add(new Chit("HOARD", 6));
-		siteChits.add(new Chit("POOL", 6));
+		lTempChit = new Chit("ALTAR", 1);
+		lTempChit.setTreasures(lModel.getTreasures().getAltarTreasures());
+		lTempChit.setChitType(ChitType.SITE);
+		siteChits.add(lTempChit);
 		
+		lTempChit = new Chit("STATUE", 2);
+		lTempChit.setTreasures(lModel.getTreasures().getStatueTreasures());
+		lTempChit.setChitType(ChitType.SITE);
+		siteChits.add(lTempChit);
+		
+		lTempChit = new Chit("VAULT", 3);
+		lTempChit.setTreasures(lModel.getTreasures().getVaultTreasures());
+		lTempChit.setChitType(ChitType.SITE);
+		siteChits.add(lTempChit);
+		
+		lTempChit = new Chit("LAIR", 3);
+		lTempChit.setTreasures(lModel.getTreasures().getLairTreasures());
+		lTempChit.setChitType(ChitType.SITE);
+		siteChits.add(lTempChit);
+		
+		lTempChit = new Chit("SHRINE", 4);
+		lTempChit.setTreasures(lModel.getTreasures().getShrineTreasures());
+		lTempChit.setChitType(ChitType.SITE);
+		siteChits.add(lTempChit);
+		
+		lTempChit = new Chit("CAIRNS", 5);
+		lTempChit.setTreasures(lModel.getTreasures().getCairnsTreasures());
+		lTempChit.setChitType(ChitType.SITE);
+		siteChits.add(lTempChit);
+		
+		lTempChit = new Chit("HOARD", 6);
+		lTempChit.setTreasures(lModel.getTreasures().getHoardTreasures());
+		lTempChit.setChitType(ChitType.SITE);
+		siteChits.add(lTempChit);
+		
+		lTempChit = new Chit("POOL", 6);
+		lTempChit.setTreasures(lModel.getTreasures().getPoolTreasures());
+		lTempChit.setChitType(ChitType.SITE);
+		siteChits.add(lTempChit);
 		createSiteSoundChits();
 		
 		/*// VISTOR/MISSION CHITS
