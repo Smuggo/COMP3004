@@ -101,8 +101,10 @@ public class GameBoardView extends JInternalFrame{
 	
 	//Adds all of the characters and monsters to the clearing display
 	public void addClearingChits(Clearing aClearing){
+		
 		ArrayList<String> lCharacterNames = new ArrayList<String>();
 		JPanel lPanel = new JPanel();
+		lChits.setViewportView(lPanel);
 		
 		if(lModel.getGameState() != null){
 			//Adds Heroes
@@ -142,9 +144,9 @@ public class GameBoardView extends JInternalFrame{
 				imagePanel.add(new JLabel(lCharacterNames.get(i)));
 				
 				lPanel.add(imagePanel);
-				lChits.add(lPanel);
-				lChits.setViewportView(lPanel);
 			}
+			lChits.add(lPanel);
+			lChits.setViewportView(lPanel);
 		}
 		
 		lChits.validate();

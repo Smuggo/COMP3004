@@ -107,12 +107,6 @@ public class GameBoardCanvas extends JPanel{
 	    if(lActionManager.getState().equals(ActionState.MOVING)){
 	    	lGameState.getHexGrid().drawAdjacentClearings(g, lActionManager.getActionList().getCurrentClearing(), lMouse);
 	    }
-	    
-	    for(int i = 1; i < lGameState.getPlayers().size()+1; i++){
-	    	if(lGameState.getPlayer(i)!= null && lGameState.getPlayer(i).getChosenHero() != null){
-	    		lGameState.getPlayer(i).getChosenHero().draw(lModel.getGameManager(), g, lGameState.getPlayer(i));
-	    	}
-	    }
 	
 	    /*
 	    for(int i = 0; i < lGameState.getPlayers().size(); i++){
@@ -131,6 +125,12 @@ public class GameBoardCanvas extends JPanel{
 	    				}
 	    			}
 	    		}
+	    	}
+	    }
+	   
+	    for(int i = 1; i < lGameState.getPlayers().size()+1; i++){
+	    	if(lGameState.getPlayer(i)!= null && lGameState.getPlayer(i).getChosenHero() != null){
+	    		lGameState.getPlayer(i).getChosenHero().draw(lModel.getGameManager(), g, lGameState.getPlayer(i));
 	    	}
 	    }
 	}
