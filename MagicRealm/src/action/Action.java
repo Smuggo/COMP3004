@@ -17,6 +17,8 @@ public class Action implements Serializable {
 
 	private int cost;
 	private int lRoll;
+	
+	private String lResult;
 
 	// Move
 	private Clearing lClearingStart;
@@ -31,7 +33,7 @@ public class Action implements Serializable {
 
 	// Do not make Movement actions with this constructor
 	public Action() {
-
+		lResult = "";
 	}
 
 	public void createMoveAction(Clearing aClearingStart, Clearing aClearingEnd) {
@@ -91,5 +93,12 @@ public class Action implements Serializable {
 	
 	public int getRoll(){
 		return lRoll;
+	}
+	
+	public String getResult(){
+		return lResult;
+	}
+	public void setResult(String aResult){
+		lResult = aResult;
 	}
 }

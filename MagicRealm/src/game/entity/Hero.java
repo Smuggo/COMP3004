@@ -38,6 +38,8 @@ public class Hero implements Serializable {
 	private int fame;
 	private int notoriety;
 	private int gold;
+	private int turnAmazonBonus;
+	private int turnElfBonus;
 
 	private String name;
 
@@ -70,6 +72,8 @@ public class Hero implements Serializable {
 		fame = 0;
 		notoriety = 0;
 		gold = 0;
+		turnAmazonBonus = 0;
+		turnElfBonus = 0;
 
 		hidden = false;
 		lViewingHidden = false;
@@ -195,6 +199,10 @@ public class Hero implements Serializable {
 		else
 			lFinalRoll = lRoll2;
 		
+		if(name.equals("Dwarf")){
+			lFinalRoll = lRoll1;
+		}
+		
 		if(aAction.getRoll() != -1){
 			System.out.println("CHEATING ROLL: " + aAction.getRoll());
 			lFinalRoll = aAction.getRoll();
@@ -202,25 +210,38 @@ public class Hero implements Serializable {
 
 		// Movement
 		if (aActionType.equals(ActionType.MOVE)) {
-			String lTempRoadName1 = aAction.getClearingStart().getOwnedHextile().getName() + " " +
-					aAction.getClearingStart().getNumber() + "-" +
-					aAction.getClearingEnd().getNumber();
-			String lTempRoadName2 = aAction.getClearingStart().getOwnedHextile().getName() + " " +
-					aAction.getClearingEnd().getNumber() + "-" +
-					aAction.getClearingStart().getNumber();
-			
-			if(lHiddenRoadways.containsKey(lTempRoadName1)){
-				if(!lHiddenRoadways.get(lTempRoadName1).getDiscovered()){
-					System.out.println("FAILED TO MOVE");
-					lBlocked = true;
+			if(needsActionInput){
+				needsActionInput = false;
+				System.out.println("Moving");
+				String lTempRoadName1 = aAction.getClearingStart().getOwnedHextile().getName() + " " +
+						aAction.getClearingStart().getNumber() + "-" +
+						aAction.getClearingEnd().getNumber();
+				String lTempRoadName2 = aAction.getClearingStart().getOwnedHextile().getName() + " " +
+						aAction.getClearingEnd().getNumber() + "-" +
+						aAction.getClearingStart().getNumber();
+				
+				if(lHiddenRoadways.containsKey(lTempRoadName1)){
+					if(!lHiddenRoadways.get(lTempRoadName1).getDiscovered()){
+						aAction.setResult("FAILED TO MOVE");
+						System.out.println("FAILED TO MOVE");
+						lBlocked = true;
+					}
 				}
-			}
-			else if(lHiddenRoadways.containsKey(lTempRoadName2)){
-				System.out.println("TEST2");
-				if(!lHiddenRoadways.get(lTempRoadName2).getDiscovered()){
-					System.out.println("FAILED TO MOVE");
-					lBlocked = true;
+				else if(lHiddenRoadways.containsKey(lTempRoadName2)){
+					if(!lHiddenRoadways.get(lTempRoadName2).getDiscovered()){
+						aAction.setResult("FAILED TO MOVE");
+						System.out.println("FAILED TO MOVE");
+						lBlocked = true;
+					}
 				}
+				
+				if(!lBlocked && !lBlocked){
+					aAction.setResult("MOVE SUCCESSFUL");
+					lClearing = aAction.getClearingEnd();
+				}
+			}else{
+				needsActionInput = true;
+				return DelayPrompt.MOVING;
 			}
 			
 			if(!lBlocked){
@@ -232,10 +253,14 @@ public class Hero implements Serializable {
 		else if (aActionType.equals(ActionType.HIDE)) {
 			if(needsActionInput){
 				if (lFinalRoll == 6) {
+					aAction.setResult("FAILED TO HIDE; DIE1 = " + lRoll1
+							+ " DIE2 = " + lRoll2);
 					System.out.println("FAILED TO HIDE; DIE1 = " + lRoll1
 							+ " DIE2 = " + lRoll2);
 					hidden = false;
 				} else {
+					aAction.setResult("HIDE SUCCESS; DIE1 = " + lRoll1
+							+ " DIE2 = " + lRoll2);
 					System.out.println("HIDE SUCCESS; DIE1 = " + lRoll1
 							+ " DIE2 = " + lRoll2);
 					hidden = true;
@@ -249,116 +274,145 @@ public class Hero implements Serializable {
 
 		// Searching
 		else if (aActionType.equals(ActionType.SEARCH)) {
-			if (aAction.getSearchType() == SearchType.PEER) {
-				if (lFinalRoll == 1) {
-					System.out.println("NOT IMPLEMENTED: 1");
-				} else if (lFinalRoll == 2) {
-					for(int i = 0; i < lClearing.getRoadways().size(); i++){
-						if(aAction.getClearingStart().getRoadways().get(i).getRoadwayType().equals(RoadwayType.HIDDEN_PATH)){
-							lHiddenRoadways.get(aAction.getClearingStart().getRoadways().get(i).getName()).setDiscovered(true);
-							System.out.println("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
+			if(needsActionInput){
+				needsActionInput = false;
+				if (aAction.getSearchType() == SearchType.PEER) {
+					if (lFinalRoll == 1) {
+						aAction.setResult("ERROR SEARCHING");
+						System.out.println("NOT IMPLEMENTED: 1");
+					} else if (lFinalRoll == 2) {
+						for(int i = 0; i < lClearing.getRoadways().size(); i++){
+							if(aAction.getClearingStart().getRoadways().get(i).getRoadwayType().equals(RoadwayType.HIDDEN_PATH)){
+								lHiddenRoadways.get(aAction.getClearingStart().getRoadways().get(i).getName()).setDiscovered(true);
+								System.out.println("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
+								aAction.setResult("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
+							}
 						}
-					}
-				} else if (lFinalRoll == 3) {
-					for(int i = 0; i < lClearing.getRoadways().size(); i++){
-						if(aAction.getClearingStart().getRoadways().get(i).getRoadwayType().equals(RoadwayType.HIDDEN_PATH)){
-							lHiddenRoadways.get(aAction.getClearingStart().getRoadways().get(i).getName()).setDiscovered(true);
-							System.out.println("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
+					} else if (lFinalRoll == 3) {
+						for(int i = 0; i < lClearing.getRoadways().size(); i++){
+							if(aAction.getClearingStart().getRoadways().get(i).getRoadwayType().equals(RoadwayType.HIDDEN_PATH)){
+								lHiddenRoadways.get(aAction.getClearingStart().getRoadways().get(i).getName()).setDiscovered(true);
+								System.out.println("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
+								aAction.setResult("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
+							}
 						}
+						lViewingHidden = true;
+						
+					} else if (lFinalRoll == 4) {
+						lViewingHidden = true;
+	
+					} else if (lFinalRoll == 5) {
+						System.out.println("NOT IMPLEMENTED: 5");
+						aAction.setResult("ERROR SEARCHING");
+					} else {
+						System.out.println("FAILED TO FIND ANYTHING.");
+						aAction.setResult("FAILED TO FIND ANYTHING");
 					}
-					lViewingHidden = true;
-					
-				} else if (lFinalRoll == 4) {
-					lViewingHidden = true;
-
-				} else if (lFinalRoll == 5) {
-					System.out.println("NOT IMPLEMENTED: 5");
-				} else {
-					System.out.println("FAILED TO FIND ANYTHING.");
-				}
-			} else if (aAction.getSearchType() == SearchType.LOCATE) {
-				if (lFinalRoll == 1) {
-					System.out.println("NOT IMPLEMENTED: 1");
-				} else if (lFinalRoll == 2) {
-					for(int i = 0; i < lClearing.getRoadways().size(); i++){
-						if(aAction.getClearingStart().getRoadways().get(i).getRoadwayType().equals(RoadwayType.SECRET_PASSAGE)){
-							lHiddenRoadways.get(aAction.getClearingStart().getRoadways().get(i).getName()).setDiscovered(true);
-							System.out.println("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
+				} else if (aAction.getSearchType() == SearchType.LOCATE) {
+					if (lFinalRoll == 1) {
+						System.out.println("NOT IMPLEMENTED: 1");
+						aAction.setResult("ERROR LOCATING");
+					} else if (lFinalRoll == 2) {
+						for(int i = 0; i < lClearing.getRoadways().size(); i++){
+							if(aAction.getClearingStart().getRoadways().get(i).getRoadwayType().equals(RoadwayType.SECRET_PASSAGE)){
+								lHiddenRoadways.get(aAction.getClearingStart().getRoadways().get(i).getName()).setDiscovered(true);
+								System.out.println("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
+								aAction.setResult("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
+							}
 						}
-					}
-
-				} else if (lFinalRoll == 3) {
-					for(int i = 0; i < lClearing.getRoadways().size(); i++){
-						if(aAction.getClearingStart().getRoadways().get(i).getRoadwayType().equals(RoadwayType.SECRET_PASSAGE)){
-							lHiddenRoadways.get(aAction.getClearingStart().getRoadways().get(i).getName()).setDiscovered(true);
-							System.out.println("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
+	
+					} else if (lFinalRoll == 3) {
+						for(int i = 0; i < lClearing.getRoadways().size(); i++){
+							if(aAction.getClearingStart().getRoadways().get(i).getRoadwayType().equals(RoadwayType.SECRET_PASSAGE)){
+								lHiddenRoadways.get(aAction.getClearingStart().getRoadways().get(i).getName()).setDiscovered(true);
+								System.out.println("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
+								aAction.setResult("DISCOVERED: " + aAction.getClearingStart().getRoadways().get(i).getName());
+							}
 						}
+	
+					} else if (lFinalRoll == 4) {
+						System.out.println("NOT IMPLEMENTED: 4");
+						aAction.setResult("Error");
+					} else {
+						System.out.println("FAILED TO LOCATE ANYTHING.");
+						aAction.setResult("FAILED TO LOCATE ANYTHING");
 					}
-
-				} else if (lFinalRoll == 4) {
-					System.out.println("NOT IMPLEMENTED: 4");
-				} else {
-					System.out.println("FAILED TO LOCATE ANYTHING.");
-				}
-			} else if (aAction.getSearchType() == SearchType.LOOT) {
+				} else if (aAction.getSearchType() == SearchType.LOOT) {
 				if (lFinalRoll == 1) {
 					if(lClearing.getOwnedHextile().getOtherChit() != null){
-						if(lClearing.getOwnedHextile().getOtherChit().getChitType().equals(ChitType.SITE)){
+						if(lClearing.getOwnedHextile().getOtherChit().getChitType() != null){
 							if(1 <= lClearing.getOwnedHextile().getOtherChit().getTreasures().size()){
 								lOwnedTreasures.add(lClearing.getOwnedHextile().getOtherChit().getTreasures().get(0));
+								System.out.println("Obtained: " +lClearing.getOwnedHextile().getOtherChit().getTreasures().get(0).getName());
+								aAction.setResult("OBTAINED: " + lClearing.getOwnedHextile().getOtherChit().getTreasures().get(0).getName());
 								lClearing.getOwnedHextile().getOtherChit().getTreasures().remove(0);
 							}
 						}
 					}
 				} else if (lFinalRoll == 2) {
 					if(lClearing.getOwnedHextile().getOtherChit() != null){
-						if(lClearing.getOwnedHextile().getOtherChit().getChitType().equals(ChitType.SITE)){
+						if(lClearing.getOwnedHextile().getOtherChit().getChitType() != null){
 							if(2 <= lClearing.getOwnedHextile().getOtherChit().getTreasures().size()){
 								lOwnedTreasures.add(lClearing.getOwnedHextile().getOtherChit().getTreasures().get(1));
+								System.out.println("Obtained: " +lClearing.getOwnedHextile().getOtherChit().getTreasures().get(1).getName());
+								aAction.setResult("OBTAINED: " + lClearing.getOwnedHextile().getOtherChit().getTreasures().get(1).getName());
 								lClearing.getOwnedHextile().getOtherChit().getTreasures().remove(1);
 							}
 						}
 					}
 				} else if (lFinalRoll == 3) {
 					if(lClearing.getOwnedHextile().getOtherChit() != null){
-						if(lClearing.getOwnedHextile().getOtherChit().getChitType().equals(ChitType.SITE)){
+						if(lClearing.getOwnedHextile().getOtherChit().getChitType() != null){
 							if(3 <= lClearing.getOwnedHextile().getOtherChit().getTreasures().size()){
 								lOwnedTreasures.add(lClearing.getOwnedHextile().getOtherChit().getTreasures().get(2));
+								System.out.println("Obtained: " +lClearing.getOwnedHextile().getOtherChit().getTreasures().get(2).getName());
+								aAction.setResult("OBTAINED: " + lClearing.getOwnedHextile().getOtherChit().getTreasures().get(2).getName());
 								lClearing.getOwnedHextile().getOtherChit().getTreasures().remove(2);
 							}
 						}
 					}
 				} else if (lFinalRoll == 4) {
 					if(lClearing.getOwnedHextile().getOtherChit() != null){
-						if(lClearing.getOwnedHextile().getOtherChit().getChitType().equals(ChitType.SITE)){
+						if(lClearing.getOwnedHextile().getOtherChit().getChitType() != null){
 							if(4 <= lClearing.getOwnedHextile().getOtherChit().getTreasures().size()){
 								lOwnedTreasures.add(lClearing.getOwnedHextile().getOtherChit().getTreasures().get(3));
+								System.out.println("Obtained: " +lClearing.getOwnedHextile().getOtherChit().getTreasures().get(3).getName());
+								aAction.setResult("OBTAINED: " + lClearing.getOwnedHextile().getOtherChit().getTreasures().get(3).getName());
 								lClearing.getOwnedHextile().getOtherChit().getTreasures().remove(3);
 							}
 						}
 					}
 				} else if (lFinalRoll == 5){
 					if(lClearing.getOwnedHextile().getOtherChit() != null){
-						if(lClearing.getOwnedHextile().getOtherChit().getChitType().equals(ChitType.SITE)){
+						if(lClearing.getOwnedHextile().getOtherChit().getChitType() != null){
 							if(5 <= lClearing.getOwnedHextile().getOtherChit().getTreasures().size()){
 								lOwnedTreasures.add(lClearing.getOwnedHextile().getOtherChit().getTreasures().get(4));
+								System.out.println("Obtained: " +lClearing.getOwnedHextile().getOtherChit().getTreasures().get(4).getName());
+								aAction.setResult("OBTAINED: " + lClearing.getOwnedHextile().getOtherChit().getTreasures().get(4).getName());
 								lClearing.getOwnedHextile().getOtherChit().getTreasures().remove(4);
 							}
 						}
 					}
 				} else {
 					if(lClearing.getOwnedHextile().getOtherChit() != null){
-						if(lClearing.getOwnedHextile().getOtherChit().getChitType().equals(ChitType.SITE)){
+						if(lClearing.getOwnedHextile().getOtherChit().getChitType() != null){
 							if(6 <= lClearing.getOwnedHextile().getOtherChit().getTreasures().size()){
 								lOwnedTreasures.add(lClearing.getOwnedHextile().getOtherChit().getTreasures().get(5));
+								System.out.println("Obtained: " +lClearing.getOwnedHextile().getOtherChit().getTreasures().get(5).getName());
+								aAction.setResult("OBTAINED: " + lClearing.getOwnedHextile().getOtherChit().getTreasures().get(5).getName());
 								lClearing.getOwnedHextile().getOtherChit().getTreasures().remove(5);
 							}
 						}
 					}
 				}
 			}
+			}else{
+				needsActionInput = true;
+				return DelayPrompt.SEARCHING;
+			}
 		}
 		return null;
+
 	}
 	
 	public boolean getNeedsActionInput(){
@@ -370,11 +424,19 @@ public class Hero implements Serializable {
 			if(lActionList.getCurrentAction() < lActionList.getActions().size()){
 				Action lAction = lActionList.getActions().get(lActionList.getCurrentAction());
 				if (lActionList.getActionPoints() >= lAction.getCost()) {
+					System.out.println(lActionList.getActionPoints());
 					DelayPrompt r = executeAction(lAction);
 					if(needsActionInput){
 						return r;
 					}
-					lActionList.modifyActionPoints(-lAction.getCost());
+					if(name.equals("Amazon") && lAction.getActionType().equals(ActionType.MOVE) && lActionList.getTurn() != turnAmazonBonus){
+						turnAmazonBonus = lActionList.getTurn();
+					}else if(name.equals("Elf") && lAction.getActionType().equals(ActionType.HIDE) && lActionList.getTurn() != turnElfBonus){
+						turnElfBonus = lActionList.getTurn();
+					}else{
+						lActionList.modifyActionPoints(-lAction.getCost());
+					}
+					
 					lActionList.nextAction();
 				}else{
 					lActionList.complete();
@@ -411,5 +473,9 @@ public class Hero implements Serializable {
 		g2.drawImage(srcImg, 0, 0, w, h, null);
 		g2.dispose();
 		return symbol;
+	}
+	
+	public String getExecutedResult(){
+		return lActionList.getExecutedResult();
 	}
 }

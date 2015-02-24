@@ -72,10 +72,7 @@ public class GameBoardView extends JInternalFrame{
 		add(lScrollPane, c);
 		
 		lChits = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_NEVER, 
-				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		lChits.setPreferredSize(new Dimension(xSize, 25));
-		lChits.setSize(xSize, 25);
-		lChits.setVisible(true);
+				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
@@ -106,7 +103,6 @@ public class GameBoardView extends JInternalFrame{
 	public void addClearingChits(Clearing aClearing){
 		ArrayList<String> lCharacterNames = new ArrayList<String>();
 		JPanel lPanel = new JPanel();
-		lPanel.setSize((int)lModel.getScreenDimensions().getWidth()/2, 25);
 		
 		if(lModel.getGameState() != null){
 			//Adds Heroes
@@ -130,9 +126,11 @@ public class GameBoardView extends JInternalFrame{
 			}
 			
 			if(aClearing.getOwnedHextile().getOtherChit() != null){
-				if(aClearing.getOwnedHextile().getOtherChit().getChitType().equals(ChitType.SITE)){
-					for(Treasure aTreasure: aClearing.getOwnedHextile().getOtherChit().getTreasures()){
-						lCharacterNames.add(aTreasure.getName());
+				if(aClearing.getOwnedHextile().getOtherChit().getChitType() != null){
+					if(aClearing.getOwnedHextile().getOtherChit().getClearingNumber() == aClearing.getNumber()){
+						for(Treasure aTreasure: aClearing.getOwnedHextile().getOtherChit().getTreasures()){
+							lCharacterNames.add(aTreasure.getName());
+						}
 					}
 				}
 			}
@@ -148,8 +146,10 @@ public class GameBoardView extends JInternalFrame{
 				lChits.setViewportView(lPanel);
 			}
 		}
-		lChits.setSize((int)lModel.getScreenDimensions().getWidth()/2, 25);
+		
 		lChits.validate();
 		lChits.repaint();
+		lChits.setMinimumSize(new Dimension(80,80));
+		lChits.getVerticalScrollBar().setValue(lChits.getVerticalScrollBar().getMaximum());
 	}
 }

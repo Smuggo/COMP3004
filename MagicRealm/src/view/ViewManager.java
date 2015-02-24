@@ -23,6 +23,7 @@ import view.internals.menu.LoadGameView;
 import view.internals.menu.MenuView;
 import view.internals.menu.NewGameView;
 import view.internals.menu.ServerMenuView;
+import view.internals.game.ActionDisplay;
 import view.internals.game.CharacterView;
 import view.internals.game.CharacterList;
 import view.internals.game.ChitList;
@@ -55,6 +56,7 @@ public class ViewManager {
 	private ChitList lChitList;	
 	private ViewModel lModel;
 	private DieRoller lDieRoller;
+	private ActionDisplay lActionDisplay;
 	private SearchChoiceSelection lSearchChoice;
 	
 	public ViewManager(ViewModel aModel){
@@ -161,19 +163,29 @@ public class ViewManager {
 	}
 	
 	public void gameStateUpdated(){
-		if(lGameBoard != null){
-			lGameBoard.redraw();
-		}
 		GameState lGameState = lModel.getGameState();
 		if(lGameState != null){
 			if(lGameState.getTurnState().equals(TurnState.EXECUTING) && lGameState.getPlayerUpdating() == lModel.getLocalPlayerNum()){
-				if(lGameState.getDelayPrompt().equals(DelayPrompt.HIDING)){
-					lPlayerMenu.promptHiding();
+				if(lActionDisplay == null){
+					lActionDisplay = new ActionDisplay(lModel);
+					lWindow.addWindow(lActionDisplay);
+					lActionDisplay.newAction();
+				}else{
+					lActionDisplay.newAction();
+					lActionDisplay.setPreviousText(lGameState.getPlayer(lModel.getLocalPlayerNum()).getChosenHero().getExecutedResult());
 				}
 				
+			}else{
+				if(lActionDisplay != null){
+					disposeActionDisplay();
+				}
 			}
 		}
 		
+		if(lGameBoard != null){
+			lGameBoard.redraw();
+			lGameBoard.validate();
+		}
 	}
 	
 	public void updatePlayerTable(ArrayList<Player> aPlayers){
@@ -228,6 +240,12 @@ public class ViewManager {
 	public void showDieRoller(ActionType aActionType, SearchType aSearchType){
 		lDieRoller = new DieRoller(lModel, aActionType, aSearchType);
 		lWindow.addWindow(lDieRoller);
+	}
+	
+	public void disposeActionDisplay(){
+		lWindow.remove(lActionDisplay);
+		lActionDisplay.dispose();
+		lActionDisplay = null;
 	}
 	
 	public void showSearchChoiceSelection(SearchType aSearchType){
