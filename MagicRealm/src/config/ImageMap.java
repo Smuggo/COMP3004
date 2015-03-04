@@ -18,6 +18,7 @@ public class ImageMap {
 	private Map<Config.DwellingType, BufferedImage> dwellingImageMap = new HashMap<Config.DwellingType, BufferedImage>();
 	private Map<Config.MonsterType, BufferedImage> monsterImageMap = new HashMap<Config.MonsterType, BufferedImage>();
 	private Map<String, BufferedImage> gridImageMap = new HashMap<String, BufferedImage>();
+	private Map<String, BufferedImage> combatImageMap = new HashMap<String, BufferedImage>();
 
 	public ImageMap(){
 		try {
@@ -41,6 +42,7 @@ public class ImageMap {
 			
 			monsterImageMap.put(MonsterType.GHOST, ImageIO.read(new File("media/images/monsters/ghost.gif")));
 			
+			combatImageMap.put("CombatTable", ImageIO.read(new File("media/images/combat/char_melee2.gif")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

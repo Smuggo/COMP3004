@@ -1,6 +1,5 @@
 package game.chit;
 
-import game.GameManager;
 import game.GameState;
 import game.item.Treasure;
 
