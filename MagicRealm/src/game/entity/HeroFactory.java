@@ -1,5 +1,6 @@
 package game.entity;
 
+import game.chit.ActionChitFactory;
 import game.environment.hex.HexGrid;
 import game.environment.hex.Roadway;
 
@@ -13,7 +14,7 @@ public class HeroFactory {
 	// Initializes player characters
 	private Map<String, Hero> characters = new HashMap<String, Hero>();
 
-	public HeroFactory() {
+	public HeroFactory(ActionChitFactory aChitFactory) {
 		characters.put("Captain", new Hero("Captain", CharacterImageType.captainPage, CharacterImageType.captainChit, 
 				new DwellingType[]{DwellingType.GUARD, DwellingType.HOUSE, DwellingType.INN}));
 		characters.put("Swordsman", new Hero("Swordsman", CharacterImageType.swordsmanPage, CharacterImageType.swordsmanChit,
@@ -26,6 +27,10 @@ public class HeroFactory {
 				new DwellingType[]{DwellingType.INN}));
 		characters.put("Black Knight", new Hero("Black Knight", CharacterImageType.bKnightPage, CharacterImageType.bKnightChit,
 				new DwellingType[]{DwellingType.INN}));
+		
+		characters.get("Swordsman").setActionChits(aChitFactory.getSwordsmanChits());
+		characters.get("Dwarf").setActionChits(aChitFactory.getDwarfChits());
+		characters.get("Black Knight").setActionChits(aChitFactory.getBKnightChits());
 	}
 
 	public Map<String, Hero> getCharacters() {

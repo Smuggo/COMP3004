@@ -2,6 +2,7 @@ package model;
 
 import game.GameManager;
 import game.GameState;
+import game.chit.ActionChitFactory;
 import game.environment.hex.Clearing;
 import game.environment.hex.HexGrid;
 import game.environment.hex.Roadway;
@@ -33,6 +34,7 @@ public class ViewModel {
 	private ActionManager lActionManager;
 	private Map<String, Roadway> lHiddenRoadways;
 	private TreasureFactory lTreasureFactory;
+	private ActionChitFactory lActionChitFactory;
 	
 	boolean isServer;
 	int lLocalPlayerNumber;
@@ -40,7 +42,8 @@ public class ViewModel {
 	
 	public ViewModel(NetworkManager aNetworkManager){
 		isServer = false;
-		lGameManager = new GameManager(this);
+		lActionChitFactory = new ActionChitFactory();
+		lGameManager = new GameManager(this, lActionChitFactory);
 		lActionManager = new ActionManager();
 		lHiddenRoadways = new HashMap<String, Roadway>();
 		lTreasureFactory = new TreasureFactory();
@@ -298,5 +301,9 @@ public class ViewModel {
 	
 	public void viewCombatMenu(){
 		lViewManager.showCombatMenu();
+	}
+	
+	public ActionChitFactory getActionChits(){
+		return lActionChitFactory;
 	}
 }

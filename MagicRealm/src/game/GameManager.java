@@ -11,6 +11,7 @@ import config.Config.CharacterImageType;
 import config.Config.DwellingType;
 import config.Config.MonsterType;
 import config.ImageMap;
+import game.chit.ActionChitFactory;
 import game.environment.EnvironmentManager;
 import game.environment.hex.HexGrid;
 import game.environment.hex.Roadway;
@@ -23,9 +24,9 @@ public class GameManager {
 	private HeroFactory   characters;
 	private ImageMap gameImages;
 	
-	public GameManager(ViewModel aModel){
+	public GameManager(ViewModel aModel, ActionChitFactory aFactory){
 		lEnvironmentManager = new EnvironmentManager(aModel);
-		characters = new HeroFactory();
+		characters = new HeroFactory(aFactory);
 		gameImages = new ImageMap();
 	}
 

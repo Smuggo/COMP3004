@@ -1,6 +1,7 @@
 package game.entity;
 
 import game.GameManager;
+import game.chit.ActionChit;
 import game.environment.hex.Clearing;
 import game.environment.hex.Roadway;
 import game.item.Treasure;
@@ -58,8 +59,10 @@ public class Hero implements Serializable {
 	private boolean needsActionInput;
 	
 	private Map<String, Roadway> lHiddenRoadways;
-	private ArrayList<Treasure> lOwnedTreasures = new ArrayList<Treasure>();
+	private ArrayList<Treasure> lOwnedTreasures;
 
+	private ArrayList<ActionChit> lActionChits;
+	
 	public Hero(String n, CharacterImageType charPage,
 			CharacterImageType charChit, DwellingType[] aStartingLocations) {
 		name = n;
@@ -79,6 +82,9 @@ public class Hero implements Serializable {
 		lViewingHidden = false;
 		lBlocking = false;
 		needsActionInput = false;
+		
+		lOwnedTreasures = new ArrayList<Treasure>();
+		lActionChits = new ArrayList<ActionChit>();
 	}
 
 	public void draw(GameManager aManager, Graphics g, Player aPlayer) {
@@ -93,6 +99,8 @@ public class Hero implements Serializable {
 		}
 	}
 
+	//GETTERS
+	//----------------------------------------------------------------
 	public String getName() {
 		return name;
 	}
@@ -148,7 +156,14 @@ public class Hero implements Serializable {
 	public Map<String, Roadway> getHiddenRoadways() {
 		return lHiddenRoadways;
 	}
+	
+	public ArrayList<ActionChit> getActionChits(){
+		return lActionChits;
+	}
+	//----------------------------------------------------------------
 
+	//SETTERS
+	//----------------------------------------------------------------
 	public void setVictoryConditions(int[] vCond) {
 		victoryConditions = vCond;
 	}
@@ -186,6 +201,11 @@ public class Hero implements Serializable {
 	public void setBlocked(boolean aBlocked){
 		lBlocked = aBlocked;
 	}
+	
+	public void setActionChits(ArrayList<ActionChit> aActionChits){
+		lActionChits = aActionChits;
+	}
+	//----------------------------------------------------------------
 
 	public DelayPrompt executeAction(Action aAction) {
 		ActionType aActionType = aAction.getActionType();
