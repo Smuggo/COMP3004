@@ -343,6 +343,8 @@ public class Hero implements Serializable {
 						if(lClearing.getOwnedHextile().getOtherChit().getChitType() != null){
 							if(1 <= lClearing.getOwnedHextile().getOtherChit().getTreasures().size()){
 								lOwnedTreasures.add(lClearing.getOwnedHextile().getOtherChit().getTreasures().get(0));
+								fame += lOwnedTreasures.get(lOwnedTreasures.size()-1).getFameValue();
+								notoriety += lOwnedTreasures.get(lOwnedTreasures.size()-1).getNotValue();
 								System.out.println("Obtained: " +lClearing.getOwnedHextile().getOtherChit().getTreasures().get(0).getName());
 								aAction.setResult("OBTAINED: " + lClearing.getOwnedHextile().getOtherChit().getTreasures().get(0).getName());
 								lClearing.getOwnedHextile().getOtherChit().getTreasures().remove(0);
@@ -354,6 +356,8 @@ public class Hero implements Serializable {
 						if(lClearing.getOwnedHextile().getOtherChit().getChitType() != null){
 							if(2 <= lClearing.getOwnedHextile().getOtherChit().getTreasures().size()){
 								lOwnedTreasures.add(lClearing.getOwnedHextile().getOtherChit().getTreasures().get(1));
+								fame += lOwnedTreasures.get(lOwnedTreasures.size()-1).getFameValue();
+								notoriety += lOwnedTreasures.get(lOwnedTreasures.size()-1).getNotValue();
 								System.out.println("Obtained: " +lClearing.getOwnedHextile().getOtherChit().getTreasures().get(1).getName());
 								aAction.setResult("OBTAINED: " + lClearing.getOwnedHextile().getOtherChit().getTreasures().get(1).getName());
 								lClearing.getOwnedHextile().getOtherChit().getTreasures().remove(1);
@@ -365,6 +369,8 @@ public class Hero implements Serializable {
 						if(lClearing.getOwnedHextile().getOtherChit().getChitType() != null){
 							if(3 <= lClearing.getOwnedHextile().getOtherChit().getTreasures().size()){
 								lOwnedTreasures.add(lClearing.getOwnedHextile().getOtherChit().getTreasures().get(2));
+								fame += lOwnedTreasures.get(lOwnedTreasures.size()-1).getFameValue();
+								notoriety += lOwnedTreasures.get(lOwnedTreasures.size()-1).getNotValue();
 								System.out.println("Obtained: " +lClearing.getOwnedHextile().getOtherChit().getTreasures().get(2).getName());
 								aAction.setResult("OBTAINED: " + lClearing.getOwnedHextile().getOtherChit().getTreasures().get(2).getName());
 								lClearing.getOwnedHextile().getOtherChit().getTreasures().remove(2);
@@ -376,6 +382,8 @@ public class Hero implements Serializable {
 						if(lClearing.getOwnedHextile().getOtherChit().getChitType() != null){
 							if(4 <= lClearing.getOwnedHextile().getOtherChit().getTreasures().size()){
 								lOwnedTreasures.add(lClearing.getOwnedHextile().getOtherChit().getTreasures().get(3));
+								fame += lOwnedTreasures.get(lOwnedTreasures.size()-1).getFameValue();
+								notoriety += lOwnedTreasures.get(lOwnedTreasures.size()-1).getNotValue();
 								System.out.println("Obtained: " +lClearing.getOwnedHextile().getOtherChit().getTreasures().get(3).getName());
 								aAction.setResult("OBTAINED: " + lClearing.getOwnedHextile().getOtherChit().getTreasures().get(3).getName());
 								lClearing.getOwnedHextile().getOtherChit().getTreasures().remove(3);
@@ -387,6 +395,8 @@ public class Hero implements Serializable {
 						if(lClearing.getOwnedHextile().getOtherChit().getChitType() != null){
 							if(5 <= lClearing.getOwnedHextile().getOtherChit().getTreasures().size()){
 								lOwnedTreasures.add(lClearing.getOwnedHextile().getOtherChit().getTreasures().get(4));
+								fame += lOwnedTreasures.get(lOwnedTreasures.size()-1).getFameValue();
+								notoriety += lOwnedTreasures.get(lOwnedTreasures.size()-1).getNotValue();
 								System.out.println("Obtained: " +lClearing.getOwnedHextile().getOtherChit().getTreasures().get(4).getName());
 								aAction.setResult("OBTAINED: " + lClearing.getOwnedHextile().getOtherChit().getTreasures().get(4).getName());
 								lClearing.getOwnedHextile().getOtherChit().getTreasures().remove(4);
@@ -398,6 +408,8 @@ public class Hero implements Serializable {
 						if(lClearing.getOwnedHextile().getOtherChit().getChitType() != null){
 							if(6 <= lClearing.getOwnedHextile().getOtherChit().getTreasures().size()){
 								lOwnedTreasures.add(lClearing.getOwnedHextile().getOtherChit().getTreasures().get(5));
+								fame += lOwnedTreasures.get(lOwnedTreasures.size()-1).getFameValue();
+								notoriety += lOwnedTreasures.get(lOwnedTreasures.size()-1).getNotValue();
 								System.out.println("Obtained: " +lClearing.getOwnedHextile().getOtherChit().getTreasures().get(5).getName());
 								aAction.setResult("OBTAINED: " + lClearing.getOwnedHextile().getOtherChit().getTreasures().get(5).getName());
 								lClearing.getOwnedHextile().getOtherChit().getTreasures().remove(5);
