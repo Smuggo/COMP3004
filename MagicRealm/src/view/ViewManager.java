@@ -4,13 +4,10 @@ import game.GameState;
 import game.entity.Hero;
 import game.entity.Player;
 import game.environment.hex.Clearing;
-import game.environment.hex.Hextile;
-
 import java.awt.Dimension;
 import java.util.ArrayList;
 
 import config.Config.ActionType;
-import config.Config.DelayPrompt;
 import config.Config.SearchType;
 import config.Config.TurnState;
 import network.packet.PlayerPacket;
@@ -28,6 +25,7 @@ import view.internals.game.CharacterView;
 import view.internals.game.CharacterList;
 import view.internals.game.ChitList;
 import view.internals.game.ChitPlacementSelection;
+import view.internals.game.Combat;
 import view.internals.game.PlayerMenu;
 import view.internals.game.SearchChoiceSelection;
 import view.internals.game.Searching;
@@ -58,6 +56,7 @@ public class ViewManager {
 	private DieRoller lDieRoller;
 	private ActionDisplay lActionDisplay;
 	private SearchChoiceSelection lSearchChoice;
+	private Combat lCombatView;
 	
 	public ViewManager(ViewModel aModel){
 		lModel = aModel;
@@ -76,7 +75,6 @@ public class ViewManager {
 	}
 	
 	public void newGame(){
-	
 		lNewGame = new NewGameView(lModel);
 		lNewGame.setVisible(true);
 		lWindow.addWindow(lNewGame);
@@ -251,5 +249,10 @@ public class ViewManager {
 	public void showSearchChoiceSelection(SearchType aSearchType){
 		lSearchChoice = new SearchChoiceSelection(lModel, aSearchType);
 		lWindow.addWindow(lSearchChoice);
+	}
+	
+	public void showCombatMenu(){
+		lCombatView = new Combat(lModel);
+		lWindow.addWindow(lCombatView);
 	}
 }

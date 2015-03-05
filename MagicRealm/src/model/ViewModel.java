@@ -7,7 +7,6 @@ import game.environment.hex.HexGrid;
 import game.environment.hex.Roadway;
 import game.entity.Hero;
 import game.entity.Player;
-import game.item.Treasure;
 import game.item.TreasureFactory;
 
 import java.awt.Dimension;
@@ -295,5 +294,9 @@ public class ViewModel {
 	
 	public TreasureFactory getTreasures(){
 		return lTreasureFactory;
+	}
+	
+	public void viewCombatMenu(){
+		lViewManager.showCombatMenu();
 	}
 }
