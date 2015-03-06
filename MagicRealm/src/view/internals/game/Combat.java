@@ -69,7 +69,21 @@ public class Combat extends JInternalFrame{
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				
+				lModel.requestHeroActionChits();
+			}
+		});
+		lDodgeAndSwing.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				lModel.requestHeroActionChits();
+			}
+		});
+		lDuckAndSmash.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				lModel.requestHeroActionChits();
 			}
 		});
 	}

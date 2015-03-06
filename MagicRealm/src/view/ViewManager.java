@@ -4,6 +4,7 @@ import game.GameState;
 import game.entity.Hero;
 import game.entity.Player;
 import game.environment.hex.Clearing;
+
 import java.awt.Dimension;
 import java.util.ArrayList;
 
@@ -26,6 +27,7 @@ import view.internals.game.CharacterList;
 import view.internals.game.ChitList;
 import view.internals.game.ChitPlacementSelection;
 import view.internals.game.Combat;
+import view.internals.game.HeroActionChits;
 import view.internals.game.PlayerMenu;
 import view.internals.game.SearchChoiceSelection;
 import view.internals.game.Searching;
@@ -57,6 +59,7 @@ public class ViewManager {
 	private ActionDisplay lActionDisplay;
 	private SearchChoiceSelection lSearchChoice;
 	private Combat lCombatView;
+	private HeroActionChits lHeroActionChits;
 	
 	public ViewManager(ViewModel aModel){
 		lModel = aModel;
@@ -254,5 +257,10 @@ public class ViewManager {
 	public void showCombatMenu(){
 		lCombatView = new Combat(lModel);
 		lWindow.addWindow(lCombatView);
+	}
+	
+	public void showActionChits(){
+		lHeroActionChits = new HeroActionChits(lModel);
+		lWindow.addWindow(lHeroActionChits);
 	}
 }

@@ -34,4 +34,12 @@ public class ActionChit implements Serializable{
 	//Fatigued and wounded are the only things that will ever change
 	public void setFatigued(boolean aFatigued){ lFatigued = aFatigued; }
 	public void setWounded(boolean aWounded){ lWounded = aWounded; }
+	
+	public String toString(){
+		String lActionString = lType + " " + lStrength + " " + lTime;
+		for(int i = 0; i < lEffort; i++){
+			lActionString += "*";
+		}
+		return lActionString;
+	}
 }

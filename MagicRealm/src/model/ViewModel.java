@@ -307,4 +307,8 @@ public class ViewModel {
 	public ActionChitFactory getActionChits(){
 		return lActionChitFactory;
 	}
+	
+	public void requestHeroActionChits(){
+		lViewManager.showActionChits();
+	}
 }
