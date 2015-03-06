@@ -201,6 +201,7 @@ public class ViewModel {
 		
 		if(!aGameState.equals(lGameState)){
 			if(lGameState!= null && aGameState != null && lGameState.getDay() != aGameState.getDay()){
+				requestCombatMenu();
 				lActionManager.createNewTurn(aGameState, lLocalPlayerNumber, aGameState.getPlayer(lLocalPlayerNumber));
 				lGameState = aGameState;
 				lViewManager.newTurn();
@@ -299,7 +300,7 @@ public class ViewModel {
 		return lTreasureFactory;
 	}
 	
-	public void viewCombatMenu(){
+	public void requestCombatMenu(){
 		lViewManager.showCombatMenu();
 	}
 	

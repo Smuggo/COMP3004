@@ -1,6 +1,12 @@
 package game.chit;
 
-public class ActionChit {
+import java.io.Serializable;
+
+public class ActionChit implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -173848656803328984L;
 	public String lType; //MOVE, FIGHT, MAGIC
 	public char lStrength; //L (LIGHT), M(MEDIUM), H(HEAVY), T(TREMENDOUS)
 	public int lTime; //How long it takes the action to perform
