@@ -1,8 +1,12 @@
 package view.internals.game;
 
+import game.entity.Hero;
+
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -57,6 +61,16 @@ public class Combat extends JInternalFrame{
 		c.gridy = 4;
 		add(lDuckAndSmash, c);
 		
+		createButtonListeners();
 		setVisible(true);
+	}
+	protected void createButtonListeners(){
+		lChargeAndThrust.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				
+			}
+		});
 	}
 }
