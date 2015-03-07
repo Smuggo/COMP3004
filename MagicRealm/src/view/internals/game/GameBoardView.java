@@ -81,6 +81,8 @@ public class GameBoardView extends JInternalFrame{
 		c.gridy = 1;
 		add(lChits, c);
 		
+		
+		lCanvas.init();
 	}
 
 	public void fillScrollPane(Dimension aCanvasSize){
@@ -88,6 +90,7 @@ public class GameBoardView extends JInternalFrame{
 		lCanvas.setPreferredSize(aCanvasSize);
 		lCanvas.setSize(aCanvasSize);
 		lScrollPane.add(lCanvas);
+		
 	}
 	
 	public void center(){
