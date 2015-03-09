@@ -23,6 +23,7 @@ import action.ActionList;
 import config.Config.ActionType;
 import config.Config.CharacterImageType;
 import config.Config.ChitType;
+import config.Config.CombatStage;
 import config.Config.DelayPrompt;
 import config.Config.DwellingType;
 import config.Config.RoadwayType;
@@ -61,7 +62,10 @@ public class Hero implements Serializable {
 	private Map<String, Roadway> lHiddenRoadways;
 	private ArrayList<Treasure> lOwnedTreasures;
 
-	private ArrayList<ActionChit> lActionChits;
+	private ArrayList<ActionChit> lFightChits;
+	private ArrayList<ActionChit> lMoveChits;
+	
+	private CombatStage lCombatStage;
 	
 	public Hero(String n, CharacterImageType charPage,
 			CharacterImageType charChit, DwellingType[] aStartingLocations) {
@@ -84,7 +88,10 @@ public class Hero implements Serializable {
 		needsActionInput = false;
 		
 		lOwnedTreasures = new ArrayList<Treasure>();
-		lActionChits = new ArrayList<ActionChit>();
+		lFightChits = new ArrayList<ActionChit>();
+		lMoveChits = new ArrayList<ActionChit>();
+		
+		lCombatStage = CombatStage.OUTOFCOMBAT;
 	}
 
 	public void draw(GameManager aManager, Graphics g, Player aPlayer) {
@@ -157,8 +164,16 @@ public class Hero implements Serializable {
 		return lHiddenRoadways;
 	}
 	
-	public ArrayList<ActionChit> getActionChits(){
-		return lActionChits;
+	public ArrayList<ActionChit> getFightChits(){
+		return lFightChits;
+	}
+	
+	public ArrayList<ActionChit> getMoveChits(){
+		return lMoveChits;
+	}
+	
+	public CombatStage getCombatState(){
+		return lCombatStage;
 	}
 	//----------------------------------------------------------------
 
@@ -203,7 +218,16 @@ public class Hero implements Serializable {
 	}
 	
 	public void setActionChits(ArrayList<ActionChit> aActionChits){
-		lActionChits = aActionChits;
+		for(ActionChit aChit: aActionChits){
+			if(aChit.getType().equals("FIGHT"))
+				lFightChits.add(aChit);
+			else if(aChit.getType().equals("MOVE"))
+				lMoveChits.add(aChit);
+		}
+	}
+	
+	public void setCombatStage(CombatStage aCombatStage){
+		lCombatStage = aCombatStage;
 	}
 	//----------------------------------------------------------------
 

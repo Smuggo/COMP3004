@@ -14,6 +14,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import config.Config.CombatStage;
 import model.ViewModel;
 
 public class Combat extends JInternalFrame{
@@ -21,9 +22,12 @@ public class Combat extends JInternalFrame{
 	
 	private JLabel lCombatCommand;
 	
-	private JButton lChargeAndThrust;
-	private JButton lDodgeAndSwing;
-	private JButton lDuckAndSmash;
+	private JButton lThrust;
+	private JButton lSwing;
+	private JButton lSmash;
+	private JButton lCharge;
+	private JButton lDodge;
+	private JButton lDuck;
 	
 	public Combat(ViewModel aModel){
 		super("Combat View",true,false,false,true);
@@ -46,43 +50,46 @@ public class Combat extends JInternalFrame{
 		c.gridy = 1;
 		add(lCombatCommand, c);
 		
-		lChargeAndThrust = new JButton("Charge and Thrust");
+		lThrust = new JButton("Thrust");
 		c.gridx = 0;
 		c.gridy = 2;
-		add(lChargeAndThrust, c);
+		add(lThrust, c);
 		
-		lDodgeAndSwing = new JButton("Dodge and Swing");
+		lSwing = new JButton("Swing");
 		c.gridx = 0;
 		c.gridy = 3;
-		add(lDodgeAndSwing, c);
+		add(lSwing, c);
 		
-		lDuckAndSmash = new JButton("Duck and Smash");
+		lSmash = new JButton("Smash");
 		c.gridx = 0;
 		c.gridy = 4;
-		add(lDuckAndSmash, c);
+		add(lSmash, c);
 		
 		createButtonListeners();
 		setVisible(true);
 	}
 	protected void createButtonListeners(){
-		lChargeAndThrust.addActionListener(new ActionListener()
+		lThrust.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().setCombatStage(CombatStage.FIGHT);
 				lModel.requestHeroActionChits();
 			}
 		});
-		lDodgeAndSwing.addActionListener(new ActionListener()
+		lSwing.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().setCombatStage(CombatStage.FIGHT);
 				lModel.requestHeroActionChits();
 			}
 		});
-		lDuckAndSmash.addActionListener(new ActionListener()
+		lSmash.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().setCombatStage(CombatStage.FIGHT);
 				lModel.requestHeroActionChits();
 			}
 		});

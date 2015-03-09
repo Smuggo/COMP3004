@@ -5,12 +5,15 @@ import game.chit.ActionChit;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 
+import config.Config.CombatStage;
 import model.ViewModel;
 
 public class HeroActionChits extends JInternalFrame{
@@ -19,15 +22,22 @@ public class HeroActionChits extends JInternalFrame{
 	 */
 	private static final long serialVersionUID = -797938516902370365L;
 
-	private JLabel lChitType;
+	private JLabel lFightType;
+	private JLabel lMoveType;
+	
+	private ArrayList<ActionChit> lHeroFight;
+	private ArrayList<ActionChit> lHeroMove;
+	
 	private ArrayList<JButton> lHeroFightChits;
+	private ArrayList<JButton> lHeroMoveChits;
 	
 	public HeroActionChits(ViewModel aModel){
 		super("Hero Chits",true,false,false,true);
 
 		int xSize = 400;
 		int ySize = 500;
-		ArrayList<ActionChit> lHeroChits = aModel.getGameState().getPlayer(aModel.getLocalPlayerNum()).getChosenHero().getActionChits();
+		lHeroFight = aModel.getGameState().getPlayer(aModel.getLocalPlayerNum()).getChosenHero().getFightChits();
+		lHeroMove = aModel.getGameState().getPlayer(aModel.getLocalPlayerNum()).getChosenHero().getMoveChits();
 		
 		setPreferredSize(new Dimension(xSize, ySize));
 		setSize(xSize, ySize);
@@ -38,23 +48,41 @@ public class HeroActionChits extends JInternalFrame{
 		GridBagConstraints c = new GridBagConstraints();
 		
 		lHeroFightChits = new ArrayList<JButton>();
+		lHeroMoveChits = new ArrayList<JButton>();
 		 
-		for(ActionChit lActionChit: lHeroChits){
-			if(lActionChit.getType().equals("FIGHT"))
-				lHeroFightChits.add(new JButton(lActionChit.toString()));
+		for(ActionChit lActionChit: lHeroFight){
+			lHeroFightChits.add(new JButton(lActionChit.toString()));
 		}
 		
-		lChitType = new JLabel("Fight Chits");
+		lFightType = new JLabel("Fight Chits");
 		c.gridx = 0;
 		c.gridy = 0;
-		add(lChitType, c);
+		add(lFightType, c);
 		
 		for(int i = 0; i < lHeroFightChits.size(); i++){
 			c.gridx = 0;
 			c.gridy = i + 1;
 			add(lHeroFightChits.get(i), c);
+			if(!aModel.getGameState().getPlayer(aModel.getLocalPlayerNum()).getChosenHero().getCombatState().equals(CombatStage.FIGHT))
+				lHeroFightChits.get(i).setEnabled(false);
 		}
 		
+		for(ActionChit lActionChit: lHeroMove){
+			lHeroMoveChits.add(new JButton(lActionChit.toString()));
+		}
+		
+		lMoveType = new JLabel("Move Chits");
+		c.gridx = 1;
+		c.gridy = 0;
+		add(lMoveType, c);
+		
+		for(int i = 0; i < lHeroMoveChits.size(); i++){
+			c.gridx = 1;
+			c.gridy = i + 1;
+			add(lHeroMoveChits.get(i), c);
+			if(!aModel.getGameState().getPlayer(aModel.getLocalPlayerNum()).getChosenHero().getCombatState().equals(CombatStage.MOVE))
+				lHeroMoveChits.get(i).setEnabled(false);
+		}
 		setVisible(true);
 	}
 }

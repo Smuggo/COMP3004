@@ -19,6 +19,7 @@ import java.util.Map;
 import action.ActionManager;
 import config.Config.ActionState;
 import config.Config.ActionType;
+import config.Config.CombatStage;
 import config.Config.SearchType;
 import config.ImageMap;
 import network.NetworkManager;
@@ -201,7 +202,9 @@ public class ViewModel {
 		
 		if(!aGameState.equals(lGameState)){
 			if(lGameState!= null && aGameState != null && lGameState.getDay() != aGameState.getDay()){
+				//TEMP COMBAT TESTING
 				requestCombatMenu();
+				//--------------------
 				lActionManager.createNewTurn(aGameState, lLocalPlayerNumber, aGameState.getPlayer(lLocalPlayerNumber));
 				lGameState = aGameState;
 				lViewManager.newTurn();

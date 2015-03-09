@@ -65,4 +65,8 @@ public final class Config {
 	public enum MonsterType{
 		GHOST
 	}
+	
+	public enum CombatStage{
+		FIGHT, MOVE, OUTOFCOMBAT
+	}
 }
