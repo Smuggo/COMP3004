@@ -26,6 +26,7 @@ import config.Config.ChitType;
 import config.Config.CombatStage;
 import config.Config.DelayPrompt;
 import config.Config.DwellingType;
+import config.Config.FightType;
 import config.Config.RoadwayType;
 import config.Config.SearchType;
 
@@ -70,6 +71,8 @@ public class Hero implements Serializable {
 	
 	private CombatStage lCombatStage;
 	
+	private FightType lFightType;
+	
 	public Hero(String n, CharacterImageType charPage,
 			CharacterImageType charChit, DwellingType[] aStartingLocations) {
 		name = n;
@@ -97,6 +100,7 @@ public class Hero implements Serializable {
 		lCombatStage = CombatStage.OUTOFCOMBAT;
 		lFightChoice = null;
 		lMoveChoice = null;
+		lFightType = null;
 	}
 
 	public void draw(GameManager aManager, Graphics g, Player aPlayer) {
@@ -188,6 +192,10 @@ public class Hero implements Serializable {
 	public ActionChit getMoveChoice(){
 		return lMoveChoice;
 	}
+	
+	public FightType getFightType(){
+		return lFightType;
+	}
 	//----------------------------------------------------------------
 
 	//SETTERS
@@ -249,6 +257,10 @@ public class Hero implements Serializable {
 	
 	public void setMoveChoice(ActionChit aMoveChoice){
 		lMoveChoice = aMoveChoice;
+	}
+	
+	public void setFightType(FightType aFightType){
+		lFightType = aFightType;
 	}
 	//----------------------------------------------------------------
 

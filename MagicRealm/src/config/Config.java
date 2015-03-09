@@ -69,4 +69,8 @@ public final class Config {
 	public enum CombatStage{
 		FIGHT, MOVE, OUTOFCOMBAT
 	}
+	
+	public enum FightType{
+		THRUST, SWING, SMASH
+	}
 }

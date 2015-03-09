@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import config.Config.CombatStage;
+import config.Config.FightType;
 import model.ViewModel;
 
 public class Combat extends JInternalFrame{
@@ -73,7 +74,9 @@ public class Combat extends JInternalFrame{
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				enableOrDisableButtons(false);
 				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().setCombatStage(CombatStage.FIGHT);
+				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().setFightType(FightType.THRUST);
 				lModel.requestHeroActionChits();
 			}
 		});
@@ -81,7 +84,9 @@ public class Combat extends JInternalFrame{
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				enableOrDisableButtons(false);
 				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().setCombatStage(CombatStage.FIGHT);
+				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().setFightType(FightType.SWING);
 				lModel.requestHeroActionChits();
 			}
 		});
@@ -89,9 +94,17 @@ public class Combat extends JInternalFrame{
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				enableOrDisableButtons(false);
 				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().setCombatStage(CombatStage.FIGHT);
+				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().setFightType(FightType.SMASH);
 				lModel.requestHeroActionChits();
 			}
 		});
+	}
+	
+	public void enableOrDisableButtons(boolean aState){
+		lThrust.setEnabled(aState);
+		lSwing.setEnabled(aState);
+		lSmash.setEnabled(aState);
 	}
 }
