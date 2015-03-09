@@ -31,6 +31,8 @@ public class HeroActionChits extends JInternalFrame{
 	private ArrayList<JButton> lHeroFightChits;
 	private ArrayList<JButton> lHeroMoveChits;
 	
+	private ViewModel lModel;
+	
 	public HeroActionChits(ViewModel aModel){
 		super("Hero Chits",true,false,false,true);
 
@@ -49,6 +51,7 @@ public class HeroActionChits extends JInternalFrame{
 		
 		lHeroFightChits = new ArrayList<JButton>();
 		lHeroMoveChits = new ArrayList<JButton>();
+		lModel = aModel;
 		 
 		for(ActionChit lActionChit: lHeroFight){
 			lHeroFightChits.add(new JButton(lActionChit.toString()));
@@ -83,6 +86,22 @@ public class HeroActionChits extends JInternalFrame{
 			if(!aModel.getGameState().getPlayer(aModel.getLocalPlayerNum()).getChosenHero().getCombatState().equals(CombatStage.MOVE))
 				lHeroMoveChits.get(i).setEnabled(false);
 		}
+		
+		createButtonListeners();
 		setVisible(true);
+	}
+	protected void createButtonListeners(){
+		for(int i = 0; i < lHeroFightChits.size(); i++){
+			ActionChit lTempChit = lHeroFight.get(i);
+			
+			lHeroFightChits.get(i).addActionListener(new ActionListener()
+			{
+			 public void actionPerformed(ActionEvent e)
+			 {
+				 lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().setFightChoice(lTempChit);
+				 dispose();
+			 }
+			});
+		}
 	}
 }

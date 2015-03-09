@@ -65,6 +65,9 @@ public class Hero implements Serializable {
 	private ArrayList<ActionChit> lFightChits;
 	private ArrayList<ActionChit> lMoveChits;
 	
+	private ActionChit lFightChoice;
+	private ActionChit lMoveChoice;
+	
 	private CombatStage lCombatStage;
 	
 	public Hero(String n, CharacterImageType charPage,
@@ -92,6 +95,8 @@ public class Hero implements Serializable {
 		lMoveChits = new ArrayList<ActionChit>();
 		
 		lCombatStage = CombatStage.OUTOFCOMBAT;
+		lFightChoice = null;
+		lMoveChoice = null;
 	}
 
 	public void draw(GameManager aManager, Graphics g, Player aPlayer) {
@@ -175,6 +180,14 @@ public class Hero implements Serializable {
 	public CombatStage getCombatState(){
 		return lCombatStage;
 	}
+	
+	public ActionChit getFightChoice(){
+		return lFightChoice;
+	}
+	
+	public ActionChit getMoveChoice(){
+		return lMoveChoice;
+	}
 	//----------------------------------------------------------------
 
 	//SETTERS
@@ -228,6 +241,14 @@ public class Hero implements Serializable {
 	
 	public void setCombatStage(CombatStage aCombatStage){
 		lCombatStage = aCombatStage;
+	}
+	
+	public void setFightChoice(ActionChit aFightChoice){
+		lFightChoice = aFightChoice;
+	}
+	
+	public void setMoveChoice(ActionChit aMoveChoice){
+		lMoveChoice = aMoveChoice;
 	}
 	//----------------------------------------------------------------
 
