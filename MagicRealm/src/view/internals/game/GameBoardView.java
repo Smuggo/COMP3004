@@ -86,7 +86,7 @@ public class GameBoardView extends JInternalFrame{
 	}
 
 	public void fillScrollPane(Dimension aCanvasSize){
-		lCanvas = new GameBoardCanvas(lModel);
+		lCanvas = new GameBoardCanvas(lModel, this);
 		lCanvas.setPreferredSize(aCanvasSize);
 		lCanvas.setSize(aCanvasSize);
 		lScrollPane.add(lCanvas);
@@ -156,5 +156,9 @@ public class GameBoardView extends JInternalFrame{
 		lChits.repaint();
 		lChits.setMinimumSize(new Dimension(80,80));
 		lChits.getVerticalScrollBar().setValue(lChits.getVerticalScrollBar().getMaximum());
+	}
+	
+	public ScrollPane getScrollPane(){
+		return lScrollPane;
 	}
 }

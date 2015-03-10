@@ -68,11 +68,11 @@ public class HexGrid implements Serializable{
 	}
 	
 	
-	public void drawGrid(Graphics g, Dimension aCanvasSize, Point aMouse, ImageMap aImageMap){
+	public void drawGrid(Graphics g, Dimension aCanvasSize, Point aMouse, ImageMap aImageMap, Point aWindowPoint, Dimension aWindowSize){
 		for(int y = -lRadius; y <= lRadius; y++ ){
 			for(int x = -lRadius; x <= lRadius; x++){
 				if (getHex(x,y) != null) {
-					getHex(x,y).drawHex(x,y,g, aCanvasSize, aMouse, aImageMap);
+					getHex(x,y).drawHex(x,y,g, aCanvasSize, aMouse, aImageMap, aWindowPoint, aWindowSize);
 				}
 			}
 		}

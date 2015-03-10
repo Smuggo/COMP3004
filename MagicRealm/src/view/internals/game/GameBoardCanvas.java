@@ -6,6 +6,7 @@ import game.environment.hex.HexGrid;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -29,16 +30,17 @@ public class GameBoardCanvas extends Canvas{
 	ViewModel lModel;
 	Random r;
 	BufferStrategy bs;
+	GameBoardView lParentView;
 	boolean ready = false;
 	
 	
 	Point lMouse;
 	
 	
-	public GameBoardCanvas(ViewModel aModel){
+	public GameBoardCanvas(ViewModel aModel, GameBoardView aParentView){
 		super();
 		lModel = aModel;
-		
+		lParentView = aParentView;
 		
 		lMouse = new Point();
 		
@@ -111,12 +113,14 @@ public class GameBoardCanvas extends Canvas{
 			GameState lGameState = lModel.getGameState();
 			HexGrid lHexGrid = lModel.getGameState().getHexGrid();
 			ActionManager lActionManager = lModel.getActionManager();
-			g.setColor(Color.white);
-		    g.fillRect(0, 0, getWidth(), getHeight());
+		    
+		    Point lWindowPoint1 = lParentView.getScrollPane().getScrollPosition();
+		    Dimension lWindowSize = lParentView.getSize();
+		    
 		    g.setColor(Color.black);
 			
 		    if(lModel.requestGrid() != null){
-		    	lModel.requestGrid().drawGrid(g, this.getSize(), lMouse, lModel.getImageMap());
+		    	lModel.requestGrid().drawGrid(g, this.getSize(), lMouse, lModel.getImageMap(), lWindowPoint1, lWindowSize);
 		    }
 		    
 		    if(lActionManager != null){
@@ -137,10 +141,10 @@ public class GameBoardCanvas extends Canvas{
 		    		if(lHexGrid.getHex(x, y) != null){
 		    			if(lHexGrid.getHex(x, y).isActive()){
 		    				if(lHexGrid.getHex(x, y).getHextile().getWarningChit() != null){
-		    					lHexGrid.getHex(x, y).getHextile().getWarningChit().draw(lModel.getGameState(), g, x, y);
+		    					lHexGrid.getHex(x, y).getHextile().getWarningChit().draw(lModel.getGameState(), g, x, y, lWindowPoint1, lWindowSize);
 		    				}
 		    				if(lHexGrid.getHex(x, y).getHextile().getOtherChit() != null){
-		    					lHexGrid.getHex(x, y).getHextile().getOtherChit().draw(lModel.getGameState(), g, x, y);
+		    					lHexGrid.getHex(x, y).getHextile().getOtherChit().draw(lModel.getGameState(), g, x, y, lWindowPoint1, lWindowSize);
 		    				}
 		    			}
 		    		}
