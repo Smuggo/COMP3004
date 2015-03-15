@@ -62,6 +62,12 @@ public class Action implements Serializable {
 		lRoll = -1;
 		cost = 1;
 	}
+	
+	public void createTradeAction() {
+		lActionType = ActionType.TRADE;
+		lRoll = -1;
+		cost = 1;
+	}
 
 	public int getCost() {
 		return cost;

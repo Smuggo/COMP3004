@@ -36,6 +36,7 @@ public class PlayerMenu extends JInternalFrame{
 	private JButton lBlocking;
 	private JButton lSendActionsOrCancel;
 	private JButton lConfirmHide;
+	private JButton lTrade;
 
 
 	private String lTurnActions;
@@ -80,21 +81,27 @@ public class PlayerMenu extends JInternalFrame{
 		c.gridy = 0;
 		add(lSearch, c);
 		
-		lRemove = new JButton("Remove Prev.");
+		lTrade = new JButton("Trade");
 		c.gridx = 4;
+		c.gridy = 0;
+		add(lTrade, c);
+		
+		lRemove = new JButton("Remove Prev.");
+		c.gridx = 5;
 		c.gridy = 0;
 		add(lRemove, c);
 		
 		lSendActionsOrCancel = new JButton("Send Actions");
-		c.gridx = 5;
+		c.gridx = 6;
 		c.gridy = 0;
 		add(lSendActionsOrCancel, c);
 		
 		lConfirmHide = new JButton("Confirm Hide");
-		c.gridx = 6;
+		c.gridx = 7;
 		c.gridy = 0;
 		add(lConfirmHide);
 		lConfirmHide.setVisible(false);
+	
 		
 		
 		lActionTable = new JTable(new DefaultTableModel(new Object[]{"Day", "Actions", "Die"}, 0))
@@ -165,6 +172,7 @@ public class PlayerMenu extends JInternalFrame{
 				lRest.setEnabled(false);
 				lSearch.setEnabled(false);
 				lRemove.setEnabled(false);
+				lTrade.setEnabled(false);
 			}
 		});
 		
@@ -191,6 +199,16 @@ public class PlayerMenu extends JInternalFrame{
 				lModel.requestSearching();
 				lTurnActions += "S,";
 				enableOrDisableButtons(false);
+				lActionTable.setValueAt(lTurnActions, lModel.getGameState().getDay()-1, 1);
+			}
+		});
+		
+		lTrade.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				lModel.getActionManager().getActionList().addTradeAction();
+				lTurnActions += "T,";
 				lActionTable.setValueAt(lTurnActions, lModel.getGameState().getDay()-1, 1);
 			}
 		});
@@ -226,6 +244,7 @@ public class PlayerMenu extends JInternalFrame{
 					lRest.setEnabled(true);
 					lSearch.setEnabled(true);
 					lRemove.setEnabled(true);
+					lTrade.setEnabled(true);
 				}else{
 					lModel.sendActions();
 					lSendActionsOrCancel.setEnabled(false);
@@ -234,6 +253,7 @@ public class PlayerMenu extends JInternalFrame{
 					lRest.setEnabled(false);
 					lSearch.setEnabled(false);
 					lRemove.setEnabled(false);
+					lTrade.setEnabled(false);
 				}
 			}
 		});
@@ -285,6 +305,7 @@ public class PlayerMenu extends JInternalFrame{
 		lRest.setEnabled(aButtonState);
 		lSearch.setEnabled(aButtonState);
 		lRemove.setEnabled(aButtonState);
+		lTrade.setEnabled(aButtonState);
 	}
 	
 	public void promptHiding(){

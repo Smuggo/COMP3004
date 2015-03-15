@@ -90,6 +90,10 @@ public class ActionDisplay extends JInternalFrame{
 			public void actionPerformed(ActionEvent e)
 			{
 				if(lModel.getGameState() != null && lModel.getGameState().getDelayPrompt()!= null){
+					if(lModel.getGameState().getDelayPrompt().equals(DelayPrompt.TRADING)){
+						lModel.tradeConfirmed();
+						lExecute.setEnabled(false);
+					}
 					if(lModel.getGameState().getDelayPrompt().equals(DelayPrompt.HIDING)){
 						lModel.hideConfirmed();
 						lExecute.setEnabled(false);
@@ -102,6 +106,7 @@ public class ActionDisplay extends JInternalFrame{
 						lModel.moveConfirmed();
 						lExecute.setEnabled(false);
 					}
+
 				}
 				
 			}

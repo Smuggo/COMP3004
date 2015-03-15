@@ -282,6 +282,9 @@ public class ViewModel {
 	public void moveConfirmed(){
 		lNetworkManager.sendContinueActions();
 	}
+	public void tradeConfirmed(){
+		lNetworkManager.sendContinueActions();
+	}
 	
 	public void addClearingChits(Clearing aClearing){
 		lViewManager.addClearingChits(aClearing);

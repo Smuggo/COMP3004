@@ -6,6 +6,7 @@ import java.util.Map;
 
 import model.ViewModel;
 import config.Config;
+import config.Config.CharacterImageType;
 import config.Config.DwellingType;
 import config.ImageMap;
 import config.Config.HextileType;
@@ -13,6 +14,8 @@ import game.chit.ChitFactory;
 //import game.dwelling.DwellingFactory;
 import game.entity.Monster;
 import game.entity.MonsterFactory;
+import game.entity.Native;
+import game.environment.hex.Clearing;
 import game.environment.hex.HexGrid;
 import game.environment.hex.HexGridFactory;
 import game.environment.hex.Hextile;
@@ -61,6 +64,8 @@ public class EnvironmentManager {
 			if (hextiles.get(i).getHextileType() == HextileType.VALLEY) {
 				if (hextiles.get(i).getWarningChit().getName() == "DANK V") {
 					hextiles.get(i).getClearing(5).setDwellingType(DwellingType.CHAPEL);
+					//Native newNative = new Native(CharacterImageType.dwarfChit, hextiles.get(i).getClearing(5));
+					//newNative.draw(aManager, g, aPlayer);
 				}
 				else if (hextiles.get(i).getWarningChit().getName() == "RUINS V") {
 					hextiles.get(i).getClearing(5).setDwellingType(DwellingType.GUARD);

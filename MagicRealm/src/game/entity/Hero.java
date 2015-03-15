@@ -348,6 +348,21 @@ public class Hero implements Serializable {
 				return DelayPrompt.HIDING;
 			}
 		}
+		
+		// Trade
+		else if (aActionType.equals(ActionType.TRADE)) {
+			if(needsActionInput){
+				if(lClearing.getDwellingType() == DwellingType.INN){
+					aAction.setResult("TRADE SUCCESS");
+				} else {
+					aAction.setResult("TRADE FAIL");
+				}
+				needsActionInput = false;
+			}else{
+				needsActionInput = true;
+				return DelayPrompt.TRADING;
+			}
+		}
 
 		// Searching
 		else if (aActionType.equals(ActionType.SEARCH)) {
@@ -495,7 +510,8 @@ public class Hero implements Serializable {
 					}
 				}
 			}
-			}else{
+	
+			} else{
 				needsActionInput = true;
 				return DelayPrompt.SEARCHING;
 			}
@@ -503,6 +519,7 @@ public class Hero implements Serializable {
 		return null;
 
 	}
+		
 	
 	public boolean getNeedsActionInput(){
 		return needsActionInput;
@@ -512,6 +529,8 @@ public class Hero implements Serializable {
 		while(lActionList.incomplete()){
 			if(lActionList.getCurrentAction() < lActionList.getActions().size()){
 				Action lAction = lActionList.getActions().get(lActionList.getCurrentAction());
+				
+				
 				if (lActionList.getActionPoints() >= lAction.getCost()) {
 					System.out.println(lActionList.getActionPoints());
 					DelayPrompt r = executeAction(lAction);

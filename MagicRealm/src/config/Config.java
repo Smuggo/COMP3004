@@ -43,7 +43,7 @@ public final class Config {
 	}
 	
 	public enum ActionType {
-		MOVE, HIDE, REST, SEARCH
+		MOVE, HIDE, REST, SEARCH, TRADE
 	}
 	
 	public enum ActionState {
@@ -59,7 +59,7 @@ public final class Config {
 	}
 	
 	public enum DelayPrompt{
-		HIDING, MOVING, SEARCHING, RESTING
+		HIDING, MOVING, SEARCHING, RESTING, TRADING
 	}
 	
 	public enum MonsterType{

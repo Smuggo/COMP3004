@@ -73,6 +73,12 @@ public class ActionList implements Serializable{
 		lActions.add(newAction);
 	}
 	
+	public void addTradeAction(){
+		Action newAction = new Action();
+		newAction.createTradeAction();
+		lActions.add(newAction);
+	}
+	
 	public void addCheatSearchAction(SearchType aSearchType, int aRoll){
 		Action newAction = new Action();
 		newAction.createSearchAction(lCurrentClearing);
