@@ -15,5 +15,7 @@ public class WeaponFactory {
 		lWeaponMap.put(WeaponType.SHORT_SWORD, new Weapon(WeaponType.SHORT_SWORD, 'L', 0, 0, 'L', 0, 1, 3, 4));
 	}
 	
-	public Map<WeaponType, Weapon> getWeapons() { return lWeaponMap; }
+	public Weapon getWeapon(WeaponType aWeaponType) { 
+		return lWeaponMap.get(aWeaponType); 
+	}
 }
