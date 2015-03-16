@@ -81,4 +81,8 @@ public final class Config {
 	public enum WeaponType{
 		THRUSTING_SWORD, GREAT_AXE, MACE, SHORT_SWORD
 	}
+	
+	public enum ArmourType{
+		SUIT_OF_ARMOUR, BREASTPLATE, HELMET, SHIELD 
+	}
 }
