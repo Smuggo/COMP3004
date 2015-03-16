@@ -282,4 +282,8 @@ public class ViewManager {
 		lHeroActionChits = new HeroActionChits(lModel);
 		lWindow.addWindow(lHeroActionChits);
 	}
+	
+	public void setChooseMovement(){
+		lCombatView.selectMovement();
+	}
 }

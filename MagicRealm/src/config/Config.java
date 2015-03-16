@@ -73,4 +73,8 @@ public final class Config {
 	public enum FightType{
 		THRUST, SWING, SMASH
 	}
+	
+	public enum MoveType{
+		CHARGE, DODGE, DUCK
+	}
 }

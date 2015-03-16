@@ -321,4 +321,8 @@ public class ViewModel {
 	public void requestHeroActionChits(){
 		lViewManager.showActionChits();
 	}
+	
+	public void selectCombatMovement(){
+		lViewManager.setChooseMovement();
+	}
 }
