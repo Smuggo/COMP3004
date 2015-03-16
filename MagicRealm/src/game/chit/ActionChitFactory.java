@@ -7,6 +7,8 @@ public class ActionChitFactory {
 	private ArrayList<ActionChit> lSwordsmanChits;
 	private ArrayList<ActionChit> lDwarfChits;
 	private ArrayList<ActionChit> lBKnightChits;
+	private ArrayList<ActionChit> lAmazonChits;
+	private ArrayList<ActionChit> lCaptainChits;
 	
 	public ActionChitFactory(){
 		 lSwordsmanChits = new ArrayList<ActionChit>();
@@ -62,9 +64,47 @@ public class ActionChitFactory {
 		lBKnightChits.add(new ActionChit("MOVE", 'H', 4, 2));
 		lBKnightChits.add(new ActionChit("FIGHT", 'H', 4, 2));
 		lBKnightChits.add(new ActionChit("FIGHT", 'M', 3, 2));
+		
+		lAmazonChits = new ArrayList<ActionChit>();
+		//SCOUT
+		lAmazonChits.add(new ActionChit("MOVE", 'M', 4, 0));
+		lAmazonChits.add(new ActionChit("MOVE", 'M', 3, 1));
+		lAmazonChits.add(new ActionChit("FIGHT", 'L', 4, 0));
+		//WARRIOR
+		lAmazonChits.add(new ActionChit("MOVE", 'M', 4, 0));
+		lAmazonChits.add(new ActionChit("FIGHT", 'M', 5, 0));
+		lAmazonChits.add(new ActionChit("FIGHT", 'M', 4, 1));
+		//CHAMPION
+		lAmazonChits.add(new ActionChit("MOVE", 'M', 3, 1));
+		lAmazonChits.add(new ActionChit("FIGHT", 'M', 3, 2));
+		lAmazonChits.add(new ActionChit("FIGHT", 'H', 4, 2));
+		//AMAZON
+		lAmazonChits.add(new ActionChit("FIGHT", 'M', 4, 1));
+		lAmazonChits.add(new ActionChit("FIGHT", 'M', 3, 2));
+		lAmazonChits.add(new ActionChit("MOVE", 'M', 3, 1));
+		
+		lCaptainChits = new ArrayList<ActionChit>();
+		//SPEARMAN
+		lCaptainChits.add(new ActionChit("MOVE", 'M', 4, 1));
+		lCaptainChits.add(new ActionChit("MOVE", 'M', 5, 0));
+		lCaptainChits.add(new ActionChit("FIGHT", 'H', 5, 1));
+		//SOLDIER
+		lCaptainChits.add(new ActionChit("FIGHT", 'M', 5, 0));
+		lCaptainChits.add(new ActionChit("FIGHT", 'M', 3, 2));
+		lCaptainChits.add(new ActionChit("MOVE", 'M', 3, 2));
+		//LIEUTENANT
+		lCaptainChits.add(new ActionChit("MOVE", 'M', 4, 1));
+		lCaptainChits.add(new ActionChit("FIGHT", 'H', 5, 1));
+		lCaptainChits.add(new ActionChit("FIGHT", 'M', 4, 1));
+		//CAPTAIN
+		lCaptainChits.add(new ActionChit("MOVE", 'M', 4, 1));
+		lCaptainChits.add(new ActionChit("FIGHT", 'H', 6, 0));
+		lCaptainChits.add(new ActionChit("FIGHT", 'M', 4, 1));
 	}
 	
 	public ArrayList<ActionChit> getSwordsmanChits() { return lSwordsmanChits; }
 	public ArrayList<ActionChit> getDwarfChits() { return lDwarfChits; }
 	public ArrayList<ActionChit> getBKnightChits() { return lBKnightChits; }
+	public ArrayList<ActionChit> getAmazonChits() { return lAmazonChits; }
+	public ArrayList<ActionChit> getCaptainChits() {return lCaptainChits; }
 }

@@ -31,6 +31,8 @@ public class HeroFactory {
 		characters.get("Swordsman").setActionChits(aChitFactory.getSwordsmanChits());
 		characters.get("Dwarf").setActionChits(aChitFactory.getDwarfChits());
 		characters.get("Black Knight").setActionChits(aChitFactory.getBKnightChits());
+		characters.get("Amazon").setActionChits(aChitFactory.getAmazonChits());
+		characters.get("Captain").setActionChits(aChitFactory.getCaptainChits());
 	}
 
 	public Map<String, Hero> getCharacters() {

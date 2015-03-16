@@ -77,4 +77,8 @@ public final class Config {
 	public enum MoveType{
 		CHARGE, DODGE, DUCK
 	}
+	
+	public enum WeaponType{
+		THRUSTING_SWORD, GREAT_AXE, MACE
+	}
 }
