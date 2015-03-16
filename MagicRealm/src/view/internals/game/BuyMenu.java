@@ -57,7 +57,7 @@ public class BuyMenu extends JInternalFrame{
 		
 		
 		
-		Object[][] data = new Object[columnNames.length][nativeGroup.getWeapons().size()];
+		Object[][] data = new Object[nativeGroup.getWeapons().size()][columnNames.length];
 		
 		for (int i = 0; i < nativeGroup.getWeapons().size(); i++) {
 			data[i][0] = nativeGroup.getWeapons().get(i).getName();
