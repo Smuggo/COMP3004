@@ -32,7 +32,7 @@ import config.Config.DwellingType;
 	//6 workhorses
 //GUARD house (Guard) 2 — 2 Maces (M) 2 Axes (M) 1 Broadsword (M) 1 1 — — — 
 public class Native {
-	private String nativeGroup;
+	private String name;
 	
 	private ArrayList<Treasure> treasures;
 	private ArrayList<Weapon> weapons;
@@ -47,6 +47,12 @@ public class Native {
 	public Native(CharacterImageType cIT, Clearing c) {
 		characterChit = cIT;
 		lClearing = c;
+	}
+	
+	// Testing
+	public Native(String n, ArrayList<Weapon> w) {
+		name = n;
+		weapons = w;
 	}
 	
 	public void draw(GameManager aManager, Graphics g, Player aPlayer) {
@@ -65,5 +71,13 @@ public class Native {
 		g2.drawImage(srcImg, 0, 0, w, h, null);
 		g2.dispose();
 		return symbol;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public ArrayList<Weapon> getWeapons() {
+		return weapons;
 	}
 }

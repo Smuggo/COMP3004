@@ -2,6 +2,7 @@ package view;
 
 import game.GameState;
 import game.entity.Hero;
+import game.entity.NativeFactory;
 import game.entity.Player;
 import game.environment.hex.Clearing;
 
@@ -217,7 +218,9 @@ public class ViewManager {
 	}
 	
 	public void showBuyMenu(){
-		lBuyMenu = new BuyMenu(lModel);
+		NativeFactory nf = new NativeFactory();
+
+		lBuyMenu = new BuyMenu(lModel, nf.getNatives().get(0));
 		lBuyMenu.setVisible(true);
 		lWindow.addWindow(lBuyMenu);
 	}

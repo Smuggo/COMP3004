@@ -1,8 +1,13 @@
 package view.internals.game;
 
+import game.chit.Chit;
+import game.entity.Native;
+
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
@@ -29,15 +34,20 @@ public class BuyMenu extends JInternalFrame{
 	JButton buy = new JButton("Buy Now");
 	JButton cancel = new JButton("Cancel");
 	
-	int columnSize = 50;
+	int columnSize = 125;
+	int rowSize = 16;
+	int numColumns = 5;
+	int numRows = 0;
 	
-	public BuyMenu(ViewModel aModel){
+	public BuyMenu(ViewModel aModel, Native nativeGroup){
 		super("Buy Menu",true,false,false,true);
 		lModel = aModel;
 		
-		int xSize = lModel.getScreenDimensions().width/2;
+		numRows = nativeGroup.getWeapons().size();
+		
+		int xSize = columnSize * numColumns + 50;
 		//int ySize = lModel.getScreenDimensions().height-340;
-		int ySize = columnNames.length * columnSize;
+		int ySize = rowSize * numRows + 200;
 		
 		setPreferredSize(new Dimension(xSize, ySize));
 		setSize(xSize, ySize);
@@ -46,22 +56,20 @@ public class BuyMenu extends JInternalFrame{
 					lModel.getScreenDimensions().height/2 - ySize/2);
 		
 		
-		Object[][] data = {
-				{"Kathy", "Smith",
-				"Snowboarding", new Integer(5), new Boolean(false)},
-				{"John", "Doe",
-				"Rowing", new Integer(3), new Boolean(true)},
-				{"Sue", "Black",
-				"Knitting", new Integer(2), new Boolean(false)},
-				{"Jane", "White",
-				"Speed reading", new Integer(20), new Boolean(true)},
-				{"Joe", "Brown",
-				"Pool", new Integer(10), new Boolean(false)}
-				};
+		
+		Object[][] data = new Object[columnNames.length][nativeGroup.getWeapons().size()];
+		
+		for (int i = 0; i < nativeGroup.getWeapons().size(); i++) {
+			data[i][0] = nativeGroup.getWeapons().get(i).getName();
+			data[i][1] = "";
+			data[i][2] = "";
+			data[i][3] = "";
+			data[i][4] = "";
+		}
 		
 		JTable table = new JTable(data, columnNames);
 		
-		table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+		table.setPreferredScrollableViewportSize(new Dimension(600, rowSize * numRows));
         table.setFillsViewportHeight(true);
         
         // Force Users to Select only one row
@@ -85,23 +93,42 @@ public class BuyMenu extends JInternalFrame{
 		//Add the scroll pane to this panel.
 		c.gridx = 0;
 		c.gridy = 0;
-		c.gridwidth = 5;
-		c.gridheight = 5;
+		c.gridwidth = 2;
+		c.gridheight = 1;
+		c.anchor = GridBagConstraints.NORTHWEST;
 		add(scrollPane, c);
 		 
 		// Place Buttons
-		c.gridx = 4;
-		c.gridy = 5;
+		c.gridx = 1;
+		c.gridy = 1;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		//add(buy, c);
+		c.anchor = GridBagConstraints.CENTER;
+		add(buy, c);
 
-		c.gridx = 5;
-		c.gridy = 5;
+		c.gridx = 0;
+		c.gridy = 1;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		//add(cancel, c);
+		c.anchor = GridBagConstraints.CENTER;
+		add(cancel, c);
 				
-				
+		createButtonListeners();	
+	}
+	
+	protected void createButtonListeners(){
+		buy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+			{
+				dispose();
+			}
+		});
+		
+		cancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+			{
+				dispose();
+			}
+		});
 	}
 }
