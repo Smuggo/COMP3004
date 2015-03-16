@@ -1,6 +1,17 @@
 package game.item;
 
-public class Weapon {
+import java.io.Serializable;
+
+import config.Config.WeaponType;
+
+public class Weapon implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2084818781627706079L;
+
+	private WeaponType lWeaponType;
+	
 	//Unalerted Values
 	private char lDamageU;
 	private int lSpeedU;
@@ -15,9 +26,11 @@ public class Weapon {
 	private int lLength;
 	private int lPrice;
 	
-	public Weapon(char aDamageU, int aSpeedU, int aAsteriskU,
+	public Weapon(WeaponType aWeaponType, char aDamageU, int aSpeedU, int aAsteriskU,
 			char aDamageA, int aSpeedA, int aAsteriskA,
 			int aLength, int aPrice){
+		lWeaponType = aWeaponType;
+		
 		lDamageU = aDamageU;
 		lSpeedU = aSpeedU;
 		lAsteriskU = aAsteriskU;

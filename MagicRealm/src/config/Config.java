@@ -79,6 +79,6 @@ public final class Config {
 	}
 	
 	public enum WeaponType{
-		THRUSTING_SWORD, GREAT_AXE, MACE
+		THRUSTING_SWORD, GREAT_AXE, MACE, SHORT_SWORD
 	}
 }
