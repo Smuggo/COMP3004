@@ -28,8 +28,7 @@ public class CharacterList extends JInternalFrame{
 	private static final long serialVersionUID = -8608031632449364941L;
 
 	private JList<String> characterList;
-	//private String[] allCharacters = {"Captain", "Swordsman", "Amazon", "Dwarf", "Elf", "Black Knight"};
-	private String[] allCharacters = {"Swordsman", "Dwarf", "Black Knight"};
+	private String[] allCharacters = {"Captain", "Swordsman", "Amazon", "Dwarf", "Elf", "Black Knight"};
 	private ArrayList<String> availableCharacters = new ArrayList<>();
 	
 	private JLabel charSheet;

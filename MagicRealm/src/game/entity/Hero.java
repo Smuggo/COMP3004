@@ -4,7 +4,9 @@ import game.GameManager;
 import game.chit.ActionChit;
 import game.environment.hex.Clearing;
 import game.environment.hex.Roadway;
+import game.item.Armour;
 import game.item.Treasure;
+import game.item.Weapon;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -77,6 +79,12 @@ public class Hero implements Serializable {
 	
 	private MoveType lMoveType;
 	
+	private Weapon lWeapon;
+	
+	private Armour lHelmet;
+	private Armour lBody;
+	private Armour lShield;
+	
 	public Hero(String n, CharacterImageType charPage,
 			CharacterImageType charChit, DwellingType[] aStartingLocations) {
 		name = n;
@@ -106,6 +114,11 @@ public class Hero implements Serializable {
 		lMoveChoice = null;
 		lFightType = null;
 		lMoveType = null;
+		
+		lWeapon = null;
+		lHelmet = null;
+		lBody = null;
+		lShield = null;
 	}
 
 	public void draw(GameManager aManager, Graphics g, Player aPlayer) {
@@ -205,6 +218,22 @@ public class Hero implements Serializable {
 	public MoveType getMoveType(){
 		return lMoveType;
 	}
+	
+	public Weapon getWeapon(){
+		return lWeapon;
+	}
+	
+	public Armour getHelmet(){
+		return lHelmet;
+	}
+	
+	public Armour getBody(){
+		return lBody;
+	}
+	
+	public Armour getShield(){
+		return lShield;
+	}
 	//----------------------------------------------------------------
 
 	//SETTERS
@@ -274,6 +303,22 @@ public class Hero implements Serializable {
 	
 	public void setMoveType(MoveType aMoveType){
 		lMoveType = aMoveType;
+	}
+	
+	public void setWeapon(Weapon aWeapon){
+		lWeapon = aWeapon;
+	}
+	
+	public void setHelmet(Armour aHelmet){
+		lHelmet = aHelmet;
+	}
+	
+	public void setBody(Armour aBody){
+		lBody = aBody;
+	}
+	
+	public void setShield(Armour aShield){
+		lShield = aShield;
 	}
 	//----------------------------------------------------------------
 

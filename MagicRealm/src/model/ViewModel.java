@@ -9,6 +9,7 @@ import game.environment.hex.Roadway;
 import game.entity.Hero;
 import game.entity.Player;
 import game.item.TreasureFactory;
+import game.item.WeaponFactory;
 
 import java.awt.Dimension;
 import java.awt.Point;
@@ -36,6 +37,7 @@ public class ViewModel {
 	private Map<String, Roadway> lHiddenRoadways;
 	private TreasureFactory lTreasureFactory;
 	private ActionChitFactory lActionChitFactory;
+	private WeaponFactory lWeaponFactory;
 	
 	boolean isServer;
 	int lLocalPlayerNumber;
@@ -44,7 +46,8 @@ public class ViewModel {
 	public ViewModel(NetworkManager aNetworkManager){
 		isServer = false;
 		lActionChitFactory = new ActionChitFactory();
-		lGameManager = new GameManager(this, lActionChitFactory);
+		lWeaponFactory = new WeaponFactory();
+		lGameManager = new GameManager(this, lActionChitFactory, lWeaponFactory);
 		lActionManager = new ActionManager();
 		lHiddenRoadways = new HashMap<String, Roadway>();
 		lTreasureFactory = new TreasureFactory();

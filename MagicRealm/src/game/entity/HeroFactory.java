@@ -3,18 +3,20 @@ package game.entity;
 import game.chit.ActionChitFactory;
 import game.environment.hex.HexGrid;
 import game.environment.hex.Roadway;
+import game.item.WeaponFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import config.Config.CharacterImageType;
 import config.Config.DwellingType;
+import config.Config.WeaponType;
 
 public class HeroFactory {
 	// Initializes player characters
 	private Map<String, Hero> characters = new HashMap<String, Hero>();
 
-	public HeroFactory(ActionChitFactory aChitFactory) {
+	public HeroFactory(ActionChitFactory aChitFactory, WeaponFactory aWeaponFactory) {
 		characters.put("Captain", new Hero("Captain", CharacterImageType.captainPage, CharacterImageType.captainChit, 
 				new DwellingType[]{DwellingType.GUARD, DwellingType.HOUSE, DwellingType.INN}));
 		characters.put("Swordsman", new Hero("Swordsman", CharacterImageType.swordsmanPage, CharacterImageType.swordsmanChit,
@@ -29,10 +31,19 @@ public class HeroFactory {
 				new DwellingType[]{DwellingType.INN}));
 		
 		characters.get("Swordsman").setActionChits(aChitFactory.getSwordsmanChits());
+		characters.get("Swordsman").setWeapon(aWeaponFactory.getWeapon(WeaponType.THRUSTING_SWORD));
+		
 		characters.get("Dwarf").setActionChits(aChitFactory.getDwarfChits());
+		characters.get("Dwarf").setWeapon(aWeaponFactory.getWeapon(WeaponType.GREAT_AXE));
+		
 		characters.get("Black Knight").setActionChits(aChitFactory.getBKnightChits());
+		characters.get("Black Knight").setWeapon(aWeaponFactory.getWeapon(WeaponType.MACE));
+		
 		characters.get("Amazon").setActionChits(aChitFactory.getAmazonChits());
+		characters.get("Amazon").setWeapon(aWeaponFactory.getWeapon(WeaponType.SHORT_SWORD));
+		
 		characters.get("Captain").setActionChits(aChitFactory.getCaptainChits());
+		characters.get("Captain").setWeapon(aWeaponFactory.getWeapon(WeaponType.SHORT_SWORD));
 	}
 
 	public Map<String, Hero> getCharacters() {
