@@ -1,9 +1,7 @@
 package game.item;
-
 import java.io.Serializable;
 
 import config.Config.WeaponType;
-
 public class Weapon implements Serializable{
 	/**
 	 * 
