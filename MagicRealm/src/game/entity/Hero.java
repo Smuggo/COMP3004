@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import view.internals.game.TradeMenu;
 import action.Action;
 import action.ActionList;
 import config.Config.ActionType;
@@ -354,6 +355,10 @@ public class Hero implements Serializable {
 			if(needsActionInput){
 				if(lClearing.getDwellingType() == DwellingType.INN){
 					aAction.setResult("TRADE SUCCESS");
+					// Open Trade Menu
+					// return DelayPrompt.OPENTRADEMENU;
+					//TradeMenu tradeMenu = new TradeMenu();
+					//tradeMenu.setVisible(true);
 				} else {
 					aAction.setResult("TRADE FAIL");
 				}

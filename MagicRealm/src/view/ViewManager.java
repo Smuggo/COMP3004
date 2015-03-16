@@ -22,6 +22,7 @@ import view.internals.menu.MenuView;
 import view.internals.menu.NewGameView;
 import view.internals.menu.ServerMenuView;
 import view.internals.game.ActionDisplay;
+import view.internals.game.BuyMenu;
 import view.internals.game.CharacterView;
 import view.internals.game.CharacterList;
 import view.internals.game.ChitList;
@@ -32,6 +33,7 @@ import view.internals.game.PlayerMenu;
 import view.internals.game.SearchChoiceSelection;
 import view.internals.game.Searching;
 import view.internals.game.StartingLocation;
+import view.internals.game.TradeMenu;
 import view.internals.game.VictoryPoints;
 import view.internals.game.DieRoller;
 
@@ -51,6 +53,8 @@ public class ViewManager {
 	private VictoryPoints lVictoryPoints;
 	private StartingLocation lStartingLocation;
 	private PlayerMenu lPlayerMenu;
+	private TradeMenu lTradeMenu;
+	private BuyMenu lBuyMenu;
 	private Searching lSearching;
 	private ChitPlacementSelection lChitPlacementSelection;
 	private ChitList lChitList;	
@@ -143,6 +147,9 @@ public class ViewManager {
 		lCharacterList = new CharacterList(lModel, lCharacterView);
 		lCharacterList.setVisible(true);
 		lWindow.addWindow(lCharacterList);
+		
+		// Testing
+		showBuyMenu();
 	}
 	
 	public void setVictoryPoints(Hero aHero){
@@ -201,6 +208,18 @@ public class ViewManager {
 	public void showPlayerMenu(){
 		lPlayerMenu = new PlayerMenu(lModel);
 		lWindow.addWindow(lPlayerMenu);
+	}
+	
+	public void showTradeMenu(){
+		lTradeMenu = new TradeMenu();
+		lTradeMenu.setVisible(true);
+		lWindow.addWindow(lTradeMenu);
+	}
+	
+	public void showBuyMenu(){
+		lBuyMenu = new BuyMenu(lModel);
+		lBuyMenu.setVisible(true);
+		lWindow.addWindow(lBuyMenu);
 	}
 	
 	public void newTurn(){

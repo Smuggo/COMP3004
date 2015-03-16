@@ -160,7 +160,7 @@ public class PlayerMenu extends JInternalFrame{
 	}
 	
 	
-	protected void createButtonListeners(){
+	protected void createButtonListeners() {
 		lMove.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)

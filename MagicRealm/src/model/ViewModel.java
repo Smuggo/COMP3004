@@ -180,6 +180,10 @@ public class ViewModel {
 		lViewManager.showPlayerMenu();
 	}
 	
+	public void requestTradeMenu(){
+		lViewManager.showTradeMenu();
+	}
+	
 	public void requestChitList(){
 		lViewManager.showChitList();
 	}

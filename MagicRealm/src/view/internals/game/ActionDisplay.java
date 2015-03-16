@@ -106,7 +106,10 @@ public class ActionDisplay extends JInternalFrame{
 						lModel.moveConfirmed();
 						lExecute.setEnabled(false);
 					}
-
+					//if(lModel.getGameState().getDelayPrompt().equals(DelayPrompt.OPENTRADEMENU)){
+						//lModel.requestTradeMenu();
+						//lExecute.setEnabled(false);
+					//}
 				}
 				
 			}
