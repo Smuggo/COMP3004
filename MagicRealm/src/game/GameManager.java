@@ -17,6 +17,7 @@ import game.environment.hex.HexGrid;
 import game.environment.hex.Roadway;
 import game.entity.HeroFactory;
 import game.entity.Hero;
+import game.item.ArmourFactory;
 import game.item.WeaponFactory;
 
 public class GameManager {
@@ -25,9 +26,10 @@ public class GameManager {
 	private HeroFactory   characters;
 	private ImageMap gameImages;
 	
-	public GameManager(ViewModel aModel, ActionChitFactory aActionChitFactory, WeaponFactory aWeaponFactory){
+	public GameManager(ViewModel aModel, ActionChitFactory aActionChitFactory, WeaponFactory aWeaponFactory,
+			ArmourFactory aArmourFactory){
 		lEnvironmentManager = new EnvironmentManager(aModel);
-		characters = new HeroFactory(aActionChitFactory, aWeaponFactory);
+		characters = new HeroFactory(aActionChitFactory, aWeaponFactory, aArmourFactory);
 		gameImages = new ImageMap();
 	}
 
