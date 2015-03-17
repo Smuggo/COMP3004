@@ -63,8 +63,6 @@ public class Clearing implements Serializable{
 		return 1;
 	}
 	
-
-
 	public Hex getOwnedHex(){
 		return ownedHex;
 	}
