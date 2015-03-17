@@ -12,10 +12,12 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import config.Config.CharacterImageType;
 import config.Config.DwellingType;
+import config.Config.NativeGroup;
 
 // Represents a Garrison Native Group
 
@@ -31,8 +33,14 @@ import config.Config.DwellingType;
 	//2 Treasures — — — — — — 
 	//6 workhorses
 //GUARD house (Guard) 2 — 2 Maces (M) 2 Axes (M) 1 Broadsword (M) 1 1 — — — 
-public class Native {
-	private String name;
+public class Native implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2499880216230145229L;
+
+	private NativeGroup nativeGroup;
 	
 	private ArrayList<Treasure> treasures;
 	private ArrayList<Weapon> weapons;
@@ -50,8 +58,8 @@ public class Native {
 	}
 	
 	// Testing
-	public Native(String n, ArrayList<Weapon> w) {
-		name = n;
+	public Native(NativeGroup n, ArrayList<Weapon> w) {
+		nativeGroup = n;
 		weapons = w;
 	}
 	
@@ -73,8 +81,8 @@ public class Native {
 		return symbol;
 	}
 	
-	public String getName() {
-		return name;
+	public NativeGroup getNativeGroup() {
+		return nativeGroup;
 	}
 	
 	public ArrayList<Weapon> getWeapons() {

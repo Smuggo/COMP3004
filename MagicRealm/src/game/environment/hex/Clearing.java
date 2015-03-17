@@ -2,6 +2,7 @@ package game.environment.hex;
 
 
 import game.entity.Monster;
+import game.entity.Native;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -17,6 +18,7 @@ import config.Config;
 import config.Config.ClearingType;
 import config.Config.DwellingType;
 import config.Config.MonsterType;
+import config.Config.NativeGroup;
 import config.Config.RoadwayType;
 import config.ImageMap;
 
@@ -35,6 +37,8 @@ public class Clearing implements Serializable{
 	private Hextile lOwnedHextile;
 	private DwellingType lDwellingType;
 	private ArrayList<Monster> monsters = new ArrayList<Monster>();
+	private Native nativeGroup = null; // Native Group on Clearing
+	// Native Group only exist if there exists a dwelling
 
 	// Testing, do this correct later
 	boolean ghosts = false;
@@ -141,6 +145,9 @@ public class Clearing implements Serializable{
 		//if(monsters.size() != 0){
 			//g.drawImage(aImageMap.getMonsterImage(monsters.get(0).getMonsterType()), newP.x, newP.y, Color.GREEN, null);
 		//}
+		if(nativeGroup != null){
+			g.drawImage(aImageMap.getNativeGroupImage(nativeGroup.getNativeGroup()), newP.x + 15, newP.y + 20, Color.YELLOW, null);
+		}
 		if(ghosts){
 			g.drawImage(aImageMap.getMonsterImage(MonsterType.GHOST), newP.x, newP.y, Color.GREEN, null);
 		}
@@ -225,6 +232,12 @@ public class Clearing implements Serializable{
 			//monsters.add(m.get(i));
 			ghosts = true;
 		}
-		
+	}
+	
+	public void setNativeGroup(Native n) {
+		nativeGroup = n;
+	}
+	public Native getNativeGroup() {
+		return nativeGroup;
 	}
 }

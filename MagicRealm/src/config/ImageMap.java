@@ -1,5 +1,6 @@
 package config;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -11,12 +12,14 @@ import javax.imageio.ImageIO;
 import config.Config.CharacterImageType;
 import config.Config.DwellingType;
 import config.Config.MonsterType;
+import config.Config.NativeGroup;
 
 public class ImageMap {
 
 	private Map<CharacterImageType, BufferedImage> characterImageMap = new HashMap<CharacterImageType, BufferedImage>();
 	private Map<Config.DwellingType, BufferedImage> dwellingImageMap = new HashMap<Config.DwellingType, BufferedImage>();
 	private Map<Config.MonsterType, BufferedImage> monsterImageMap = new HashMap<Config.MonsterType, BufferedImage>();
+	private Map<Config.NativeGroup, BufferedImage> nativeGroupImageMap = new HashMap<Config.NativeGroup, BufferedImage>();
 	private Map<String, BufferedImage> gridImageMap = new HashMap<String, BufferedImage>();
 
 	public ImageMap(){
@@ -40,6 +43,11 @@ public class ImageMap {
 			dwellingImageMap.put(DwellingType.INN, ImageIO.read(new File("media/images/dwellings/inn.gif")));
 			
 			monsterImageMap.put(MonsterType.GHOST, ImageIO.read(new File("media/images/monsters/ghost.gif")));
+			
+			nativeGroupImageMap.put(NativeGroup.ORDER, ImageIO.read(new File("media/images/natives/knight.gif")));
+			nativeGroupImageMap.put(NativeGroup.SOLDIERS, ImageIO.read(new File("media/images/natives/pikeman.gif")));
+			nativeGroupImageMap.put(NativeGroup.ROGUES, ImageIO.read(new File("media/images/natives/assassin.gif")));
+			nativeGroupImageMap.put(NativeGroup.GUARD, ImageIO.read(new File("media/images/natives/great_swordsman.gif")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -53,4 +61,6 @@ public class ImageMap {
 	public void addHexImage(String aHexType, BufferedImage aHexImage){
 		gridImageMap.put(aHexType, aHexImage);
 	}
+
+	public BufferedImage getNativeGroupImage(NativeGroup nativeGroup){ return nativeGroupImageMap.get(nativeGroup); }
 }

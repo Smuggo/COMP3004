@@ -85,4 +85,8 @@ public final class Config {
 	public enum ArmourType{
 		SUIT_OF_ARMOUR, BREASTPLATE, HELMET, SHIELD 
 	}
+	
+	public enum NativeGroup{
+		ORDER, SOLDIERS, ROGUES, GUARD
+	}
 }

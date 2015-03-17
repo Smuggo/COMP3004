@@ -60,8 +60,8 @@ public class BuyMenu extends JInternalFrame{
 		Object[][] data = new Object[nativeGroup.getWeapons().size()][columnNames.length];
 		
 		for (int i = 0; i < nativeGroup.getWeapons().size(); i++) {
-			//data[i][0] = nativeGroup.getWeapons().get(i).getName();
-			data[i][1] = "";
+			data[i][0] = nativeGroup.getWeapons().get(i).getWeaponType();
+			data[i][1] = nativeGroup.getWeapons().get(i).getPrice();
 			data[i][2] = "";
 			data[i][3] = "";
 			data[i][4] = "";
@@ -81,11 +81,7 @@ public class BuyMenu extends JInternalFrame{
         
         //Create the scroll pane and add the table to it.
         JScrollPane scrollPane = new JScrollPane(table);
- 
-        
-       
-        
-        
+
         // Create Layout
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();

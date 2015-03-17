@@ -51,4 +51,6 @@ public class Weapon implements Serializable{
 	
 	public int getLength(){ return lLength; }
 	public int getPrice(){ return lPrice; }
+	
+	public WeaponType getWeaponType() { return lWeaponType; }
 }

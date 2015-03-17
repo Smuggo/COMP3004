@@ -1,8 +1,12 @@
 package game.entity;
 
 import game.item.Weapon;
+import game.item.WeaponFactory;
 
 import java.util.ArrayList;
+
+import config.Config.NativeGroup;
+import config.Config.WeaponType;
 
 //CHAPEL (Order)
 	//2 Treasures
@@ -23,14 +27,18 @@ public class NativeFactory {
 	public NativeFactory() {
 		
 		// Create Weapons
-		/*Weapon greatAxe = new Weapon("Great Axe");
+		WeaponFactory weaponFactory = new WeaponFactory();
+		
+		Weapon greatAxe = weaponFactory.getWeapon(WeaponType.GREAT_AXE);
+		Weapon shortSword = weaponFactory.getWeapon(WeaponType.SHORT_SWORD);
+		Weapon thrustingSword = weaponFactory.getWeapon(WeaponType.THRUSTING_SWORD);
+		Weapon mace = weaponFactory.getWeapon(WeaponType.MACE);
+		
+		/*
 		Weapon greatSword = new Weapon("Great Sword");
 		Weapon morningStar = new Weapon("Morning Star");
 		Weapon crossbow = new Weapon("Crossbow");
-		Weapon shortSword = new Weapon("Short Sword");
-		Weapon thrustingSword = new Weapon("Thrusting Sword");
 		Weapon staff = new Weapon("Staff");
-		Weapon mace = new Weapon("Mace");
 		Weapon axe = new Weapon("Axe");
 		Weapon broadSword = new Weapon("Broad Sword");*/
 		
@@ -41,32 +49,37 @@ public class NativeFactory {
 		ArrayList<Weapon> guardWeapons = new ArrayList<Weapon>();
 		
 		// Add Weapons to Native Weapon ArrayList
-		/*orderWeapons.add(greatAxe);
 		orderWeapons.add(greatAxe);
+		orderWeapons.add(greatAxe);
+		/*
 		orderWeapons.add(greatSword);
 		orderWeapons.add(morningStar);
 		orderWeapons.add(crossbow);
+		*/
+		
 		
 		soldiersWeapons.add(shortSword);
 		soldiersWeapons.add(shortSword);
 		soldiersWeapons.add(shortSword);
 		soldiersWeapons.add(thrustingSword);
 		soldiersWeapons.add(thrustingSword);
+		/*
 		soldiersWeapons.add(staff);
 		soldiersWeapons.add(staff);
+		*/
 		
 		// Rogues don't have any weapons
-		//roguesWeapons.add(shortSword);
 		
 		guardWeapons.add(mace);
+		/*
 		guardWeapons.add(axe);
 		guardWeapons.add(broadSword);*/
 		
 		// Create Natives
-		Native order = new Native("Order", orderWeapons);
-		Native soldiers = new Native("Soldiers", soldiersWeapons); 
-		Native rogues = new Native("Rogues", roguesWeapons); 
-		Native guard = new Native("Guard", guardWeapons); 
+		Native order = new Native(NativeGroup.ORDER, orderWeapons);
+		Native soldiers = new Native(NativeGroup.SOLDIERS, soldiersWeapons); 
+		Native rogues = new Native(NativeGroup.ROGUES, roguesWeapons); 
+		Native guard = new Native(NativeGroup.GUARD, guardWeapons); 
 		
 		// Add all Natives to Native ArrayList
 		natives.add(order);
@@ -77,6 +90,14 @@ public class NativeFactory {
 	
 	public ArrayList<Native> getNatives() {
 		return natives;
+	}
+	
+	public Native getNativeGroup(NativeGroup nG) {
+		for (int i = 0; i < natives.size(); i++) {
+			if (natives.get(i).getNativeGroup() == nG)
+				return natives.get(i);
+		}
+		return null;
 	}
 
 }
