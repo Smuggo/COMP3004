@@ -30,6 +30,9 @@ public class Combat extends JInternalFrame{
 	private JButton lCharge;
 	private JButton lDodge;
 	private JButton lDuck;
+	private JButton lShieldThrust;
+	private JButton lShieldSwing;
+	private JButton lShieldSmash;
 	
 	public Combat(ViewModel aModel){
 		super("Combat View",true,false,false,true);
@@ -84,6 +87,24 @@ public class Combat extends JInternalFrame{
 		c.gridy = 3;
 		lDuck.setVisible(false);
 		add(lDuck, c);
+		
+		lShieldThrust = new JButton("Thrust");
+		c.gridx = 0;
+		c.gridy = 1;
+		lShieldThrust.setVisible(false);
+		add(lShieldThrust, c);
+		
+		lShieldSwing = new JButton("Swing");
+		c.gridx = 0;
+		c.gridy = 2;
+		lShieldSwing.setVisible(false);
+		add(lShieldSwing, c);
+		
+		lShieldSmash = new JButton("Smash");
+		c.gridx = 0;
+		c.gridy = 3;
+		lShieldSmash.setVisible(false);
+		add(lShieldSmash, c);
 		
 		createButtonListeners();
 		setVisible(true);
@@ -152,6 +173,34 @@ public class Combat extends JInternalFrame{
 				lModel.requestHeroActionChits();
 			}
 		});
+		
+		//BLOCKING
+		lShieldThrust.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().getShield().setProtectsFrom(FightType.THRUST);
+				dispose();
+			}
+		});
+		
+		lShieldSwing.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().getShield().setProtectsFrom(FightType.SWING);
+				dispose();
+			}
+		});
+		
+		lShieldSmash.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().getShield().setProtectsFrom(FightType.SMASH);
+				dispose();
+			}
+		});
 	}
 	
 	public void enableOrDisableButtons(boolean aState){
@@ -161,6 +210,9 @@ public class Combat extends JInternalFrame{
 		lCharge.setEnabled(aState);
 		lDodge.setEnabled(aState);
 		lDuck.setEnabled(aState);
+		lShieldThrust.setEnabled(aState);
+		lShieldSwing.setEnabled(aState);
+		lShieldSmash.setEnabled(aState);
 	}
 	
 	public void selectMovement(){
@@ -176,6 +228,17 @@ public class Combat extends JInternalFrame{
 	}
 	
 	public void selectShieldDirection(){
+		enableOrDisableButtons(true);
 		
+		if(lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().getShield() != null){
+			lCombatCommand.setText("Select Shield Direction:");
+			lCharge.setVisible(false);
+			lDodge.setVisible(false);
+			lDuck.setVisible(false);
+			lShieldThrust.setVisible(true);
+			lShieldSwing.setVisible(true);
+			lShieldSmash.setVisible(true);
+		} else
+			dispose();
 	}
 }

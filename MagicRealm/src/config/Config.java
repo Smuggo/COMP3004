@@ -67,7 +67,7 @@ public final class Config {
 	}
 	
 	public enum CombatStage{
-		FIGHT, MOVE, OUTOFCOMBAT
+		FIGHT, MOVE, BLOCK, OUTOFCOMBAT
 	}
 	
 	public enum FightType{

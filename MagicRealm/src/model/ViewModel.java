@@ -331,4 +331,8 @@ public class ViewModel {
 	public void selectCombatMovement(){
 		lViewManager.setChooseMovement();
 	}
+	
+	public void selectBlockDirection(){
+		lViewManager.setChooseBlock();
+	}
 }

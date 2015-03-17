@@ -111,7 +111,9 @@ public class HeroActionChits extends JInternalFrame{
 			{
 			 public void actionPerformed(ActionEvent e)
 			 {
+				 
 				 lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().setMoveChoice(lTempChit);
+				 lModel.selectBlockDirection();
 				 dispose();
 			 }
 			});

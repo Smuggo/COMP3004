@@ -289,4 +289,8 @@ public class ViewManager {
 	public void setChooseMovement(){
 		lCombatView.selectMovement();
 	}
+	
+	public void setChooseBlock(){
+		lCombatView.selectShieldDirection();
+	}
 }
