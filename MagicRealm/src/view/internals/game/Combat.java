@@ -174,4 +174,8 @@ public class Combat extends JInternalFrame{
 		lDodge.setVisible(true);
 		lDuck.setVisible(true);
 	}
+	
+	public void selectShieldDirection(){
+		
+	}
 }
