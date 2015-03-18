@@ -67,7 +67,7 @@ public final class Config {
 	}
 	
 	public enum CombatStage{
-		FIGHT, MOVE, BLOCK, OUTOFCOMBAT
+		FIGHT, MOVE, WAITING
 	}
 	
 	public enum FightType{
@@ -88,5 +88,9 @@ public final class Config {
 	
 	public enum NativeGroup{
 		ORDER, SOLDIERS, ROGUES, GUARD
+	}
+	
+	public enum TurnStage{
+		OUT_OF_COMBAT, START_COMBAT
 	}
 }

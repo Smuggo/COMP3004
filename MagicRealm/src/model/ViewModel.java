@@ -23,6 +23,7 @@ import config.Config.ActionState;
 import config.Config.ActionType;
 import config.Config.CombatStage;
 import config.Config.SearchType;
+import config.Config.TurnStage;
 import config.ImageMap;
 import network.NetworkManager;
 import network.packet.PlayerPacket;
@@ -210,13 +211,45 @@ public class ViewModel {
 				lViewManager.updatePlayerTable(tempList);
 		}
 		
+		//Checks if all players are done their turn and then checks if any characters are on the same clearing,
+		//if two characters are on the same clearing they enter combat with each other. No options, everybody hates
+		//everybody right now.
 		if(!aGameState.equals(lGameState)){
-			if(lGameState!= null && aGameState != null && lGameState.getDay() != aGameState.getDay()){
-				//TEMP COMBAT TESTING
-				requestCombatMenu();
-				//--------------------
+			if(lGameState!= null && aGameState != null && lGameState.getDay() != aGameState.getDay() && 
+					!aGameState.getPlayer(lLocalPlayerNumber).getChosenHero().getCombatOccurred()){
+				for(Player aPlayer: aGameState.getPlayers()){
+					if(aPlayer != lGameState.getPlayer(lLocalPlayerNumber)){
+						if(aPlayer.getChosenHero().getClearing().equals(aGameState.getPlayer(lLocalPlayerNumber).getChosenHero().getClearing())){
+							aGameState.getPlayer(lLocalPlayerNumber).getChosenHero().setCombatOpponent(aPlayer.getChosenHero());
+							aGameState.getPlayer(lLocalPlayerNumber).getChosenHero().setTurnStage(TurnStage.START_COMBAT);
+							aGameState.getPlayer(lLocalPlayerNumber).getChosenHero().setCombatOccurred(true);
+							System.out.println(aPlayer.getUserName());
+							requestCombatMenu();
+							break;
+						}
+					}
+				}
+			}
+			
+			//Checks if all members of combat have completed their actions, resolves combat if true
+			if(aGameState != null && aGameState != null){
+				if(aGameState.getPlayer(lLocalPlayerNumber).getChosenHero() != null){
+					if(aGameState.getPlayer(lLocalPlayerNumber).getChosenHero().getCombatOccurred()){
+						if(aGameState.getPlayer(lLocalPlayerNumber).getChosenHero().getCombatStage() != null){
+							if(aGameState.getPlayer(lLocalPlayerNumber).getChosenHero().getCombatStage().equals(CombatStage.WAITING)){
+								resolveCombat();
+							}
+						}
+					}
+				}
+			}
+			
+			//Checks to see if it's a new turn, resets game state for a new turn if so
+			if(lGameState!= null && aGameState != null && lGameState.getDay() != aGameState.getDay() && 
+					lGameState.getPlayer(lLocalPlayerNumber).getChosenHero().getTurnStage().equals(TurnStage.OUT_OF_COMBAT)){
 				lActionManager.createNewTurn(aGameState, lLocalPlayerNumber, aGameState.getPlayer(lLocalPlayerNumber));
 				lGameState = aGameState;
+				lGameState.getPlayer(lLocalPlayerNumber).getChosenHero().setCombatOccurred(false);
 				lViewManager.newTurn();
 			}
 			lGameState = aGameState;
@@ -334,5 +367,10 @@ public class ViewModel {
 	
 	public void selectBlockDirection(){
 		lViewManager.setChooseBlock();
+	}
+	
+	//Called when all members of combat are done choosing their moves, decides outcome of fight
+	public void resolveCombat(){
+		lGameState.resolveCombat(lLocalPlayerNumber);
 	}
 }

@@ -281,6 +281,10 @@ public class ViewManager {
 		lWindow.addWindow(lCombatView);
 	}
 	
+	public Combat getCombatMenu(){
+		return lCombatView;
+	}
+	
 	public void showActionChits(){
 		lHeroActionChits = new HeroActionChits(lModel);
 		lWindow.addWindow(lHeroActionChits);

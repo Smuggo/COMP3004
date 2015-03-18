@@ -33,6 +33,7 @@ import config.Config.FightType;
 import config.Config.MoveType;
 import config.Config.RoadwayType;
 import config.Config.SearchType;
+import config.Config.TurnStage;
 
 public class Hero implements Serializable {
 	/**
@@ -74,6 +75,7 @@ public class Hero implements Serializable {
 	private ActionChit lMoveChoice;
 	
 	private CombatStage lCombatStage;
+	private TurnStage lTurnStage;
 	
 	private FightType lFightType;
 	
@@ -84,6 +86,10 @@ public class Hero implements Serializable {
 	private Armour lHelmet;
 	private Armour lBody;
 	private Armour lShield;
+	
+	private Hero lCombatOpponent;
+	
+	private boolean lCombatOccurred;
 	
 	public Hero(String n, CharacterImageType charPage,
 			CharacterImageType charChit, DwellingType[] aStartingLocations) {
@@ -109,7 +115,8 @@ public class Hero implements Serializable {
 		lFightChits = new ArrayList<ActionChit>();
 		lMoveChits = new ArrayList<ActionChit>();
 		
-		lCombatStage = CombatStage.OUTOFCOMBAT;
+		lCombatStage = null;
+		lTurnStage = TurnStage.OUT_OF_COMBAT;
 		lFightChoice = null;
 		lMoveChoice = null;
 		lFightType = null;
@@ -119,6 +126,9 @@ public class Hero implements Serializable {
 		lHelmet = null;
 		lBody = null;
 		lShield = null;
+		
+		lCombatOpponent = null;
+		lCombatOccurred = false;
 	}
 
 	public void draw(GameManager aManager, Graphics g, Player aPlayer) {
@@ -199,7 +209,7 @@ public class Hero implements Serializable {
 		return lMoveChits;
 	}
 	
-	public CombatStage getCombatState(){
+	public CombatStage getCombatStage(){
 		return lCombatStage;
 	}
 	
@@ -233,6 +243,18 @@ public class Hero implements Serializable {
 	
 	public Armour getShield(){
 		return lShield;
+	}
+	
+	public TurnStage getTurnStage(){
+		return lTurnStage;
+	}
+	
+	public Hero getCombatOpponent(){
+		return lCombatOpponent;
+	}
+	
+	public boolean getCombatOccurred(){
+		return lCombatOccurred;
 	}
 	//----------------------------------------------------------------
 
@@ -319,6 +341,18 @@ public class Hero implements Serializable {
 	
 	public void setShield(Armour aShield){
 		lShield = aShield;
+	}
+	
+	public void setTurnStage(TurnStage aTurnStage){
+		lTurnStage = aTurnStage;
+	}
+	
+	public void setCombatOpponent(Hero aCombatOpponent){
+		lCombatOpponent = aCombatOpponent;
+	}
+	
+	public void setCombatOccurred(boolean aCombatOccurred){
+		lCombatOccurred = aCombatOccurred;
 	}
 	//----------------------------------------------------------------
 
@@ -647,5 +681,13 @@ public class Hero implements Serializable {
 	
 	public String getExecutedResult(){
 		return lActionList.getExecutedResult();
+	}
+	
+	//Called when all members of combat are done choosing their moves, decides outcome of fight
+	public void resolveCombat(){
+		if(lCombatOpponent.getFightType().equals(FightType.SMASH)){
+			System.out.println("GIT GUD");
+		}
+		lTurnStage = TurnStage.OUT_OF_COMBAT;
 	}
 }

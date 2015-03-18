@@ -66,7 +66,7 @@ public class HeroActionChits extends JInternalFrame{
 			c.gridx = 0;
 			c.gridy = i + 1;
 			add(lHeroFightChits.get(i), c);
-			if(!aModel.getGameState().getPlayer(aModel.getLocalPlayerNum()).getChosenHero().getCombatState().equals(CombatStage.FIGHT))
+			if(!aModel.getGameState().getPlayer(aModel.getLocalPlayerNum()).getChosenHero().getCombatStage().equals(CombatStage.FIGHT))
 				lHeroFightChits.get(i).setEnabled(false);
 		}
 		
@@ -83,7 +83,7 @@ public class HeroActionChits extends JInternalFrame{
 			c.gridx = 1;
 			c.gridy = i + 1;
 			add(lHeroMoveChits.get(i), c);
-			if(!aModel.getGameState().getPlayer(aModel.getLocalPlayerNum()).getChosenHero().getCombatState().equals(CombatStage.MOVE))
+			if(!aModel.getGameState().getPlayer(aModel.getLocalPlayerNum()).getChosenHero().getCombatStage().equals(CombatStage.MOVE))
 				lHeroMoveChits.get(i).setEnabled(false);
 		}
 		

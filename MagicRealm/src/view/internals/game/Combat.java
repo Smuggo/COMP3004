@@ -180,7 +180,8 @@ public class Combat extends JInternalFrame{
 			public void actionPerformed(ActionEvent e)
 			{
 				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().getShield().setProtectsFrom(FightType.THRUST);
-				dispose();
+				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().setCombatStage(CombatStage.WAITING);
+				enableOrDisableButtons(false);
 			}
 		});
 		
@@ -189,7 +190,8 @@ public class Combat extends JInternalFrame{
 			public void actionPerformed(ActionEvent e)
 			{
 				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().getShield().setProtectsFrom(FightType.SWING);
-				dispose();
+				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().setCombatStage(CombatStage.WAITING);
+				enableOrDisableButtons(false);
 			}
 		});
 		
@@ -198,7 +200,8 @@ public class Combat extends JInternalFrame{
 			public void actionPerformed(ActionEvent e)
 			{
 				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().getShield().setProtectsFrom(FightType.SMASH);
-				dispose();
+				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().setCombatStage(CombatStage.WAITING);
+				enableOrDisableButtons(false);
 			}
 		});
 	}
@@ -239,6 +242,7 @@ public class Combat extends JInternalFrame{
 			lShieldSwing.setVisible(true);
 			lShieldSmash.setVisible(true);
 		} else
-			dispose();
+			enableOrDisableButtons(false);
+			lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().setCombatStage(CombatStage.WAITING);
 	}
 }

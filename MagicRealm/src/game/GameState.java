@@ -33,7 +33,6 @@ public class GameState implements Serializable{
 	private int lTurnPlayerExecuting;
 	private boolean lCheating;
 	
-	
 	public GameState(){
 		lVersion = 1;
 		lTurn = 1;
@@ -197,5 +196,10 @@ public class GameState implements Serializable{
 	
 	public boolean getCheating(){
 		return lCheating;
+	}
+
+	//Called when all members of combat are done choosing their moves, decides outcome of fight
+	public void resolveCombat(int playerNum){
+		getPlayer(playerNum).getChosenHero().resolveCombat();
 	}
 }
