@@ -216,7 +216,6 @@ public class ViewModel {
 			if(lGameState!= null && aGameState != null && lGameState.getDay() != aGameState.getDay()){
 				lActionManager.createNewTurn(aGameState, lLocalPlayerNumber, aGameState.getPlayer(lLocalPlayerNumber));
 				lGameState = aGameState;
-				lGameState.getPlayer(lLocalPlayerNumber).getChosenHero().setCombatOccurred(false);
 				lViewManager.newTurn();
 			}
 			lGameState = aGameState;
