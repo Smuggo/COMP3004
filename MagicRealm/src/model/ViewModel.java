@@ -211,14 +211,14 @@ public class ViewModel {
 				lViewManager.updatePlayerTable(tempList);
 		}
 		
-		//Checks if all players are done their turn and then checks if any characters are on the same clearing,
-		//if two characters are on the same clearing they enter combat with each other. No options, everybody hates
-		//everybody right now.
 		if(!aGameState.equals(lGameState)){
+			//Checks if all players are done their turn and then checks if any characters are on the same clearing,
+			//if two characters are on the same clearing they enter combat with each other. No options, everybody hates
+			//everybody right now.
 			if(lGameState!= null && aGameState != null && lGameState.getDay() != aGameState.getDay() && 
 					!aGameState.getPlayer(lLocalPlayerNumber).getChosenHero().getCombatOccurred()){
 				for(Player aPlayer: aGameState.getPlayers()){
-					if(aPlayer != lGameState.getPlayer(lLocalPlayerNumber)){
+					if(aPlayer != aGameState.getPlayer(lLocalPlayerNumber)){
 						if(aPlayer.getChosenHero().getClearing().equals(aGameState.getPlayer(lLocalPlayerNumber).getChosenHero().getClearing())){
 							aGameState.getPlayer(lLocalPlayerNumber).getChosenHero().setCombatOpponent(aPlayer.getChosenHero());
 							aGameState.getPlayer(lLocalPlayerNumber).getChosenHero().setTurnStage(TurnStage.START_COMBAT);
