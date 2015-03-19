@@ -89,8 +89,6 @@ public class Hero implements Serializable {
 	
 	private Hero lCombatOpponent;
 	
-	private boolean lCombatOccurred;
-	
 	public Hero(String n, CharacterImageType charPage,
 			CharacterImageType charChit, DwellingType[] aStartingLocations) {
 		name = n;
@@ -128,7 +126,6 @@ public class Hero implements Serializable {
 		lShield = null;
 		
 		lCombatOpponent = null;
-		lCombatOccurred = false;
 	}
 
 	public void draw(GameManager aManager, Graphics g, Player aPlayer) {
@@ -252,10 +249,6 @@ public class Hero implements Serializable {
 	public Hero getCombatOpponent(){
 		return lCombatOpponent;
 	}
-	
-	public boolean getCombatOccurred(){
-		return lCombatOccurred;
-	}
 	//----------------------------------------------------------------
 
 	//SETTERS
@@ -349,10 +342,6 @@ public class Hero implements Serializable {
 	
 	public void setCombatOpponent(Hero aCombatOpponent){
 		lCombatOpponent = aCombatOpponent;
-	}
-	
-	public void setCombatOccurred(boolean aCombatOccurred){
-		lCombatOccurred = aCombatOccurred;
 	}
 	//----------------------------------------------------------------
 
