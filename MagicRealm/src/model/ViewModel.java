@@ -212,12 +212,11 @@ public class ViewModel {
 		}
 		
 		//Checks if it's evening, if it is the combat menu opens up for all players in combat.
-		//EVENING_IN_COMBAT is so requestCombatMenu isn't called continuously
+		//lNetworkManager.startCombat() is so requestCombatMenu isn't called continuously
 		if(aGameState.getTurnStage().equals(TurnStage.EVENING)){
-			if(aGameState.getPlayer(lLocalPlayerNumber).isInCombat()){
+			if(aGameState.getPlayer(lLocalPlayerNumber).isInCombat())
 				requestCombatMenu();
-				
-			}
+
 			lNetworkManager.startCombat();
 		}
 		

@@ -418,6 +418,7 @@ public class Client implements Runnable {
 		return false;
 	}
 	
+	//Sets the server to be in EVENING_COMBAT_START
 	public boolean startCombat(){
 		try{
 			while(streamBusy)

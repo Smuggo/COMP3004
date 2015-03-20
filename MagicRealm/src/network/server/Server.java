@@ -90,7 +90,7 @@ public class Server implements Runnable{
 					lServerApp.getGameState().setCheating(true);
 					lOutputStream.writeObject(true);
 				}
-				if(lRequestHeader.equals("StartCombat")){
+				if(lRequestHeader.equals("StartCombat")){ //Sets server to be in EVENING_IN_COMBAT
 					lServerApp.getGameState().setTurnStage(TurnStage.EVENING_IN_COMBAT);
 					lOutputStream.writeObject(true);
 				}
