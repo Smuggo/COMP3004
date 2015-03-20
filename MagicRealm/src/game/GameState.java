@@ -10,6 +10,7 @@ import java.util.Random;
 import config.Config;
 import config.Config.ActionType;
 import config.Config.DelayPrompt;
+import config.Config.TurnStage;
 import config.Config.TurnState;
 import action.Action;
 import action.ActionList;
@@ -32,6 +33,7 @@ public class GameState implements Serializable{
 	private DelayPrompt lDelayPrompt;
 	private int lTurnPlayerExecuting;
 	private boolean lCheating;
+	private TurnStage lTurnStage; //The time of day, birdsong, sunrise, daylight, etc.
 	
 	public GameState(){
 		lVersion = 1;
@@ -41,6 +43,7 @@ public class GameState implements Serializable{
 		lTurnPlayerExecuting = 0;
 		lDelayPrompt = null;
 		lCheating = false;
+		lTurnStage = TurnStage.BIRDSONG;
 	}
 	
 	//Version
@@ -148,7 +151,36 @@ public class GameState implements Serializable{
 		}
 		
 		if(lTurnPlayerExecuting >= lPlayers.size()){
+			startCombat();
 			newTurn();
+		}
+	}
+	
+	//Sets up who is in combat with who
+	public void startCombat(){
+		for(int i = 0; i < lPlayers.size(); i++){
+			for(int j = 0; j < lPlayers.size(); j++){
+				if(j != i){
+					if(lPlayers.get(i).getChosenHero().getClearing().equals(lPlayers.get(j).getChosenHero().getClearing())){
+						lPlayers.get(i).getChosenHero().setCombatOpponent(lPlayers.get(j).getChosenHero());
+						lPlayers.get(i).setOpponent(j);
+						lPlayers.get(i).setInCombat(true);
+						
+						lPlayers.get(j).getChosenHero().setCombatOpponent(lPlayers.get(i).getChosenHero());
+						lPlayers.get(j).setOpponent(i);
+						lPlayers.get(j).setInCombat(true);
+					}
+				}
+			}
+		}
+		lTurnStage = TurnStage.EVENING;
+	}
+	
+	//Keeps the states of the heroes opponents up to date
+	public void refreshCombat(){
+		for(int i = 0; i < lPlayers.size(); i++){
+			if(lPlayers.get(i).getInCombat())
+				lPlayers.get(i).getChosenHero().setCombatOpponent(lPlayers.get(lPlayers.get(i).getOpponent()).getChosenHero());
 		}
 	}
 	
@@ -197,9 +229,12 @@ public class GameState implements Serializable{
 	public boolean getCheating(){
 		return lCheating;
 	}
-
-	//Called when all members of combat are done choosing their moves, decides outcome of fight
-	public void resolveCombat(int playerNum){
-		getPlayer(playerNum).getChosenHero().resolveCombat();
+	
+	public TurnStage getTurnStage(){
+		return lTurnStage;
+	}
+	
+	public void setTurnStage(TurnStage aTurnStage){
+		lTurnStage = aTurnStage;
 	}
 }

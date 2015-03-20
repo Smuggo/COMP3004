@@ -91,6 +91,6 @@ public final class Config {
 	}
 	
 	public enum TurnStage{
-		OUT_OF_COMBAT, START_COMBAT
+		BIRDSONG, SUNRISE, SUNSET, EVENING, MIDNIGHT
 	}
 }
