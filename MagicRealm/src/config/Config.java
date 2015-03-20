@@ -55,7 +55,7 @@ public final class Config {
 	}
 	
 	public enum TurnState{
-		SELECTING, EXECUTING
+		SELECTING, EXECUTING, COMBAT
 	}
 	
 	public enum DelayPrompt{
