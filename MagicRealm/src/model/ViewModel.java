@@ -212,6 +212,12 @@ public class ViewModel {
 		}
 		
 		if(!aGameState.equals(lGameState)){
+			//Checks if it's evening, if it is the combat menu opens up for all players in combat
+			if(aGameState.getTurnStage().equals(TurnStage.EVENING)){
+				if(aGameState.getPlayer(lLocalPlayerNumber).getInCombat()){
+					requestCombatMenu();
+				}
+			}
 			//Checks to see if it's a new turn, resets game state for a new turn if so
 			if(lGameState!= null && aGameState != null && lGameState.getDay() != aGameState.getDay()){
 				lActionManager.createNewTurn(aGameState, lLocalPlayerNumber, aGameState.getPlayer(lLocalPlayerNumber));
