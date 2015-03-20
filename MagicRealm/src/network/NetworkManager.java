@@ -121,4 +121,7 @@ public class NetworkManager {
 		lLocalClient.sendEnableCheat();
 	}
 	
+	public void startCombat(){
+		lLocalClient.startCombat();
+	}
 }

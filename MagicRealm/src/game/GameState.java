@@ -184,6 +184,7 @@ public class GameState implements Serializable{
 	
 	//Keeps the states of the heroes opponents up to date, checks to see if combat should be resolved
 	public void refreshCombat(){
+		lTurnStage = TurnStage.EVENING_IN_COMBAT;
 		int lPlayersWaiting = 0; //Amount of players who are waiting to resolve combat
 		
 		//Go through all players and refresh their opponents, check to see if any players are done with combat selection
@@ -222,6 +223,7 @@ public class GameState implements Serializable{
 			lPlayers.get(i).getChosenHero().setViewingHidden(false);
 			lPlayers.get(i).getChosenHero().setBlocked(false);
 		}
+		lTurnStage = TurnStage.BIRDSONG;
 		lTurn++;	
 		lTurnState = TurnState.SELECTING;
 	}

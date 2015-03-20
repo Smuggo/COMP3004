@@ -9,6 +9,7 @@ import java.awt.Point;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import config.Config.TurnStage;
 import action.ActionList;
 import network.NetworkManager;
 import network.packet.PlayerPacket;
@@ -89,7 +90,10 @@ public class Server implements Runnable{
 					lServerApp.getGameState().setCheating(true);
 					lOutputStream.writeObject(true);
 				}
-				
+				if(lRequestHeader.equals("StartCombat")){
+					lServerApp.getGameState().setTurnStage(TurnStage.EVENING_IN_COMBAT);
+					lOutputStream.writeObject(true);
+				}
 				lOutputStream.flush();
 				lOutputStream.reset();
 			}
