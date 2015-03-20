@@ -9,6 +9,7 @@ import java.util.Random;
 
 import config.Config;
 import config.Config.ActionType;
+import config.Config.CombatStage;
 import config.Config.DelayPrompt;
 import config.Config.TurnStage;
 import config.Config.TurnState;
@@ -34,6 +35,7 @@ public class GameState implements Serializable{
 	private int lTurnPlayerExecuting;
 	private boolean lCheating;
 	private TurnStage lTurnStage; //The time of day, birdsong, sunrise, daylight, etc.
+	private int lPlayersInCombat; //The amount of players who are participating in combat that day
 	
 	public GameState(){
 		lVersion = 1;
@@ -44,6 +46,7 @@ public class GameState implements Serializable{
 		lDelayPrompt = null;
 		lCheating = false;
 		lTurnStage = TurnStage.BIRDSONG;
+		lPlayersInCombat = 0;
 	}
 	
 	//Version
@@ -161,7 +164,8 @@ public class GameState implements Serializable{
 		for(int i = 0; i < lPlayers.size(); i++){
 			for(int j = 0; j < lPlayers.size(); j++){
 				if(j != i){
-					if(lPlayers.get(i).getChosenHero().getClearing().equals(lPlayers.get(j).getChosenHero().getClearing())){
+					if(lPlayers.get(i).getChosenHero().getClearing().equals(lPlayers.get(j).getChosenHero().getClearing()) //Two players in combat with each other 
+							&& !lPlayers.get(i).getInCombat() && !lPlayers.get(j).getInCombat()){
 						lPlayers.get(i).getChosenHero().setCombatOpponent(lPlayers.get(j).getChosenHero());
 						lPlayers.get(i).setOpponent(j);
 						lPlayers.get(i).setInCombat(true);
@@ -169,6 +173,8 @@ public class GameState implements Serializable{
 						lPlayers.get(j).getChosenHero().setCombatOpponent(lPlayers.get(i).getChosenHero());
 						lPlayers.get(j).setOpponent(i);
 						lPlayers.get(j).setInCombat(true);
+						
+						lPlayersInCombat += 2;
 					}
 				}
 			}
@@ -176,12 +182,27 @@ public class GameState implements Serializable{
 		lTurnStage = TurnStage.EVENING;
 	}
 	
-	//Keeps the states of the heroes opponents up to date
+	//Keeps the states of the heroes opponents up to date, checks to see if combat should be resolved
 	public void refreshCombat(){
+		int lPlayersWaiting = 0; //Amount of players who are waiting to resolve combat
+		
+		//Go through all players and refresh their opponents, check to see if any players are done with combat selection
 		for(int i = 0; i < lPlayers.size(); i++){
-			if(lPlayers.get(i).getInCombat())
+			if(lPlayers.get(i).getInCombat()){
 				lPlayers.get(i).getChosenHero().setCombatOpponent(lPlayers.get(lPlayers.get(i).getOpponent()).getChosenHero());
+				if(lPlayers.get(i).getChosenHero().getCombatStage().equals(CombatStage.WAITING))
+					lPlayersWaiting++;
+			}
 		}
+		
+		//If all players are finished selecting their options for combat, resolve combat
+		if(lPlayersWaiting == lPlayersInCombat)
+			resolveCombat();
+	}
+	
+	//Go through all participants in combats that day, see who wins and loses the fights
+	public void resolveCombat(){
+		lTurnStage = TurnStage.MIDNIGHT;
 	}
 	
 	public void newTurn(){

@@ -212,12 +212,20 @@ public class ViewModel {
 		}
 		
 		if(!aGameState.equals(lGameState)){
-			//Checks if it's evening, if it is the combat menu opens up for all players in combat
+			//Checks if it's evening, if it is the combat menu opens up for all players in combat.
+			//EVENING_IN_COMBAT is so requestCombatMenu isn't called continuously
 			if(aGameState.getTurnStage().equals(TurnStage.EVENING)){
 				if(aGameState.getPlayer(lLocalPlayerNumber).getInCombat()){
 					requestCombatMenu();
 				}
+				aGameState.setTurnStage(TurnStage.EVENING_IN_COMBAT);
 			}
+			
+			//Refreshes combat, getting all players up to date with the other hero's status
+			if(aGameState.getTurnStage().equals(TurnStage.EVENING_IN_COMBAT)){
+				aGameState.refreshCombat();
+			}
+			
 			//Checks to see if it's a new turn, resets game state for a new turn if so
 			if(lGameState!= null && aGameState != null && lGameState.getDay() != aGameState.getDay()){
 				lActionManager.createNewTurn(aGameState, lLocalPlayerNumber, aGameState.getPlayer(lLocalPlayerNumber));
