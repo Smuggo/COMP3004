@@ -28,11 +28,11 @@ public class Player implements Serializable{
 	public String getUserName(){ return lUserName; }
 	public Hero   getChosenHero(){ return lChosenHero; }
 	public int    getOpponent(){ return lPlayerOpponent; }
-	public boolean getInCombat(){ return lInCombat; }
+	public boolean isInCombat(){ return lInCombat; }
 	
 	public void setHero(Hero aHero){ lChosenHero = aHero; }
 	public void setOpponent(int aOpponent){ lPlayerOpponent = aOpponent; }
-	public void setInCombat(boolean aInCombat){ lInCombat = aInCombat; }
+	public void isInCombat(boolean aInCombat){ lInCombat = aInCombat; }
 	public String toString(){
 		String playerString = "";
 		if(lChosenHero != null)
