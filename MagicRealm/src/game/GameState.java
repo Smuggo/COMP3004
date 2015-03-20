@@ -180,6 +180,7 @@ public class GameState implements Serializable{
 		}
 		lTurnState = TurnState.COMBAT;
 		lTurnStage = TurnStage.EVENING;
+		newTurn();
 	}
 	
 	//Keeps the states of the heroes opponents up to date, checks to see if combat should be resolved
@@ -212,7 +213,6 @@ public class GameState implements Serializable{
 			}
 		}
 		lTurnStage = TurnStage.MIDNIGHT;
-		newTurn();
 	}
 	
 	//Reset values for a new turn
