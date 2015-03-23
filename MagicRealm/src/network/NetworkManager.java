@@ -4,6 +4,7 @@ import java.awt.Point;
 
 import config.Config.FightType;
 import config.Config.MoveType;
+import config.Config.TurnStage;
 import action.ActionList;
 import game.GameState;
 import game.chit.ActionChit;
@@ -147,5 +148,20 @@ public class NetworkManager {
 	//Assign the move chit the hero will be using
 	public boolean assignMoveChit(int aPlayerNum, ActionChit aActionChit){
 		return lLocalClient.assignMoveChit(aPlayerNum, aActionChit);
+	}
+	
+	//Set the player to be waiting for other players
+	public boolean setToWaiting(int aPlayerNum){
+		return lLocalClient.setToWaiting(aPlayerNum);
+	}
+	
+	//Sets the blocking direction of the shield
+	public boolean setBlockingDirection(int aPlayerNum, FightType aFightType){
+		return lLocalClient.setBlockingDirection(aPlayerNum, aFightType);
+	}
+	
+	//Set the turn stage: BIRDSONG, EVENING, ETC.
+	public boolean setTurnStage(TurnStage aTurnStage){
+		return lLocalClient.setTurnStage(aTurnStage);
 	}
 }

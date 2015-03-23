@@ -16,6 +16,7 @@ import javax.swing.JTable;
 
 import config.Config.FightType;
 import config.Config.MoveType;
+import config.Config.TurnStage;
 import network.NetworkManager;
 import network.packet.PlayerPacket;
 import action.ActionList;
@@ -555,5 +556,85 @@ public class Client implements Runnable {
 		}
 		streamBusy = false;
 		return false;		
+	}
+	
+	//Sets the direction the hero will be blocking
+	public boolean setBlockingDirection(int aPlayerNum, FightType aFightType){
+		try{
+			while(streamBusy)
+				Thread.sleep(1);
+		
+			String lRequest = "SetBlockingDirection";
+			lOutputStream.writeObject(lRequest);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aPlayerNum);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aFightType);
+			lOutputStream.flush();
+			lOutputStream.reset();
+			
+			boolean returnv = (boolean) lInputStream.readObject();
+			streamBusy = false;
+			return returnv;
+		}
+		catch (Exception e)
+		{
+			System.out.println("Client Error:");
+			e.printStackTrace();
+		}
+		streamBusy = false;
+		return false;
+	}
+	
+	//Sets the hero to be waiting for other player's to finish their choices for combat
+	public boolean setToWaiting(int aPlayerNum){
+		try{
+			while(streamBusy)
+				Thread.sleep(1);
+		
+			String lRequest = "SetToWaiting";
+			lOutputStream.writeObject(lRequest);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aPlayerNum);
+			lOutputStream.flush();
+			lOutputStream.reset();
+			
+			boolean returnv = (boolean) lInputStream.readObject();
+			streamBusy = false;
+			return returnv;
+		}
+		catch (Exception e)
+		{
+			System.out.println("Client Error:");
+			e.printStackTrace();
+		}
+		streamBusy = false;
+		return false;	
+	}
+	
+	//Set the turn stage: BIRDSONG, EVENING, ETC.
+	public boolean setTurnStage(TurnStage aTurnStage){
+		try{
+			while(streamBusy)
+				Thread.sleep(1);
+		
+			String lRequest = "SetTurnStage";
+			lOutputStream.writeObject(lRequest);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aTurnStage);
+			lOutputStream.flush();
+			lOutputStream.reset();
+			
+			boolean returnv = (boolean) lInputStream.readObject();
+			streamBusy = false;
+			return returnv;
+		}
+		catch (Exception e)
+		{
+			System.out.println("Client Error:");
+			e.printStackTrace();
+		}
+		streamBusy = false;
+		return false;	
 	}
 }

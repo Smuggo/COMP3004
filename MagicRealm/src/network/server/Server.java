@@ -129,7 +129,25 @@ public class Server implements Runnable{
 					lServerApp.getGameState().getPlayer(lPlayer).getChosenHero().setMoveChoice(lActionChit);
 					lOutputStream.writeObject(true);
 				}
-				
+				if(lRequestHeader.equals("SetToWaiting")){ //Sets the player to wait for other players (Combat)
+					int lPlayer = (Integer)lInputStream.readObject();
+					
+					lServerApp.getGameState().getPlayer(lPlayer).getChosenHero().setCombatStage(CombatStage.WAITING);
+					lOutputStream.writeObject(true);
+				}
+				if(lRequestHeader.equals("SetBlockingDirection")){ //Sets the blocking direction of the shield
+					int lPlayer = (Integer)lInputStream.readObject();
+					FightType lBlockingDirection = (FightType)lInputStream.readObject();
+					
+					lServerApp.getGameState().getPlayer(lPlayer).getChosenHero().getShield().setProtectsFrom(lBlockingDirection);
+					lOutputStream.writeObject(true);
+				}
+				if(lRequestHeader.equals("SetTurnStage")){ //Set the turn stage: BIRDSONG, EVENING, ETC.
+					TurnStage lTurnStage = (TurnStage)lInputStream.readObject();
+					
+					lServerApp.getGameState().setTurnStage(lTurnStage);
+					lOutputStream.writeObject(true);
+				}
 				lOutputStream.flush();
 				lOutputStream.reset();
 			}

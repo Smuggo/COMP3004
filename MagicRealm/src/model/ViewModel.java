@@ -220,6 +220,8 @@ public class ViewModel {
 				requestCombatMenu();
 
 			lNetworkManager.startCombat();
+			setTurnStage(TurnStage.EVENING_IN_COMBAT);
+			refreshGameState();
 		}
 		
 		//Refreshes combat, getting all players up to date with the other hero's status
@@ -369,5 +371,20 @@ public class ViewModel {
 	//Assign a hero's move chit
 	public boolean assignMoveChit(ActionChit aActionChit){
 		return lNetworkManager.assignMoveChit(lLocalPlayerNumber, aActionChit);
+	}
+	
+	//Set the player to be waiting for other players (Combat)
+	public boolean setToWaiting(){
+		return lNetworkManager.setToWaiting(lLocalPlayerNumber);
+	}
+	
+	//Sets the blocking direction of the hero's shield
+	public boolean setBlockingDirection(FightType aFightType){
+		return lNetworkManager.setBlockingDirection(lLocalPlayerNumber, aFightType);
+	}
+	
+	//Sets the turn stage: BIRDSONG, EVENING, etc.
+	public boolean setTurnStage(TurnStage aTurnStage){
+		return lNetworkManager.setTurnStage(aTurnStage);
 	}
 }
