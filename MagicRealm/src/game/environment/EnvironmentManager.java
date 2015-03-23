@@ -109,4 +109,60 @@ public class EnvironmentManager {
 	public ArrayList<Hextile> getHextiles() {
 		return hextiles;
 	}
+
+	public void randomlyGenerateMap() {
+		// TODO Auto-generated method stub
+		//System.out.println(hextiles);
+		
+		// Remove all hextile to hextile roadways because the XML connect them before anything
+		breakHextileToHextilePaths();
+		
+		// Clear all positions
+		clearXandYLocations();
+		
+		// Create new hextile positions, rotations, and hextile-to-hextile roadways
+		placeHextiles();
+	}
+	
+	public void breakHextileToHextilePaths() {
+		// For all clearings in a hextile
+		for(int i = 0; i < hextiles.size(); i++) {
+			for(int j = 0; j < hextiles.get(i).getRoadways().size(); j++) {
+				// Check if any roadways connects to a different hextile
+				if (!hextiles.get(i).getRoadways().get(j).getInterconnected()) {
+					hextiles.get(i).getRoadways().get(j).setTailClearing(null);
+				}				
+			}
+		}
+	}
+	
+	public void clearXandYLocations() {
+		// For all clearings in a hextile
+		for(int i = 0; i < hextiles.size(); i++) {
+			if (hextiles.get(i).getName().equals("Borderland")) {
+				hextiles.get(i).setXLocation(0);
+				hextiles.get(i).setYLocation(0);
+			}
+			// Place the other so far off the board they will not cause problems hopefully
+			else {
+				hextiles.get(i).setXLocation(-10);
+				hextiles.get(i).setYLocation(-10);
+			}
+			
+			HexGrid lNewHexGrid = HexGridFactory.newHexGrid(hextiles);
+			setHexGrid(lNewHexGrid);
+		}
+	}
+	
+	// This is going to be challenging
+	public void placeHextiles() {
+		ArrayList<Integer[]> possibleLocations = new ArrayList<Integer[]>();
+		
+		// First location is special
+		Integer location[] = new Integer[2];
+		location[0] = 2;
+		location[1] = 3;
+		possibleLocations.add(location);
+		
+	}
 }

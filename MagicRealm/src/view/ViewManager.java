@@ -30,6 +30,7 @@ import view.internals.game.ChitList;
 import view.internals.game.ChitPlacementSelection;
 import view.internals.game.Combat;
 import view.internals.game.HeroActionChits;
+import view.internals.game.MapSelector;
 import view.internals.game.PlayerMenu;
 import view.internals.game.SearchChoiceSelection;
 import view.internals.game.Searching;
@@ -58,6 +59,7 @@ public class ViewManager {
 	private BuyMenu lBuyMenu;
 	private Searching lSearching;
 	private ChitPlacementSelection lChitPlacementSelection;
+	private MapSelector lMapSelector;
 	private ChitList lChitList;	
 	private ViewModel lModel;
 	private DieRoller lDieRoller;
@@ -248,6 +250,12 @@ public class ViewManager {
 		lChitPlacementSelection = new ChitPlacementSelection(lModel);
 		lChitPlacementSelection.setVisible(true);
 		lWindow.addWindow(lChitPlacementSelection);
+	}
+	
+	public void showMapSelector(){
+		lMapSelector = new MapSelector(lModel);
+		lMapSelector.setVisible(true);
+		lWindow.addWindow(lMapSelector);
 	}
 	
 	public void showChitList(){		

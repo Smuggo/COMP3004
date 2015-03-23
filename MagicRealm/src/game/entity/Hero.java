@@ -423,17 +423,24 @@ public class Hero implements Serializable {
 		// Trade
 		else if (aActionType.equals(ActionType.TRADE)) {
 			if(needsActionInput){
-				if(lClearing.getDwellingType() == DwellingType.INN){
+				if(lClearing.getDwellingType() == DwellingType.CHAPEL ||
+					lClearing.getDwellingType() == DwellingType.GUARD ||
+					lClearing.getDwellingType() == DwellingType.HOUSE ||
+					lClearing.getDwellingType() == DwellingType.INN){
+					
 					aAction.setResult("TRADE SUCCESS");
+					
 					// Open Trade Menu
 					// return DelayPrompt.OPENTRADEMENU;
 					//TradeMenu tradeMenu = new TradeMenu();
 					//tradeMenu.setVisible(true);
-				} else {
+				} 
+				else {
 					aAction.setResult("TRADE FAIL");
 				}
 				needsActionInput = false;
-			}else{
+			} 
+			else {
 				needsActionInput = true;
 				return DelayPrompt.TRADING;
 			}
