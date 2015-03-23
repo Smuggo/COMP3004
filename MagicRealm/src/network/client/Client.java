@@ -1,6 +1,7 @@
 package network.client;
 
 import game.GameState;
+import game.chit.ActionChit;
 import game.entity.Hero;
 import game.entity.Player;
 import game.environment.hex.Clearing;
@@ -14,6 +15,7 @@ import java.net.Socket;
 import javax.swing.JTable;
 
 import config.Config.FightType;
+import config.Config.MoveType;
 import network.NetworkManager;
 import network.packet.PlayerPacket;
 import action.ActionList;
@@ -469,5 +471,89 @@ public class Client implements Runnable {
 		}
 		streamBusy = false;
 		return false;
+	}
+	
+	//Assign the move choice of the player (duck, charge, dodge)
+	public boolean assignMove(int aPlayerNum, MoveType aMoveType){
+		try{
+			while(streamBusy)
+				Thread.sleep(1);
+		
+			String lRequest = "AssignMove";
+			lOutputStream.writeObject(lRequest);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aPlayerNum);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aMoveType);
+			lOutputStream.flush();
+			lOutputStream.reset();
+			
+			boolean returnv = (boolean) lInputStream.readObject();
+			streamBusy = false;
+			return returnv;
+		}
+		catch (Exception e)
+		{
+			System.out.println("Client Error:");
+			e.printStackTrace();
+		}
+		streamBusy = false;
+		return false;
+	}
+	
+	//Assigns the fight chit the hero chooses
+	public boolean assignFightChit(int aPlayerNum, ActionChit aActionChit){
+		try{
+			while(streamBusy)
+				Thread.sleep(1);
+		
+			String lRequest = "AssignFightChit";
+			lOutputStream.writeObject(lRequest);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aPlayerNum);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aActionChit);
+			lOutputStream.flush();
+			lOutputStream.reset();
+			
+			boolean returnv = (boolean) lInputStream.readObject();
+			streamBusy = false;
+			return returnv;
+		}
+		catch (Exception e)
+		{
+			System.out.println("Client Error:");
+			e.printStackTrace();
+		}
+		streamBusy = false;
+		return false;		
+	}
+	
+	//Assigns the move chit the hero uses
+	public boolean assignMoveChit(int aPlayerNum, ActionChit aActionChit){
+		try{
+			while(streamBusy)
+				Thread.sleep(1);
+		
+			String lRequest = "AssignMoveChit";
+			lOutputStream.writeObject(lRequest);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aPlayerNum);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aActionChit);
+			lOutputStream.flush();
+			lOutputStream.reset();
+			
+			boolean returnv = (boolean) lInputStream.readObject();
+			streamBusy = false;
+			return returnv;
+		}
+		catch (Exception e)
+		{
+			System.out.println("Client Error:");
+			e.printStackTrace();
+		}
+		streamBusy = false;
+		return false;		
 	}
 }

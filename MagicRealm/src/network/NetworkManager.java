@@ -3,8 +3,10 @@ package network;
 import java.awt.Point;
 
 import config.Config.FightType;
+import config.Config.MoveType;
 import action.ActionList;
 import game.GameState;
+import game.chit.ActionChit;
 import game.entity.Hero;
 import game.entity.Player;
 import game.environment.hex.Clearing;
@@ -130,5 +132,20 @@ public class NetworkManager {
 	//Assign the type of attack the hero performs
 	public boolean assignFightChoice(int aPlayerNum, FightType aFightType){
 		return lLocalClient.assignFight(aPlayerNum, aFightType);
+	}
+	
+	//Assign the type of move the hero performs
+	public boolean assignMoveChoice(int aPlayerNum, MoveType aMoveType){
+		return lLocalClient.assignMove(aPlayerNum, aMoveType);
+	}
+	
+	//Assign the fight chit the hero will be using
+	public boolean assignFightChit(int aPlayerNum, ActionChit aActionChit){
+		return lLocalClient.assignFightChit(aPlayerNum, aActionChit);
+	}
+	
+	//Assign the move chit the hero will be using
+	public boolean assignMoveChit(int aPlayerNum, ActionChit aActionChit){
+		return lLocalClient.assignMoveChit(aPlayerNum, aActionChit);
 	}
 }

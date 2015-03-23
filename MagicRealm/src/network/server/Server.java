@@ -1,4 +1,5 @@
 package network.server;
+import game.chit.ActionChit;
 import game.entity.Hero;
 import game.entity.Player;
 import game.environment.hex.Clearing;
@@ -11,6 +12,7 @@ import java.io.ObjectOutputStream;
 
 import config.Config.CombatStage;
 import config.Config.FightType;
+import config.Config.MoveType;
 import config.Config.TurnStage;
 import action.ActionList;
 import network.NetworkManager;
@@ -55,6 +57,7 @@ public class Server implements Runnable{
 				}
 				
 				if(lRequestHeader.equals("GameStart")){
+					lServerApp.getGameState().setTurnStage(TurnStage.BIRDSONG);
 					lOutputStream.writeObject(gameRunning);
 				}
 				
@@ -104,6 +107,29 @@ public class Server implements Runnable{
 					lServerApp.getGameState().getPlayer(lPlayer).getChosenHero().setFightType(lFightType);
 					lOutputStream.writeObject(true);
 				}
+				if(lRequestHeader.equals("AssignMove")){ //Set how a hero will move in combat
+					int lPlayer = (Integer)lInputStream.readObject();
+					MoveType lMoveType = (MoveType)lInputStream.readObject();
+					
+					lServerApp.getGameState().getPlayer(lPlayer).getChosenHero().setCombatStage(CombatStage.MOVE);
+					lServerApp.getGameState().getPlayer(lPlayer).getChosenHero().setMoveType(lMoveType);
+					lOutputStream.writeObject(true);
+				}
+				if(lRequestHeader.equals("AssignFightChit")){ //Sets the hero's fight chit
+					int lPlayer = (Integer)lInputStream.readObject();
+					ActionChit lActionChit = (ActionChit)lInputStream.readObject();
+					
+					lServerApp.getGameState().getPlayer(lPlayer).getChosenHero().setFightChoice(lActionChit);
+					lOutputStream.writeObject(true);
+				}
+				if(lRequestHeader.equals("AssignMoveChit")){ //Set the hero's move chit
+					int lPlayer = (Integer)lInputStream.readObject();
+					ActionChit lActionChit = (ActionChit)lInputStream.readObject();
+					
+					lServerApp.getGameState().getPlayer(lPlayer).getChosenHero().setMoveChoice(lActionChit);
+					lOutputStream.writeObject(true);
+				}
+				
 				lOutputStream.flush();
 				lOutputStream.reset();
 			}

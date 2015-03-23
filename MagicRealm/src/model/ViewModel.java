@@ -2,6 +2,7 @@ package model;
 
 import game.GameManager;
 import game.GameState;
+import game.chit.ActionChit;
 import game.chit.ActionChitFactory;
 import game.environment.hex.Clearing;
 import game.environment.hex.HexGrid;
@@ -22,6 +23,7 @@ import action.ActionManager;
 import config.Config.ActionState;
 import config.Config.ActionType;
 import config.Config.FightType;
+import config.Config.MoveType;
 import config.Config.SearchType;
 import config.Config.TurnStage;
 import config.ImageMap;
@@ -42,9 +44,9 @@ public class ViewModel {
 	private WeaponFactory lWeaponFactory;
 	private ArmourFactory lArmourFactory;
 	
-	boolean isServer;
-	int lLocalPlayerNumber;
-	boolean doneInit = false;
+	private boolean isServer;
+	private int lLocalPlayerNumber;
+	private boolean doneInit = false;
 	
 	public ViewModel(NetworkManager aNetworkManager){
 		isServer = false;
@@ -349,7 +351,23 @@ public class ViewModel {
 		lViewManager.setChooseBlock();
 	}
 	
-	public boolean assignFightChoice(int aPlayerNum, FightType aFightType){
-		return lNetworkManager.assignFightChoice(aPlayerNum, aFightType);
+	//Assign a hero's fight choice
+	public boolean assignFightChoice(FightType aFightType){
+		return lNetworkManager.assignFightChoice(lLocalPlayerNumber, aFightType);
+	}
+	
+	//Assign a hero's move choice
+	public boolean assignMoveChoice(MoveType aMoveType){
+		return lNetworkManager.assignMoveChoice(lLocalPlayerNumber, aMoveType);
+	}
+	
+	//Assign a hero's fight chit
+	public boolean assignFightChit(ActionChit aActionChit){
+		return lNetworkManager.assignFightChit(lLocalPlayerNumber, aActionChit);
+	}
+	
+	//Assign a hero's move chit
+	public boolean assignMoveChit(ActionChit aActionChit){
+		return lNetworkManager.assignMoveChit(lLocalPlayerNumber, aActionChit);
 	}
 }
