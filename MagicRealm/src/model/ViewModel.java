@@ -65,6 +65,10 @@ public class ViewModel {
 		lViewManager = aViewManager;
 	}
 	
+	public ViewManager getViewManager(){
+		return lViewManager;
+	}
+	
 	public void setNetworkManager(NetworkManager aNetworkManager){
 		lNetworkManager = aNetworkManager;
 	}
@@ -291,7 +295,9 @@ public class ViewModel {
 		lViewManager.clearMenu();
 		
 		if (lLocalPlayerNumber == 1) {
-			lViewManager.showChitPlacementSelection();
+			// Ask user what map they would like to use before asking for cheat mode
+			// the map selector will call cheat mode window
+			lViewManager.showMapSelector();
 		}
 
 	}
