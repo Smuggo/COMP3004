@@ -13,6 +13,7 @@ import java.net.Socket;
 
 import javax.swing.JTable;
 
+import config.Config.FightType;
 import network.NetworkManager;
 import network.packet.PlayerPacket;
 import action.ActionList;
@@ -426,6 +427,34 @@ public class Client implements Runnable {
 			
 			String lRequest = "StartCombat";
 			lOutputStream.writeObject(lRequest);
+			lOutputStream.flush();
+			lOutputStream.reset();
+			
+			boolean returnv = (boolean) lInputStream.readObject();
+			streamBusy = false;
+			return returnv;
+		}
+		catch (Exception e)
+		{
+			System.out.println("Client Error:");
+			e.printStackTrace();
+		}
+		streamBusy = false;
+		return false;
+	}
+	
+	//Assigns the fight choice of the hero (smash, thrust, swing)
+	public boolean assignFight(int aPlayerNum, FightType aFightType){
+		try{
+			while(streamBusy)
+				Thread.sleep(1);
+			
+			String lRequest = "AssignFight";
+			lOutputStream.writeObject(lRequest);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aPlayerNum);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aFightType);
 			lOutputStream.flush();
 			lOutputStream.reset();
 			

@@ -21,7 +21,7 @@ import java.util.Map;
 import action.ActionManager;
 import config.Config.ActionState;
 import config.Config.ActionType;
-import config.Config.CombatStage;
+import config.Config.FightType;
 import config.Config.SearchType;
 import config.Config.TurnStage;
 import config.ImageMap;
@@ -347,5 +347,9 @@ public class ViewModel {
 	
 	public void selectBlockDirection(){
 		lViewManager.setChooseBlock();
+	}
+	
+	public boolean assignFightChoice(int aPlayerNum, FightType aFightType){
+		return lNetworkManager.assignFightChoice(aPlayerNum, aFightType);
 	}
 }

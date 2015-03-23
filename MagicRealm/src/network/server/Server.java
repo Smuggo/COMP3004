@@ -9,6 +9,8 @@ import java.awt.Point;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import config.Config.CombatStage;
+import config.Config.FightType;
 import config.Config.TurnStage;
 import action.ActionList;
 import network.NetworkManager;
@@ -92,6 +94,14 @@ public class Server implements Runnable{
 				}
 				if(lRequestHeader.equals("StartCombat")){ //Sets server to be in EVENING_IN_COMBAT
 					lServerApp.getGameState().setTurnStage(TurnStage.EVENING_IN_COMBAT);
+					lOutputStream.writeObject(true);
+				}
+				if(lRequestHeader.equals("AssignFight")){ //Sets a hero's attack type
+					int lPlayer = (Integer)lInputStream.readObject();
+					FightType lFightType = (FightType)lInputStream.readObject();
+					
+					lServerApp.getGameState().getPlayer(lPlayer).getChosenHero().setCombatStage(CombatStage.FIGHT);
+					lServerApp.getGameState().getPlayer(lPlayer).getChosenHero().setFightType(lFightType);
 					lOutputStream.writeObject(true);
 				}
 				lOutputStream.flush();

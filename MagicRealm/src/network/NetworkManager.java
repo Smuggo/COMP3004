@@ -2,6 +2,7 @@ package network;
 
 import java.awt.Point;
 
+import config.Config.FightType;
 import action.ActionList;
 import game.GameState;
 import game.entity.Hero;
@@ -121,7 +122,13 @@ public class NetworkManager {
 		lLocalClient.sendEnableCheat();
 	}
 	
+	//Starts combat
 	public void startCombat(){
 		lLocalClient.startCombat();
+	}
+	
+	//Assign the type of attack the hero performs
+	public boolean assignFightChoice(int aPlayerNum, FightType aFightType){
+		return lLocalClient.assignFight(aPlayerNum, aFightType);
 	}
 }
