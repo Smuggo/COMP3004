@@ -1,4 +1,5 @@
 package network.server;
+import game.chit.ActionChit;
 import game.entity.Hero;
 import game.entity.Player;
 import game.environment.hex.Clearing;
@@ -9,6 +10,10 @@ import java.awt.Point;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import config.Config.CombatStage;
+import config.Config.FightType;
+import config.Config.MoveType;
+import config.Config.TurnStage;
 import action.ActionList;
 import network.NetworkManager;
 import network.packet.PlayerPacket;
@@ -52,6 +57,7 @@ public class Server implements Runnable{
 				}
 				
 				if(lRequestHeader.equals("GameStart")){
+					lServerApp.getGameState().setTurnStage(TurnStage.BIRDSONG);
 					lOutputStream.writeObject(gameRunning);
 				}
 				
@@ -89,7 +95,59 @@ public class Server implements Runnable{
 					lServerApp.getGameState().setCheating(true);
 					lOutputStream.writeObject(true);
 				}
-				
+				if(lRequestHeader.equals("StartCombat")){ //Sets server to be in EVENING_IN_COMBAT
+					lServerApp.getGameState().setTurnStage(TurnStage.EVENING_IN_COMBAT);
+					lOutputStream.writeObject(true);
+				}
+				if(lRequestHeader.equals("AssignFight")){ //Sets a hero's attack type
+					int lPlayer = (Integer)lInputStream.readObject();
+					FightType lFightType = (FightType)lInputStream.readObject();
+					
+					lServerApp.getGameState().getPlayer(lPlayer).getChosenHero().setCombatStage(CombatStage.FIGHT);
+					lServerApp.getGameState().getPlayer(lPlayer).getChosenHero().setFightType(lFightType);
+					lOutputStream.writeObject(true);
+				}
+				if(lRequestHeader.equals("AssignMove")){ //Set how a hero will move in combat
+					int lPlayer = (Integer)lInputStream.readObject();
+					MoveType lMoveType = (MoveType)lInputStream.readObject();
+					
+					lServerApp.getGameState().getPlayer(lPlayer).getChosenHero().setCombatStage(CombatStage.MOVE);
+					lServerApp.getGameState().getPlayer(lPlayer).getChosenHero().setMoveType(lMoveType);
+					lOutputStream.writeObject(true);
+				}
+				if(lRequestHeader.equals("AssignFightChit")){ //Sets the hero's fight chit
+					int lPlayer = (Integer)lInputStream.readObject();
+					ActionChit lActionChit = (ActionChit)lInputStream.readObject();
+					
+					lServerApp.getGameState().getPlayer(lPlayer).getChosenHero().setFightChoice(lActionChit);
+					lOutputStream.writeObject(true);
+				}
+				if(lRequestHeader.equals("AssignMoveChit")){ //Set the hero's move chit
+					int lPlayer = (Integer)lInputStream.readObject();
+					ActionChit lActionChit = (ActionChit)lInputStream.readObject();
+					
+					lServerApp.getGameState().getPlayer(lPlayer).getChosenHero().setMoveChoice(lActionChit);
+					lOutputStream.writeObject(true);
+				}
+				if(lRequestHeader.equals("SetToWaiting")){ //Sets the player to wait for other players (Combat)
+					int lPlayer = (Integer)lInputStream.readObject();
+					
+					lServerApp.getGameState().getPlayer(lPlayer).getChosenHero().setCombatStage(CombatStage.WAITING);
+					lOutputStream.writeObject(true);
+				}
+				if(lRequestHeader.equals("SetBlockingDirection")){ //Sets the blocking direction of the shield
+					int lPlayer = (Integer)lInputStream.readObject();
+					FightType lBlockingDirection = (FightType)lInputStream.readObject();
+					
+					lServerApp.getGameState().getPlayer(lPlayer).getChosenHero().getShield().setProtectsFrom(lBlockingDirection);
+					lOutputStream.writeObject(true);
+				}
+				if(lRequestHeader.equals("SetTurnStage")){ //Set the turn stage: BIRDSONG, EVENING, ETC.
+					TurnStage lTurnStage = (TurnStage)lInputStream.readObject();
+					
+					lServerApp.getGameState().setTurnStage(lTurnStage);
+					lOutputStream.writeObject(true);
+				}
 				lOutputStream.flush();
 				lOutputStream.reset();
 			}

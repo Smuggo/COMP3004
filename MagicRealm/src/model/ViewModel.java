@@ -2,6 +2,7 @@ package model;
 
 import game.GameManager;
 import game.GameState;
+import game.chit.ActionChit;
 import game.chit.ActionChitFactory;
 import game.environment.hex.Clearing;
 import game.environment.hex.HexGrid;
@@ -21,7 +22,8 @@ import java.util.Map;
 import action.ActionManager;
 import config.Config.ActionState;
 import config.Config.ActionType;
-import config.Config.CombatStage;
+import config.Config.FightType;
+import config.Config.MoveType;
 import config.Config.SearchType;
 import config.Config.TurnStage;
 import config.ImageMap;
@@ -42,9 +44,9 @@ public class ViewModel {
 	private WeaponFactory lWeaponFactory;
 	private ArmourFactory lArmourFactory;
 	
-	boolean isServer;
-	int lLocalPlayerNumber;
-	boolean doneInit = false;
+	private boolean isServer;
+	private int lLocalPlayerNumber;
+	private boolean doneInit = false;
 	
 	public ViewModel(NetworkManager aNetworkManager){
 		isServer = false;
@@ -63,6 +65,10 @@ public class ViewModel {
 	
 	public void setViewManager(ViewManager aViewManager){
 		lViewManager = aViewManager;
+	}
+	
+	public ViewManager getViewManager(){
+		return lViewManager;
 	}
 	
 	public void setNetworkManager(NetworkManager aNetworkManager){
@@ -212,20 +218,20 @@ public class ViewModel {
 		}
 		
 		//Checks if it's evening, if it is the combat menu opens up for all players in combat.
-		//EVENING_IN_COMBAT is so requestCombatMenu isn't called continuously
+		//lNetworkManager.startCombat() is so requestCombatMenu isn't called continuously
 		if(aGameState.getTurnStage().equals(TurnStage.EVENING)){
-			if(aGameState.getPlayer(lLocalPlayerNumber).isInCombat()){
+			if(aGameState.getPlayer(lLocalPlayerNumber).isInCombat())
 				requestCombatMenu();
-				
-			}
-			aGameState.setTurnStage(TurnStage.EVENING_IN_COMBAT);
+
+			lNetworkManager.startCombat();
+			setTurnStage(TurnStage.EVENING_IN_COMBAT);
+			refreshGameState();
 		}
 		
 		//Refreshes combat, getting all players up to date with the other hero's status
 		if(aGameState.getTurnStage().equals(TurnStage.EVENING_IN_COMBAT)){
 			aGameState.refreshCombat();
 		}
-		
 		
 		if(!aGameState.equals(lGameState)){
 			//Checks to see if it's a new turn, resets game state for a new turn if so
@@ -293,7 +299,9 @@ public class ViewModel {
 		lViewManager.clearMenu();
 		
 		if (lLocalPlayerNumber == 1) {
-			lViewManager.showChitPlacementSelection();
+			// Ask user what map they would like to use before asking for cheat mode
+			// the map selector will call cheat mode window
+			lViewManager.showMapSelector();
 		}
 
 	}
@@ -349,5 +357,40 @@ public class ViewModel {
 	
 	public void selectBlockDirection(){
 		lViewManager.setChooseBlock();
+	}
+	
+	//Assign a hero's fight choice
+	public boolean assignFightChoice(FightType aFightType){
+		return lNetworkManager.assignFightChoice(lLocalPlayerNumber, aFightType);
+	}
+	
+	//Assign a hero's move choice
+	public boolean assignMoveChoice(MoveType aMoveType){
+		return lNetworkManager.assignMoveChoice(lLocalPlayerNumber, aMoveType);
+	}
+	
+	//Assign a hero's fight chit
+	public boolean assignFightChit(ActionChit aActionChit){
+		return lNetworkManager.assignFightChit(lLocalPlayerNumber, aActionChit);
+	}
+	
+	//Assign a hero's move chit
+	public boolean assignMoveChit(ActionChit aActionChit){
+		return lNetworkManager.assignMoveChit(lLocalPlayerNumber, aActionChit);
+	}
+	
+	//Set the player to be waiting for other players (Combat)
+	public boolean setToWaiting(){
+		return lNetworkManager.setToWaiting(lLocalPlayerNumber);
+	}
+	
+	//Sets the blocking direction of the hero's shield
+	public boolean setBlockingDirection(FightType aFightType){
+		return lNetworkManager.setBlockingDirection(lLocalPlayerNumber, aFightType);
+	}
+	
+	//Sets the turn stage: BIRDSONG, EVENING, etc.
+	public boolean setTurnStage(TurnStage aTurnStage){
+		return lNetworkManager.setTurnStage(aTurnStage);
 	}
 }

@@ -56,6 +56,10 @@ public class Hextile implements Serializable{
 		ownedHex = aHex;
 	}
 	
+	public Hex getOwnedHex(){
+		return ownedHex;
+	}
+	
 	public void setOwnedClearings(Hex aHex){
 		for(int i = 0; i < clearings.size(); i++){
 			clearings.get(i).setOwnedHex(aHex);
@@ -118,7 +122,9 @@ public class Hextile implements Serializable{
 		return null;
 	}
 	
-	public void connectTo(Hextile hexTile, Config.IncompleteRoadwayDirection relativePosition) {
+	// return true if the hextiles connect properly
+	// return false if not
+	public boolean connectTo(Hextile hexTile, Config.IncompleteRoadwayDirection relativePosition) {
 		Config.IncompleteRoadwayDirection head = null;
 		Config.IncompleteRoadwayDirection tail = null;
 		
@@ -180,56 +186,73 @@ public class Hextile implements Serializable{
 		Roadway headRoadway = this.findRoadway(head);
 		Roadway tailRoadway = hexTile.findRoadway(tail);
 		
-		// The roadways do not line up
+		// The roadways line up
 		if ((headRoadway != null) && (tailRoadway != null)) {
 			headRoadway.setTailClearing(tailRoadway.getHeadClearing());
 			tailRoadway.setTailClearing(headRoadway.getHeadClearing());
+			return true;
 		}
+		// The roadways do not line up
 		else {
+			return false;
 			//System.out.println("Warning: No path found when connecting the " + relativePosition + " of " + this.name + " to " + hexTile.name);
-		}	
+		}
 	}
 	
-	public void checkForAdjacentHextiles(int x, int y, int radius, HexGrid hexGrid) {
+	// returns true if an adjacenthextile was found and properly connected
+	public boolean checkForAdjacentHextiles(int x, int y, int radius, HexGrid hexGrid) {
 		//System.out.println("x:" + x + " y: " + y);
 		int maxIndex = radius;
 		int minIndex = radius * -1;
+		boolean result = false;
 		//System.out.println("x = " + maxIndex + "; y = " + minIndex );
 		//System.out.println("maxIndex = " + maxIndex + "; minIndex = " + minIndex );
 		// Top and bottom require the same calculations whether x is even or odd
 		
 		// Check if there exist a hextile above the one we are trying to place
 		if ((y > minIndex) && (hexGrid.getHex(x, y - 1) != null)) {
-			hexGrid.getHex(x, y).getHextile().connectTo(hexGrid.getHex(x, y - 1).getHextile(), Config.IncompleteRoadwayDirection.TOP);
+			if (hexGrid.getHex(x, y).getHextile().connectTo(hexGrid.getHex(x, y - 1).getHextile(), Config.IncompleteRoadwayDirection.TOP)) {
+				result = true;
+			}
 		}
 		
 		// Check if there exist a hextile below the one we are trying to place
 		if ((y < maxIndex) && (hexGrid.getHex(x, y + 1) != null)) {
-			hexGrid.getHex(x, y).getHextile().connectTo(hexGrid.getHex(x, y + 1).getHextile(), Config.IncompleteRoadwayDirection.BOTTOM);
+			if (hexGrid.getHex(x, y).getHextile().connectTo(hexGrid.getHex(x, y + 1).getHextile(), Config.IncompleteRoadwayDirection.BOTTOM)) {
+				result = true;
+			}
 		}
 		
 		// Check if there exist a hextile above-right to the one we are trying to place
 		if ((x < maxIndex) && (y > minIndex) && (hexGrid.getHex(x + 1, y - 1) != null)) {
-			hexGrid.getHex(x, y).getHextile().connectTo(hexGrid.getHex(x + 1, y - 1).getHextile(), Config.IncompleteRoadwayDirection.TOP_RIGHT);
+			if (hexGrid.getHex(x, y).getHextile().connectTo(hexGrid.getHex(x + 1, y - 1).getHextile(), Config.IncompleteRoadwayDirection.TOP_RIGHT)) {
+				result = true;
+			}
 		}
 		
 		// Check if there exist a hextile below-right to the one we are trying to place
 		if ((x < maxIndex) && (hexGrid.getHex(x + 1, y) != null)) {
-			hexGrid.getHex(x, y).getHextile().connectTo(hexGrid.getHex(x + 1, y).getHextile(), Config.IncompleteRoadwayDirection.BOTTOM_RIGHT);
+			if (hexGrid.getHex(x, y).getHextile().connectTo(hexGrid.getHex(x + 1, y).getHextile(), Config.IncompleteRoadwayDirection.BOTTOM_RIGHT)) {
+				result = true;
+			}
 		}
 		
 		// Check if there exist a hextile below-left to the one we are trying to place
 		if ((x > minIndex) && (y < maxIndex) && (hexGrid.getHex(x - 1, y + 1) != null)) {
-			hexGrid.getHex(x, y).getHextile().connectTo(hexGrid.getHex(x - 1, y + 1).getHextile(), Config.IncompleteRoadwayDirection.BOTTOM_LEFT);
+			if (hexGrid.getHex(x, y).getHextile().connectTo(hexGrid.getHex(x - 1, y + 1).getHextile(), Config.IncompleteRoadwayDirection.BOTTOM_LEFT)) {
+				result = true;
+			}
 		}
 		
 		// Check if there exist a hextile above-left to the one we are trying to place
 		if ((x > minIndex) && (hexGrid.getHex(x - 1, y) != null)) {
-			hexGrid.getHex(x, y).getHextile().connectTo(hexGrid.getHex(x - 1, y).getHextile(), Config.IncompleteRoadwayDirection.TOP_LEFT);
+			if (hexGrid.getHex(x, y).getHextile().connectTo(hexGrid.getHex(x - 1, y).getHextile(), Config.IncompleteRoadwayDirection.TOP_LEFT)) {
+				result = true;
+			}
 		}
 		
+		return result;
 	}
-	
 	
 	public Clearing getClearing(int num) {
 		for (int i = 0; i < clearings.size(); i++) {
@@ -265,7 +288,14 @@ public class Hextile implements Serializable{
 	public int getYLocation() {
 		return yLocation;
 	}
-
+	
+	public void setXLocation(int i) {
+		xLocation = i;
+	}
+	
+	public void setYLocation(int i) {
+		yLocation = i;
+	}
 	public int getRotation() {
 		return rotation;
 	}

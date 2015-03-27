@@ -1,6 +1,7 @@
 package view.internals.game;
 
 import game.chit.Chit;
+import game.entity.Hero;
 import game.entity.Native;
 
 import java.awt.Dimension;
@@ -24,7 +25,7 @@ public class BuyMenu extends JInternalFrame{
 	private static final long serialVersionUID = -337052967793472264L;
 	
 	private ViewModel lModel;
-	
+
 	String[] columnNames = {"Name",
             "Price",
             "Side 1",
@@ -39,10 +40,15 @@ public class BuyMenu extends JInternalFrame{
 	int numColumns = 5;
 	int numRows = 0;
 	
+	Hero theHero;
+	Native theNativeGroup;
+	
 	public BuyMenu(ViewModel aModel, Native nativeGroup){
 		super("Buy Menu",true,false,false,true);
 		lModel = aModel;
-		
+		// The hero
+		theHero = lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero();
+		theNativeGroup = nativeGroup;
 		numRows = nativeGroup.getWeapons().size();
 		
 		int xSize = columnSize * numColumns + 50;

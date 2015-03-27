@@ -197,7 +197,6 @@ public class GameState implements Serializable{
 				}
 			}
 		}
-		
 		//If all players are finished selecting their options for combat, resolve combat
 		if(lPlayersWaiting == lPlayersInCombat)
 			resolveCombat();
@@ -222,6 +221,7 @@ public class GameState implements Serializable{
 			lPlayers.get(i).getChosenHero().setViewingHidden(false);
 			lPlayers.get(i).getChosenHero().setBlocked(false);
 		}
+		lTurnStage = TurnStage.BIRDSONG;
 		lTurn++;	
 		lTurnState = TurnState.SELECTING;
 	}

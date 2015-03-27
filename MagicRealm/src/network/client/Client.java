@@ -1,6 +1,7 @@
 package network.client;
 
 import game.GameState;
+import game.chit.ActionChit;
 import game.entity.Hero;
 import game.entity.Player;
 import game.environment.hex.Clearing;
@@ -13,6 +14,9 @@ import java.net.Socket;
 
 import javax.swing.JTable;
 
+import config.Config.FightType;
+import config.Config.MoveType;
+import config.Config.TurnStage;
 import network.NetworkManager;
 import network.packet.PlayerPacket;
 import action.ActionList;
@@ -416,5 +420,221 @@ public class Client implements Runnable {
 		}
 		streamBusy=false;
 		return false;
+	}
+	
+	//Sets the server to be in EVENING_COMBAT_START
+	public boolean startCombat(){
+		try{
+			while(streamBusy)
+				Thread.sleep(1);
+			
+			String lRequest = "StartCombat";
+			lOutputStream.writeObject(lRequest);
+			lOutputStream.flush();
+			lOutputStream.reset();
+			
+			boolean returnv = (boolean) lInputStream.readObject();
+			streamBusy = false;
+			return returnv;
+		}
+		catch (Exception e)
+		{
+			System.out.println("Client Error:");
+			e.printStackTrace();
+		}
+		streamBusy = false;
+		return false;
+	}
+	
+	//Assigns the fight choice of the hero (smash, thrust, swing)
+	public boolean assignFight(int aPlayerNum, FightType aFightType){
+		try{
+			while(streamBusy)
+				Thread.sleep(1);
+			
+			String lRequest = "AssignFight";
+			lOutputStream.writeObject(lRequest);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aPlayerNum);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aFightType);
+			lOutputStream.flush();
+			lOutputStream.reset();
+			
+			boolean returnv = (boolean) lInputStream.readObject();
+			streamBusy = false;
+			return returnv;
+		}
+		catch (Exception e)
+		{
+			System.out.println("Client Error:");
+			e.printStackTrace();
+		}
+		streamBusy = false;
+		return false;
+	}
+	
+	//Assign the move choice of the player (duck, charge, dodge)
+	public boolean assignMove(int aPlayerNum, MoveType aMoveType){
+		try{
+			while(streamBusy)
+				Thread.sleep(1);
+		
+			String lRequest = "AssignMove";
+			lOutputStream.writeObject(lRequest);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aPlayerNum);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aMoveType);
+			lOutputStream.flush();
+			lOutputStream.reset();
+			
+			boolean returnv = (boolean) lInputStream.readObject();
+			streamBusy = false;
+			return returnv;
+		}
+		catch (Exception e)
+		{
+			System.out.println("Client Error:");
+			e.printStackTrace();
+		}
+		streamBusy = false;
+		return false;
+	}
+	
+	//Assigns the fight chit the hero chooses
+	public boolean assignFightChit(int aPlayerNum, ActionChit aActionChit){
+		try{
+			while(streamBusy)
+				Thread.sleep(1);
+		
+			String lRequest = "AssignFightChit";
+			lOutputStream.writeObject(lRequest);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aPlayerNum);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aActionChit);
+			lOutputStream.flush();
+			lOutputStream.reset();
+			
+			boolean returnv = (boolean) lInputStream.readObject();
+			streamBusy = false;
+			return returnv;
+		}
+		catch (Exception e)
+		{
+			System.out.println("Client Error:");
+			e.printStackTrace();
+		}
+		streamBusy = false;
+		return false;		
+	}
+	
+	//Assigns the move chit the hero uses
+	public boolean assignMoveChit(int aPlayerNum, ActionChit aActionChit){
+		try{
+			while(streamBusy)
+				Thread.sleep(1);
+		
+			String lRequest = "AssignMoveChit";
+			lOutputStream.writeObject(lRequest);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aPlayerNum);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aActionChit);
+			lOutputStream.flush();
+			lOutputStream.reset();
+			
+			boolean returnv = (boolean) lInputStream.readObject();
+			streamBusy = false;
+			return returnv;
+		}
+		catch (Exception e)
+		{
+			System.out.println("Client Error:");
+			e.printStackTrace();
+		}
+		streamBusy = false;
+		return false;		
+	}
+	
+	//Sets the direction the hero will be blocking
+	public boolean setBlockingDirection(int aPlayerNum, FightType aFightType){
+		try{
+			while(streamBusy)
+				Thread.sleep(1);
+		
+			String lRequest = "SetBlockingDirection";
+			lOutputStream.writeObject(lRequest);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aPlayerNum);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aFightType);
+			lOutputStream.flush();
+			lOutputStream.reset();
+			
+			boolean returnv = (boolean) lInputStream.readObject();
+			streamBusy = false;
+			return returnv;
+		}
+		catch (Exception e)
+		{
+			System.out.println("Client Error:");
+			e.printStackTrace();
+		}
+		streamBusy = false;
+		return false;
+	}
+	
+	//Sets the hero to be waiting for other player's to finish their choices for combat
+	public boolean setToWaiting(int aPlayerNum){
+		try{
+			while(streamBusy)
+				Thread.sleep(1);
+		
+			String lRequest = "SetToWaiting";
+			lOutputStream.writeObject(lRequest);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aPlayerNum);
+			lOutputStream.flush();
+			lOutputStream.reset();
+			
+			boolean returnv = (boolean) lInputStream.readObject();
+			streamBusy = false;
+			return returnv;
+		}
+		catch (Exception e)
+		{
+			System.out.println("Client Error:");
+			e.printStackTrace();
+		}
+		streamBusy = false;
+		return false;	
+	}
+	
+	//Set the turn stage: BIRDSONG, EVENING, ETC.
+	public boolean setTurnStage(TurnStage aTurnStage){
+		try{
+			while(streamBusy)
+				Thread.sleep(1);
+		
+			String lRequest = "SetTurnStage";
+			lOutputStream.writeObject(lRequest);
+			lOutputStream.flush();
+			lOutputStream.writeObject(aTurnStage);
+			lOutputStream.flush();
+			lOutputStream.reset();
+			
+			boolean returnv = (boolean) lInputStream.readObject();
+			streamBusy = false;
+			return returnv;
+		}
+		catch (Exception e)
+		{
+			System.out.println("Client Error:");
+			e.printStackTrace();
+		}
+		streamBusy = false;
+		return false;	
 	}
 }
