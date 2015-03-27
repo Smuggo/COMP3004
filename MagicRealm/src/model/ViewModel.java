@@ -229,14 +229,17 @@ public class ViewModel {
 		}
 		
 		//Refreshes combat, getting all players up to date with the other hero's status
-		if(aGameState.getTurnStage().equals(TurnStage.EVENING_IN_COMBAT)){
+		if(aGameState.getTurnStage().equals(TurnStage.EVENING_IN_COMBAT))
 			aGameState.refreshCombat();
-		}
 		
 		if(!aGameState.equals(lGameState)){
 			//Checks to see if it's a new turn, resets game state for a new turn if so
 			if(lGameState!= null && aGameState != null && lGameState.getDay() != aGameState.getDay()){
 				lActionManager.createNewTurn(aGameState, lLocalPlayerNumber, aGameState.getPlayer(lLocalPlayerNumber));
+				
+				if(aGameState.getPlayer(lLocalPlayerNumber).isInCombat())
+					lViewManager.getCombatMenu().dispose();
+				
 				lGameState = aGameState;
 				lViewManager.newTurn();
 			}

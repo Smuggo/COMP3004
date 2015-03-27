@@ -167,20 +167,15 @@ public class GameState implements Serializable{
 					if(lPlayers.get(i).getChosenHero().getClearing().equals(lPlayers.get(j).getChosenHero().getClearing())){ //Two players in combat with each other
 						lPlayers.get(i).getChosenHero().setCombatOpponent(lPlayers.get(j).getChosenHero());
 						lPlayers.get(i).setOpponent(j);
-						lPlayers.get(i).isInCombat(true);
-						
-						lPlayers.get(j).getChosenHero().setCombatOpponent(lPlayers.get(i).getChosenHero());
-						lPlayers.get(j).setOpponent(i);
-						lPlayers.get(j).isInCombat(true);
-						
-						lPlayersInCombat += 2;
+						lPlayers.get(i).setInCombat(true);					
+						lPlayersInCombat += 1;
 					}
 				}
 			}
 		}
 		lTurnState = TurnState.COMBAT;
 		lTurnStage = TurnStage.EVENING;
-		newTurn();
+		refreshCombat();
 	}
 	
 	//Keeps the states of the heroes opponents up to date, checks to see if combat should be resolved
@@ -206,17 +201,20 @@ public class GameState implements Serializable{
 	public void resolveCombat(){
 		for(int i = 0; i < lPlayers.size(); i++){
 			if(lPlayers.get(i).isInCombat()){
+				
 				if(lPlayers.get(i).getChosenHero().getFightType().equals(FightType.SMASH)){
 					System.out.println("SMASSHHHHHH");
 				}
 			}
 		}
 		lTurnStage = TurnStage.MIDNIGHT;
+		newTurn();
 	}
 	
 	//Reset values for a new turn
 	public void newTurn(){
 		for(int i = 0; i < lPlayers.size(); i++){
+			lPlayers.get(i).setInCombat(false);
 			lPlayers.get(i).getChosenHero().setHidden(false);
 			lPlayers.get(i).getChosenHero().setViewingHidden(false);
 			lPlayers.get(i).getChosenHero().setBlocked(false);
@@ -268,5 +266,13 @@ public class GameState implements Serializable{
 	
 	public void setTurnStage(TurnStage aTurnStage){
 		lTurnStage = aTurnStage;
+	}
+	
+	public int getPlayersInCombat(){ 
+		return lPlayersInCombat; 
+	}
+	
+	public void setPlayersInCombat(int aPlayersInCombat){
+		lPlayersInCombat = aPlayersInCombat;
 	}
 }
