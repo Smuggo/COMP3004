@@ -56,50 +56,50 @@ public class Server implements Runnable{
 					lOutputStream.writeObject(playerNum);
 				}
 				
-				if(lRequestHeader.equals("GameStart")){
+				else if(lRequestHeader.equals("GameStart")){
 					lServerApp.getGameState().setTurnStage(TurnStage.BIRDSONG);
 					lOutputStream.writeObject(gameRunning);
 				}
 				
-				if(lRequestHeader.equals("GameState")){
+				else if(lRequestHeader.equals("GameState")){
 					lOutputStream.writeObject(lServerApp.getGameState());
 				}
 				
-				if(lRequestHeader.equals("PlayerPointClicked")){
+				else if(lRequestHeader.equals("PlayerPointClicked")){
 					lServerApp.getGameState().updatePointClicked((Integer)lInputStream.readObject(),(Point)lInputStream.readObject());
 					lOutputStream.writeObject(true);
 				}
-				if(lRequestHeader.equals("UpdatePlayerCharacter")){
+				else if(lRequestHeader.equals("UpdatePlayerCharacter")){
 					lServerApp.getGameState().updatePlayer((Hero)lInputStream.readObject(), (Integer)lInputStream.readObject()-1);
 					lOutputStream.writeObject(true);
 				}
-				if(lRequestHeader.equals("CreateMap")){
+				else if(lRequestHeader.equals("CreateMap")){
 					lServerApp.getGameState().setHexGrid((HexGrid)lInputStream.readObject());
 					lOutputStream.writeObject(true);
 				}
-				if(lRequestHeader.equals("SetStartingLocation")){
+				else if(lRequestHeader.equals("SetStartingLocation")){
 					Clearing currentClearing = lServerApp.getGameState().setStartingLocation((String)lInputStream.readObject(), (Integer)lInputStream.readObject());
 					lOutputStream.writeObject(currentClearing);
 				}
-				if(lRequestHeader.equals("ActionList")){
+				else if(lRequestHeader.equals("ActionList")){
 					ActionList lActionList =  (ActionList)lInputStream.readObject();
 					int lPlayer = (Integer)lInputStream.readObject();
 					lServerApp.getGameState().addActionList(lActionList, lPlayer);
 					lOutputStream.writeObject(true);
 				}
-				if(lRequestHeader.equals("ContinueActions")){
+				else if(lRequestHeader.equals("ContinueActions")){
 					lServerApp.getGameState().continueExecutingPlayerActionSheets();
 					lOutputStream.writeObject(true);
 				}
-				if(lRequestHeader.equals("EnableCheating")){
+				else if(lRequestHeader.equals("EnableCheating")){
 					lServerApp.getGameState().setCheating(true);
 					lOutputStream.writeObject(true);
 				}
-				if(lRequestHeader.equals("StartCombat")){ //Sets server to be in EVENING_IN_COMBAT
+				else if(lRequestHeader.equals("StartCombat")){ //Sets server to be in EVENING_IN_COMBAT
 					lServerApp.getGameState().setTurnStage(TurnStage.EVENING_IN_COMBAT);
 					lOutputStream.writeObject(true);
 				}
-				if(lRequestHeader.equals("AssignFight")){ //Sets a hero's attack type
+				else if(lRequestHeader.equals("AssignFight")){ //Sets a hero's attack type
 					int lPlayer = (Integer)lInputStream.readObject();
 					FightType lFightType = (FightType)lInputStream.readObject();
 					
@@ -107,7 +107,7 @@ public class Server implements Runnable{
 					lServerApp.getGameState().getPlayer(lPlayer).getChosenHero().setFightType(lFightType);
 					lOutputStream.writeObject(true);
 				}
-				if(lRequestHeader.equals("AssignMove")){ //Set how a hero will move in combat
+				else if(lRequestHeader.equals("AssignMove")){ //Set how a hero will move in combat
 					int lPlayer = (Integer)lInputStream.readObject();
 					MoveType lMoveType = (MoveType)lInputStream.readObject();
 					
@@ -115,34 +115,34 @@ public class Server implements Runnable{
 					lServerApp.getGameState().getPlayer(lPlayer).getChosenHero().setMoveType(lMoveType);
 					lOutputStream.writeObject(true);
 				}
-				if(lRequestHeader.equals("AssignFightChit")){ //Sets the hero's fight chit
+				else if(lRequestHeader.equals("AssignFightChit")){ //Sets the hero's fight chit
 					int lPlayer = (Integer)lInputStream.readObject();
 					ActionChit lActionChit = (ActionChit)lInputStream.readObject();
 					
 					lServerApp.getGameState().getPlayer(lPlayer).getChosenHero().setFightChoice(lActionChit);
 					lOutputStream.writeObject(true);
 				}
-				if(lRequestHeader.equals("AssignMoveChit")){ //Set the hero's move chit
+				else if(lRequestHeader.equals("AssignMoveChit")){ //Set the hero's move chit
 					int lPlayer = (Integer)lInputStream.readObject();
 					ActionChit lActionChit = (ActionChit)lInputStream.readObject();
 					
 					lServerApp.getGameState().getPlayer(lPlayer).getChosenHero().setMoveChoice(lActionChit);
 					lOutputStream.writeObject(true);
 				}
-				if(lRequestHeader.equals("SetToWaiting")){ //Sets the player to wait for other players (Combat)
+				else if(lRequestHeader.equals("SetToWaiting")){ //Sets the player to wait for other players (Combat)
 					int lPlayer = (Integer)lInputStream.readObject();
 					
 					lServerApp.getGameState().getPlayer(lPlayer).getChosenHero().setCombatStage(CombatStage.WAITING);
 					lOutputStream.writeObject(true);
 				}
-				if(lRequestHeader.equals("SetBlockingDirection")){ //Sets the blocking direction of the shield
+				else if(lRequestHeader.equals("SetBlockingDirection")){ //Sets the blocking direction of the shield
 					int lPlayer = (Integer)lInputStream.readObject();
 					FightType lBlockingDirection = (FightType)lInputStream.readObject();
 					
 					lServerApp.getGameState().getPlayer(lPlayer).getChosenHero().getShield().setProtectsFrom(lBlockingDirection);
 					lOutputStream.writeObject(true);
 				}
-				if(lRequestHeader.equals("SetTurnStage")){ //Set the turn stage: BIRDSONG, EVENING, ETC.
+				else if(lRequestHeader.equals("SetTurnStage")){ //Set the turn stage: BIRDSONG, EVENING, ETC.
 					TurnStage lTurnStage = (TurnStage)lInputStream.readObject();
 					
 					lServerApp.getGameState().setTurnStage(lTurnStage);

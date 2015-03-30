@@ -41,19 +41,19 @@ public class HeroFactory {
 		
 		characters.get("Black Knight").setActionChits(aChitFactory.getBKnightChits());
 		characters.get("Black Knight").setWeapon(aWeaponFactory.getWeapon(WeaponType.MACE));
-		characters.get("Black Knight").setBody(aArmourFactory.getArmour(ArmourType.SUIT_OF_ARMOUR));
+		characters.get("Black Knight").setSuit(aArmourFactory.getArmour(ArmourType.SUIT_OF_ARMOUR));
 		characters.get("Black Knight").setShield(aArmourFactory.getArmour(ArmourType.SHIELD));
 		
 		characters.get("Amazon").setActionChits(aChitFactory.getAmazonChits());
 		characters.get("Amazon").setWeapon(aWeaponFactory.getWeapon(WeaponType.SHORT_SWORD));
 		characters.get("Amazon").setHelmet(aArmourFactory.getArmour(ArmourType.HELMET));
-		characters.get("Amazon").setBody(aArmourFactory.getArmour(ArmourType.BREASTPLATE));
+		characters.get("Amazon").setBreastplate(aArmourFactory.getArmour(ArmourType.BREASTPLATE));
 		characters.get("Amazon").setShield(aArmourFactory.getArmour(ArmourType.SHIELD));
 		
 		characters.get("Captain").setActionChits(aChitFactory.getCaptainChits());
 		characters.get("Captain").setWeapon(aWeaponFactory.getWeapon(WeaponType.SHORT_SWORD));
 		characters.get("Captain").setHelmet(aArmourFactory.getArmour(ArmourType.HELMET));
-		characters.get("Captain").setBody(aArmourFactory.getArmour(ArmourType.BREASTPLATE));
+		characters.get("Captain").setBreastplate(aArmourFactory.getArmour(ArmourType.BREASTPLATE));
 		characters.get("Captain").setShield(aArmourFactory.getArmour(ArmourType.SHIELD));
 	}
 

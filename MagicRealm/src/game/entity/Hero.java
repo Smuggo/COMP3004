@@ -83,10 +83,13 @@ public class Hero implements Serializable {
 	private Weapon lWeapon;
 	
 	private Armour lHelmet;
-	private Armour lBody;
+	private Armour lSuit;
+	private Armour lBreastplate;
 	private Armour lShield;
 	
 	private Hero lCombatOpponent;
+	
+	private boolean lAlive;
 	
 	public Hero(String n, CharacterImageType charPage,
 			CharacterImageType charChit, DwellingType[] aStartingLocations) {
@@ -112,6 +115,8 @@ public class Hero implements Serializable {
 		lFightChits = new ArrayList<ActionChit>();
 		lMoveChits = new ArrayList<ActionChit>();
 		
+		lAlive = true;
+		
 		lCombatStage = null;
 		lFightChoice = null;
 		lMoveChoice = null;
@@ -120,7 +125,8 @@ public class Hero implements Serializable {
 		
 		lWeapon = null;
 		lHelmet = null;
-		lBody = null;
+		lSuit = null;
+		lBreastplate = null;
 		lShield = null;
 		
 		lCombatOpponent = null;
@@ -232,8 +238,12 @@ public class Hero implements Serializable {
 		return lHelmet;
 	}
 	
-	public Armour getBody(){
-		return lBody;
+	public Armour getSuit(){
+		return lSuit;
+	}
+	
+	public Armour getBreastplate(){
+		return lBreastplate;
 	}
 	
 	public Armour getShield(){
@@ -242,6 +252,10 @@ public class Hero implements Serializable {
 	
 	public Hero getCombatOpponent(){
 		return lCombatOpponent;
+	}
+	
+	public boolean isAlive(){
+		return lAlive;
 	}
 	//----------------------------------------------------------------
 
@@ -322,8 +336,12 @@ public class Hero implements Serializable {
 		lHelmet = aHelmet;
 	}
 	
-	public void setBody(Armour aBody){
-		lBody = aBody;
+	public void setSuit(Armour aSuit){
+		lSuit = aSuit;
+	}
+	
+	public void setBreastplate(Armour aBreastplate){
+		lBreastplate = aBreastplate;
 	}
 	
 	public void setShield(Armour aShield){
@@ -332,6 +350,10 @@ public class Hero implements Serializable {
 	
 	public void setCombatOpponent(Hero aCombatOpponent){
 		lCombatOpponent = aCombatOpponent;
+	}
+	
+	public void setAlive(boolean aAlive){
+		lAlive = aAlive;
 	}
 	//----------------------------------------------------------------
 
