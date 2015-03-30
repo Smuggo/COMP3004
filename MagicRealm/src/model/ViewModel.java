@@ -234,9 +234,16 @@ public class ViewModel {
 		if(lGameState != null){
 			if(lGameState.getTurnStage().equals(TurnStage.EVENING_IN_COMBAT))
 				lGameState.refreshCombat();
-			//If combat is done, resolve it and start a new turn
-			if(lGameState.isCombatDone())
-				lGameState.resolveCombat();
+			if(lGameState.getTurnStage().equals(TurnStage.EVENING_OUT_OF_COMBAT)){
+				lGameState.setTurnStage(TurnStage.MIDNIGHT);
+				lNetworkManager.setTurnStage(TurnStage.EVENING_OUT_OF_COMBAT);
+			}
+		}
+		
+		//If combat is done, resolve it and start a new turn
+		if(aGameState.getTurnStage().equals(TurnStage.EVENING_OUT_OF_COMBAT)){
+			lNetworkManager.setTurnStage(TurnStage.MIDNIGHT);
+			lGameState.resolveCombat();
 		}
 		
 		if(!aGameState.equals(lGameState)){
@@ -249,7 +256,6 @@ public class ViewModel {
 				
 				lGameState = aGameState;
 				lViewManager.newTurn();
-				lNetworkManager.setTurnStage(TurnStage.BIRDSONG);
 			}
 			lGameState = aGameState;
 			lViewManager.gameStateUpdated();

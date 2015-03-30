@@ -654,4 +654,6 @@ public class Client implements Runnable {
 		streamBusy = false;
 		return false;	
 	}
+	
+	//Set it so combat is done, make a new turn
 }
