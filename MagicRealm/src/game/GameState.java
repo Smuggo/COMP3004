@@ -38,6 +38,7 @@ public class GameState implements Serializable{
 	private boolean lCheating;
 	private TurnStage lTurnStage; //The time of day, birdsong, sunrise, daylight, etc.
 	private int lPlayersInCombat; //The amount of players who are participating in combat that day
+	private boolean lCombatDone; //New turn can begin
 	
 	public GameState(){
 		lVersion = 1;
@@ -47,6 +48,7 @@ public class GameState implements Serializable{
 		lTurnPlayerExecuting = 0;
 		lDelayPrompt = null;
 		lCheating = false;
+		lCombatDone = false;
 		lTurnStage = TurnStage.BIRDSONG;
 		lPlayersInCombat = 0;
 	}
@@ -196,7 +198,7 @@ public class GameState implements Serializable{
 		}
 		//If all players are finished selecting their options for combat, resolve combat
 		if(lPlayersWaiting == lPlayersInCombat)
-			resolveCombat();
+			lCombatDone = true;
 	}
 	
 	//Go through all participants in combats that day, see who wins and loses the fights
@@ -639,6 +641,7 @@ public class GameState implements Serializable{
 				lPlayers.get(lPlayers.get(i).getOpponent()).setInCombat(false);
 			}
 		}
+		lCombatDone = false;
 		lTurnStage = TurnStage.MIDNIGHT;
 		newTurn();
 	}
@@ -706,5 +709,9 @@ public class GameState implements Serializable{
 	
 	public void setPlayersInCombat(int aPlayersInCombat){
 		lPlayersInCombat = aPlayersInCombat;
+	}
+	
+	public boolean isCombatDone(){
+		return lCombatDone;
 	}
 }

@@ -234,6 +234,9 @@ public class ViewModel {
 		if(lGameState != null){
 			if(lGameState.getTurnStage().equals(TurnStage.EVENING_IN_COMBAT))
 				lGameState.refreshCombat();
+			//If combat is done, resolve it and start a new turn
+			if(lGameState.isCombatDone())
+				lGameState.resolveCombat();
 		}
 		
 		if(!aGameState.equals(lGameState)){

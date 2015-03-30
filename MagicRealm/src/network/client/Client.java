@@ -425,8 +425,10 @@ public class Client implements Runnable {
 	//Sets the server to be in EVENING_COMBAT_START
 	public boolean startCombat(){
 		try{
-			while(streamBusy)
+			while(streamBusy){
 				Thread.sleep(1);
+			}
+			streamBusy = true;
 			
 			String lRequest = "StartCombat";
 			lOutputStream.writeObject(lRequest);
@@ -449,8 +451,10 @@ public class Client implements Runnable {
 	//Assigns the fight choice of the hero (smash, thrust, swing)
 	public boolean assignFight(int aPlayerNum, FightType aFightType){
 		try{
-			while(streamBusy)
+			while(streamBusy){
 				Thread.sleep(1);
+			}
+			streamBusy = true;
 			
 			String lRequest = "AssignFight";
 			lOutputStream.writeObject(lRequest);
@@ -477,8 +481,11 @@ public class Client implements Runnable {
 	//Assign the move choice of the player (duck, charge, dodge)
 	public boolean assignMove(int aPlayerNum, MoveType aMoveType){
 		try{
-			while(streamBusy)
+			while(streamBusy){
 				Thread.sleep(1);
+			}
+			
+			streamBusy = true;
 		
 			String lRequest = "AssignMove";
 			lOutputStream.writeObject(lRequest);
@@ -505,8 +512,10 @@ public class Client implements Runnable {
 	//Assigns the fight chit the hero chooses
 	public boolean assignFightChit(int aPlayerNum, ActionChit aActionChit){
 		try{
-			while(streamBusy)
+			while(streamBusy){
 				Thread.sleep(1);
+			}
+			streamBusy = true;
 		
 			String lRequest = "AssignFightChit";
 			lOutputStream.writeObject(lRequest);
@@ -533,8 +542,10 @@ public class Client implements Runnable {
 	//Assigns the move chit the hero uses
 	public boolean assignMoveChit(int aPlayerNum, ActionChit aActionChit){
 		try{
-			while(streamBusy)
+			while(streamBusy){
 				Thread.sleep(1);
+			}
+			streamBusy = true;
 		
 			String lRequest = "AssignMoveChit";
 			lOutputStream.writeObject(lRequest);
@@ -561,8 +572,10 @@ public class Client implements Runnable {
 	//Sets the direction the hero will be blocking
 	public boolean setBlockingDirection(int aPlayerNum, FightType aFightType){
 		try{
-			while(streamBusy)
+			while(streamBusy){
 				Thread.sleep(1);
+			}
+			streamBusy = true;
 		
 			String lRequest = "SetBlockingDirection";
 			lOutputStream.writeObject(lRequest);
@@ -589,8 +602,10 @@ public class Client implements Runnable {
 	//Sets the hero to be waiting for other player's to finish their choices for combat
 	public boolean setToWaiting(int aPlayerNum){
 		try{
-			while(streamBusy)
+			while(streamBusy){
 				Thread.sleep(1);
+			}
+			streamBusy = true;
 		
 			String lRequest = "SetToWaiting";
 			lOutputStream.writeObject(lRequest);
@@ -615,8 +630,10 @@ public class Client implements Runnable {
 	//Set the turn stage: BIRDSONG, EVENING, ETC.
 	public boolean setTurnStage(TurnStage aTurnStage){
 		try{
-			while(streamBusy)
+			while(streamBusy){
 				Thread.sleep(1);
+			}
+			streamBusy = true;
 		
 			String lRequest = "SetTurnStage";
 			lOutputStream.writeObject(lRequest);
