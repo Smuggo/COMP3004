@@ -12,6 +12,7 @@ import config.Config.ActionType;
 import config.Config.CombatStage;
 import config.Config.DelayPrompt;
 import config.Config.FightType;
+import config.Config.MoveType;
 import config.Config.TurnStage;
 import config.Config.TurnState;
 import action.Action;
@@ -164,7 +165,8 @@ public class GameState implements Serializable{
 		for(int i = 0; i < lPlayers.size(); i++){
 			for(int j = 0; j < lPlayers.size(); j++){
 				if(j != i){
-					if(lPlayers.get(i).getChosenHero().getClearing().equals(lPlayers.get(j).getChosenHero().getClearing())){ //Two players in combat with each other
+					System.out.println(lPlayers.get(i).getChosenHero().getClearing().getIdentifier().equals(lPlayers.get(j).getChosenHero().getClearing().getIdentifier()));
+					if(lPlayers.get(i).getChosenHero().getClearing().getIdentifier().equals(lPlayers.get(j).getChosenHero().getClearing().getIdentifier())){ //Two players in combat with each other
 						lPlayers.get(i).getChosenHero().setCombatOpponent(lPlayers.get(j).getChosenHero());
 						lPlayers.get(i).setOpponent(j);
 						lPlayers.get(i).setInCombat(true);					
@@ -202,9 +204,92 @@ public class GameState implements Serializable{
 		for(int i = 0; i < lPlayers.size(); i++){
 			if(lPlayers.get(i).isInCombat()){
 				
-				if(lPlayers.get(i).getChosenHero().getFightType().equals(FightType.SMASH)){
-					System.out.println("SMASSHHHHHH");
+				int lOpponent = lPlayers.get(i).getOpponent();
+				
+				if(lPlayers.get(i).getChosenHero().getFightChoice().getTime() > lPlayers.get(lOpponent).getChosenHero().getFightChoice().getTime()){ //First hero attacks faster
+					if(lPlayers.get(i).getChosenHero().getFightType().equals(FightType.THRUST) && lPlayers.get(lOpponent).getChosenHero().getMoveType().equals(MoveType.CHARGE)){ //Thrust beats charge
+						System.out.println("Other dies: THRUST");
+					} else if(lPlayers.get(i).getChosenHero().getFightType().equals(FightType.SWING) && lPlayers.get(lOpponent).getChosenHero().getMoveType().equals(MoveType.DODGE)){ //Swing beats dodge
+						System.out.println("Other dies: SWING");
+					} else if(lPlayers.get(i).getChosenHero().getFightType().equals(FightType.SMASH) && lPlayers.get(lOpponent).getChosenHero().getMoveType().equals(MoveType.DUCK)){ //Smash beats duck
+						System.out.println("Other dies: SMASH");
+					} else{ //Otherwise move can be dodged
+						if(lPlayers.get(i).getChosenHero().getFightChoice().getTime() > lPlayers.get(lOpponent).getChosenHero().getMoveChoice().getTime()){
+							System.out.println("Other dies.");
+						} else {
+							System.out.println("Other dodged attack.");
+						}
+					}
+					if(lPlayers.get(lOpponent).getChosenHero().getFightType().equals(FightType.THRUST) && lPlayers.get(i).getChosenHero().getMoveType().equals(MoveType.CHARGE)){ //Thrust beats charge
+						System.out.println("First dies: THRUST");
+					} else if(lPlayers.get(lOpponent).getChosenHero().getFightType().equals(FightType.SWING) && lPlayers.get(i).getChosenHero().getMoveType().equals(MoveType.DODGE)){ //Swing beats dodge
+						System.out.println("First dies: SWING");
+					} else if(lPlayers.get(lOpponent).getChosenHero().getFightType().equals(FightType.SMASH) && lPlayers.get(i).getChosenHero().getMoveType().equals(MoveType.DUCK)){ //Smash beats duck
+						System.out.println("First dies: SMASH");
+					} else{ //Otherwise move can be dodged
+						if(lPlayers.get(lOpponent).getChosenHero().getFightChoice().getTime() > lPlayers.get(i).getChosenHero().getMoveChoice().getTime()){
+							System.out.println("First dies.");
+						} else {
+							System.out.println("First dodged attack.");
+						}
+					}
+				} else if (lPlayers.get(i).getChosenHero().getFightChoice().getTime() < lPlayers.get(lOpponent).getChosenHero().getFightChoice().getTime()){ //Other hero attacks faster
+					if(lPlayers.get(lOpponent).getChosenHero().getFightType().equals(FightType.THRUST) && lPlayers.get(i).getChosenHero().getMoveType().equals(MoveType.CHARGE)){ //Thrust beats charge
+						System.out.println("First dies: THRUST");
+					} else if(lPlayers.get(lOpponent).getChosenHero().getFightType().equals(FightType.SWING) && lPlayers.get(i).getChosenHero().getMoveType().equals(MoveType.DODGE)){ //Swing beats dodge
+						System.out.println("First dies: SWING");
+					} else if(lPlayers.get(lOpponent).getChosenHero().getFightType().equals(FightType.SMASH) && lPlayers.get(i).getChosenHero().getMoveType().equals(MoveType.DUCK)){ //Smash beats duck
+						System.out.println("First dies: SMASH");
+					} else{ //Otherwise move can be dodged
+						if(lPlayers.get(lOpponent).getChosenHero().getFightChoice().getTime() > lPlayers.get(i).getChosenHero().getMoveChoice().getTime()){
+							System.out.println("First dies.");
+						} else {
+							System.out.println("First dodged attack.");
+						}
+					}
+					if(lPlayers.get(i).getChosenHero().getFightType().equals(FightType.THRUST) && lPlayers.get(lOpponent).getChosenHero().getMoveType().equals(MoveType.CHARGE)){ //Thrust beats charge
+						System.out.println("Other dies: THRUST");
+					} else if(lPlayers.get(i).getChosenHero().getFightType().equals(FightType.SWING) && lPlayers.get(lOpponent).getChosenHero().getMoveType().equals(MoveType.DODGE)){ //Swing beats dodge
+						System.out.println("Other dies: SWING");
+					} else if(lPlayers.get(i).getChosenHero().getFightType().equals(FightType.SMASH) && lPlayers.get(lOpponent).getChosenHero().getMoveType().equals(MoveType.DUCK)){ //Smash beats duck
+						System.out.println("Other dies: SMASH");
+					} else{ //Otherwise move can be dodged
+						if(lPlayers.get(i).getChosenHero().getFightChoice().getTime() > lPlayers.get(lOpponent).getChosenHero().getMoveChoice().getTime()){
+							System.out.println("Other dies.");
+						} else {
+							System.out.println("Other dodged attack.");
+						}
+					}
+				} else {
+					if(lPlayers.get(i).getChosenHero().getFightType().equals(FightType.THRUST) && lPlayers.get(lOpponent).getChosenHero().getMoveType().equals(MoveType.CHARGE)){ //Thrust beats charge
+						System.out.println("Other dies: THRUST");
+					} else if(lPlayers.get(i).getChosenHero().getFightType().equals(FightType.SWING) && lPlayers.get(lOpponent).getChosenHero().getMoveType().equals(MoveType.DODGE)){ //Swing beats dodge
+						System.out.println("Other dies: SWING");
+					} else if(lPlayers.get(i).getChosenHero().getFightType().equals(FightType.SMASH) && lPlayers.get(lOpponent).getChosenHero().getMoveType().equals(MoveType.DUCK)){ //Smash beats duck
+						System.out.println("Other dies: SMASH");
+					} else{ //Otherwise move can be dodged
+						if(lPlayers.get(i).getChosenHero().getFightChoice().getTime() > lPlayers.get(lOpponent).getChosenHero().getMoveChoice().getTime()){
+							System.out.println("Other dies.");
+						} else {
+							System.out.println("Other dodged attack.");
+						}
+					}
+					if(lPlayers.get(lOpponent).getChosenHero().getFightType().equals(FightType.THRUST) && lPlayers.get(i).getChosenHero().getMoveType().equals(MoveType.CHARGE)){ //Thrust beats charge
+						System.out.println("First dies: THRUST");
+					} else if(lPlayers.get(lOpponent).getChosenHero().getFightType().equals(FightType.SWING) && lPlayers.get(i).getChosenHero().getMoveType().equals(MoveType.DODGE)){ //Swing beats dodge
+						System.out.println("First dies: SWING");
+					} else if(lPlayers.get(lOpponent).getChosenHero().getFightType().equals(FightType.SMASH) && lPlayers.get(i).getChosenHero().getMoveType().equals(MoveType.DUCK)){ //Smash beats duck
+						System.out.println("First dies: SMASH");
+					} else{ //Otherwise move can be dodged
+						if(lPlayers.get(lOpponent).getChosenHero().getFightChoice().getTime() > lPlayers.get(i).getChosenHero().getMoveChoice().getTime()){
+							System.out.println("First dies.");
+						} else {
+							System.out.println("First dodged attack.");
+						}
+					}
 				}
+				lPlayers.get(i).setInCombat(false);
+				lPlayers.get(lPlayers.get(i).getOpponent()).setInCombat(false);
 			}
 		}
 		lTurnStage = TurnStage.MIDNIGHT;
