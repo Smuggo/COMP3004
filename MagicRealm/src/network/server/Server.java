@@ -148,6 +148,10 @@ public class Server implements Runnable{
 					lServerApp.getGameState().setTurnStage(lTurnStage);
 					lOutputStream.writeObject(true);
 				}
+				else if(lRequestHeader.equals("RefreshCombat")){ //Refresh combat
+					lServerApp.getGameState().refreshCombat();
+					lOutputStream.writeObject(true);
+				}
 				lOutputStream.flush();
 				lOutputStream.reset();
 			}

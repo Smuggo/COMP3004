@@ -219,32 +219,18 @@ public class ViewModel {
 		
 		//Checks if it's evening, if it is the combat menu opens up for all players in combat.
 		//lNetworkManager.startCombat() is so requestCombatMenu isn't called continuously
-		if(lGameState != null){
-			if(lGameState.getTurnStage().equals(TurnStage.EVENING)){
-				if(lGameState.getPlayer(lLocalPlayerNumber).isInCombat())
-					requestCombatMenu();
+		if(aGameState.getTurnStage().equals(TurnStage.EVENING)){
+			if(aGameState.getPlayer(lLocalPlayerNumber).isInCombat())
+				requestCombatMenu();
 
-				lNetworkManager.startCombat();
-				setTurnStage(TurnStage.EVENING_IN_COMBAT);
-				refreshGameState();
-			}
+			lNetworkManager.startCombat();
+			lNetworkManager.setTurnStage(TurnStage.EVENING_IN_COMBAT);
+			refreshGameState();
 		}
 		
 		//Refreshes combat, getting all players up to date with the other hero's status
-		if(lGameState != null){
-			if(lGameState.getTurnStage().equals(TurnStage.EVENING_IN_COMBAT))
-				lGameState.refreshCombat();
-			if(lGameState.getTurnStage().equals(TurnStage.EVENING_OUT_OF_COMBAT)){
-				lGameState.setTurnStage(TurnStage.MIDNIGHT);
-				lNetworkManager.setTurnStage(TurnStage.EVENING_OUT_OF_COMBAT);
-			}
-		}
-		
-		//If combat is done, resolve it and start a new turn
-		if(aGameState.getTurnStage().equals(TurnStage.EVENING_OUT_OF_COMBAT)){
-			lNetworkManager.setTurnStage(TurnStage.MIDNIGHT);
-			lGameState.resolveCombat();
-		}
+		if(aGameState.getTurnStage().equals(TurnStage.EVENING_IN_COMBAT))
+			lNetworkManager.refreshCombat();
 		
 		if(!aGameState.equals(lGameState)){
 			//Checks to see if it's a new turn, resets game state for a new turn if so

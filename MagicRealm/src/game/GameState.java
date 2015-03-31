@@ -177,7 +177,6 @@ public class GameState implements Serializable{
 		}
 		lTurnState = TurnState.COMBAT;
 		lTurnStage = TurnStage.EVENING;
-		refreshCombat();
 	}
 	
 	//Keeps the states of the heroes opponents up to date, checks to see if combat should be resolved
@@ -196,7 +195,7 @@ public class GameState implements Serializable{
 		}
 		//If all players are finished selecting their options for combat, resolve combat
 		if(lPlayersWaiting == lPlayersInCombat)
-			lTurnStage = TurnStage.EVENING_OUT_OF_COMBAT;
+			resolveCombat();
 	}
 	
 	//Go through all participants in combats that day, see who wins and loses the fights
@@ -205,436 +204,24 @@ public class GameState implements Serializable{
 			if(lPlayers.get(i).isInCombat()){
 				
 				int lOpponent = lPlayers.get(i).getOpponent();
-				boolean lDamageDone = false;
 				Hero lFirstHero = lPlayers.get(i).getChosenHero();
 				Hero lOpponentHero = lPlayers.get(lOpponent).getChosenHero();
 				
 				if(lFirstHero.getFightChoice().getTime() > lOpponentHero.getFightChoice().getTime()){ //First hero attacks faster
-					if(lFirstHero.getFightType().equals(FightType.THRUST) && lOpponentHero.getMoveType().equals(MoveType.CHARGE)){ //Thrust beats charge
-						if(lOpponentHero.getShield() != null){
-							if(lOpponentHero.getShield().getProtectsFrom().get(0).equals(FightType.THRUST)){ //Shield blocks thrust
-								if(!lOpponentHero.getShield().isDamaged()){
-									System.out.println("First player damages opponent's shield.");
-									lOpponentHero.getShield().setDamaged(true);
-									lDamageDone = true;
-								}
-								else{
-									System.out.println("First player destroys opponent's sheild.");
-									lOpponentHero.setShield(null);
-									lDamageDone = true;
-								}
-							}
-						}
-						if(lOpponentHero.getBreastplate() != null && !lDamageDone){ //Hits breastplate
-							if(!lOpponentHero.getBreastplate().isDamaged()){
-								System.out.println("First player damages opponent's breastplate.");
-								lOpponentHero.getBreastplate().setDamaged(true);
-								lDamageDone = true;
-							}
-							else{
-								System.out.println("First player destroys opponent's breastplate.");
-								lOpponentHero.setBreastplate(null);
-								lDamageDone = true;
-							}
-						}
-						if(lOpponentHero.getSuit() != null && !lDamageDone){ //Hits suit of armour
-							if(!lOpponentHero.getSuit().isDamaged()){
-								System.out.println("First player damages opponent's suit of armour.");
-								lOpponentHero.getSuit().setDamaged(true);
-								lDamageDone = true;
-							}
-							else{
-								System.out.println("First player destroys opponent's suit of armour.");
-								lOpponentHero.setSuit(null);
-								lDamageDone = true;
-							}
-						}
-						if(!lDamageDone){ //Hits player
-							System.out.println("First player kills second player.");
-							lOpponentHero.setAlive(false);
-						}
-					} else if(lFirstHero.getFightType().equals(FightType.SWING) && lOpponentHero.getMoveType().equals(MoveType.DODGE)){ //Swing beats dodge
-						if(lOpponentHero.getShield() != null){
-							if(lOpponentHero.getShield().getProtectsFrom().get(0).equals(FightType.SWING)){ //Shield blocks swing
-								if(!lOpponentHero.getShield().isDamaged()){
-									System.out.println("First player damages opponent's shield.");
-									lOpponentHero.getShield().setDamaged(true);
-									lDamageDone = true;
-								}
-								else{
-									System.out.println("First player destroys opponent's sheild.");
-									lOpponentHero.setShield(null);
-									lDamageDone = true;
-								}
-							}
-						}
-						if(lOpponentHero.getBreastplate() != null && !lDamageDone){ //Breastplate blocks swing
-							if(!lOpponentHero.getBreastplate().isDamaged()){
-								System.out.println("First player damages opponent's breastplate.");
-								lOpponentHero.getBreastplate().setDamaged(true);
-								lDamageDone = true;
-							}
-							else{
-								System.out.println("First player destroys opponent's breastplate.");
-								lOpponentHero.setBreastplate(null);
-								lDamageDone = true;
-							}
-						}
-						if(lOpponentHero.getSuit() != null && !lDamageDone){ //Suit of armour blocks swing
-							if(!lOpponentHero.getSuit().isDamaged()){
-								System.out.println("First player damages opponent's suit of armour.");
-								lOpponentHero.getSuit().setDamaged(true);
-								lDamageDone = true;
-							}
-							else{
-								System.out.println("First player destroys opponent's suit of armour.");
-								lOpponentHero.setSuit(null);
-								lDamageDone = true;
-							}
-						}
-						if(!lDamageDone){ //Hits player
-							System.out.println("First player kills second player.");
-							lOpponentHero.setAlive(false);
-						}
-					} else if(lFirstHero.getFightType().equals(FightType.SMASH) && lOpponentHero.getMoveType().equals(MoveType.DUCK)){ //Smash beats duck
-						if(lOpponentHero.getShield() != null){
-							if(lOpponentHero.getShield().getProtectsFrom().get(0).equals(FightType.SMASH)){ //Shield blocks smash
-								if(!lOpponentHero.getShield().isDamaged()){
-									System.out.println("First player damages opponent's shield.");
-									lOpponentHero.getShield().setDamaged(true);
-									lDamageDone = true;
-								}
-								else{
-									System.out.println("First player destroys opponent's shield.");
-									lOpponentHero.setShield(null);
-									lDamageDone = true;
-								}
-							}
-						}
-						if(lOpponentHero.getHelmet() != null && !lDamageDone){ //Breastplate blocks smash
-							if(!lOpponentHero.getHelmet().isDamaged()){
-								System.out.println("First player damages opponent's breastplate.");
-								lOpponentHero.getHelmet().setDamaged(true);
-								lDamageDone = true;
-							}
-							else{
-								System.out.println("First player destroys opponent's breastplate.");
-								lOpponentHero.setHelmet(null);
-								lDamageDone = true;
-							}
-						}
-						if(lOpponentHero.getSuit() != null && !lDamageDone){ //Suit of armour blocks smash
-							if(!lOpponentHero.getSuit().isDamaged()){
-								System.out.println("First player damages opponent's suit of armour.");
-								lOpponentHero.getSuit().setDamaged(true);
-								lDamageDone = true;
-							}
-							else{
-								System.out.println("First player destroys opponent's suit of armour.");
-								lOpponentHero.setSuit(null);
-								lDamageDone = true;
-							}
-						}
-						if(!lDamageDone){
-							System.out.println("First player kills second player.");
-							lOpponentHero.setAlive(false);
-						}
-					} else{ //Otherwise move can be dodged
-						if(lFirstHero.getFightChoice().getTime() > lOpponentHero.getMoveChoice().getTime()){
-							if(lOpponentHero.getShield() != null){
-								if(lOpponentHero.getShield().getProtectsFrom().get(0).equals(lFirstHero.getFightType())){
-									if(!lOpponentHero.getShield().isDamaged()){
-										System.out.println("First player damages opponent's shield.");
-										lOpponentHero.getShield().setDamaged(true);
-										lDamageDone = true;
-									} else{
-										System.out.println("First player destroys opponent's shield.");
-										lOpponentHero.setShield(null);
-										lDamageDone = true;
-									}
-								}
-							}
-							if(lOpponentHero.getBreastplate() != null && !lDamageDone && !lFirstHero.getFightType().equals(FightType.SMASH)){
-								if(!lOpponentHero.getBreastplate().isDamaged()){
-									System.out.println("First player damages opponent's breastplate.");
-									lOpponentHero.getBreastplate().setDamaged(true);
-									lDamageDone = true;
-								} else {
-									System.out.println("First player destroys opponent's breastplate.");
-									lOpponentHero.setBreastplate(null);
-									lDamageDone = true;
-								}
-							}
-							if(lOpponentHero.getHelmet() != null && !lDamageDone && lFirstHero.getFightType().equals(FightType.SMASH)){
-								if(!lOpponentHero.getHelmet().isDamaged()){
-									System.out.println("First player damages opponent's helmet.");
-									lOpponentHero.getHelmet().setDamaged(true);
-									lDamageDone = true;
-								} else {
-									System.out.println("First player detroys opponent's breastplate.");
-									lOpponentHero.setHelmet(null);
-									lDamageDone = true;
-								}
-							}
-							if(lOpponentHero.getSuit() != null && !lDamageDone){
-								if(!lOpponentHero.getSuit().isDamaged()){
-									System.out.println("First player damages opponent's suit of armour.");
-									lOpponentHero.getSuit().setDamaged(true);
-									lDamageDone = true;
-								} else{
-									System.out.println("First player destroys opponent's suit of armour.");
-									lOpponentHero.setSuit(null);
-									lDamageDone = true;
-								}
-							}
-							if(!lDamageDone){
-								System.out.println("Opponent dies.");
-								lOpponentHero.setAlive(false);
-							}
-						} else {
-							System.out.println("Opponent dodged attack.");
-						}
-					}
-					if(lOpponentHero.getFightType().equals(FightType.THRUST) && lFirstHero.getMoveType().equals(MoveType.CHARGE) && lOpponentHero.isAlive()){ //Thrust beats charge
-						if(lFirstHero.getShield() != null){
-							if(lFirstHero.getShield().getProtectsFrom().get(0).equals(FightType.THRUST)){ //Shield blocks thrust
-								if(!lFirstHero.getShield().isDamaged()){
-									System.out.println("Opponent damages first player's shield.");
-									lFirstHero.getShield().setDamaged(true);
-									lDamageDone = true;
-								}
-								else{
-									System.out.println("Opponent destroys first player's sheild.");
-									lFirstHero.setShield(null);
-									lDamageDone = true;
-								}
-							}
-						}
-						if(lFirstHero.getBreastplate() != null && !lDamageDone){ //Hits breastplate
-							if(!lFirstHero.getBreastplate().isDamaged()){
-								System.out.println("Opponent damages first player's breastplate.");
-								lFirstHero.getBreastplate().setDamaged(true);
-								lDamageDone = true;
-							}
-							else{
-								System.out.println("Opponent destroys first player's breastplate.");
-								lFirstHero.setBreastplate(null);
-								lDamageDone = true;
-							}
-						}
-						if(lFirstHero.getSuit() != null && !lDamageDone){ //Hits suit of armour
-							if(!lFirstHero.getSuit().isDamaged()){
-								System.out.println("Opponent damages first player's suit of armour.");
-								lFirstHero.getSuit().setDamaged(true);
-								lDamageDone = true;
-							}
-							else{
-								System.out.println("Opponent destroys first player's suit of armour.");
-								lFirstHero.setSuit(null);
-								lDamageDone = true;
-							}
-						}
-						if(!lDamageDone){ //Hits player
-							System.out.println("Opponent kills first player.");
-							lFirstHero.setAlive(false);
-						}
-					} else if(lOpponentHero.getFightType().equals(FightType.SWING) && lFirstHero.getMoveType().equals(MoveType.DODGE) && lOpponentHero.isAlive()){ //Swing beats dodge
-						if(lFirstHero.getShield() != null){
-							if(lFirstHero.getShield().getProtectsFrom().get(0).equals(FightType.SWING)){ //Shield blocks swing
-								if(!lFirstHero.getShield().isDamaged()){
-									System.out.println("Opponent damages first player's shield.");
-									lFirstHero.getShield().setDamaged(true);
-									lDamageDone = true;
-								}
-								else{
-									System.out.println("Opponent destroys first player's sheild.");
-									lFirstHero.setShield(null);
-									lDamageDone = true;
-								}
-							}
-						}
-						if(lFirstHero.getBreastplate() != null && !lDamageDone){ //Breastplate blocks swing
-							if(!lFirstHero.getBreastplate().isDamaged()){
-								System.out.println("Opponent damages first player's breastplate.");
-								lFirstHero.getBreastplate().setDamaged(true);
-								lDamageDone = true;
-							}
-							else{
-								System.out.println("Opponent destroys first player's breastplate.");
-								lFirstHero.setBreastplate(null);
-								lDamageDone = true;
-							}
-						}
-						if(lFirstHero.getSuit() != null && !lDamageDone){ //Suit of armour blocks swing
-							if(!lFirstHero.getSuit().isDamaged()){
-								System.out.println("Opponent damages first player's suit of armour.");
-								lFirstHero.getSuit().setDamaged(true);
-								lDamageDone = true;
-							}
-							else{
-								System.out.println("Opponent destroys first player's suit of armour.");
-								lFirstHero.setSuit(null);
-								lDamageDone = true;
-							}
-						}
-						if(!lDamageDone){ //Hits player
-							System.out.println("Opponent kills first player.");
-							lFirstHero.setAlive(false);
-						}
-					} else if(lOpponentHero.getFightType().equals(FightType.SMASH) && lFirstHero.getMoveType().equals(MoveType.DUCK) && lOpponentHero.isAlive()){ //Smash beats duck
-						if(lFirstHero.getShield() != null){
-							if(lFirstHero.getShield().getProtectsFrom().get(0).equals(FightType.SMASH)){ //Shield blocks smash
-								if(!lFirstHero.getShield().isDamaged()){
-									System.out.println("Opponent damages first player's shield.");
-									lFirstHero.getShield().setDamaged(true);
-									lDamageDone = true;
-								}
-								else{
-									System.out.println("Opponent destroys first player's shield.");
-									lFirstHero.setShield(null);
-									lDamageDone = true;
-								}
-							}
-						}
-						if(lFirstHero.getHelmet() != null && !lDamageDone){ //Breastplate blocks smash
-							if(!lFirstHero.getHelmet().isDamaged()){
-								System.out.println("Opponent damages first player's breastplate.");
-								lFirstHero.getHelmet().setDamaged(true);
-								lDamageDone = true;
-							}
-							else{
-								System.out.println("Opponent player destroys first player's breastplate.");
-								lFirstHero.setHelmet(null);
-								lDamageDone = true;
-							}
-						}
-						if(lFirstHero.getSuit() != null && !lDamageDone){ //Suit of armour blocks smash
-							if(!lFirstHero.getSuit().isDamaged()){
-								System.out.println("Opponent damages first player's suit of armour.");
-								lFirstHero.getSuit().setDamaged(true);
-								lDamageDone = true;
-							}
-							else{
-								System.out.println("Opponent destroys first player's suit of armour.");
-								lFirstHero.setSuit(null);
-								lDamageDone = true;
-							}
-						}
-						if(!lDamageDone){
-							System.out.println("Opponent kills first player.");
-							lFirstHero.setAlive(false);
-						}
-					} else if (lOpponentHero.isAlive()){ //Otherwise move can be dodged
-						if(lOpponentHero.getFightChoice().getTime() > lFirstHero.getMoveChoice().getTime()){
-							if(lFirstHero.getShield() != null){
-								if(lFirstHero.getShield().getProtectsFrom().get(0).equals(lOpponentHero.getFightType())){
-									if(!lFirstHero.getShield().isDamaged()){
-										System.out.println("Opponent damages first player's shield.");
-										lFirstHero.getShield().setDamaged(true);
-										lDamageDone = true;
-									} else{
-										System.out.println("Opponent destroys first player's shield.");
-										lFirstHero.setShield(null);
-										lDamageDone = true;
-									}
-								}
-							}
-							if(lFirstHero.getBreastplate() != null && !lDamageDone && !lOpponentHero.getFightType().equals(FightType.SMASH)){
-								if(!lFirstHero.getBreastplate().isDamaged()){
-									System.out.println("Opponent damages first player's breastplate.");
-									lFirstHero.getBreastplate().setDamaged(true);
-									lDamageDone = true;
-								} else {
-									System.out.println("Opponent destroys first player's breastplate.");
-									lFirstHero.setBreastplate(null);
-									lDamageDone = true;
-								}
-							}
-							if(lFirstHero.getHelmet() != null && !lDamageDone && lOpponentHero.getFightType().equals(FightType.SMASH)){
-								if(!lFirstHero.getHelmet().isDamaged()){
-									System.out.println("Opponent damages first player's helmet.");
-									lFirstHero.getHelmet().setDamaged(true);
-									lDamageDone = true;
-								} else {
-									System.out.println("Opponent detroys first player's breastplate.");
-									lFirstHero.setHelmet(null);
-									lDamageDone = true;
-								}
-							}
-							if(lFirstHero.getSuit() != null && !lDamageDone){
-								if(!lFirstHero.getSuit().isDamaged()){
-									System.out.println("Opponent damages first player's suit of armour.");
-									lFirstHero.getSuit().setDamaged(true);
-									lDamageDone = true;
-								} else{
-									System.out.println("Opponent destroys first player's suit of armour.");
-									lFirstHero.setSuit(null);
-									lDamageDone = true;
-								}
-							}
-							if(!lDamageDone){
-								System.out.println("First player dies.");
-								lFirstHero.setAlive(false);
-							}
-						} else {
-							System.out.println("First player dodged attack.");
-						}
-					}
+					handleFirstHeroCombat(lFirstHero, lOpponentHero);
+					
+					if(lOpponentHero.isAlive())
+						handleOpponentHeroCombat(lFirstHero, lOpponentHero);
 				} else if (lFirstHero.getFightChoice().getTime() < lOpponentHero.getFightChoice().getTime()){ //Other hero attacks faster
-					if(lOpponentHero.getFightType().equals(FightType.THRUST) && lFirstHero.getMoveType().equals(MoveType.CHARGE)){ //Thrust beats charge
-						System.out.println("First dies: THRUST");
-					} else if(lOpponentHero.getFightType().equals(FightType.SWING) && lFirstHero.getMoveType().equals(MoveType.DODGE)){ //Swing beats dodge
-						System.out.println("First dies: SWING");
-					} else if(lOpponentHero.getFightType().equals(FightType.SMASH) && lFirstHero.getMoveType().equals(MoveType.DUCK)){ //Smash beats duck
-						System.out.println("First dies: SMASH");
-					} else{ //Otherwise move can be dodged
-						if(lOpponentHero.getFightChoice().getTime() > lFirstHero.getMoveChoice().getTime()){
-							System.out.println("First dies.");
-						} else {
-							System.out.println("First dodged attack.");
-						}
-					}
-					if(lFirstHero.getFightType().equals(FightType.THRUST) && lOpponentHero.getMoveType().equals(MoveType.CHARGE)){ //Thrust beats charge
-						System.out.println("Other dies: THRUST");
-					} else if(lFirstHero.getFightType().equals(FightType.SWING) && lOpponentHero.getMoveType().equals(MoveType.DODGE)){ //Swing beats dodge
-						System.out.println("Other dies: SWING");
-					} else if(lFirstHero.getFightType().equals(FightType.SMASH) && lOpponentHero.getMoveType().equals(MoveType.DUCK)){ //Smash beats duck
-						System.out.println("Other dies: SMASH");
-					} else{ //Otherwise move can be dodged
-						if(lFirstHero.getFightChoice().getTime() > lOpponentHero.getMoveChoice().getTime()){
-							System.out.println("Other dies.");
-						} else {
-							System.out.println("Other dodged attack.");
-						}
-					}
-				} else {
-					if(lFirstHero.getFightType().equals(FightType.THRUST) && lOpponentHero.getMoveType().equals(MoveType.CHARGE)){ //Thrust beats charge
-						System.out.println("Other dies: THRUST");
-					} else if(lFirstHero.getFightType().equals(FightType.SWING) && lOpponentHero.getMoveType().equals(MoveType.DODGE)){ //Swing beats dodge
-						System.out.println("Other dies: SWING");
-					} else if(lFirstHero.getFightType().equals(FightType.SMASH) && lOpponentHero.getMoveType().equals(MoveType.DUCK)){ //Smash beats duck
-						System.out.println("Other dies: SMASH");
-					} else{ //Otherwise move can be dodged
-						if(lFirstHero.getFightChoice().getTime() > lOpponentHero.getMoveChoice().getTime()){
-							System.out.println("Other dies.");
-						} else {
-							System.out.println("Other dodged attack.");
-						}
-					}
-					if(lOpponentHero.getFightType().equals(FightType.THRUST) && lFirstHero.getMoveType().equals(MoveType.CHARGE)){ //Thrust beats charge
-						System.out.println("First dies: THRUST");
-					} else if(lOpponentHero.getFightType().equals(FightType.SWING) && lFirstHero.getMoveType().equals(MoveType.DODGE)){ //Swing beats dodge
-						System.out.println("First dies: SWING");
-					} else if(lOpponentHero.getFightType().equals(FightType.SMASH) && lFirstHero.getMoveType().equals(MoveType.DUCK)){ //Smash beats duck
-						System.out.println("First dies: SMASH");
-					} else{ //Otherwise move can be dodged
-						if(lOpponentHero.getFightChoice().getTime() > lFirstHero.getMoveChoice().getTime()){
-							System.out.println("First dies.");
-						} else {
-							System.out.println("First dodged attack.");
-						}
-					}
+					handleOpponentHeroCombat(lFirstHero, lOpponentHero);
+					
+					if(lFirstHero.isAlive())
+						handleFirstHeroCombat(lFirstHero, lOpponentHero);
+				} else{
+					handleFirstHeroCombat(lFirstHero, lOpponentHero);
+					handleOpponentHeroCombat(lFirstHero, lOpponentHero);
 				}
+				
 				lPlayers.get(i).setInCombat(false);
 				lPlayers.get(lPlayers.get(i).getOpponent()).setInCombat(false);
 			}
@@ -705,5 +292,385 @@ public class GameState implements Serializable{
 	
 	public void setPlayersInCombat(int aPlayersInCombat){
 		lPlayersInCombat = aPlayersInCombat;
+	}
+	
+	private void handleFirstHeroCombat(Hero lFirstHero, Hero lOpponentHero){
+		boolean lDamageDone = false;
+		
+		if(lFirstHero.getFightType().equals(FightType.THRUST) && lOpponentHero.getMoveType().equals(MoveType.CHARGE)){ //Thrust beats charge
+			if(lOpponentHero.getShield() != null){
+				if(lOpponentHero.getShield().getProtectsFrom().get(0).equals(FightType.THRUST)){ //Shield blocks thrust
+					if(!lOpponentHero.getShield().isDamaged()){
+						System.out.println("First player damages opponent's shield.");
+						lOpponentHero.getShield().setDamaged(true);
+						lDamageDone = true;
+					}
+					else{
+						System.out.println("First player destroys opponent's sheild.");
+						lOpponentHero.setShield(null);
+						lDamageDone = true;
+					}
+				}
+			}
+			if(lOpponentHero.getBreastplate() != null && !lDamageDone){ //Hits breastplate
+				if(!lOpponentHero.getBreastplate().isDamaged()){
+					System.out.println("First player damages opponent's breastplate.");
+					lOpponentHero.getBreastplate().setDamaged(true);
+					lDamageDone = true;
+				}
+				else{
+					System.out.println("First player destroys opponent's breastplate.");
+					lOpponentHero.setBreastplate(null);
+					lDamageDone = true;
+				}
+			}
+			if(lOpponentHero.getSuit() != null && !lDamageDone){ //Hits suit of armour
+				if(!lOpponentHero.getSuit().isDamaged()){
+					System.out.println("First player damages opponent's suit of armour.");
+					lOpponentHero.getSuit().setDamaged(true);
+					lDamageDone = true;
+				}
+				else{
+					System.out.println("First player destroys opponent's suit of armour.");
+					lOpponentHero.setSuit(null);
+					lDamageDone = true;
+				}
+			}
+			if(!lDamageDone){ //Hits player
+				System.out.println("First player kills second player.");
+				lOpponentHero.setAlive(false);
+			}
+		} else if(lFirstHero.getFightType().equals(FightType.SWING) && lOpponentHero.getMoveType().equals(MoveType.DODGE)){ //Swing beats dodge
+			if(lOpponentHero.getShield() != null){
+				if(lOpponentHero.getShield().getProtectsFrom().get(0).equals(FightType.SWING)){ //Shield blocks swing
+					if(!lOpponentHero.getShield().isDamaged()){
+						System.out.println("First player damages opponent's shield.");
+						lOpponentHero.getShield().setDamaged(true);
+						lDamageDone = true;
+					}
+					else{
+						System.out.println("First player destroys opponent's sheild.");
+						lOpponentHero.setShield(null);
+						lDamageDone = true;
+					}
+				}
+			}
+			if(lOpponentHero.getBreastplate() != null && !lDamageDone){ //Breastplate blocks swing
+				if(!lOpponentHero.getBreastplate().isDamaged()){
+					System.out.println("First player damages opponent's breastplate.");
+					lOpponentHero.getBreastplate().setDamaged(true);
+					lDamageDone = true;
+				}
+				else{
+					System.out.println("First player destroys opponent's breastplate.");
+					lOpponentHero.setBreastplate(null);
+					lDamageDone = true;
+				}
+			}
+			if(lOpponentHero.getSuit() != null && !lDamageDone){ //Suit of armour blocks swing
+				if(!lOpponentHero.getSuit().isDamaged()){
+					System.out.println("First player damages opponent's suit of armour.");
+					lOpponentHero.getSuit().setDamaged(true);
+					lDamageDone = true;
+				}
+				else{
+					System.out.println("First player destroys opponent's suit of armour.");
+					lOpponentHero.setSuit(null);
+					lDamageDone = true;
+				}
+			}
+			if(!lDamageDone){ //Hits player
+				System.out.println("First player kills second player.");
+				lOpponentHero.setAlive(false);
+			}
+		} else if(lFirstHero.getFightType().equals(FightType.SMASH) && lOpponentHero.getMoveType().equals(MoveType.DUCK)){ //Smash beats duck
+			if(lOpponentHero.getShield() != null){
+				if(lOpponentHero.getShield().getProtectsFrom().get(0).equals(FightType.SMASH)){ //Shield blocks smash
+					if(!lOpponentHero.getShield().isDamaged()){
+						System.out.println("First player damages opponent's shield.");
+						lOpponentHero.getShield().setDamaged(true);
+						lDamageDone = true;
+					}
+					else{
+						System.out.println("First player destroys opponent's shield.");
+						lOpponentHero.setShield(null);
+						lDamageDone = true;
+					}
+				}
+			}
+			if(lOpponentHero.getHelmet() != null && !lDamageDone){ //Breastplate blocks smash
+				if(!lOpponentHero.getHelmet().isDamaged()){
+					System.out.println("First player damages opponent's breastplate.");
+					lOpponentHero.getHelmet().setDamaged(true);
+					lDamageDone = true;
+				}
+				else{
+					System.out.println("First player destroys opponent's breastplate.");
+					lOpponentHero.setHelmet(null);
+					lDamageDone = true;
+				}
+			}
+			if(lOpponentHero.getSuit() != null && !lDamageDone){ //Suit of armour blocks smash
+				if(!lOpponentHero.getSuit().isDamaged()){
+					System.out.println("First player damages opponent's suit of armour.");
+					lOpponentHero.getSuit().setDamaged(true);
+					lDamageDone = true;
+				}
+				else{
+					System.out.println("First player destroys opponent's suit of armour.");
+					lOpponentHero.setSuit(null);
+					lDamageDone = true;
+				}
+			}
+			if(!lDamageDone){
+				System.out.println("First player kills second player.");
+				lOpponentHero.setAlive(false);
+			}
+		} else{ //Otherwise move can be dodged
+			if(lFirstHero.getFightChoice().getTime() > lOpponentHero.getMoveChoice().getTime()){
+				if(lOpponentHero.getShield() != null){
+					if(lOpponentHero.getShield().getProtectsFrom().get(0).equals(lFirstHero.getFightType())){
+						if(!lOpponentHero.getShield().isDamaged()){
+							System.out.println("First player damages opponent's shield.");
+							lOpponentHero.getShield().setDamaged(true);
+							lDamageDone = true;
+						} else{
+							System.out.println("First player destroys opponent's shield.");
+							lOpponentHero.setShield(null);
+							lDamageDone = true;
+						}
+					}
+				}
+				if(lOpponentHero.getBreastplate() != null && !lDamageDone && !lFirstHero.getFightType().equals(FightType.SMASH)){
+					if(!lOpponentHero.getBreastplate().isDamaged()){
+						System.out.println("First player damages opponent's breastplate.");
+						lOpponentHero.getBreastplate().setDamaged(true);
+						lDamageDone = true;
+					} else {
+						System.out.println("First player destroys opponent's breastplate.");
+						lOpponentHero.setBreastplate(null);
+						lDamageDone = true;
+					}
+				}
+				if(lOpponentHero.getHelmet() != null && !lDamageDone && lFirstHero.getFightType().equals(FightType.SMASH)){
+					if(!lOpponentHero.getHelmet().isDamaged()){
+						System.out.println("First player damages opponent's helmet.");
+						lOpponentHero.getHelmet().setDamaged(true);
+						lDamageDone = true;
+					} else {
+						System.out.println("First player detroys opponent's breastplate.");
+						lOpponentHero.setHelmet(null);
+						lDamageDone = true;
+					}
+				}
+				if(lOpponentHero.getSuit() != null && !lDamageDone){
+					if(!lOpponentHero.getSuit().isDamaged()){
+						System.out.println("First player damages opponent's suit of armour.");
+						lOpponentHero.getSuit().setDamaged(true);
+						lDamageDone = true;
+					} else{
+						System.out.println("First player destroys opponent's suit of armour.");
+						lOpponentHero.setSuit(null);
+						lDamageDone = true;
+					}
+				}
+				if(!lDamageDone){
+					System.out.println("Opponent dies.");
+					lOpponentHero.setAlive(false);
+				}
+			} else {
+				System.out.println("Opponent dodged attack.");
+			}
+		}
+	}
+	
+	private void handleOpponentHeroCombat(Hero lFirstHero, Hero lOpponentHero){
+		boolean lDamageDone = false;
+		
+		if(lOpponentHero.getFightType().equals(FightType.THRUST) && lFirstHero.getMoveType().equals(MoveType.CHARGE) && lOpponentHero.isAlive()){ //Thrust beats charge
+			if(lFirstHero.getShield() != null){
+				if(lFirstHero.getShield().getProtectsFrom().get(0).equals(FightType.THRUST)){ //Shield blocks thrust
+					if(!lFirstHero.getShield().isDamaged()){
+						System.out.println("Opponent damages first player's shield.");
+						lFirstHero.getShield().setDamaged(true);
+						lDamageDone = true;
+					}
+					else{
+						System.out.println("Opponent destroys first player's sheild.");
+						lFirstHero.setShield(null);
+						lDamageDone = true;
+					}
+				}
+			}
+			if(lFirstHero.getBreastplate() != null && !lDamageDone){ //Hits breastplate
+				if(!lFirstHero.getBreastplate().isDamaged()){
+					System.out.println("Opponent damages first player's breastplate.");
+					lFirstHero.getBreastplate().setDamaged(true);
+					lDamageDone = true;
+				}
+				else{
+					System.out.println("Opponent destroys first player's breastplate.");
+					lFirstHero.setBreastplate(null);
+					lDamageDone = true;
+				}
+			}
+			if(lFirstHero.getSuit() != null && !lDamageDone){ //Hits suit of armour
+				if(!lFirstHero.getSuit().isDamaged()){
+					System.out.println("Opponent damages first player's suit of armour.");
+					lFirstHero.getSuit().setDamaged(true);
+					lDamageDone = true;
+				}
+				else{
+					System.out.println("Opponent destroys first player's suit of armour.");
+					lFirstHero.setSuit(null);
+					lDamageDone = true;
+				}
+			}
+			if(!lDamageDone){ //Hits player
+				System.out.println("Opponent kills first player.");
+				lFirstHero.setAlive(false);
+			}
+		} else if(lOpponentHero.getFightType().equals(FightType.SWING) && lFirstHero.getMoveType().equals(MoveType.DODGE) && lOpponentHero.isAlive()){ //Swing beats dodge
+			if(lFirstHero.getShield() != null){
+				if(lFirstHero.getShield().getProtectsFrom().get(0).equals(FightType.SWING)){ //Shield blocks swing
+					if(!lFirstHero.getShield().isDamaged()){
+						System.out.println("Opponent damages first player's shield.");
+						lFirstHero.getShield().setDamaged(true);
+						lDamageDone = true;
+					}
+					else{
+						System.out.println("Opponent destroys first player's sheild.");
+						lFirstHero.setShield(null);
+						lDamageDone = true;
+					}
+				}
+			}
+			if(lFirstHero.getBreastplate() != null && !lDamageDone){ //Breastplate blocks swing
+				if(!lFirstHero.getBreastplate().isDamaged()){
+					System.out.println("Opponent damages first player's breastplate.");
+					lFirstHero.getBreastplate().setDamaged(true);
+					lDamageDone = true;
+				}
+				else{
+					System.out.println("Opponent destroys first player's breastplate.");
+					lFirstHero.setBreastplate(null);
+					lDamageDone = true;
+				}
+			}
+			if(lFirstHero.getSuit() != null && !lDamageDone){ //Suit of armour blocks swing
+				if(!lFirstHero.getSuit().isDamaged()){
+					System.out.println("Opponent damages first player's suit of armour.");
+					lFirstHero.getSuit().setDamaged(true);
+					lDamageDone = true;
+				}
+				else{
+					System.out.println("Opponent destroys first player's suit of armour.");
+					lFirstHero.setSuit(null);
+					lDamageDone = true;
+				}
+			}
+			if(!lDamageDone){ //Hits player
+				System.out.println("Opponent kills first player.");
+				lFirstHero.setAlive(false);
+			}
+		} else if(lOpponentHero.getFightType().equals(FightType.SMASH) && lFirstHero.getMoveType().equals(MoveType.DUCK) && lOpponentHero.isAlive()){ //Smash beats duck
+			if(lFirstHero.getShield() != null){
+				if(lFirstHero.getShield().getProtectsFrom().get(0).equals(FightType.SMASH)){ //Shield blocks smash
+					if(!lFirstHero.getShield().isDamaged()){
+						System.out.println("Opponent damages first player's shield.");
+						lFirstHero.getShield().setDamaged(true);
+						lDamageDone = true;
+					}
+					else{
+						System.out.println("Opponent destroys first player's shield.");
+						lFirstHero.setShield(null);
+						lDamageDone = true;
+					}
+				}
+			}
+			if(lFirstHero.getHelmet() != null && !lDamageDone){ //Breastplate blocks smash
+				if(!lFirstHero.getHelmet().isDamaged()){
+					System.out.println("Opponent damages first player's breastplate.");
+					lFirstHero.getHelmet().setDamaged(true);
+					lDamageDone = true;
+				}
+				else{
+					System.out.println("Opponent player destroys first player's breastplate.");
+					lFirstHero.setHelmet(null);
+					lDamageDone = true;
+				}
+			}
+			if(lFirstHero.getSuit() != null && !lDamageDone){ //Suit of armour blocks smash
+				if(!lFirstHero.getSuit().isDamaged()){
+					System.out.println("Opponent damages first player's suit of armour.");
+					lFirstHero.getSuit().setDamaged(true);
+					lDamageDone = true;
+				}
+				else{
+					System.out.println("Opponent destroys first player's suit of armour.");
+					lFirstHero.setSuit(null);
+					lDamageDone = true;
+				}
+			}
+			if(!lDamageDone){
+				System.out.println("Opponent kills first player.");
+				lFirstHero.setAlive(false);
+			}
+		} else if (lOpponentHero.isAlive()){ //Otherwise move can be dodged
+			if(lOpponentHero.getFightChoice().getTime() > lFirstHero.getMoveChoice().getTime()){
+				if(lFirstHero.getShield() != null){
+					if(lFirstHero.getShield().getProtectsFrom().get(0).equals(lOpponentHero.getFightType())){
+						if(!lFirstHero.getShield().isDamaged()){
+							System.out.println("Opponent damages first player's shield.");
+							lFirstHero.getShield().setDamaged(true);
+							lDamageDone = true;
+						} else{
+							System.out.println("Opponent destroys first player's shield.");
+							lFirstHero.setShield(null);
+							lDamageDone = true;
+						}
+					}
+				}
+				if(lFirstHero.getBreastplate() != null && !lDamageDone && !lOpponentHero.getFightType().equals(FightType.SMASH)){
+					if(!lFirstHero.getBreastplate().isDamaged()){
+						System.out.println("Opponent damages first player's breastplate.");
+						lFirstHero.getBreastplate().setDamaged(true);
+						lDamageDone = true;
+					} else {
+						System.out.println("Opponent destroys first player's breastplate.");
+						lFirstHero.setBreastplate(null);
+						lDamageDone = true;
+					}
+				}
+				if(lFirstHero.getHelmet() != null && !lDamageDone && lOpponentHero.getFightType().equals(FightType.SMASH)){
+					if(!lFirstHero.getHelmet().isDamaged()){
+						System.out.println("Opponent damages first player's helmet.");
+						lFirstHero.getHelmet().setDamaged(true);
+						lDamageDone = true;
+					} else {
+						System.out.println("Opponent detroys first player's breastplate.");
+						lFirstHero.setHelmet(null);
+						lDamageDone = true;
+					}
+				}
+				if(lFirstHero.getSuit() != null && !lDamageDone){
+					if(!lFirstHero.getSuit().isDamaged()){
+						System.out.println("Opponent damages first player's suit of armour.");
+						lFirstHero.getSuit().setDamaged(true);
+						lDamageDone = true;
+					} else{
+						System.out.println("Opponent destroys first player's suit of armour.");
+						lFirstHero.setSuit(null);
+						lDamageDone = true;
+					}
+				}
+				if(!lDamageDone){
+					System.out.println("Opponent kills first player.");
+					lFirstHero.setAlive(false);
+				}
+			} else {
+				System.out.println("First player dodged attack.");
+			}
+		}
 	}
 }

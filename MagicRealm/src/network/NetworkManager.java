@@ -164,4 +164,9 @@ public class NetworkManager {
 	public boolean setTurnStage(TurnStage aTurnStage){
 		return lLocalClient.setTurnStage(aTurnStage);
 	}
+	
+	//Refresh combat
+	public boolean refreshCombat(){
+		return lLocalClient.refreshCombat();
+	}
 }
