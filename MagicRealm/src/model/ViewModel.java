@@ -15,6 +15,7 @@ import game.item.WeaponFactory;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;

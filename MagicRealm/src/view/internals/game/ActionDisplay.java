@@ -13,6 +13,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import action.Action;
 import config.Config.DelayPrompt;
 import model.ViewModel;
 
@@ -106,10 +107,10 @@ public class ActionDisplay extends JInternalFrame{
 						lModel.moveConfirmed();
 						lExecute.setEnabled(false);
 					}
-					//if(lModel.getGameState().getDelayPrompt().equals(DelayPrompt.OPENTRADEMENU)){
-						//lModel.requestTradeMenu();
-						//lExecute.setEnabled(false);
-					//}
+					if(lModel.getGameState().getDelayPrompt().equals(DelayPrompt.OPENTRADEMENU)){
+						lModel.tradeConfirmed();
+						lExecute.setEnabled(false);
+					}
 				}
 				
 			}

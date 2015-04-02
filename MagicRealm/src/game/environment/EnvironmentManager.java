@@ -143,6 +143,7 @@ public class EnvironmentManager {
 				hextiles.get(i).setXLocation(0);
 				hextiles.get(i).setYLocation(0);
 			}
+			
 			// Place the other so far off the board they will not cause problems hopefully
 			else {
 				hextiles.get(i).setXLocation(-10);
@@ -163,6 +164,5 @@ public class EnvironmentManager {
 		location[0] = 2;
 		location[1] = 3;
 		possibleLocations.add(location);
-		
 	}
 }

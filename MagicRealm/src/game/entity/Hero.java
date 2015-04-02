@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import model.ViewModel;
 import view.internals.game.TradeMenu;
 import action.Action;
 import action.ActionList;
@@ -91,6 +92,8 @@ public class Hero implements Serializable {
 	
 	private boolean lAlive;
 	
+	private boolean alreadyReturned;
+
 	public Hero(String n, CharacterImageType charPage,
 			CharacterImageType charChit, DwellingType[] aStartingLocations) {
 		name = n;
@@ -99,6 +102,7 @@ public class Hero implements Serializable {
 		startingLocations = aStartingLocations;
 		victoryConditions = new int[5];
 		lHiddenRoadways = new HashMap<String, Roadway>();
+		
 
 		fame = 0;
 		notoriety = 0;
@@ -444,6 +448,7 @@ public class Hero implements Serializable {
 		
 		// Trade
 		else if (aActionType.equals(ActionType.TRADE)) {
+			alreadyReturned = true;
 			if(needsActionInput){
 				if(lClearing.getDwellingType() == DwellingType.CHAPEL ||
 					lClearing.getDwellingType() == DwellingType.GUARD ||
@@ -451,12 +456,17 @@ public class Hero implements Serializable {
 					lClearing.getDwellingType() == DwellingType.INN){
 					
 					aAction.setResult("TRADE SUCCESS");
-					
 					// Open Trade Menu
-					// return DelayPrompt.OPENTRADEMENU;
-					//TradeMenu tradeMenu = new TradeMenu();
-					//tradeMenu.setVisible(true);
-				} 
+					//lModel.getViewManager().showTradeMenu();
+					
+					//
+					
+					if (alreadyReturned) {
+						alreadyReturned = false;
+					return DelayPrompt.OPENTRADEMENU;
+					}
+					//showTradeMenu();
+				}
 				else {
 					aAction.setResult("TRADE FAIL");
 				}

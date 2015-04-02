@@ -289,6 +289,7 @@ public class PlayerMenu extends JInternalFrame{
 		lRest.setEnabled(true);
 		lSearch.setEnabled(true);
 		lRemove.setEnabled(true);
+		lTrade.setEnabled(true);
 		lSendActionsOrCancel.setEnabled(true);
 		((DefaultTableModel) lActionTable.getModel()).addRow(new Object[] {lModel.getGameState().getDay(), "", 0});
 	}

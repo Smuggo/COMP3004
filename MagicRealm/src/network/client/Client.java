@@ -371,6 +371,7 @@ public class Client implements Runnable {
 			while(streamBusy){
 				Thread.sleep(1);
 			}
+			
 			streamBusy=true;
 			
 			String lRequest = "ContinueActions";
