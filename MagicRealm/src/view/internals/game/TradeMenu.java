@@ -1,6 +1,7 @@
 package view.internals.game;
 
 import game.entity.Hero;
+import game.entity.Native;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -26,9 +27,16 @@ public class TradeMenu extends JInternalFrame{
 	private JButton lSell;
 	private JButton lCancel;
 	
-	public TradeMenu(){
+	Hero lHero;
+	Native lNativeGroup;
+	
+	
+	public TradeMenu(ViewModel aModel, Hero aHero, Native aNativeGroup){
 		super("Trade Menu",true,false,false,true);
-		//lModel = hero;
+
+		lModel = aModel;
+		lHero = aHero;
+		lNativeGroup = aNativeGroup;
 		
 		//int xSize = lModel.getScreenDimensions().width/2;
 		//int ySize = lModel.getScreenDimensions().height-340;
@@ -39,7 +47,7 @@ public class TradeMenu extends JInternalFrame{
 		setPreferredSize(new Dimension(xSize, ySize));
 		setSize(xSize, ySize);
 		
-		setLocation(0, 300);
+		setLocation(0, 0);
 		
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -67,14 +75,14 @@ public class TradeMenu extends JInternalFrame{
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				
+				lModel.requestBuyMenu(lHero, lNativeGroup, "buy");
 			}	
 		});
 		lSell.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				
+				lModel.requestBuyMenu(lHero, lNativeGroup, "sell");
 			}	
 		});
 		lCancel.addActionListener(new ActionListener()

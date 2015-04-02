@@ -43,13 +43,16 @@ public class BuyMenu extends JInternalFrame{
 	Hero theHero;
 	Native theNativeGroup;
 	
-	public BuyMenu(ViewModel aModel, Native nativeGroup){
+	String sell_or_buy;
+	
+	public BuyMenu(ViewModel aModel, Hero aHero, Native aNativeGroup, String sell_or_Buy){
 		super("Buy Menu",true,false,false,true);
 		lModel = aModel;
+		sell_or_buy = sell_or_Buy;
 		// The hero
 		theHero = lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero();
-		theNativeGroup = nativeGroup;
-		numRows = nativeGroup.getWeapons().size();
+		theNativeGroup = aNativeGroup;
+		numRows = aNativeGroup.getWeapons().size();
 		
 		int xSize = columnSize * numColumns + 50;
 		//int ySize = lModel.getScreenDimensions().height-340;
@@ -62,12 +65,20 @@ public class BuyMenu extends JInternalFrame{
 					lModel.getScreenDimensions().height/2 - ySize/2);
 		
 		
+		if (sell_or_buy == "buy") {
 		
-		Object[][] data = new Object[nativeGroup.getWeapons().size()][columnNames.length];
+
 		
-		for (int i = 0; i < nativeGroup.getWeapons().size(); i++) {
-			data[i][0] = nativeGroup.getWeapons().get(i).getWeaponType();
-			data[i][1] = nativeGroup.getWeapons().get(i).getPrice();
+		//}
+		//else if (sell_or_buy == "sell") {
+			
+		//}
+		
+		Object[][] data = new Object[aNativeGroup.getWeapons().size()][columnNames.length];
+		
+		for (int i = 0; i < aNativeGroup.getWeapons().size(); i++) {
+			data[i][0] = aNativeGroup.getWeapons().get(i).getWeaponType();
+			data[i][1] = aNativeGroup.getWeapons().get(i).getPrice();
 			data[i][2] = "";
 			data[i][3] = "";
 			data[i][4] = "";
@@ -83,11 +94,13 @@ public class BuyMenu extends JInternalFrame{
         
         table.setRowSelectionAllowed(true);
         table.setColumnSelectionAllowed(false);
+		
+		
        // table.setCellSelectionAllowed(false);
         
         //Create the scroll pane and add the table to it.
         JScrollPane scrollPane = new JScrollPane(table);
-
+		
         // Create Layout
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -99,7 +112,7 @@ public class BuyMenu extends JInternalFrame{
 		c.gridheight = 1;
 		c.anchor = GridBagConstraints.NORTHWEST;
 		add(scrollPane, c);
-		 
+	
 		// Place Buttons
 		c.gridx = 1;
 		c.gridy = 1;
@@ -114,6 +127,7 @@ public class BuyMenu extends JInternalFrame{
 		c.gridheight = 1;
 		c.anchor = GridBagConstraints.CENTER;
 		add(cancel, c);
+		}
 				
 		createButtonListeners();	
 	}

@@ -93,6 +93,11 @@ public class ActionDisplay extends JInternalFrame{
 				if(lModel.getGameState() != null && lModel.getGameState().getDelayPrompt()!= null){
 					if(lModel.getGameState().getDelayPrompt().equals(DelayPrompt.TRADING)){
 						lModel.tradeConfirmed();
+						
+						if (lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().getClearing().getDwellingType() != null) {
+							lModel.requestTradeMenu(lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero(),
+													lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().getClearing().getNativeGroup());
+						}
 						lExecute.setEnabled(false);
 					}
 					if(lModel.getGameState().getDelayPrompt().equals(DelayPrompt.HIDING)){
@@ -105,10 +110,6 @@ public class ActionDisplay extends JInternalFrame{
 					}
 					if(lModel.getGameState().getDelayPrompt().equals(DelayPrompt.MOVING)){
 						lModel.moveConfirmed();
-						lExecute.setEnabled(false);
-					}
-					if(lModel.getGameState().getDelayPrompt().equals(DelayPrompt.OPENTRADEMENU)){
-						lModel.tradeConfirmed();
 						lExecute.setEnabled(false);
 					}
 				}

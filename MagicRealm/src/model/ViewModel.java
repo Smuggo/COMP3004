@@ -8,6 +8,7 @@ import game.environment.hex.Clearing;
 import game.environment.hex.HexGrid;
 import game.environment.hex.Roadway;
 import game.entity.Hero;
+import game.entity.Native;
 import game.entity.Player;
 import game.item.ArmourFactory;
 import game.item.TreasureFactory;
@@ -44,6 +45,8 @@ public class ViewModel {
 	private ActionChitFactory lActionChitFactory;
 	private WeaponFactory lWeaponFactory;
 	private ArmourFactory lArmourFactory;
+	
+	private Hero lHero;
 	
 	private boolean isServer;
 	private int lLocalPlayerNumber;
@@ -183,6 +186,7 @@ public class ViewModel {
 	}
 	
 	public void updatePlayerCharacter(Hero aHero){
+		lHero = aHero;
 		lNetworkManager.updatePlayerCharacter(aHero, lLocalPlayerNumber);
 	}
 	
@@ -194,8 +198,12 @@ public class ViewModel {
 		lViewManager.showPlayerMenu();
 	}
 	
-	public void requestTradeMenu(){
-		lViewManager.showTradeMenu();
+	public void requestTradeMenu(Hero aHero, Native aNativeGroup){
+		lViewManager.showTradeMenu(aHero, aNativeGroup);
+	}
+	
+	public void requestBuyMenu(Hero aHero, Native aNativeGroup, String sell_or_buy){
+		lViewManager.showBuyMenu(aHero, aNativeGroup, sell_or_buy);
 	}
 	
 	public void requestChitList(){

@@ -106,7 +106,6 @@ public class CharacterList extends JInternalFrame{
 		c.gridy = 0;
 		add(charSheet, c);
 		
-
 		createButtonListeners();
 	}
 	protected void createButtonListeners(){
@@ -131,8 +130,6 @@ public class CharacterList extends JInternalFrame{
 			  dispose();
 		  }
 		});
-		
-		
 
 		characterList.addListSelectionListener(new ListSelectionListener(){
 			public void valueChanged(ListSelectionEvent e) {

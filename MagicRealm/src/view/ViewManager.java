@@ -2,6 +2,7 @@ package view;
 
 import game.GameState;
 import game.entity.Hero;
+import game.entity.Native;
 import game.entity.NativeFactory;
 import game.entity.Player;
 import game.environment.hex.Clearing;
@@ -152,7 +153,7 @@ public class ViewManager {
 		lWindow.addWindow(lCharacterList);
 		
 		// Testing
-		showBuyMenu();
+		//showBuyMenu();
 	}
 	
 	public void setVictoryPoints(Hero aHero){
@@ -213,16 +214,16 @@ public class ViewManager {
 		lWindow.addWindow(lPlayerMenu);
 	}
 	
-	public void showTradeMenu(){
-		lTradeMenu = new TradeMenu();
+	public void showTradeMenu(Hero aHero, Native aNativeGroup){
+		lTradeMenu = new TradeMenu(lModel, aHero, aNativeGroup);
 		lTradeMenu.setVisible(true);
 		lWindow.addWindow(lTradeMenu);
 	}
 	
-	public void showBuyMenu(){
-		NativeFactory nf = new NativeFactory();
+	public void showBuyMenu(Hero aHero, Native aNativeGroup, String sell_or_buy){
+		//NativeFactory nf = new NativeFactory();
 
-		lBuyMenu = new BuyMenu(lModel, nf.getNatives().get(0));
+		lBuyMenu = new BuyMenu(lModel, aHero, aNativeGroup, sell_or_buy);
 		lBuyMenu.setVisible(true);
 		lWindow.addWindow(lBuyMenu);
 	}
