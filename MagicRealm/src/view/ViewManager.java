@@ -35,6 +35,7 @@ import view.internals.game.MapSelector;
 import view.internals.game.PlayerMenu;
 import view.internals.game.SearchChoiceSelection;
 import view.internals.game.Searching;
+import view.internals.game.SellMenu;
 import view.internals.game.StartingLocation;
 import view.internals.game.TradeMenu;
 import view.internals.game.VictoryPoints;
@@ -58,6 +59,7 @@ public class ViewManager {
 	private PlayerMenu lPlayerMenu;
 	private TradeMenu lTradeMenu;
 	private BuyMenu lBuyMenu;
+	private SellMenu lSellMenu;
 	private Searching lSearching;
 	private ChitPlacementSelection lChitPlacementSelection;
 	private MapSelector lMapSelector;
@@ -220,12 +222,16 @@ public class ViewManager {
 		lWindow.addWindow(lTradeMenu);
 	}
 	
-	public void showBuyMenu(Hero aHero, Native aNativeGroup, String sell_or_buy){
-		//NativeFactory nf = new NativeFactory();
-
-		lBuyMenu = new BuyMenu(lModel, aHero, aNativeGroup, sell_or_buy);
+	public void showBuyMenu(Hero aHero, Native aNativeGroup){
+		lBuyMenu = new BuyMenu(lModel, aHero, aNativeGroup);
 		lBuyMenu.setVisible(true);
 		lWindow.addWindow(lBuyMenu);
+	}
+	
+	public void showSellMenu(Hero aHero, Native aNativeGroup){
+		lSellMenu = new SellMenu(lModel, aHero, aNativeGroup);
+		lSellMenu.setVisible(true);
+		lWindow.addWindow(lSellMenu);
 	}
 	
 	public void newTurn(){

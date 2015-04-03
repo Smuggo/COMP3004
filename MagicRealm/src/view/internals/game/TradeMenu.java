@@ -75,14 +75,14 @@ public class TradeMenu extends JInternalFrame{
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				lModel.requestBuyMenu(lHero, lNativeGroup, "buy");
+				lModel.requestBuyMenu(lHero, lNativeGroup);
 			}	
 		});
 		lSell.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				lModel.requestBuyMenu(lHero, lNativeGroup, "sell");
+				lModel.requestSellMenu(lHero, lNativeGroup);
 			}	
 		});
 		lCancel.addActionListener(new ActionListener()

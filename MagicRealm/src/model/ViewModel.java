@@ -202,8 +202,12 @@ public class ViewModel {
 		lViewManager.showTradeMenu(aHero, aNativeGroup);
 	}
 	
-	public void requestBuyMenu(Hero aHero, Native aNativeGroup, String sell_or_buy){
-		lViewManager.showBuyMenu(aHero, aNativeGroup, sell_or_buy);
+	public void requestBuyMenu(Hero aHero, Native aNativeGroup){
+		lViewManager.showBuyMenu(aHero, aNativeGroup);
+	}
+	
+	public void requestSellMenu(Hero aHero, Native aNativeGroup){
+		lViewManager.showSellMenu(aHero, aNativeGroup);
 	}
 	
 	public void requestChitList(){

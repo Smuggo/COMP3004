@@ -3,7 +3,6 @@ package view.internals.game;
 import game.chit.Chit;
 import game.entity.Hero;
 import game.entity.Native;
-import game.item.Weapon;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -16,15 +15,17 @@ import javax.swing.JInternalFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import config.Config;
 import model.ViewModel;
 
-public class BuyMenu extends JInternalFrame{
+public class SellMenu extends JInternalFrame{
 
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -337052967793472264L;
-	
+	private static final long serialVersionUID = -8240423330619669512L;
+
 	private ViewModel lModel;
 
 	String[] columnNames = {"Name",
@@ -33,7 +34,7 @@ public class BuyMenu extends JInternalFrame{
             "Side 2",
             "Other"};
 	
-	JButton buy = new JButton("Buy Now");
+	JButton sell = new JButton("Sell Now");
 	JButton cancel = new JButton("Cancel");
 	
 	int columnSize = 125;
@@ -46,10 +47,9 @@ public class BuyMenu extends JInternalFrame{
 	Hero theHero;
 	Native theNativeGroup;
 	
-	JTable table;
 	
-	public BuyMenu(ViewModel aModel, Hero aHero, Native aNativeGroup){
-		super("Buy Menu",true,false,false,true);
+	public SellMenu(ViewModel aModel, Hero aHero, Native aNativeGroup){
+		super("Sell Menu",true,false,false,true);
 		lModel = aModel;
 		// The hero
 		theHero = lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero();
@@ -67,19 +67,45 @@ public class BuyMenu extends JInternalFrame{
 					lModel.getScreenDimensions().height/2 - ySize/2);
 		
 		
-		rowNumber += aNativeGroup.getWeapons().size();
+		// Init Array Size
+		if (aHero.getWeapon() != null)
+			rowNumber++;
+		if (aHero.getHelmet() != null)
+			rowNumber++;
+		if (aHero.getSuit() != null)
+			rowNumber++;
+		if (aHero.getBreastplate() != null)
+			rowNumber++;
+		if (aHero.getShield() != null)
+			rowNumber++;
+		
+		rowNumber += aHero.getOwnedTreasures().size();
+		
+		// Create Array
 		
 		Object[][] data = new Object[rowNumber][columnNames.length];
 		
-		for (int i = 0; i < aNativeGroup.getWeapons().size(); i++) {
-			data[i][0] = aNativeGroup.getWeapons().get(i).getWeaponType();
-			data[i][1] = aNativeGroup.getWeapons().get(i).getPrice();
-			data[i][2] = "";
-			data[i][3] = "";
-			data[i][4] = "";
+		// Fill Array	
+		int index = 0;
+		
+		if (aHero.getWeapon() != null)
+			addToData(data, index++, aHero.getWeapon().getWeaponType(),aHero.getWeapon().getPrice(), "", "", "");
+		if (aHero.getHelmet() != null)
+			addToData(data, index++, aHero.getHelmet().getArmourType(),aHero.getHelmet().getPriceIntact(), "", "", "");
+		if (aHero.getSuit() != null)
+			addToData(data, index++, aHero.getSuit().getArmourType(),aHero.getSuit().getPriceIntact(), "", "", "");
+		if (aHero.getBreastplate() != null)
+			addToData(data, index++, aHero.getBreastplate().getArmourType(),aHero.getBreastplate().getPriceIntact(), "", "", "");
+		if (aHero.getShield() != null)
+			addToData(data, index++, aHero.getShield().getArmourType(),aHero.getShield().getPriceIntact(), "", "", "");
+		
+		for (int i = 0; i < aHero.getOwnedTreasures().size(); i++) {
+			addToData(data, index++, aHero.getOwnedTreasures().get(i).getName(),aHero.getOwnedTreasures().get(i).getGoldValue(), "", "", "");
 		}
 		
-		table = new JTable(data, columnNames);
+		
+		// Add Array to Table
+		JTable table = new JTable(data, columnNames);
 		
 		table.setPreferredScrollableViewportSize(new Dimension(600, rowSize * numRows));
         table.setFillsViewportHeight(true);
@@ -114,7 +140,7 @@ public class BuyMenu extends JInternalFrame{
 		c.gridwidth = 1;
 		c.gridheight = 1;
 		c.anchor = GridBagConstraints.CENTER;
-		add(buy, c);
+		add(sell, c);
 
 		c.gridx = 0;
 		c.gridy = 1;
@@ -126,20 +152,19 @@ public class BuyMenu extends JInternalFrame{
 		createButtonListeners();	
 	}
 	
+	private void addToData(Object[][] data, int i, Object name, int price, String unknow, String unknown, String other) {
+
+		data[i][0] = name;
+		data[i][1] = price;
+		data[i][2] = unknow;
+		data[i][3] = unknown;
+		data[i][4] = other;
+	}
+	
 	protected void createButtonListeners(){
-		buy.addActionListener(new ActionListener() {
+		sell.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
-				
-				Object obj = findMatchingObject(table.getValueAt(table.getSelectedRow(), 0).toString());
-				if (obj != null && obj.getClass() == Weapon.class) {
-					Weapon theWeaponBeingSold = (Weapon) obj;
-					theHero.setWeapon(theWeaponBeingSold);
-					theNativeGroup.removeWeapon(theWeaponBeingSold);
-					theHero.setGold(theHero.getGold() - theWeaponBeingSold.getPrice());
-					//System.out.println("So you wanna be a pokemon master?");
-				}
-				
 				dispose();
 			}
 		});
@@ -150,16 +175,5 @@ public class BuyMenu extends JInternalFrame{
 				dispose();
 			}
 		});
-	}
-	
-	private Object findMatchingObject(String name) {
-		
-		// Look through weapons
-		for (int i = 0; i < theNativeGroup.getWeapons().size(); i++) {
-			if (name == theNativeGroup.getWeapons().get(i).getWeaponType().toString()) {
-				return theNativeGroup.getWeapons().get(i);
-			}
-		}
-		return null; // This should not happen
 	}
 }

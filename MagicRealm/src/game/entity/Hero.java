@@ -254,12 +254,16 @@ public class Hero implements Serializable {
 		return lShield;
 	}
 	
-	public Hero getCombatOpponent(){
-		return lCombatOpponent;
+	public ArrayList<Treasure> getOwnedTreasures() {
+		return lOwnedTreasures;
 	}
 	
 	public boolean isAlive(){
 		return lAlive;
+	}
+	
+	public boolean getOwnedTre() {
+		return lViewingHidden;
 	}
 	//----------------------------------------------------------------
 

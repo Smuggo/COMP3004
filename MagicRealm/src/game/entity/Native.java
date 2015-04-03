@@ -88,4 +88,8 @@ public class Native implements Serializable {
 	public ArrayList<Weapon> getWeapons() {
 		return weapons;
 	}
+
+	public void removeWeapon(Weapon obj) {
+		weapons.remove(obj);	
+	}
 }
