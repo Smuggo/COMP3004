@@ -337,6 +337,7 @@ public class Hero implements Serializable {
 	}
 	
 	public void setWeapon(Weapon aWeapon){
+		System.out.print("daw");
 		lWeapon = aWeapon;
 	}
 	

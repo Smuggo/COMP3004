@@ -27,16 +27,16 @@ public class TradeMenu extends JInternalFrame{
 	private JButton lSell;
 	private JButton lCancel;
 	
-	Hero lHero;
-	Native lNativeGroup;
+	//Hero lHero;
+	//Native lNativeGroup;
 	
 	
 	public TradeMenu(ViewModel aModel, Hero aHero, Native aNativeGroup){
 		super("Trade Menu",true,false,false,true);
 
 		lModel = aModel;
-		lHero = aHero;
-		lNativeGroup = aNativeGroup;
+		//lHero = aHero;
+		//lNativeGroup = aNativeGroup;
 		
 		//int xSize = lModel.getScreenDimensions().width/2;
 		//int ySize = lModel.getScreenDimensions().height-340;
@@ -67,22 +67,29 @@ public class TradeMenu extends JInternalFrame{
 		c.gridy = 2;
 		add(lCancel, c);
 		
-		createButtonListeners();
+		if(aHero.getWeapon() == null && aHero.getHelmet() == null && aHero.getBreastplate() == null && aHero.getSuit() == null && aHero.getShield() == null) {
+			lSell.setEnabled(false);
+		}
+		if(aNativeGroup.getWeapons().size() == 0 && aNativeGroup.getArmours().size() == 0) {
+			lBuy.setEnabled(false);
+		}
+		
+		createButtonListeners(aHero, aNativeGroup);
 	}
 	
-	protected void createButtonListeners(){
+	protected void createButtonListeners(Hero aHero, Native aNativeGroup){
 		lBuy.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				lModel.requestBuyMenu(lHero, lNativeGroup);
+				lModel.requestBuyMenu(aHero, aNativeGroup);
 			}	
 		});
 		lSell.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				lModel.requestSellMenu(lHero, lNativeGroup);
+				lModel.requestSellMenu(aHero, aNativeGroup);
 			}	
 		});
 		lCancel.addActionListener(new ActionListener()

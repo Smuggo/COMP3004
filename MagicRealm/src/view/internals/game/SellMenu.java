@@ -3,6 +3,8 @@ package view.internals.game;
 import game.chit.Chit;
 import game.entity.Hero;
 import game.entity.Native;
+import game.item.Armour;
+import game.item.Weapon;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -16,6 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import config.Config;
+import config.Config.ArmourType;
 import model.ViewModel;
 
 public class SellMenu extends JInternalFrame{
@@ -42,22 +45,43 @@ public class SellMenu extends JInternalFrame{
 	int numColumns = 5;
 	int numRows = 0;
 	
-	int rowNumber = 0;
+	//int rowNumber = 0;
 	
-	Hero theHero;
-	Native theNativeGroup;
+	//Hero theHero;
+	//Native theNativeGroup;
+	
+	JTable table;
 	
 	
 	public SellMenu(ViewModel aModel, Hero aHero, Native aNativeGroup){
 		super("Sell Menu",true,false,false,true);
-		lModel = aModel;
-		// The hero
-		theHero = lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero();
-		theNativeGroup = aNativeGroup;
-		numRows = aNativeGroup.getWeapons().size();
 		
+		// Set variables
+		
+		lModel = aModel;
+		//theHero = aHero; //lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero();
+		//theNativeGroup = aNativeGroup;
+
+		// Init Array Size
+		if (aHero.getWeapon() != null)
+			numRows++;
+		if (aHero.getHelmet() != null)
+			numRows++;
+		if (aHero.getSuit() != null)
+			numRows++;
+		if (aHero.getBreastplate() != null)
+			numRows++;
+		if (aHero.getShield() != null)
+			numRows++;
+		
+		numRows += aHero.getOwnedTreasures().size();
+		
+		// Create Array
+		
+		Object[][] data = new Object[numRows][columnNames.length];
+		
+		// Init Window 
 		int xSize = columnSize * numColumns + 50;
-		//int ySize = lModel.getScreenDimensions().height-340;
 		int ySize = rowSize * numRows + 200;
 		
 		setPreferredSize(new Dimension(xSize, ySize));
@@ -65,25 +89,6 @@ public class SellMenu extends JInternalFrame{
 		
 		setLocation(lModel.getScreenDimensions().width/2 - xSize/2,
 					lModel.getScreenDimensions().height/2 - ySize/2);
-		
-		
-		// Init Array Size
-		if (aHero.getWeapon() != null)
-			rowNumber++;
-		if (aHero.getHelmet() != null)
-			rowNumber++;
-		if (aHero.getSuit() != null)
-			rowNumber++;
-		if (aHero.getBreastplate() != null)
-			rowNumber++;
-		if (aHero.getShield() != null)
-			rowNumber++;
-		
-		rowNumber += aHero.getOwnedTreasures().size();
-		
-		// Create Array
-		
-		Object[][] data = new Object[rowNumber][columnNames.length];
 		
 		// Fill Array	
 		int index = 0;
@@ -105,7 +110,7 @@ public class SellMenu extends JInternalFrame{
 		
 		
 		// Add Array to Table
-		JTable table = new JTable(data, columnNames);
+		table = new JTable(data, columnNames);
 		
 		table.setPreferredScrollableViewportSize(new Dimension(600, rowSize * numRows));
         table.setFillsViewportHeight(true);
@@ -149,7 +154,7 @@ public class SellMenu extends JInternalFrame{
 		c.anchor = GridBagConstraints.CENTER;
 		add(cancel, c);
 				
-		createButtonListeners();	
+		createButtonListeners(aHero, aNativeGroup);	
 	}
 	
 	private void addToData(Object[][] data, int i, Object name, int price, String unknow, String unknown, String other) {
@@ -161,10 +166,39 @@ public class SellMenu extends JInternalFrame{
 		data[i][4] = other;
 	}
 	
-	protected void createButtonListeners(){
+	protected void createButtonListeners(Hero aHero, Native aNativeGroup){
 		sell.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
+				
+				Object obj = findMatchingObject(table.getValueAt(table.getSelectedRow(), 0).toString(), aHero);
+				if (obj != null && obj.getClass() == Weapon.class) {
+					Weapon theWeaponBeingSold = (Weapon) obj;
+					aHero.setWeapon(null);
+					aNativeGroup.addWeapon(theWeaponBeingSold);
+					aHero.setGold(aHero.getGold() + theWeaponBeingSold.getPrice());
+					//System.out.println("So you wanna be a pokemon master?");
+				}
+				else if (obj != null && obj.getClass() == Armour.class) {
+					Armour theArmourBeingSold = (Armour) obj;
+					
+					if (theArmourBeingSold.getArmourType() == ArmourType.HELMET) {
+						aHero.setHelmet(null);
+					}
+					else if (theArmourBeingSold.getArmourType() == ArmourType.SUIT_OF_ARMOUR) {
+						aHero.setSuit(null);
+					}
+					else if (theArmourBeingSold.getArmourType() == ArmourType.BREASTPLATE) {
+						aHero.setBreastplate(null);
+					}
+					else if (theArmourBeingSold.getArmourType() == ArmourType.SHIELD) {
+						aHero.setShield(null);
+					}	
+					
+					aNativeGroup.addArmor(theArmourBeingSold);
+					aHero.setGold(aHero.getGold() + theArmourBeingSold.getPriceIntact());
+				}
+				
 				dispose();
 			}
 		});
@@ -175,5 +209,29 @@ public class SellMenu extends JInternalFrame{
 				dispose();
 			}
 		});
+	}
+	
+	private Object findMatchingObject(String name, Hero aHero) {
+		
+		// Look through weapons
+		if (aHero.getWeapon() != null && name == aHero.getWeapon().getWeaponType().toString()) {
+			return aHero.getWeapon();
+		}
+		
+		// Look though armours
+		else if (aHero.getHelmet() != null && name == aHero.getHelmet().getArmourType().toString()) {
+			return aHero.getHelmet();
+		}
+		else if (aHero.getSuit() != null && name == aHero.getSuit().getArmourType().toString()) {
+			return aHero.getSuit();
+		}
+		else if (aHero.getBreastplate() != null && name == aHero.getBreastplate().getArmourType().toString()) {
+			return aHero.getBreastplate();
+		}
+		else if (aHero.getShield() != null && name == aHero.getShield().getArmourType().toString()) {
+			return aHero.getShield();
+		}
+		
+		return null; // This should not happen
 	}
 }

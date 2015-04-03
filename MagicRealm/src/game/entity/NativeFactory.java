@@ -1,10 +1,13 @@
 package game.entity;
 
+import game.item.Armour;
+import game.item.ArmourFactory;
 import game.item.Weapon;
 import game.item.WeaponFactory;
 
 import java.util.ArrayList;
 
+import config.Config.ArmourType;
 import config.Config.NativeGroup;
 import config.Config.WeaponType;
 
@@ -20,13 +23,18 @@ import config.Config.WeaponType;
 	//6 workhorses
 //GUARD house (Guard) 2 — 2 Maces (M) 2 Axes (M) 1 Broadsword (M) 1 1 — — — 
 
+
+//helmets
+//breast plates
+// shields
+//suits of armor
 public class NativeFactory {
 	
 	private ArrayList<Native> natives = new ArrayList<Native>();
 	
 	public NativeFactory() {
 		
-		// Create Weapons
+		// ///////////////Create Weapons .//////////////////
 		WeaponFactory weaponFactory = new WeaponFactory();
 		
 		Weapon greatAxe = weaponFactory.getWeapon(WeaponType.GREAT_AXE);
@@ -34,19 +42,12 @@ public class NativeFactory {
 		Weapon thrustingSword = weaponFactory.getWeapon(WeaponType.THRUSTING_SWORD);
 		Weapon mace = weaponFactory.getWeapon(WeaponType.MACE);
 		
-		/*
-		Weapon greatSword = new Weapon("Great Sword");
-		Weapon morningStar = new Weapon("Morning Star");
-		Weapon crossbow = new Weapon("Crossbow");
-		Weapon staff = new Weapon("Staff");
-		Weapon axe = new Weapon("Axe");
-		Weapon broadSword = new Weapon("Broad Sword");*/
-		
 		// Create Native Weapon Sets 
 		ArrayList<Weapon> orderWeapons = new ArrayList<Weapon>();
 		ArrayList<Weapon> soldiersWeapons = new ArrayList<Weapon>();
 		ArrayList<Weapon> roguesWeapons = new ArrayList<Weapon>();
 		ArrayList<Weapon> guardWeapons = new ArrayList<Weapon>();
+	
 		
 		// Add Weapons to Native Weapon ArrayList
 		orderWeapons.add(greatAxe);
@@ -75,11 +76,46 @@ public class NativeFactory {
 		guardWeapons.add(axe);
 		guardWeapons.add(broadSword);*/
 		
+		
+		
+		/////////////// Create Armor///////////////
+		
+		ArmourFactory armourFactory = new ArmourFactory();
+		
+		Armour helmet = armourFactory.getArmour(ArmourType.HELMET);
+		Armour suit = armourFactory.getArmour(ArmourType.SUIT_OF_ARMOUR);
+		Armour breastplate = armourFactory.getArmour(ArmourType.BREASTPLATE);
+		Armour shield = armourFactory.getArmour(ArmourType.SHIELD);
+		
+		// Armor Sets
+		
+		ArrayList<Armour> orderArmours = new ArrayList<Armour>();
+		ArrayList<Armour> soldiersArmours = new ArrayList<Armour>();
+		ArrayList<Armour> roguesArmours = new ArrayList<Armour>();
+		ArrayList<Armour> guardAmours = new ArrayList<Armour>();
+		
+		// Order's Armor
+		orderArmours.add(suit);
+		orderArmours.add(suit);
+		
+		// Soldier's Armor
+		soldiersArmours.add(helmet);
+		soldiersArmours.add(helmet);
+		soldiersArmours.add(helmet);
+		soldiersArmours.add(shield);
+		soldiersArmours.add(shield);
+		
+		// Rogue's Armor (None)
+		
+		// Guard's Armor
+		guardAmours.add(helmet);
+		guardAmours.add(breastplate);
+		
 		// Create Natives
-		Native order = new Native(NativeGroup.ORDER, orderWeapons);
-		Native soldiers = new Native(NativeGroup.SOLDIERS, soldiersWeapons); 
-		Native rogues = new Native(NativeGroup.ROGUES, roguesWeapons); 
-		Native guard = new Native(NativeGroup.GUARD, guardWeapons); 
+		Native order = new Native(NativeGroup.ORDER, orderWeapons, orderArmours);
+		Native soldiers = new Native(NativeGroup.SOLDIERS, soldiersWeapons, soldiersArmours); 
+		Native rogues = new Native(NativeGroup.ROGUES, roguesWeapons, roguesArmours); 
+		Native guard = new Native(NativeGroup.GUARD, guardWeapons, guardAmours); 
 		
 		// Add all Natives to Native ArrayList
 		natives.add(order);

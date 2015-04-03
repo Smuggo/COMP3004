@@ -58,9 +58,10 @@ public class Native implements Serializable {
 	}
 	
 	// Testing
-	public Native(NativeGroup n, ArrayList<Weapon> w) {
+	public Native(NativeGroup n, ArrayList<Weapon> w, ArrayList<Armour> a) {
 		nativeGroup = n;
 		weapons = w;
+		armours = a;
 	}
 	
 	public void draw(GameManager aManager, Graphics g, Player aPlayer) {
@@ -88,8 +89,26 @@ public class Native implements Serializable {
 	public ArrayList<Weapon> getWeapons() {
 		return weapons;
 	}
-
-	public void removeWeapon(Weapon obj) {
-		weapons.remove(obj);	
+	
+	public ArrayList<Armour> getArmours() {
+		return armours;
 	}
+
+	public void addWeapon(Weapon theWeaponBeingSold) {
+		weapons.add(theWeaponBeingSold);
+	}
+	
+	public void removeWeapon(Weapon theWeaponBeingBought) {
+		weapons.remove(theWeaponBeingBought);	
+	}
+
+	public void addArmor(Armour theArmourBeingSold) {
+		armours.add(theArmourBeingSold);	
+	}
+
+	public void removeArmor(Armour theArmourBeingBought) {
+		armours.remove(theArmourBeingBought);
+	}
+
+
 }

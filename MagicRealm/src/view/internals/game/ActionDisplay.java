@@ -82,10 +82,10 @@ public class ActionDisplay extends JInternalFrame{
 		lClose.setEnabled(false);
 		
 		
-		createButtonListeners();
+		createButtonListeners(aModel);
 		setVisible(true);
 	}
-	protected void createButtonListeners(){
+	protected void createButtonListeners(ViewModel aModel){
 		lExecute.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -95,8 +95,8 @@ public class ActionDisplay extends JInternalFrame{
 						lModel.tradeConfirmed();
 						
 						if (lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().getClearing().getDwellingType() != null) {
-							lModel.requestTradeMenu(lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero(),
-													lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().getClearing().getNativeGroup());
+							lModel.requestTradeMenu(aModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero(),
+													aModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().getClearing().getNativeGroup());
 						}
 						lExecute.setEnabled(false);
 					}
