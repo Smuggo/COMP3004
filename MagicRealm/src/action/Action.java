@@ -5,6 +5,7 @@ import java.util.Random;
 
 import game.environment.hex.Clearing;
 import config.Config.ActionType;
+import config.Config.ClearingType;
 import config.Config.SearchType;
 
 public class Action implements Serializable {
@@ -38,7 +39,13 @@ public class Action implements Serializable {
 
 	public void createMoveAction(Clearing aClearingStart, Clearing aClearingEnd) {
 		lActionType = ActionType.MOVE;
-		cost = 1;
+		
+		if (aClearingEnd.getClearingType() == ClearingType.MOUNTAIN) {
+			cost = 2;
+		}
+		else {
+			cost = 1;
+		}
 		lRoll = -1;
 		lClearingStart = aClearingStart;
 		lClearingEnd = aClearingEnd;

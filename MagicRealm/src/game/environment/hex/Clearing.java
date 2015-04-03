@@ -238,4 +238,8 @@ public class Clearing implements Serializable{
 	public Native getNativeGroup() {
 		return nativeGroup;
 	}
+	
+	public ClearingType getClearingType() {
+		return clearingType;
+	}
 }
