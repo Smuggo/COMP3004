@@ -27,6 +27,7 @@ import action.ActionList;
 import config.Config.ActionType;
 import config.Config.CharacterImageType;
 import config.Config.ChitType;
+import config.Config.ClearingType;
 import config.Config.CombatStage;
 import config.Config.DelayPrompt;
 import config.Config.DwellingType;
@@ -58,6 +59,9 @@ public class Hero implements Serializable {
 	private boolean lViewingHidden; // Can the player see hidden enemies
 	private boolean lBlocking;
 	private boolean lBlocked;
+	
+	private boolean sunlightPhaseEligibility; // eligibility for sunlight phase = true or false
+	private boolean sunlightPhaseActive; //true if the player is using their sunlight phase turns
 
 	private CharacterImageType characterSheet;
 	private CharacterImageType characterChit;
@@ -114,6 +118,9 @@ public class Hero implements Serializable {
 		lViewingHidden = false;
 		lBlocking = false;
 		needsActionInput = false;
+		
+		sunlightPhaseEligibility = true; //No starting spaces are inside caves
+		sunlightPhaseActive = false; // The player does not use their sunlight phase till after their normal phase
 		
 		lOwnedTreasures = new ArrayList<Treasure>();
 		lFightChits = new ArrayList<ActionChit>();
@@ -414,6 +421,23 @@ public class Hero implements Serializable {
 					}
 				}
 				
+				// Check to see if the player is not longer able to get the sunlight phase
+				// if the starting or ending clearing is a cave the player can't get the two extra actions from the sunlight phase
+				if (aAction.getClearingStart().getClearingType() == ClearingType.CAVE || aAction.getClearingEnd().getClearingType() == ClearingType.CAVE) {
+					// If they are already in sunlight phase, oh well... we won't bother.
+					if (!sunlightPhaseActive) {
+						sunlightPhaseEligibility = false;
+						System.out.println("THE PLAYER MADE A MOVE WHICH MAKE IT SO THEY CAN'T GET A SUNLIGHT PHASE.");
+					}
+				}
+				
+				// Player can not enter caves during sunlight phase
+				if(sunlightPhaseActive && aAction.getClearingEnd().getClearingType() == ClearingType.CAVE) {
+					aAction.setResult("FAILED TO MOVE");
+					System.out.println("FAILED TO MOVE INTO CAVE DURING SUNLIGHT PHASE");
+					lBlocked = true;
+				}
+				
 				if(!lBlocked && !lBlocked){
 					aAction.setResult("MOVE SUCCESSFUL");
 					lClearing = aAction.getClearingEnd();
@@ -638,10 +662,11 @@ public class Hero implements Serializable {
 
 	public DelayPrompt executeTurn() {
 		while(lActionList.incomplete()){
+			// Player has actions they would like to do
 			if(lActionList.getCurrentAction() < lActionList.getActions().size()){
 				Action lAction = lActionList.getActions().get(lActionList.getCurrentAction());
 				
-				
+				// Player has actions and can afford them
 				if (lActionList.getActionPoints() >= lAction.getCost()) {
 					System.out.println(lActionList.getActionPoints());
 					DelayPrompt r = executeAction(lAction);
@@ -657,11 +682,31 @@ public class Hero implements Serializable {
 					}
 					
 					lActionList.nextAction();
+					
+					// Player has actions and can NOT afford them
 				}else{
+					// Player gets two more action points for sunlight phase if eligible
+					if (sunlightPhaseEligibility) {
+						
+						System.out.println("Player has qualified for sunlight phase");
+						sunlightPhaseEligibility = false;
+						sunlightPhaseActive = true;
+						lActionList.setActionPoints(lActionList.getActionPoints() + 2);
+					}
+					// Player's actions are not handled and their turn ends
+					else {
 					lActionList.complete();
+					// Reset Eligibility for next turn
+					sunlightPhaseEligibility = true;
+					sunlightPhaseActive = false;
+					}
 				}
+			// No more actions, turn ends
 			}else{
 				lActionList.complete();
+				// Reset Eligibility for next turn
+				sunlightPhaseEligibility = true;
+				sunlightPhaseActive = false;
 			}
 			System.out.println(lActionList.incomplete());
 		}

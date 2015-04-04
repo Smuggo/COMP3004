@@ -186,6 +186,11 @@ public class Hextile implements Serializable{
 		Roadway headRoadway = this.findRoadway(head);
 		Roadway tailRoadway = hexTile.findRoadway(tail);
 		
+		if (this.name.equals("Deep Woods") && hexTile.name.equals("Oak Woods")) {
+			System.out.println(headRoadway);
+			System.out.println(tailRoadway);
+		}
+
 		// The roadways line up
 		if ((headRoadway != null) && (tailRoadway != null)) {
 			headRoadway.setTailClearing(tailRoadway.getHeadClearing());

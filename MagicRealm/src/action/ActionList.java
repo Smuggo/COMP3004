@@ -33,7 +33,7 @@ public class ActionList implements Serializable{
 	
 	public ActionList(){
 		lActions = new ArrayList<Action>();
-		lActionPoints = 4;
+		lActionPoints = 2;
 		lTurn = 0;
 		currentAction = 0;
 		incomplete = true;
@@ -95,7 +95,7 @@ public class ActionList implements Serializable{
 	public void modifyActionPoints(int aModifyValue){
 		lActionPoints+= aModifyValue;
 		if(lActionPoints <= 0){
-			complete();
+			//complete();
 		}
 	}
 	
@@ -108,9 +108,9 @@ public class ActionList implements Serializable{
 		lStartingClearing = aStartingClearing;
 		lCurrentClearing = aStartingClearing;
 		if(aPlayer.getChosenHero().getName().equals("Captain") && aStartingClearing.getDwellingType() != null){
-			lActionPoints = 5;
+			lActionPoints = 3;
 		}else{
-		lActionPoints = 4;
+		lActionPoints = 2;
 		}
 		lTurn++;
 	}
