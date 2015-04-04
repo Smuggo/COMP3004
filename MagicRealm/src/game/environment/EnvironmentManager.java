@@ -69,18 +69,22 @@ public class EnvironmentManager {
 			if (hextiles.get(i).getHextileType() == HextileType.VALLEY) {
 				if (hextiles.get(i).getWarningChit().getName() == "DANK V") {
 					hextiles.get(i).getClearing(5).setDwellingType(DwellingType.CHAPEL);
+					hextiles.get(i).getClearing(5).getOwnedHextile().setContainsDwelling(true);
 					hextiles.get(i).getClearing(5).setNativeGroup(nF.getNativeGroup(NativeGroup.ORDER));
 				}
 				else if (hextiles.get(i).getWarningChit().getName() == "RUINS V") {
 					hextiles.get(i).getClearing(5).setDwellingType(DwellingType.GUARD);
+					hextiles.get(i).getClearing(5).getOwnedHextile().setContainsDwelling(true);
 					hextiles.get(i).getClearing(5).setNativeGroup(nF.getNativeGroup(NativeGroup.GUARD));
 				}
 				else if (hextiles.get(i).getWarningChit().getName() == "SMOKE V") {
 					hextiles.get(i).getClearing(5).setDwellingType(DwellingType.HOUSE);
+					hextiles.get(i).getClearing(5).getOwnedHextile().setContainsDwelling(true);
 					hextiles.get(i).getClearing(5).setNativeGroup(nF.getNativeGroup(NativeGroup.SOLDIERS));
 				}
 				else if (hextiles.get(i).getWarningChit().getName() == "STINK V") {
 					hextiles.get(i).getClearing(5).setDwellingType(DwellingType.INN);
+					hextiles.get(i).getClearing(5).getOwnedHextile().setContainsDwelling(true);
 					hextiles.get(i).getClearing(5).setNativeGroup(nF.getNativeGroup(NativeGroup.ROGUES));
 				}
 				else if (hextiles.get(i).getWarningChit().getName() == "BONES V") {

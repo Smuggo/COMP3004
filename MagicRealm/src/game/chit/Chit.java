@@ -10,6 +10,7 @@ import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import model.ViewModel;
 import config.Config.ChitType;;
 
 public class Chit implements Serializable{
@@ -29,7 +30,7 @@ public class Chit implements Serializable{
 	ChitType chitType;
 	ArrayList<Treasure> lSiteTreasures;
 	
-	public Chit(String chitDescription){
+	public Chit(String chitDescription) {
 		//faceUpTitle = null;
 		//faceDownTitle = null;
 		lSiteTreasures = null;
@@ -38,7 +39,7 @@ public class Chit implements Serializable{
 		clearingNumber = -1;
 	}
 	
-	public Chit(String chitDescription, int number){
+	public Chit(String chitDescription, int number) {
 		//faceUpTitle = null;
 		//faceDownTitle = null;
 		name = chitDescription;
@@ -58,12 +59,13 @@ public class Chit implements Serializable{
 	public ArrayList<Treasure> getTreasures(){ return lSiteTreasures; }
 	public ChitType getChitType(){ return chitType; }
 	public void setChitType(ChitType aChitType){ chitType = aChitType; }
-	
+	public void setRevealed(boolean reveal) { revealed = reveal; } 
 	public void setTreasures(ArrayList<Treasure> aTreasureList){
 		lSiteTreasures = aTreasureList;
 	}
 	
 	public void draw(GameState aState, Graphics g, int aGridx, int aGridy, Point aWindowPoint, Dimension aWindowSize){
+		
 		if(aState != null){
 			int lCenterX = (int)(aState.getHexGrid().getHex(aGridx, aGridy).getCenter().getX());
 			int lCenterY = (int)(aState.getHexGrid().getHex(aGridx, aGridy).getCenter().getY());
@@ -79,17 +81,22 @@ public class Chit implements Serializable{
 					g.setColor(Color.WHITE);
 					g.fillRect(lChitx, lChity, 55, 55);
 					g.setColor(Color.BLACK);
-					g.drawString(name, lChitx, lChity+20);
+					
+					if (revealed || aState.getCheating()) {
+						g.drawString(name, lChitx, lChity+20);
+					}
 				}
 				else{
-					lChitx = aState.getHexGrid().getHex(aGridx, aGridy).getHextile().getClearing(clearingNumber).getRotPosition().x - 25;
-					lChity = aState.getHexGrid().getHex(aGridx, aGridy).getHextile().getClearing(clearingNumber).getRotPosition().y - 25;
-					g.setColor(Color.WHITE);
-					g.fillRect(lChitx, lChity, 55, 55);
-					g.setColor(Color.BLACK);
-					if(aState.getHexGrid().getHex(aGridx, aGridy).getHextile().getOtherChit() != null){
-						g.drawString(aState.getHexGrid().getHex(aGridx, aGridy).getHextile().getOtherChit().getName(), lChitx, lChity+20);
-						g.drawString(Integer.toString(aState.getHexGrid().getHex(aGridx, aGridy).getHextile().getOtherChit().getClearingNumber()), lChitx+25, lChity+40);
+					if (revealed || aState.getCheating()) {
+						lChitx = aState.getHexGrid().getHex(aGridx, aGridy).getHextile().getClearing(clearingNumber).getRotPosition().x - 25;
+						lChity = aState.getHexGrid().getHex(aGridx, aGridy).getHextile().getClearing(clearingNumber).getRotPosition().y - 25;
+						g.setColor(Color.WHITE);
+						g.fillRect(lChitx, lChity, 55, 55);
+						g.setColor(Color.BLACK);
+						if(aState.getHexGrid().getHex(aGridx, aGridy).getHextile().getOtherChit() != null){
+							g.drawString(aState.getHexGrid().getHex(aGridx, aGridy).getHextile().getOtherChit().getName(), lChitx, lChity+20);
+							g.drawString(Integer.toString(aState.getHexGrid().getHex(aGridx, aGridy).getHextile().getOtherChit().getClearingNumber()), lChitx+25, lChity+40);
+						}
 					}
 				}
 			}

@@ -146,6 +146,11 @@ public class GameBoardCanvas extends Canvas{
 		    				if(lHexGrid.getHex(x, y).getHextile().getOtherChit() != null){
 		    					lHexGrid.getHex(x, y).getHextile().getOtherChit().draw(lModel.getGameState(), g, x, y, lWindowPoint1, lWindowSize);
 		    				}
+		    				if(lHexGrid.getHex(x, y).getHextile().getChitsInLostCityCastle() != null){
+		    					for (int i = 0; i < lHexGrid.getHex(x, y).getHextile().getChitsInLostCityCastle().size(); i++) {
+		    						lHexGrid.getHex(x, y).getHextile().getChitsInLostCityCastle().get(i).draw(lModel.getGameState(), g, x, y, lWindowPoint1, lWindowSize);
+		    					}
+		    				}
 		    			}
 		    		}
 		    	}

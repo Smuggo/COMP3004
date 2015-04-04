@@ -29,11 +29,15 @@ public class Hextile implements Serializable{
 	private Config.HextileType hextileType;
 	private Chit warningChit;
 	private Chit otherChit; // Can be a Site Chit, Sound Chit, Lost City Chit, Lost Castle Chit, or null;
-	
+	private ArrayList<Chit> chitsInLostCityCastle; // The five chits found in the lost city or lost castle, this will be null for all but two hextiles.
+	private boolean containsDwelling;
 	
 	public Hextile() {
 		clearings = new ArrayList<Clearing>();
 		roadways = new ArrayList<Roadway>();
+		chitsInLostCityCastle = new ArrayList<Chit>();
+		
+		containsDwelling = false;
 	}
 	
 	public void initialize(String n, String a, String i, Config.HextileType hT, int x, int y, int r, boolean e) {
@@ -359,5 +363,22 @@ public class Hextile implements Serializable{
 	}
 		
 	public ArrayList<Roadway> getRoadways(){ return roadways; }
+	
+	public void setChitsInLostCityCastle(ArrayList<Chit> chitArray) {
+		chitsInLostCityCastle = chitArray;
+	}
+	
+	public ArrayList<Chit> getChitsInLostCityCastle() {
+		return chitsInLostCityCastle;
+	}
+	
+	public boolean getContainsDwelling() {
+		return containsDwelling;
+	}
+	public void setContainsDwelling(boolean b) {
+		containsDwelling = b;
+		// Bad idea, but we are just gonna make the chit visible here, YOLO!
+		warningChit.setRevealed(true);
+	}
 }
 

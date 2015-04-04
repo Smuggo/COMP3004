@@ -54,6 +54,7 @@ public class ChitFactory {
 	private ViewModel lModel;
 	
 	public ChitFactory(ArrayList<Hextile> allHextiles, ViewModel aModel) {
+		
 		lModel = aModel;
 		hextiles = allHextiles;
 		// LOST CITY & LOST CASTLE
@@ -168,14 +169,14 @@ public class ChitFactory {
 		siteSoundLostCastleChits.addAll(siteSoundChits);
 	}
 	
-	public void addChitManually(Chit aChit, Hextile hextile, boolean lostCity, boolean lostCastle, boolean warningChit) {
-		if (lostCity) {
+	public void addChitManually(Chit aChit, Hextile hextile, boolean lostCityBool, boolean lostCastleBool, boolean warningChit) {
+		if (lostCityBool) {
 			lostCityChits.add(aChit);
 			siteSoundChits.remove(aChit);
 			siteSoundLostCityChits.remove(aChit);
 			siteSoundLostCastleChits.remove(aChit);
 		}
-		else if (lostCastle) {
+		else if (lostCastleBool) {
 			lostCastleChits.add(aChit);
 			siteSoundChits.remove(aChit);
 			siteSoundLostCityChits.remove(aChit);
@@ -209,6 +210,13 @@ public class ChitFactory {
 				}
 			}
 			else {
+				if (aChit == lostCastle) {
+					hextile.setChitsInLostCityCastle(lostCastleChits);
+				}
+				else if (aChit == lostCity) {
+					hextile.setChitsInLostCityCastle(lostCityChits);
+				}
+				
 				hextile.setOtherChit(aChit);
 				
 				// Remove chit
@@ -224,6 +232,7 @@ public class ChitFactory {
 						siteSoundLostCastleChits.remove(aChit);
 					}
 				}
+				
 			}
 		}
 		//printChitLocations(hextiles);
@@ -309,23 +318,41 @@ public class ChitFactory {
 			// Place 1 Cave Warning Chit and 1 siteSoundLostCityChit on each of the 5 Cave Hextiles
 			if (hextiles.get(i).getHextileType() == Config.HextileType.CAVE) {
 				hextiles.get(i).setChits(caveWarningChits.get(0), siteSoundLostCityChits.get(0));
+
+				// Remove the chit from are temp array
 				caveWarningChits.remove(0);
+				
+				// We are placing the lost city
+				if (siteSoundLostCityChits.get(0) == lostCity) {
+					hextiles.get(i).setChitsInLostCityCastle(lostCityChits);
+				}
 				siteSoundLostCityChits.remove(0);
 			}
 			// Place 1 Mountain Warning Chit and 1 siteSoundLostCastleChits on each of the 5 Cave Hextiles
 			else if (hextiles.get(i).getHextileType() == Config.HextileType.MOUNTAIN) {
 				hextiles.get(i).setChits(mountainWarningChits.get(0), siteSoundLostCastleChits.get(0));
+				
+				// Remove the chit from are temp array
 				mountainWarningChits.remove(0);
+				
+				// We are placing the lost castle
+				if (siteSoundLostCastleChits.get(0) == lostCastle) {
+					hextiles.get(i).setChitsInLostCityCastle(lostCastleChits);
+				}
 				siteSoundLostCastleChits.remove(0);
 			}
 			// Place 1 Valley Warning Chit on each of the 5 Valley Hextiles
 			else if (hextiles.get(i).getHextileType() == Config.HextileType.VALLEY) {
 				hextiles.get(i).setChits(valleyWarningChits.get(0), null);
+
+				// Remove the chit from are temp array
 				valleyWarningChits.remove(0);
 			}
 			// Place 1 WOODS Warning Chit on each of the 5 WOODS Tiles at Random
 			else if (hextiles.get(i).getHextileType() == Config.HextileType.WOODS) {
 				hextiles.get(i).setChits(woodsWarningChits.get(0), null);
+				
+				// Remove the chit from are temp array
 				woodsWarningChits.remove(0);
 			}
 			else {

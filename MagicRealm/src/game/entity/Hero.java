@@ -427,7 +427,7 @@ public class Hero implements Serializable {
 					// If they are already in sunlight phase, oh well... we won't bother.
 					if (!sunlightPhaseActive) {
 						sunlightPhaseEligibility = false;
-						System.out.println("THE PLAYER MADE A MOVE WHICH MAKE IT SO THEY CAN'T GET A SUNLIGHT PHASE.");
+						System.out.println("THE PLAYER MADE A MOVE WHICH MAKES IT SO THEY CAN'T GET A SUNLIGHT PHASE.");
 					}
 				}
 				
@@ -695,22 +695,28 @@ public class Hero implements Serializable {
 					}
 					// Player's actions are not handled and their turn ends
 					else {
-					lActionList.complete();
-					// Reset Eligibility for next turn
-					sunlightPhaseEligibility = true;
-					sunlightPhaseActive = false;
+						endTurn();
 					}
 				}
 			// No more actions, turn ends
 			}else{
-				lActionList.complete();
-				// Reset Eligibility for next turn
-				sunlightPhaseEligibility = true;
-				sunlightPhaseActive = false;
+				endTurn();
 			}
 			System.out.println(lActionList.incomplete());
 		}
 		return null;
+	}
+	
+	private void endTurn() {
+		lActionList.complete();
+		
+		// Reset Eligibility for next turn
+		sunlightPhaseEligibility = true;
+		sunlightPhaseActive = false;
+		
+		// Reveal Chits
+		lClearing.getOwnedHextile().getWarningChit().setRevealed(true);
+		System.out.println("Revealing Warning Chit on " + lClearing.getOwnedHextile().getName());
 	}
 
 	public void addActionList(ActionList aActionList) {

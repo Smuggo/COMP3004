@@ -209,6 +209,7 @@ public class Clearing implements Serializable{
 	
 	public void setDwellingType(DwellingType dT){
 		lDwellingType = dT;
+		lOwnedHextile.setContainsDwelling(true);
 	}
 
 	public ArrayList<Roadway> getRoadways(){
