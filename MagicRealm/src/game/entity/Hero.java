@@ -716,7 +716,8 @@ public class Hero implements Serializable {
 		
 		// Reveal Chits
 		lClearing.getOwnedHextile().getWarningChit().setRevealed(true);
-		System.out.println("Revealing Warning Chit on " + lClearing.getOwnedHextile().getName());
+		System.out.println(lClearing.getOwnedHextile());
+		//System.out.println("Revealing Warning Chit called " + lClearing.getOwnedHextile().getWarningChit().getName() + " on " + lClearing.getOwnedHextile().getName());
 	}
 
 	public void addActionList(ActionList aActionList) {

@@ -84,6 +84,7 @@ public class GameState implements Serializable{
 	
 	public void setHexGrid(HexGrid aHexGrid){
 		lHexGrid = aHexGrid;
+		System.out.println("game state: setHexGrid address" + aHexGrid);
 	}
 	
 	public Clearing setStartingLocation(String aDwelling, int aPlayer){

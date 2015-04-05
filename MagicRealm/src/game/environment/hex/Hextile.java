@@ -49,6 +49,16 @@ public class Hextile implements Serializable{
 		yLocation = y;
 		rotation = r;
 		enchanted = e;
+		
+		/*
+		if (name.equals("Deep Woods")) {
+			System.out.println("Deep Woods");
+		System.out.println(this);
+		}
+		*/
+		if (name.equals("Awful Valley")) {
+			System.out.println("My name is " + name + "and my address is " + this);
+		}
 	}
 	
 	public void setChits(Chit warning, Chit other){
@@ -80,6 +90,7 @@ public class Hextile implements Serializable{
 	
 	public void addClearing(Clearing clearing) {
 		clearings.add(clearing);
+		clearing.setOwnedHextile(this);
 	}
 	
 	public void addRoadway(Roadway roadway) {
@@ -88,23 +99,22 @@ public class Hextile implements Serializable{
 	
 	public void drawClearings(Graphics g, int centerX, int centerY, ImageMap aImageMap){
 		for(int i = 0; i < clearings.size(); i++){
-			Clearing lClearing = clearings.get(i);
-			lClearing.draw(g, centerX, centerY, rotation, aImageMap);
+			//Clearing lClearing = clearings.get(i);
+			clearings.get(i).draw(g, centerX, centerY, rotation, aImageMap);
 		}
 	}
 	
 	public void drawClearingBorders(Graphics g, int centerX, int centerY, ImageMap aImageMap){
 		for(int i = 0; i < clearings.size(); i++){
-			Clearing lClearing = clearings.get(i);
-			lClearing.drawBorder(g, centerX, centerY, rotation, aImageMap);
+			//Clearing lClearing = clearings.get(i);
+			clearings.get(i).drawBorder(g, centerX, centerY, rotation, aImageMap);
 		}
 	}
 	
 	public void drawSelectedClearing(Graphics g, int centerX, int centerY, Point aMouse){
 		for(int i = 0; i < clearings.size(); i++){
-			Clearing lClearing = clearings.get(i);
-			
-			lClearing.drawSelected(g, centerX, centerY, rotation, aMouse);
+			//Clearing lClearing = clearings.get(i);
+			clearings.get(i).drawSelected(g, centerX, centerY, rotation, aMouse);
 			
 		}
 	}
@@ -354,8 +364,15 @@ public class Hextile implements Serializable{
 	}
 	
 	public Clearing getClearingByDwelling(String aDwelling){
+		System.out.println("for hextile" + this.name + " adress" + this);
+		for (int i = 0; i < clearings.size(); i++) {
+			System.out.println(clearings.get(i).getOwnedHextile());
+		}
+		
+		
 		for(int i = 0; i < clearings.size(); i++){
 			if(clearings.get(i).getDwellingType() != null && clearings.get(i).getDwellingType().name().equals(aDwelling)){
+				System.out.println("My father hextile is " + clearings.get(i).getOwnedHextile().getName() + " with address " + clearings.get(i).getOwnedHextile());
 				return clearings.get(i);
 			}
 		}
@@ -379,6 +396,14 @@ public class Hextile implements Serializable{
 		containsDwelling = b;
 		// Bad idea, but we are just gonna make the chit visible here, YOLO!
 		warningChit.setRevealed(true);
+		//System.out.println("Revealing Warning Chit on " + name);
+		//System.out.println("for hextile" + this.name + " adress" + this);
+		
+		/*
+		for (int i = 0; i < clearings.size(); i++) {
+			System.out.println(clearings.get(i).getOwnedHextile());
+		}
+		*/
 	}
 }
 

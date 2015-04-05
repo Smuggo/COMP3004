@@ -136,6 +136,11 @@ public class GameBoardCanvas extends Canvas{
 		    	g.drawString("Player "+(i+1), lGameState.getPlayers().get(i).lastClick.x, lGameState.getPlayers().get(i).lastClick.y);
 		    }*/
 		    
+		    
+		    //System.out.println("");
+		   //System.out.println("Start Loop");
+		    
+		    
 		   for(int x = -4; x < lHexGrid.getGridRadius() + 1; x++){
 		    	for(int y = -4; y < lHexGrid.getGridRadius() + 1; y++){
 		    		if(lHexGrid.getHex(x, y) != null){

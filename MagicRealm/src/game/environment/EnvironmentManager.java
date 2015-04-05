@@ -51,8 +51,9 @@ public class EnvironmentManager {
 		lChitFactory = new ChitFactory(hextiles, lModel);
 				
 		
-		HexGrid lNewHexGrid = HexGridFactory.newHexGrid(hextiles);
-		setHexGrid(lNewHexGrid);
+		//HexGrid lNewHexGrid = HexGridFactory.newHexGrid(hextiles);
+		lHexGrid = HexGridFactory.newHexGrid(hextiles);
+		System.out.println("lHexGrid address = " + lHexGrid);
 
 		return lHexGrid.getCanvasSize();
 	}
@@ -69,12 +70,10 @@ public class EnvironmentManager {
 			if (hextiles.get(i).getHextileType() == HextileType.VALLEY) {
 				if (hextiles.get(i).getWarningChit().getName() == "DANK V") {
 					hextiles.get(i).getClearing(5).setDwellingType(DwellingType.CHAPEL);
-					hextiles.get(i).getClearing(5).getOwnedHextile().setContainsDwelling(true);
 					hextiles.get(i).getClearing(5).setNativeGroup(nF.getNativeGroup(NativeGroup.ORDER));
 				}
 				else if (hextiles.get(i).getWarningChit().getName() == "RUINS V") {
 					hextiles.get(i).getClearing(5).setDwellingType(DwellingType.GUARD);
-					hextiles.get(i).getClearing(5).getOwnedHextile().setContainsDwelling(true);
 					hextiles.get(i).getClearing(5).setNativeGroup(nF.getNativeGroup(NativeGroup.GUARD));
 				}
 				else if (hextiles.get(i).getWarningChit().getName() == "SMOKE V") {
@@ -84,7 +83,6 @@ public class EnvironmentManager {
 				}
 				else if (hextiles.get(i).getWarningChit().getName() == "STINK V") {
 					hextiles.get(i).getClearing(5).setDwellingType(DwellingType.INN);
-					hextiles.get(i).getClearing(5).getOwnedHextile().setContainsDwelling(true);
 					hextiles.get(i).getClearing(5).setNativeGroup(nF.getNativeGroup(NativeGroup.ROGUES));
 				}
 				else if (hextiles.get(i).getWarningChit().getName() == "BONES V") {
@@ -119,13 +117,13 @@ public class EnvironmentManager {
 		//System.out.println(hextiles);
 		
 		// Remove all hextile to hextile roadways because the XML connect them before anything
-		breakHextileToHextilePaths();
+		//breakHextileToHextilePaths();
 		
 		// Clear all positions
-		clearXandYLocations();
+		//clearXandYLocations();
 		
 		// Create new hextile positions, rotations, and hextile-to-hextile roadways
-		placeHextiles();
+		//placeHextiles();
 	}
 	
 	public void breakHextileToHextilePaths() {
@@ -154,8 +152,7 @@ public class EnvironmentManager {
 				hextiles.get(i).setYLocation(-10);
 			}
 			
-			HexGrid lNewHexGrid = HexGridFactory.newHexGrid(hextiles);
-			setHexGrid(lNewHexGrid);
+			lHexGrid = HexGridFactory.newHexGrid(hextiles);
 		}
 	}
 	

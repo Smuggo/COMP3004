@@ -48,6 +48,9 @@ public class Hex implements Serializable{
 		
 		hextile = h;
 		
+		if (h.getName().equals("Awful Valley")) {
+			System.out.println("My name (h) is " + h.getName() + " and my address is " + h);
+		}
 	}
 	
 	public Point getCenter(){
@@ -55,6 +58,7 @@ public class Hex implements Serializable{
 	}
 	
 	public Hextile getHextile(){
+		//System.out.println(hextile);
 		return hextile;
 	}
 	

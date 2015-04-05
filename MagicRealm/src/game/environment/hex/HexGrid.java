@@ -140,10 +140,12 @@ public class HexGrid implements Serializable{
 		for(int y = -lRadius; y <= lRadius; y++ ){
 			for(int x = -lRadius; x <= lRadius; x++){
 				if (getHex(x,y) != null && getHex(x,y).getHextile() != null) {
-					lClearing = getHex(x,y).getHextile().getClearingByDwelling(aDwelling);
-					if(lClearing != null){
-						return lClearing;
-					}
+					if (getHex(x,y).getHextile().getClearingByDwelling(aDwelling) != null)
+						return getHex(x,y).getHextile().getClearingByDwelling(aDwelling);
+					//System.out.println("My name is " + getHex(x,y).getHextile().getName() + "and my address is " + getHex(x,y).getHextile());
+					//if(lClearing != null){
+					//return lClearing;
+					//}
 				}
 			}
 		}

@@ -110,7 +110,7 @@ public class Clearing implements Serializable{
 		identifier = abbreviation + n;
 		clearingType = cT;
 		//lDwellingType = dwellingType;
-		lOwnedHextile = aOwnedHextile;
+		//lOwnedHextile = aOwnedHextile;
 	}
 
 	public void addRoadway(Roadway roadway) {
@@ -210,6 +210,7 @@ public class Clearing implements Serializable{
 	public void setDwellingType(DwellingType dT){
 		lDwellingType = dT;
 		lOwnedHextile.setContainsDwelling(true);
+
 	}
 
 	public ArrayList<Roadway> getRoadways(){
@@ -242,5 +243,10 @@ public class Clearing implements Serializable{
 	
 	public ClearingType getClearingType() {
 		return clearingType;
+	}
+
+	public void setOwnedHextile(Hextile hextile) {
+		// TODO Auto-generated method stub
+		lOwnedHextile = hextile;
 	}
 }

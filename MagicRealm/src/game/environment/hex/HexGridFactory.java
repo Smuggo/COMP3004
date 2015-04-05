@@ -13,6 +13,7 @@ public class HexGridFactory {
 
 		// Create hexGrid and send hextile logic
 		HexGrid lHexGrid = new HexGrid(4, lCanvasSize, hextiles);
+		System.out.println("HexGrid class and lHexGrid address" + lHexGrid);
 		lHexGrid.setHexClearings();
 		
 		return lHexGrid;
