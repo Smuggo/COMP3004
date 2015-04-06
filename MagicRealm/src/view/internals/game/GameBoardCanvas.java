@@ -33,7 +33,7 @@ public class GameBoardCanvas extends Canvas{
 	GameBoardView lParentView;
 	boolean ready = false;
 	
-	
+	HexGrid lHexGrid;
 	Point lMouse;
 	
 	
@@ -43,6 +43,8 @@ public class GameBoardCanvas extends Canvas{
 		lParentView = aParentView;
 		
 		lMouse = new Point();
+		
+		lHexGrid = aModel.getGameState().getHexGrid();
 		
 
 		r = new Random();
@@ -88,6 +90,12 @@ public class GameBoardCanvas extends Canvas{
 		if(lActionManager.getState().equals(ActionState.MOVING)){
 			lClearing = lModel.getGameState().getHexGrid().getAdjacentClearingByMouse(lActionManager.getActionList().getCurrentClearing(), 
 																								lMouse);
+			
+			
+			System.out.println("GameBoardCanvas : " + lModel.getGameState().getHexGrid().getHex(0,0).getHextile().getName()
+								+ " and address " + lModel.getGameState().getHexGrid().getHex(0,0).getHextile());
+			
+			
 			if(lClearing != null){
 				lModel.addToActionTable(lClearing.getIdentifier());
 				lActionManager.getActionList().addMoveAction(lClearing);		
@@ -111,7 +119,7 @@ public class GameBoardCanvas extends Canvas{
 			Graphics2D g = (Graphics2D) bs.getDrawGraphics();
 			bs.show();
 			GameState lGameState = lModel.getGameState();
-			HexGrid lHexGrid = lModel.getGameState().getHexGrid();
+			//HexGrid lHexGrid = lModel.getGameState().getHexGrid();
 			ActionManager lActionManager = lModel.getActionManager();
 		    
 		    Point lWindowPoint1 = lParentView.getScrollPane().getScrollPosition();

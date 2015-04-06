@@ -1,6 +1,7 @@
 package game.entity;
 
 import game.GameManager;
+import game.GameState;
 import game.chit.ActionChit;
 import game.environment.hex.Clearing;
 import game.environment.hex.Roadway;
@@ -660,7 +661,8 @@ public class Hero implements Serializable {
 		return needsActionInput;
 	}
 
-	public DelayPrompt executeTurn() {
+	// We are taking in the gamestate so we can access the proper hextile chits and reveal them
+	public DelayPrompt executeTurn(GameState gameState) {
 		while(lActionList.incomplete()){
 			// Player has actions they would like to do
 			if(lActionList.getCurrentAction() < lActionList.getActions().size()){
@@ -695,19 +697,19 @@ public class Hero implements Serializable {
 					}
 					// Player's actions are not handled and their turn ends
 					else {
-						endTurn();
+						endTurn(gameState);
 					}
 				}
 			// No more actions, turn ends
 			}else{
-				endTurn();
+				endTurn(gameState);
 			}
 			System.out.println(lActionList.incomplete());
 		}
 		return null;
 	}
 	
-	private void endTurn() {
+	private void endTurn(GameState gameState) {
 		lActionList.complete();
 		
 		// Reset Eligibility for next turn
@@ -715,8 +717,22 @@ public class Hero implements Serializable {
 		sunlightPhaseActive = false;
 		
 		// Reveal Chits
-		lClearing.getOwnedHextile().getWarningChit().setRevealed(true);
-		System.out.println(lClearing.getOwnedHextile());
+		int lRadius = 4;
+		
+		for(int y = -lRadius; y <= lRadius; y++ ){
+			for(int x = -lRadius; x <= lRadius; x++){
+				if(gameState.getHexGrid().getHex(x, y) != null &&
+					lClearing.getOwnedHextile().getName().equals(gameState.getHexGrid().getHex(x, y).getHextile().getName())) {
+					gameState.getHexGrid().getHex(x, y).getHextile().getWarningChit().setRevealed(true);
+					System.out.println("Revealing Warning Chit on hextile called " +
+							gameState.getHexGrid().getHex(x, y).getHextile().getName() + 
+							"  and address for " + gameState.getHexGrid().getHex(x, y).getHextile());
+				}
+			}
+		}
+		
+		//getWarningChit().setRevealed(true);
+		//System.out.println(lClearing.getOwnedHextile());
 		//System.out.println("Revealing Warning Chit called " + lClearing.getOwnedHextile().getWarningChit().getName() + " on " + lClearing.getOwnedHextile().getName());
 	}
 

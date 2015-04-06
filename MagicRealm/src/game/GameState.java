@@ -144,7 +144,7 @@ public class GameState implements Serializable{
 				}
 			}
 			if(currentPlayer != null){
-				lDelayPrompt = currentPlayer.getChosenHero().executeTurn();
+				lDelayPrompt = currentPlayer.getChosenHero().executeTurn(this);
 				if(currentPlayer.getChosenHero().getNeedsActionInput()){
 					return;
 				}

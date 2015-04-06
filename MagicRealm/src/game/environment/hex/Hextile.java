@@ -56,7 +56,7 @@ public class Hextile implements Serializable{
 		System.out.println(this);
 		}
 		*/
-		if (name.equals("Awful Valley")) {
+		if (name.equals("Borderland")) {
 			System.out.println("My name is " + name + "and my address is " + this);
 		}
 	}
