@@ -201,34 +201,37 @@ public class GameState implements Serializable{
 	
 	//Go through all participants in combats that day, see who wins and loses the fights
 	public void resolveCombat(){
-		for(int i = 0; i < lPlayers.size(); i++){
-			if(lPlayers.get(i).isInCombat()){
+		if(lTurnStage.equals(TurnStage.EVENING_IN_COMBAT)){
+			for(int i = 0; i < lPlayers.size(); i++){
+				if(lPlayers.get(i).isInCombat()){
 				
-				int lOpponent = lPlayers.get(i).getOpponent();
-				Hero lFirstHero = lPlayers.get(i).getChosenHero();
-				Hero lOpponentHero = lPlayers.get(lOpponent).getChosenHero();
+					int lOpponent = lPlayers.get(i).getOpponent();
+					Hero lFirstHero = lPlayers.get(i).getChosenHero();
+					Hero lOpponentHero = lPlayers.get(lOpponent).getChosenHero();
 				
-				if(lFirstHero.getFightChoice().getTime() > lOpponentHero.getFightChoice().getTime()){ //First hero attacks faster
-					handleFirstHeroCombat(lFirstHero, lOpponentHero);
-					
-					if(lOpponentHero.isAlive())
-						handleOpponentHeroCombat(lFirstHero, lOpponentHero);
-				} else if (lFirstHero.getFightChoice().getTime() < lOpponentHero.getFightChoice().getTime()){ //Other hero attacks faster
-					handleOpponentHeroCombat(lFirstHero, lOpponentHero);
-					
-					if(lFirstHero.isAlive())
+					if(lFirstHero.getFightChoice().getTime() > lOpponentHero.getFightChoice().getTime()){ //First hero attacks faster
 						handleFirstHeroCombat(lFirstHero, lOpponentHero);
-				} else{
-					handleFirstHeroCombat(lFirstHero, lOpponentHero);
-					handleOpponentHeroCombat(lFirstHero, lOpponentHero);
-				}
+					
+						if(lOpponentHero.isAlive())
+							handleOpponentHeroCombat(lFirstHero, lOpponentHero);
+					} else if (lFirstHero.getFightChoice().getTime() < lOpponentHero.getFightChoice().getTime()){ //Other hero attacks faster
+						handleOpponentHeroCombat(lFirstHero, lOpponentHero);
+					
+						if(lFirstHero.isAlive())
+							handleFirstHeroCombat(lFirstHero, lOpponentHero);
+					} else{
+						handleFirstHeroCombat(lFirstHero, lOpponentHero);
+						handleOpponentHeroCombat(lFirstHero, lOpponentHero);
+					}
 				
-				lPlayers.get(i).setInCombat(false);
-				lPlayers.get(lPlayers.get(i).getOpponent()).setOpponent(-1);
-				lPlayers.get(i).setOpponent(-1);
-				lPlayers.get(lPlayers.get(i).getOpponent()).setInCombat(false);
+					lPlayers.get(i).setInCombat(false);
+					lPlayers.get(lPlayers.get(i).getOpponent()).setOpponent(-1);
+					lPlayers.get(lPlayers.get(i).getOpponent()).setInCombat(false);
+					lPlayers.get(i).setOpponent(-1);
+				}
 			}
 		}
+		lTurnStage = TurnStage.MIDNIGHT;
 		lPlayersInCombat = 0;
 		newTurn();
 	}
