@@ -187,7 +187,7 @@ public class Combat extends JInternalFrame{
 			{
 				lModel.setBlockingDirection(FightType.THRUST);
 				lModel.setToWaiting();
-				lModel.refreshGameState();
+				//lModel.refreshGameState();
 				enableOrDisableButtons(false);
 			}
 		});
@@ -198,7 +198,7 @@ public class Combat extends JInternalFrame{
 			{
 				lModel.setBlockingDirection(FightType.SWING);
 				lModel.setToWaiting();
-				lModel.refreshGameState();
+				//lModel.refreshGameState();
 				enableOrDisableButtons(false);
 			}
 		});
@@ -209,7 +209,7 @@ public class Combat extends JInternalFrame{
 			{
 				lModel.setBlockingDirection(FightType.SMASH);
 				lModel.setToWaiting();
-				lModel.refreshGameState();
+				//lModel.refreshGameState();
 				enableOrDisableButtons(false);
 			}
 		});
@@ -243,6 +243,7 @@ public class Combat extends JInternalFrame{
 		enableOrDisableButtons(true);
 		
 		if(lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().getShield() != null){
+			System.out.println("SHIELD");
 			lCombatCommand.setText("Select Shield Direction:");
 			lCharge.setVisible(false);
 			lDodge.setVisible(false);
@@ -250,9 +251,11 @@ public class Combat extends JInternalFrame{
 			lShieldThrust.setVisible(true);
 			lShieldSwing.setVisible(true);
 			lShieldSmash.setVisible(true);
-		} else
+		} else{
+			System.out.println("NOT SHIELD");
 			enableOrDisableButtons(false);
 			lModel.setToWaiting();
-			lModel.refreshGameState();
+			//lModel.refreshGameState();
+		}
 	}
 }

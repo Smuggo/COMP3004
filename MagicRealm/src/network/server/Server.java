@@ -133,6 +133,7 @@ public class Server implements Runnable{
 					int lPlayer = (Integer)lInputStream.readObject();
 					
 					lServerApp.getGameState().getPlayer(lPlayer).getChosenHero().setCombatStage(CombatStage.WAITING);
+					lServerApp.getGameState().refreshCombat();
 					lOutputStream.writeObject(true);
 				}
 				else if(lRequestHeader.equals("SetBlockingDirection")){ //Sets the blocking direction of the shield
@@ -149,7 +150,7 @@ public class Server implements Runnable{
 					lOutputStream.writeObject(true);
 				}
 				else if(lRequestHeader.equals("RefreshCombat")){ //Refresh combat
-					lServerApp.getGameState().refreshCombat();
+					
 					lOutputStream.writeObject(true);
 				}
 				lOutputStream.flush();

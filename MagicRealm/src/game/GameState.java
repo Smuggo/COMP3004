@@ -176,6 +176,7 @@ public class GameState implements Serializable{
 				}
 			}
 		}
+		System.out.println(lPlayersInCombat + " players in combat");
 		lTurnState = TurnState.COMBAT;
 		lTurnStage = TurnStage.EVENING;
 	}
@@ -195,6 +196,8 @@ public class GameState implements Serializable{
 			}
 		}
 		//If all players are finished selecting their options for combat, resolve combat
+		
+		System.out.println(lPlayersWaiting + " players waiting and "+ lPlayersInCombat + " players in combat");
 		if(lPlayersWaiting == lPlayersInCombat || lPlayersInCombat == 0)
 			resolveCombat();
 	}
