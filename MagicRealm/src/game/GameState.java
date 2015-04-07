@@ -195,7 +195,7 @@ public class GameState implements Serializable{
 			}
 		}
 		//If all players are finished selecting their options for combat, resolve combat
-		if(lPlayersWaiting == lPlayersInCombat)
+		if(lPlayersWaiting == lPlayersInCombat || lPlayersInCombat == 0)
 			resolveCombat();
 	}
 	
@@ -227,6 +227,7 @@ public class GameState implements Serializable{
 				lPlayers.get(lPlayers.get(i).getOpponent()).setInCombat(false);
 			}
 		}
+		lPlayersInCombat = 0;
 		newTurn();
 	}
 	
