@@ -201,7 +201,6 @@ public class GameState implements Serializable{
 		if(lPlayersWaiting == lPlayersInCombat || lPlayersInCombat == 0)
 			resolveCombat();
 		}
-	}
 	
 	//Go through all participants in combats that day, see who wins and loses the fights
 	public void resolveCombat(){
@@ -239,6 +238,7 @@ public class GameState implements Serializable{
 	//Reset values for a new turn
 	public void newTurn(){
 		for(int i = 0; i < lPlayers.size(); i++){
+			lPlayers.get(i).getChosenHero().setCombatStage(null);
 			lPlayers.get(i).setInCombat(false);
 			lPlayers.get(i).getChosenHero().setHidden(false);
 			lPlayers.get(i).getChosenHero().setViewingHidden(false);

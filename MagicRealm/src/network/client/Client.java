@@ -655,30 +655,4 @@ public class Client implements Runnable {
 		streamBusy = false;
 		return false;	
 	}
-	
-	//Refresh combat
-	public boolean refreshCombat(){
-		try{
-			while(streamBusy){
-				Thread.sleep(1);
-			}
-			streamBusy = true;
-			
-			String lRequest = "RefreshCombat";
-			lOutputStream.writeObject(lRequest);
-			lOutputStream.flush();
-			lOutputStream.reset();
-			
-			boolean returnv = (boolean) lInputStream.readObject();
-			streamBusy = false;
-			return returnv;
-		}
-		catch (Exception e)
-		{
-			System.out.println("Client Error:");
-			e.printStackTrace();
-		}
-		streamBusy = false;
-		return false;
-	}
 }

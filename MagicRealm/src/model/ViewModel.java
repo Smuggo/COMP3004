@@ -46,7 +46,8 @@ public class ViewModel {
 	private ArmourFactory lArmourFactory;
 	
 	private int lLocalPlayerNumber;
-	private boolean doneInit = false;
+	private boolean doneInit;
+	private boolean lCombatMenuUp;
 	
 	public ViewModel(NetworkManager aNetworkManager){
 		lActionChitFactory = new ActionChitFactory();
@@ -56,6 +57,8 @@ public class ViewModel {
 		lActionManager = new ActionManager();
 		lHiddenRoadways = new HashMap<String, Roadway>();
 		lTreasureFactory = new TreasureFactory();
+		doneInit = false;
+		lCombatMenuUp = false;
 	}
 	
 	public Dimension getScreenDimensions(){
@@ -226,17 +229,14 @@ public class ViewModel {
 		//Checks if it's evening, if it is the combat menu opens up for all players in combat.
 		//lNetworkManager.startCombat() is so requestCombatMenu isn't called continuously
 		if(aGameState.getTurnStage().equals(TurnStage.EVENING)){
-			if(aGameState.getPlayer(lLocalPlayerNumber).isInCombat())
-				requestCombatMenu();
-
 			lNetworkManager.startCombat();
 			lNetworkManager.setTurnStage(TurnStage.EVENING_IN_COMBAT);
 			refreshGameState();
 		}
 		
-		//Refreshes combat, getting all players up to date with the other hero's status
-		if(aGameState.getTurnStage().equals(TurnStage.EVENING_IN_COMBAT) && lLocalPlayerNumber == 1){
-			lNetworkManager.refreshCombat();
+		if(aGameState.getPlayer(lLocalPlayerNumber).isInCombat() && !lCombatMenuUp){
+			lCombatMenuUp = true;
+			requestCombatMenu();
 		}
 		
 		if(!aGameState.equals(lGameState)){
@@ -249,6 +249,7 @@ public class ViewModel {
 				
 				lGameState = aGameState;
 				lViewManager.newTurn();
+				lCombatMenuUp = false;
 			}
 			lGameState = aGameState;
 			lViewManager.gameStateUpdated();
