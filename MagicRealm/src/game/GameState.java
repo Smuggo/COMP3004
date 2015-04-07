@@ -179,6 +179,7 @@ public class GameState implements Serializable{
 		System.out.println(lPlayersInCombat + " players in combat");
 		lTurnState = TurnState.COMBAT;
 		lTurnStage = TurnStage.EVENING;
+		refreshCombat();
 	}
 	
 	//Keeps the states of the heroes opponents up to date, checks to see if combat should be resolved
