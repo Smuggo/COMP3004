@@ -195,8 +195,14 @@ public class GameState implements Serializable{
 			}
 		}
 		//If all players are finished selecting their options for combat, resolve combat
-		if(lPlayersWaiting == lPlayersInCombat || lPlayersInCombat == 0)
+		if(lPlayersWaiting == lPlayersInCombat || lPlayersInCombat == 0){
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			resolveCombat();
+		}
 	}
 	
 	//Go through all participants in combats that day, see who wins and loses the fights
@@ -578,6 +584,7 @@ public class GameState implements Serializable{
 			}
 		} else if(lOpponentHero.getFightType().equals(FightType.SMASH) && lFirstHero.getMoveType().equals(MoveType.DUCK) && lOpponentHero.isAlive()){ //Smash beats duck
 			if(lFirstHero.getShield() != null){
+				
 				if(lFirstHero.getShield().getProtectsFrom().get(0).equals(FightType.SMASH)){ //Shield blocks smash
 					if(!lFirstHero.getShield().isDamaged()){
 						System.out.println("Opponent damages first player's shield.");

@@ -112,7 +112,6 @@ public class HeroActionChits extends JInternalFrame{
 			{
 			 public void actionPerformed(ActionEvent e)
 			 {
-				 
 				 lModel.assignMoveChit(lTempChit);
 				 lModel.refreshGameState();
 				 lModel.selectBlockDirection();

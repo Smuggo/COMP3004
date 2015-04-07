@@ -187,7 +187,6 @@ public class Combat extends JInternalFrame{
 			{
 				lModel.setBlockingDirection(FightType.THRUST);
 				lModel.setToWaiting();
-				lModel.refreshGameState();
 				enableOrDisableButtons(false);
 			}
 		});
@@ -198,7 +197,6 @@ public class Combat extends JInternalFrame{
 			{
 				lModel.setBlockingDirection(FightType.SWING);
 				lModel.setToWaiting();
-				lModel.refreshGameState();
 				enableOrDisableButtons(false);
 			}
 		});
@@ -209,7 +207,6 @@ public class Combat extends JInternalFrame{
 			{
 				lModel.setBlockingDirection(FightType.SMASH);
 				lModel.setToWaiting();
-				lModel.refreshGameState();
 				enableOrDisableButtons(false);
 			}
 		});
@@ -253,6 +250,5 @@ public class Combat extends JInternalFrame{
 		} else
 			enableOrDisableButtons(false);
 			lModel.setToWaiting();
-			lModel.refreshGameState();
 	}
 }
