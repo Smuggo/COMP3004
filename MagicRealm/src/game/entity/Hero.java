@@ -723,10 +723,12 @@ public class Hero implements Serializable {
 			for(int x = -lRadius; x <= lRadius; x++){
 				if(gameState.getHexGrid().getHex(x, y) != null &&
 					lClearing.getOwnedHextile().getName().equals(gameState.getHexGrid().getHex(x, y).getHextile().getName())) {
+					System.out.println("YES????:" + gameState.getHexGrid().getHex(x, y).getHextile().getWarningChit().isRevealed());
 					gameState.getHexGrid().getHex(x, y).getHextile().getWarningChit().setRevealed(true);
 					System.out.println("Revealing Warning Chit on hextile called " +
 							gameState.getHexGrid().getHex(x, y).getHextile().getName() + 
 							"  and address for " + gameState.getHexGrid().getHex(x, y).getHextile());
+					System.out.println("YES????:" + gameState.getHexGrid().getHex(x, y).getHextile().getWarningChit().isRevealed());
 				}
 			}
 		}

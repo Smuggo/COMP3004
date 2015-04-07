@@ -132,10 +132,10 @@ public class ViewModel {
 		boolean lSucceeded = lNetworkManager.connectToServer(aIpAddress, aPortNumber, aNickname);
 		if(lSucceeded){
 			lViewManager.newClientLobby();
+			lNetworkManager.notifyClientWaitForGameStart();
 		}else{
 			lViewManager.newJoinGame();
 		}
-		lNetworkManager.notifyClientWaitForGameStart();
 	}
 	
 	

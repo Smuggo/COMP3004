@@ -85,17 +85,14 @@ public class Chit implements Serializable{
 					g.fillRect(lChitx, lChity, 55, 55);
 					g.setColor(Color.BLACK);
 					
-					if (revealed || aState.getCheating()) {
-						
-						if (aState.getHexGrid().getHex(aGridx, aGridy).getHextile().getName().equals("Awful Valley")) {
-							System.out.println(aState.getHexGrid().getHex(aGridx, aGridy).getHextile().getName() + " &&& " + aState.getHexGrid().getHex(aGridx, aGridy).getHextile());
-						}
+					
+					if (revealed || aState.getCheating() || true) {
 						g.drawString(name, lChitx, lChity+20);
 					}
 
 				}
 				else{
-					if (revealed || aState.getCheating()) {
+					if (revealed || aState.getCheating() || true) {
 						
 						lChitx = aState.getHexGrid().getHex(aGridx, aGridy).getHextile().getClearing(clearingNumber).getRotPosition().x - 25;
 						lChity = aState.getHexGrid().getHex(aGridx, aGridy).getHextile().getClearing(clearingNumber).getRotPosition().y - 25;
