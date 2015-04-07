@@ -235,8 +235,9 @@ public class ViewModel {
 		}
 		
 		//Refreshes combat, getting all players up to date with the other hero's status
-		if(aGameState.getTurnStage().equals(TurnStage.EVENING_IN_COMBAT))
+		if(aGameState.getTurnStage().equals(TurnStage.EVENING_IN_COMBAT) && lLocalPlayerNumber == 1){
 			lNetworkManager.refreshCombat();
+		}
 		
 		if(!aGameState.equals(lGameState)){
 			//Checks to see if it's a new turn, resets game state for a new turn if so
