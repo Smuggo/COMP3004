@@ -16,7 +16,6 @@ import game.item.WeaponFactory;
 
 import java.awt.Dimension;
 import java.awt.Point;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,14 +45,10 @@ public class ViewModel {
 	private WeaponFactory lWeaponFactory;
 	private ArmourFactory lArmourFactory;
 	
-	private Hero lHero;
-	
-	private boolean isServer;
 	private int lLocalPlayerNumber;
 	private boolean doneInit = false;
 	
 	public ViewModel(NetworkManager aNetworkManager){
-		isServer = false;
 		lActionChitFactory = new ActionChitFactory();
 		lWeaponFactory = new WeaponFactory();
 		lArmourFactory = new ArmourFactory();
@@ -107,7 +102,6 @@ public class ViewModel {
 	public void requestServerMenu(int aPortNumber, String aNickName){
 		lViewManager.newServerMenu();
 		lNetworkManager.openServer(aPortNumber);
-		isServer = true;
 		boolean lSucceeded = lNetworkManager.connectToServer("localhost", aPortNumber, aNickName);
 		
 		System.out.println("Connected to self:" + lSucceeded);
@@ -186,7 +180,6 @@ public class ViewModel {
 	}
 	
 	public void updatePlayerCharacter(Hero aHero){
-		lHero = aHero;
 		lNetworkManager.updatePlayerCharacter(aHero, lLocalPlayerNumber);
 	}
 	

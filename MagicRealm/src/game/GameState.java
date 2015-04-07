@@ -224,6 +224,8 @@ public class GameState implements Serializable{
 				}
 				
 				lPlayers.get(i).setInCombat(false);
+				lPlayers.get(lPlayers.get(i).getOpponent()).setOpponent(-1);
+				lPlayers.get(i).setOpponent(-1);
 				lPlayers.get(lPlayers.get(i).getOpponent()).setInCombat(false);
 			}
 		}

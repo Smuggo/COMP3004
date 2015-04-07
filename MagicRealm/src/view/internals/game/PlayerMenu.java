@@ -33,7 +33,6 @@ public class PlayerMenu extends JInternalFrame{
 	private JButton lRest;
 	private JButton lSearch;
 	private JButton lRemove;
-	private JButton lBlocking;
 	private JButton lSendActionsOrCancel;
 	private JButton lConfirmHide;
 	private JButton lTrade;
@@ -143,18 +142,6 @@ public class PlayerMenu extends JInternalFrame{
 		c.gridy = 1;
 		add(lActionPane, c);
 		
-		lBlocking = new JButton("Currently Blocking: False");
-		c.fill = GridBagConstraints.NONE;
-		c.weightx = 0;
-		c.weightx = 0;
-		c.gridheight = 1;
-		c.gridwidth = 1;
-		c.ipadx = 0;
-		c.ipady = 0;
-		c.gridx = 7;
-		c.gridy = 0;
-		add(lBlocking, c);
-		
 		createButtonListeners();
 		setVisible(true);
 	}
@@ -255,18 +242,6 @@ public class PlayerMenu extends JInternalFrame{
 					lRemove.setEnabled(false);
 					lTrade.setEnabled(false);
 				}
-			}
-		});
-		
-		lBlocking.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().setBlocking(!lModel.getGameState().getPlayer(lModel.getLocalPlayerNum()).getChosenHero().getBlocking());
-				if(lBlocking.getText().equals("Currently Blocking: False"))
-					lBlocking.setText("Currently Blocking: True");
-				else
-					lBlocking.setText("Currently Blocking: False");
 			}
 		});
 		
